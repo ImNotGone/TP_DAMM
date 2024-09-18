@@ -62,20 +62,50 @@ class Home extends StatelessWidget {
           ]),
         ),
         // TODO: remove this.
-        body: const Center(
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-
-
-
-
-                'You have pushed the button this many times:',
-              ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(0.0),
+                  border: Border.all(color: Colors.grey[300]!),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.search, color: Colors.grey),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: (AppLocalizations.of(context)!.search),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.map, color: Colors.green),
+                      onPressed: () {
+                        // TODO: agregar accion
+                      },
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
-        ),
+        )
       ),
     );
   }
