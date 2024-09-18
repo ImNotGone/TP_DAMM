@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Ser Manos',
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
@@ -30,32 +34,42 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white, // Change the AppBar text/icon color
         ),
       ),
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset('assets/logo_rectangular.png',
-                    fit: BoxFit.cover, height: 40.0),
-              ],
-            ),
-            bottom: const TabBar(tabs: [
-              Tab(icon: Text('Postularse')),
-              Tab(icon: Text('Mi Perfil')),
-              Tab(icon: Text('Novedades')),
-            ]),
+      home: const Home()
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  const Home({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Image.asset('assets/logo_rectangular.png',
+                  fit: BoxFit.cover, height: 40.0),
+            ],
           ),
-          body: const Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'You have pushed the button this many times:',
-                ),
-              ],
-            ),
+          bottom: TabBar(tabs: [
+            Tab(icon: Text(AppLocalizations.of(context)!.apply)),
+            Tab(icon: Text(AppLocalizations.of(context)!.myProfile)),
+            Tab(icon: Text(AppLocalizations.of(context)!.news)),
+          ]),
+        ),
+        // TODO: remove this.
+        body: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                'You have pushed the button this many times:',
+              ),
+            ],
           ),
         ),
       ),
