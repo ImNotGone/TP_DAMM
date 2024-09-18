@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: dart-lint
+        name: Dart Linter
+        entry: flutter analyze
+        language: system
+        types: [ dart ]
