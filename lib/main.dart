@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
+        fontFamily: 'Roboto',
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
           brightness: Brightness.light,
@@ -71,7 +72,6 @@ class Home extends StatelessWidget {
               Text(
                 AppLocalizations.of(context)!.volunteering,
                 style: const TextStyle(
-                    fontFamily: 'Roboto',
                     fontSize: 24.0)
               ),
               const CustomCard()
@@ -160,7 +160,6 @@ class CustomCard extends StatelessWidget {
                     fontSize: 12,
                     color: Colors.grey[600],
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Roboto'
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -170,7 +169,6 @@ class CustomCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Roboto'
                   ),
                 ),
                 // Vacancy Row
