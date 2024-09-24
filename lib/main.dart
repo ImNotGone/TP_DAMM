@@ -17,6 +17,50 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
         fontFamily: 'Roboto',
+        textTheme: const TextTheme(
+          headlineLarge: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.w400, // Regular weight
+            color: Colors.black,
+          ), // Roboto Regular 24px
+          headlineMedium: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.w500, // Medium weight
+            color: Colors.black,
+          ), // Roboto Medium 20px
+          titleMedium: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w400, // Regular weight
+            color: Colors.black,
+          ), // Roboto Regular 16px
+          bodyLarge: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w400, // Regular weight
+            color: Colors.black,
+          ), // Roboto Regular 14px
+          bodyMedium: TextStyle(
+            fontSize: 12.0,
+            fontWeight: FontWeight.w400, // Regular weight
+            color: Colors.black,
+          ), // Roboto Regular 12px
+          bodySmall: TextStyle(
+            fontSize: 12.0,
+            fontWeight: FontWeight.w400, // Regular weight
+            color: Colors.black54,
+          ),
+          labelLarge: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w500, // Medium weight
+            color: Colors.black,
+          ), // Roboto Medium 14px
+           // Roboto Regular 12px (for caption)
+          labelSmall: TextStyle(
+            fontSize: 10.0,
+            fontWeight: FontWeight.w500, // Medium weight
+            letterSpacing: 1.5, // Usually overlines have larger letter-spacing
+            color: Colors.black,
+          ), // Roboto Medium 10px
+        ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
           brightness: Brightness.light,
@@ -74,7 +118,18 @@ class Home extends StatelessWidget {
                 style: const TextStyle(
                     fontSize: 24.0)
               ),
-              const CustomCard()
+              const VolunteeringCard(
+                imageUrl: 'https://via.placeholder.com/400x200',
+                title: 'Un Techo Para mi País',
+                subtitle: 'ACCIÓN SOCIAL',
+                vacancies: '10'
+              ),
+              const VolunteeringCard(
+                  imageUrl: 'https://via.placeholder.com/400x200',
+                  title: 'Manos caritativas',
+                  subtitle: 'ACCIÓN SOCIAL',
+                  vacancies: '10'
+              )
             ],
           ),
         )
@@ -125,8 +180,19 @@ class _SearchBar extends StatelessWidget {
   }
 }
 
-class CustomCard extends StatelessWidget {
-  const CustomCard({super.key});
+class VolunteeringCard extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+  final String subtitle;
+  final String vacancies;
+
+  const VolunteeringCard({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.subtitle,
+    required this.vacancies
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +207,7 @@ class CustomCard extends StatelessWidget {
           // Image section
           ClipRRect(
             child: Image.network(
-              'https://via.placeholder.com/400x200',
+              imageUrl,
               // Replace with the real image URL
               height: 150,
               width: double.infinity,
@@ -155,21 +221,14 @@ class CustomCard extends StatelessWidget {
               children: <Widget>[
                 // Action Type Text
                 Text(
-                  'ACCIÓN SOCIAL',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600],
-                    fontWeight: FontWeight.bold,
-                  ),
+                    subtitle,
+                    style: Theme.of(context).textTheme.labelSmall
                 ),
                 const SizedBox(height: 4),
                 // Title Text
-                const Text(
-                  'Un Techo para mi País',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleMedium
                 ),
                 // Vacancy Row
                 Row(
@@ -184,11 +243,8 @@ class CustomCard extends StatelessWidget {
                       child: Row(
                         children: <Widget>[
                           Text(
-                            'Vacantes:',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey[600],
-                            ),
+                            '${AppLocalizations.of(context)!.vacancies}:',
+                            style: Theme.of(context).textTheme.bodyMedium
                           ),
                           Icon(
                             Icons.person,
@@ -197,11 +253,8 @@ class CustomCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            '10',
-                            style: TextStyle(
-                              color: Colors.blue[900],
-                              fontWeight: FontWeight.bold,
-                            ),
+                            vacancies,
+                            style: Theme.of(context).textTheme.titleMedium
                           ),
                         ],
                       ),
