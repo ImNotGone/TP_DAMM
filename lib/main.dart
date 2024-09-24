@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 // https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -90,4 +89,3 @@ class MyApp extends StatelessWidget {
         home: const HomePage());
   }
 }
-

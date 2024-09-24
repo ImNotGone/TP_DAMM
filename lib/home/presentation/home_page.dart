@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:ser_manos_mobile/constants.dart';
 import 'volunteering_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -41,26 +41,17 @@ class HomePage extends StatelessWidget {
             const Padding(padding: EdgeInsets.all(8.0)),
             Text(AppLocalizations.of(context)!.volunteering,
                 style: const TextStyle(fontSize: 24.0)),
-            Expanded(
-                child: ListView(
-                  children: const [
-                    VolunteeringCard(
-                        imageUrl: 'https://via.placeholder.com/400x200',
-                        title: 'Un Techo Para mi País',
-                        type: 'ACCIÓN SOCIAL',
-                        vacancies: '10'),
-                    VolunteeringCard(
-                        imageUrl: 'https://via.placeholder.com/400x200',
-                        title: 'Manos caritativas',
-                        type: 'ACCIÓN SOCIAL',
-                        vacancies: '10'),
-                    VolunteeringCard(
-                        imageUrl: 'https://via.placeholder.com/400x200',
-                        title: 'Asociacion Conciencia',
-                        type: 'ACCIÓN SOCIAL',
-                        vacancies: '10'),
-                  ],
-                ))
+            Expanded(child: ListView(children: [
+              VolunteeringCard(
+                volunteering: volunteering1,
+              ),
+              VolunteeringCard(
+                volunteering: volunteering2,
+              ),
+              VolunteeringCard(
+                volunteering: volunteering3,
+              ),
+            ],))
           ]),
         ),
       ),

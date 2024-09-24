@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ser_manos_mobile/home/domain/volunteering.dart';
+
 
 class VolunteeringCard extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final String type;
-  final String vacancies;
+  final Volunteering volunteering;
 
-  const VolunteeringCard(
-      {super.key,
-        required this.imageUrl,
-        required this.title,
-        required this.type,
-        required this.vacancies});
+  const VolunteeringCard({
+    super.key,
+    required this.volunteering
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +24,7 @@ class VolunteeringCard extends StatelessWidget {
           // Image section
           ClipRRect(
             child: Image.network(
-              imageUrl,
+              volunteering.imageUrl,
               // Replace with the real image URL
               height: 150,
               width: double.infinity,
@@ -39,10 +36,16 @@ class VolunteeringCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(type, style: Theme.of(context).textTheme.labelSmall),
+                Text(
+                    volunteering.type,
+                    style: Theme.of(context).textTheme.labelSmall
+                ),
                 const SizedBox(height: 4),
                 // Title Text
-                Text(title, style: Theme.of(context).textTheme.titleMedium),
+                Text(
+                    volunteering.title,
+                    style: Theme.of(context).textTheme.titleMedium
+                ),
                 // Vacancy Row
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,8 +67,10 @@ class VolunteeringCard extends StatelessWidget {
                             color: Colors.blue[900],
                           ),
                           const SizedBox(width: 4),
-                          Text(vacancies,
-                              style: Theme.of(context).textTheme.titleMedium),
+                          Text(
+                              volunteering.vacancies.toString(),
+                              style: Theme.of(context).textTheme.titleMedium
+                          ),
                         ],
                       ),
                     ),
