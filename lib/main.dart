@@ -107,33 +107,33 @@ class Home extends StatelessWidget {
           ]),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _SearchBar(),
-              const Padding(padding: EdgeInsets.all(8.0)),
-              Text(
-                AppLocalizations.of(context)!.volunteering,
-                style: const TextStyle(
-                    fontSize: 24.0)
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _SearchBar(),
+                  const Padding(padding: EdgeInsets.all(8.0)),
+                  Text(
+                    AppLocalizations.of(context)!.volunteering,
+                    style: const TextStyle(
+                        fontSize: 24.0)
+                  ),
+                  const VolunteeringCard(
+                      imageUrl: 'https://via.placeholder.com/400x200',
+                      title: 'Un Techo Para mi País',
+                      type: 'ACCIÓN SOCIAL',
+                      vacancies: '10'
+                  ),
+                  const VolunteeringCard(
+                      imageUrl: 'https://via.placeholder.com/400x200',
+                      title: 'Manos caritativas',
+                      type: 'ACCIÓN SOCIAL',
+                      vacancies: '10'
+                  )
+                ]
               ),
-              const VolunteeringCard(
-                imageUrl: 'https://via.placeholder.com/400x200',
-                title: 'Un Techo Para mi País',
-                subtitle: 'ACCIÓN SOCIAL',
-                vacancies: '10'
-              ),
-              const VolunteeringCard(
-                  imageUrl: 'https://via.placeholder.com/400x200',
-                  title: 'Manos caritativas',
-                  subtitle: 'ACCIÓN SOCIAL',
-                  vacancies: '10'
-              )
-            ],
+            ),
           ),
-        )
-      ),
     );
   }
 }
@@ -183,14 +183,14 @@ class _SearchBar extends StatelessWidget {
 class VolunteeringCard extends StatelessWidget {
   final String imageUrl;
   final String title;
-  final String subtitle;
+  final String type;
   final String vacancies;
 
   const VolunteeringCard({
     super.key,
     required this.imageUrl,
     required this.title,
-    required this.subtitle,
+    required this.type,
     required this.vacancies
   });
 
@@ -219,9 +219,8 @@ class VolunteeringCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                // Action Type Text
                 Text(
-                    subtitle,
+                    type,
                     style: Theme.of(context).textTheme.labelSmall
                 ),
                 const SizedBox(height: 4),
