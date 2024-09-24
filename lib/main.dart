@@ -173,8 +173,8 @@ class CustomCard extends StatelessWidget {
                 ),
                 // Vacancy Row
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.blue[100],
@@ -189,7 +189,6 @@ class CustomCard extends StatelessWidget {
                               fontSize: 14,
                               color: Colors.grey[600],
                             ),
-
                           ),
                           Icon(
                             Icons.person,
@@ -204,32 +203,28 @@ class CustomCard extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(0.0),
-                      child: Row(
+                    Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                           IconButton(
                             icon: const Icon(Icons.favorite_border),
                             color: Colors.green,
                             onPressed: () {
-                              // Handle favorite button press
+                              // TODO: Handle favorite button press
                             },
                           ),
                           IconButton(
                             icon: const Icon(Icons.place),
                             color: Colors.green,
                             onPressed: () {
-                              // Handle location button press
+                              // TODO: Handle location button press
                             },
                           ),
                         ],
                       ),
-                    ),
                   ],
                 ),
               ],
