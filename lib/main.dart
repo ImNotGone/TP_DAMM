@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 // https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -12,75 +13,79 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ser Manos',
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      theme: ThemeData(
-        fontFamily: 'Roboto',
-        textTheme: const TextTheme(
-          headlineLarge: TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.w400, // Regular weight
-            color: Colors.black,
-          ), // Roboto Regular 24px
-          headlineMedium: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.w500, // Medium weight
-            color: Colors.black,
-          ), // Roboto Medium 20px
-          titleMedium: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.w400, // Regular weight
-            color: Colors.black,
-          ), // Roboto Regular 16px
-          bodyLarge: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w400, // Regular weight
-            color: Colors.black,
-          ), // Roboto Regular 14px
-          bodyMedium: TextStyle(
-            fontSize: 12.0,
-            fontWeight: FontWeight.w400, // Regular weight
-            color: Colors.black,
-          ), // Roboto Regular 12px
-          bodySmall: TextStyle(
-            fontSize: 12.0,
-            fontWeight: FontWeight.w400, // Regular weight
-            color: Colors.black54,
+        title: 'Ser Manos',
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        theme: ThemeData(
+          fontFamily: 'Roboto',
+          textTheme: const TextTheme(
+            headlineLarge: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.w400, // Regular weight
+              color: Colors.black,
+            ),
+            // Roboto Regular 24px
+            headlineMedium: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w500, // Medium weight
+              color: Colors.black,
+            ),
+            // Roboto Medium 20px
+            titleMedium: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.w400, // Regular weight
+              color: Colors.black,
+            ),
+            // Roboto Regular 16px
+            bodyLarge: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w400, // Regular weight
+              color: Colors.black,
+            ),
+            // Roboto Regular 14px
+            bodyMedium: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.w400, // Regular weight
+              color: Colors.black,
+            ),
+            // Roboto Regular 12px
+            bodySmall: TextStyle(
+              fontSize: 12.0,
+              fontWeight: FontWeight.w400, // Regular weight
+              color: Colors.black54,
+            ),
+            labelLarge: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w500, // Medium weight
+              color: Colors.black,
+            ),
+            // Roboto Medium 14px
+            // Roboto Regular 12px (for caption)
+            labelSmall: TextStyle(
+              fontSize: 10.0,
+              fontWeight: FontWeight.w500,
+              // Medium weight
+              letterSpacing: 1.5,
+              // Usually overlines have larger letter-spacing
+              color: Colors.black,
+            ), // Roboto Medium 10px
           ),
-          labelLarge: TextStyle(
-            fontSize: 14.0,
-            fontWeight: FontWeight.w500, // Medium weight
-            color: Colors.black,
-          ), // Roboto Medium 14px
-           // Roboto Regular 12px (for caption)
-          labelSmall: TextStyle(
-            fontSize: 10.0,
-            fontWeight: FontWeight.w500, // Medium weight
-            letterSpacing: 1.5, // Usually overlines have larger letter-spacing
-            color: Colors.black,
-          ), // Roboto Medium 10px
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.blue,
+            brightness: Brightness.light,
+            primary: Colors.blue,
+            onPrimary: Colors.white,
+            primaryContainer: Colors.blue.shade900,
+            secondary: Colors.green,
+            onSecondary: Colors.white,
+            error: Colors.red,
+            onError: Colors.white,
+            surface: Colors.white,
+            onSurface: Colors.black,
+          ),
+          useMaterial3: true,
         ),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          brightness: Brightness.light,
-          primary: Colors.blue,
-          onPrimary: Colors.white,
-          secondary: Colors.green,
-          onSecondary: Colors.white,
-          error: Colors.red,
-          onError: Colors.white,
-          surface: Colors.white,
-          onSurface: Colors.black,
-        ),
-        useMaterial3: true,
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.blue, // Change the AppBar color here
-          foregroundColor: Colors.white, // Change the AppBar text/icon color
-        ),
-      ),
-      home: const Home()
-    );
+        home: const Home());
   }
 }
 
@@ -93,6 +98,7 @@ class Home extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -100,48 +106,50 @@ class Home extends StatelessWidget {
                   fit: BoxFit.cover, height: 40.0),
             ],
           ),
-          bottom: TabBar(tabs: [
-            Tab(icon: Text(AppLocalizations.of(context)!.apply, style: const TextStyle(color: Colors.white),)),
-            Tab(icon: Text(AppLocalizations.of(context)!.myProfile, style: const TextStyle(color: Colors.white),)),
-            Tab(icon: Text(AppLocalizations.of(context)!.news, style: const TextStyle(color: Colors.white),)),
-          ]),
+          bottom: TabBar(
+              labelColor: Theme.of(context).colorScheme.onPrimary,
+              unselectedLabelColor: Theme.of(context).colorScheme.onPrimary,
+              indicator: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer, // Change this to your desired color
+              ),
+              indicatorSize: TabBarIndicatorSize.tab,
+              tabs: [
+                Tab(icon: Text(AppLocalizations.of(context)!.apply)),
+                Tab(icon: Text(AppLocalizations.of(context)!.myProfile)),
+                Tab(icon: Text(AppLocalizations.of(context)!.news)),
+              ]),
         ),
         body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _SearchBar(),
-                  const Padding(padding: EdgeInsets.all(8.0)),
-                  Text(
-                    AppLocalizations.of(context)!.volunteering,
-                    style: const TextStyle(
-                        fontSize: 24.0)
-                  ),
-                  Expanded(child: ListView(children: const [
-                    VolunteeringCard(
-                        imageUrl: 'https://via.placeholder.com/400x200',
-                        title: 'Un Techo Para mi País',
-                        type: 'ACCIÓN SOCIAL',
-                        vacancies: '10'
-                    ),
-                    VolunteeringCard(
-                        imageUrl: 'https://via.placeholder.com/400x200',
-                        title: 'Manos caritativas',
-                        type: 'ACCIÓN SOCIAL',
-                        vacancies: '10'
-                    ),
-                    VolunteeringCard(
-                        imageUrl: 'https://via.placeholder.com/400x200',
-                        title: 'Asociacion Conciencia',
-                        type: 'ACCIÓN SOCIAL',
-                        vacancies: '10'
-                    ),
-                  ],))
-                ]
-              ),
-            ),
-          ),
+          padding: const EdgeInsets.all(16.0),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            _SearchBar(),
+            const Padding(padding: EdgeInsets.all(8.0)),
+            Text(AppLocalizations.of(context)!.volunteering,
+                style: const TextStyle(fontSize: 24.0)),
+            Expanded(
+                child: ListView(
+              children: const [
+                VolunteeringCard(
+                    imageUrl: 'https://via.placeholder.com/400x200',
+                    title: 'Un Techo Para mi País',
+                    type: 'ACCIÓN SOCIAL',
+                    vacancies: '10'),
+                VolunteeringCard(
+                    imageUrl: 'https://via.placeholder.com/400x200',
+                    title: 'Manos caritativas',
+                    type: 'ACCIÓN SOCIAL',
+                    vacancies: '10'),
+                VolunteeringCard(
+                    imageUrl: 'https://via.placeholder.com/400x200',
+                    title: 'Asociacion Conciencia',
+                    type: 'ACCIÓN SOCIAL',
+                    vacancies: '10'),
+              ],
+            ))
+          ]),
+        ),
+      ),
     );
   }
 }
@@ -194,13 +202,12 @@ class VolunteeringCard extends StatelessWidget {
   final String type;
   final String vacancies;
 
-  const VolunteeringCard({
-    super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.type,
-    required this.vacancies
-  });
+  const VolunteeringCard(
+      {super.key,
+      required this.imageUrl,
+      required this.title,
+      required this.type,
+      required this.vacancies});
 
   @override
   Widget build(BuildContext context) {
@@ -227,16 +234,10 @@ class VolunteeringCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                    type,
-                    style: Theme.of(context).textTheme.labelSmall
-                ),
+                Text(type, style: Theme.of(context).textTheme.labelSmall),
                 const SizedBox(height: 4),
                 // Title Text
-                Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleMedium
-                ),
+                Text(title, style: Theme.of(context).textTheme.titleMedium),
                 // Vacancy Row
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -246,45 +247,42 @@ class VolunteeringCard extends StatelessWidget {
                         color: Colors.blue[100],
                         borderRadius: BorderRadius.circular(5),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       child: Row(
                         children: <Widget>[
-                          Text(
-                            '${AppLocalizations.of(context)!.vacancies}:',
-                            style: Theme.of(context).textTheme.bodyMedium
-                          ),
+                          Text('${AppLocalizations.of(context)!.vacancies}:',
+                              style: Theme.of(context).textTheme.bodyMedium),
                           Icon(
                             Icons.person,
                             size: 16,
                             color: Colors.blue[900],
                           ),
                           const SizedBox(width: 4),
-                          Text(
-                            vacancies,
-                            style: Theme.of(context).textTheme.titleMedium
-                          ),
+                          Text(vacancies,
+                              style: Theme.of(context).textTheme.titleMedium),
                         ],
                       ),
                     ),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          IconButton(
-                            icon: const Icon(Icons.favorite_border),
-                            color: Colors.green,
-                            onPressed: () {
-                              // TODO: Handle favorite button press
-                            },
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.place),
-                            color: Colors.green,
-                            onPressed: () {
-                              // TODO: Handle location button press
-                            },
-                          ),
-                        ],
-                      ),
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        IconButton(
+                          icon: const Icon(Icons.favorite_border),
+                          color: Colors.green,
+                          onPressed: () {
+                            // TODO: Handle favorite button press
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.place),
+                          color: Colors.green,
+                          onPressed: () {
+                            // TODO: Handle location button press
+                          },
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ],
