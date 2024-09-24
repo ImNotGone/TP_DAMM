@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 // https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ser_manos_mobile/model/volunteering.dart';
+
+import 'constants.dart';
 
 void main() {
   runApp(const MyApp());
@@ -118,24 +121,15 @@ class Home extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 24.0)
                   ),
-                  Expanded(child: ListView(children: const [
+                  Expanded(child: ListView(children: [
                     VolunteeringCard(
-                        imageUrl: 'https://via.placeholder.com/400x200',
-                        title: 'Un Techo Para mi País',
-                        type: 'ACCIÓN SOCIAL',
-                        vacancies: '10'
+                      volunteering: volunteering1,
                     ),
                     VolunteeringCard(
-                        imageUrl: 'https://via.placeholder.com/400x200',
-                        title: 'Manos caritativas',
-                        type: 'ACCIÓN SOCIAL',
-                        vacancies: '10'
+                      volunteering: volunteering2,
                     ),
                     VolunteeringCard(
-                        imageUrl: 'https://via.placeholder.com/400x200',
-                        title: 'Asociacion Conciencia',
-                        type: 'ACCIÓN SOCIAL',
-                        vacancies: '10'
+                      volunteering: volunteering3,
                     ),
                   ],))
                 ]
@@ -189,17 +183,11 @@ class _SearchBar extends StatelessWidget {
 }
 
 class VolunteeringCard extends StatelessWidget {
-  final String imageUrl;
-  final String title;
-  final String type;
-  final String vacancies;
+  final Volunteering volunteering;
 
   const VolunteeringCard({
     super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.type,
-    required this.vacancies
+    required this.volunteering
   });
 
   @override
@@ -215,7 +203,7 @@ class VolunteeringCard extends StatelessWidget {
           // Image section
           ClipRRect(
             child: Image.network(
-              imageUrl,
+              volunteering.imageUrl,
               // Replace with the real image URL
               height: 150,
               width: double.infinity,
@@ -228,13 +216,13 @@ class VolunteeringCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                    type,
+                    volunteering.type,
                     style: Theme.of(context).textTheme.labelSmall
                 ),
                 const SizedBox(height: 4),
                 // Title Text
                 Text(
-                    title,
+                    volunteering.title,
                     style: Theme.of(context).textTheme.titleMedium
                 ),
                 // Vacancy Row
@@ -260,7 +248,7 @@ class VolunteeringCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            vacancies,
+                            volunteering.vacancies.toString(),
                             style: Theme.of(context).textTheme.titleMedium
                           ),
                         ],
