@@ -118,18 +118,26 @@ class Home extends StatelessWidget {
                     style: const TextStyle(
                         fontSize: 24.0)
                   ),
-                  const VolunteeringCard(
-                      imageUrl: 'https://via.placeholder.com/400x200',
-                      title: 'Un Techo Para mi País',
-                      type: 'ACCIÓN SOCIAL',
-                      vacancies: '10'
-                  ),
-                  const VolunteeringCard(
-                      imageUrl: 'https://via.placeholder.com/400x200',
-                      title: 'Manos caritativas',
-                      type: 'ACCIÓN SOCIAL',
-                      vacancies: '10'
-                  )
+                  Expanded(child: ListView(children: const [
+                    VolunteeringCard(
+                        imageUrl: 'https://via.placeholder.com/400x200',
+                        title: 'Un Techo Para mi País',
+                        type: 'ACCIÓN SOCIAL',
+                        vacancies: '10'
+                    ),
+                    VolunteeringCard(
+                        imageUrl: 'https://via.placeholder.com/400x200',
+                        title: 'Manos caritativas',
+                        type: 'ACCIÓN SOCIAL',
+                        vacancies: '10'
+                    ),
+                    VolunteeringCard(
+                        imageUrl: 'https://via.placeholder.com/400x200',
+                        title: 'Asociacion Conciencia',
+                        type: 'ACCIÓN SOCIAL',
+                        vacancies: '10'
+                    ),
+                  ],))
                 ]
               ),
             ),
