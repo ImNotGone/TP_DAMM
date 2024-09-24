@@ -74,6 +74,7 @@ class Home extends StatelessWidget {
                     fontFamily: 'Roboto',
                     fontSize: 24.0)
               ),
+              const CustomCard()
             ],
           ),
         )
@@ -122,5 +123,122 @@ class _SearchBar extends StatelessWidget {
       ),
     );
   }
-  
+}
+
+class CustomCard extends StatelessWidget {
+  const CustomCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(2),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          // Image section
+          ClipRRect(
+            child: Image.network(
+              'https://via.placeholder.com/400x200',
+              // Replace with the real image URL
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                // Action Type Text
+                Text(
+                  'ACCIÓN SOCIAL',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Roboto'
+                  ),
+                ),
+                const SizedBox(height: 4),
+                // Title Text
+                const Text(
+                  'Un Techo para mi País',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Roboto'
+                  ),
+                ),
+                // Vacancy Row
+                Row(
+                  children: [
+
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.blue[100],
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            'Vacantes:',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                            ),
+
+                          ),
+                          Icon(
+                            Icons.person,
+                            size: 16,
+                            color: Colors.blue[900],
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            '10',
+                            style: TextStyle(
+                              color: Colors.blue[900],
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          IconButton(
+                            icon: const Icon(Icons.favorite_border),
+                            color: Colors.green,
+                            onPressed: () {
+                              // Handle favorite button press
+                            },
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.place),
+                            color: Colors.green,
+                            onPressed: () {
+                              // Handle location button press
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
