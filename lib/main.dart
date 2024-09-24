@@ -56,9 +56,9 @@ class Home extends StatelessWidget {
             ],
           ),
           bottom: TabBar(tabs: [
-            Tab(icon: Text(AppLocalizations.of(context)!.apply)),
-            Tab(icon: Text(AppLocalizations.of(context)!.myProfile)),
-            Tab(icon: Text(AppLocalizations.of(context)!.news)),
+            Tab(icon: Text(AppLocalizations.of(context)!.apply, style: const TextStyle(color: Colors.white),)),
+            Tab(icon: Text(AppLocalizations.of(context)!.myProfile, style: const TextStyle(color: Colors.white),)),
+            Tab(icon: Text(AppLocalizations.of(context)!.news, style: const TextStyle(color: Colors.white),)),
           ]),
         ),
         body: Padding(
