@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ser_manos_mobile/auth/login.dart';
-import 'package:ser_manos_mobile/auth/postlogin_welcome.dart';
+import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
+import 'package:ser_manos_mobile/auth/presentation/signup.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  SignUpState createState() => SignUpState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class SignUpState extends State<SignUpScreen> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
+class LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
@@ -35,45 +33,20 @@ class SignUpState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextField(
-                      controller: _nameController,
-                      decoration: InputDecoration(
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        label: Text(AppLocalizations.of(context)!.name),
-                        hintText: AppLocalizations.of(context)!.nameExample,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => setState(() {}),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      controller: _lastNameController,
-                      decoration: InputDecoration(
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        label: Text(AppLocalizations.of(context)!.lastName),
-                        hintText: AppLocalizations.of(context)!.lastNameExample,
-                        border: const OutlineInputBorder(),
-                      ),
-                      onChanged: (value) => setState(() {}),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
                       controller: _emailController,
                       decoration: InputDecoration(
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        label: Text(AppLocalizations.of(context)!.email),
-                        hintText: AppLocalizations.of(context)!.emailExample,
+                        hintText: AppLocalizations.of(context)!.email,
                         border: const OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.emailAddress,
                       onChanged: (value) => setState(() {}),
                     ),
                     const SizedBox(height: 16),
+
                     TextField(
                       controller: _passwordController,
                       decoration: InputDecoration(
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        label: Text(AppLocalizations.of(context)!.password),
-                        hintText: AppLocalizations.of(context)!.passwordExample,
+                        hintText: AppLocalizations.of(context)!.password,
                         border: const OutlineInputBorder(),
                         suffixIcon: IconButton(
                           icon: Icon(
@@ -84,6 +57,7 @@ class SignUpState extends State<SignUpScreen> {
                               _obscurePassword = !_obscurePassword;
                             });
                           },
+
                         ),
                       ),
                       obscureText: _obscurePassword,
@@ -98,29 +72,27 @@ class SignUpState extends State<SignUpScreen> {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  // TODO: PREGUNTAR, ESTO NO PARECE SER LO PEDIDO, PERO TIENE SENTIDO???
-
                   // TODO: this is laggy, if I clear all contents, redrawing is kinda weird, maybe replace the whole button?
                   child: ElevatedButton(
-                    onPressed: (_nameController.text.isNotEmpty && _lastNameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
+                    onPressed: (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
                         ? () {
-                          // TODO: sign Up!!!
+                          // TODO: login!!!
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PostLoginWelcome()));
                         }
                         : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: (_nameController.text.isNotEmpty && _lastNameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
+                      backgroundColor: (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
                           ? Theme.of(context).colorScheme.secondary
                           : Colors.grey, // TODO: change to app colors?
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
-                    child: Text(AppLocalizations.of(context)!.signUp,
-                        style: TextStyle(color: (_nameController.text.isNotEmpty && _lastNameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
+                    child: Text(AppLocalizations.of(context)!.login,
+                        style: TextStyle(color: (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
                             ? Theme.of(context).colorScheme.onPrimary
                             : Colors.grey[600], // TODO: change to app colors?
-                        )),
+                           )),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -128,14 +100,14 @@ class SignUpState extends State<SignUpScreen> {
                   width: double.infinity,
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
                     },
                     style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
-                    child: Text(AppLocalizations.of(context)!.haveAccount,
+                    child: Text(AppLocalizations.of(context)!.noAccount,
                         style: TextStyle(color: Theme
                             .of(context)
                             .colorScheme
