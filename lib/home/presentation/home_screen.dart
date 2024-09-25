@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ser_manos_mobile/home/presentation/volunteering_card.dart';
-import '../../constants.dart';
+import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final allVolunteerings = ref.watch(volunteeringsProvider);
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child:
@@ -16,17 +19,12 @@ class HomeScreen extends StatelessWidget {
         const Padding(padding: EdgeInsets.all(8.0)),
         Text(AppLocalizations.of(context)!.volunteering,
             style: const TextStyle(fontSize: 24.0)),
-        Expanded(child: ListView(children: [
-          VolunteeringCard(
-            volunteering: volunteering1,
-          ),
-          VolunteeringCard(
-            volunteering: volunteering2,
-          ),
-          VolunteeringCard(
-            volunteering: volunteering3,
-          ),
-        ],))
+        Expanded(child: ListView.builder(
+          itemCount: allVolunteerings.length,
+          itemBuilder: (context, index) {
+            return VolunteeringCard(volunteering: allVolunteerings[index]);
+          },
+        ))
       ]),
     );
   }
