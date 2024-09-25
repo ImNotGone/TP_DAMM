@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/constants.dart';
+import 'package:ser_manos_mobile/home/presentation/news_card.dart';
 import 'volunteering_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -71,7 +72,23 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('//TODO REMOVE THIS, news');
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                NewsCard(news: news1),
+                NewsCard(news: news2),
+                NewsCard(news: news3),
+                NewsCard(news: news4)
+              ],
+            )
+        ),
+      ],
+      ),
+    );
   }
 }
 
