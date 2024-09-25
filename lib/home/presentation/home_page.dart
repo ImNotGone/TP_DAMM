@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:ser_manos_mobile/constants.dart';
+import 'package:ser_manos_mobile/home/presentation/map.dart';
 import 'package:ser_manos_mobile/home/presentation/news_card.dart';
 import 'volunteering_card.dart';
 
@@ -34,7 +35,9 @@ class HomePage extends HookWidget {
             labelColor: Theme.of(context).colorScheme.onPrimary,
             unselectedLabelColor: Theme.of(context).colorScheme.onPrimary,
             indicator: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer, // Change this to your desired color
+              color: Theme.of(context)
+                  .colorScheme
+                  .primaryContainer, // Change this to your desired color
             ),
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
@@ -72,21 +75,19 @@ class NewsScreen extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: ListView(
-              children: [
-                NewsCard(news: news1),
-                NewsCard(news: news2),
-                NewsCard(news: news3),
-                NewsCard(news: news4)
-              ],
-            )
-        ),
-      ],
+              child: ListView(
+            children: [
+              NewsCard(news: news1),
+              NewsCard(news: news2),
+              NewsCard(news: news3),
+              NewsCard(news: news4)
+            ],
+          )),
+        ],
       ),
     );
   }
 }
-
 
 class HomeScreen extends HookWidget {
   const HomeScreen({super.key});
@@ -100,29 +101,32 @@ class HomeScreen extends HookWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child:
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        _SearchBar(onMapButtonPressed: toggleMap),
-        const Padding(padding: EdgeInsets.all(8.0)),
-        Text(AppLocalizations.of(context)!.volunteering,
-            style: const TextStyle(fontSize: 24.0)),
-        Expanded(child: ListView(children: [
-          VolunteeringCard(
-            volunteering: volunteering1,
-          ),
-          VolunteeringCard(
-            volunteering: volunteering2,
-          ),
-          VolunteeringCard(
-            volunteering: volunteering3,
-          ),
-        ],))
-      ]),
-    );
+        padding: const EdgeInsets.all(16.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          _SearchBar(onMapButtonPressed: toggleMap),
+          const Padding(padding: EdgeInsets.all(8.0)),
+          Expanded(
+              child: showMap.value
+                  ? const MapSample()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(AppLocalizations.of(context)!.volunteering,
+                            style: const TextStyle(fontSize: 24.0)),
+                        Expanded(
+                          child: ListView(
+                            children: [
+                              VolunteeringCard(volunteering: volunteering1),
+                              VolunteeringCard(volunteering: volunteering2),
+                              VolunteeringCard(volunteering: volunteering3),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ))
+        ]));
   }
 }
-
 
 class _SearchBar extends HookWidget {
   final VoidCallback onMapButtonPressed;
@@ -166,7 +170,9 @@ class _SearchBar extends HookWidget {
           ),
           IconButton(
             // TODO: check if color can come from theme
-            icon: showMapIcon.value ? const Icon(Icons.map, color: Colors.green) : const Icon(Icons.menu, color: Colors.green),
+            icon: showMapIcon.value
+                ? const Icon(Icons.map, color: Colors.green)
+                : const Icon(Icons.menu, color: Colors.green),
             onPressed: () {
               onMapButtonPressed();
               toggleMapIcon();
