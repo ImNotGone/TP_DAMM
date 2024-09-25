@@ -3,9 +3,21 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/constants.dart';
 import 'volunteering_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  HomePageState createState() => HomePageState();
+}
+
+class HomePageState extends State<HomePage> {
+  int _currentScreen = 0;
+
+  final List<Widget> _screens = [
+    const HomeScreen(),
+    const ProfileScreen(),
+    const NewsScreen(),
+  ];
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -31,30 +43,64 @@ class HomePage extends StatelessWidget {
                 Tab(icon: Text(AppLocalizations.of(context)!.apply)),
                 Tab(icon: Text(AppLocalizations.of(context)!.myProfile)),
                 Tab(icon: Text(AppLocalizations.of(context)!.news)),
-              ]),
+              ],
+              onTap: (index) {
+                  setState(() {
+                    _currentScreen = index;
+                  });
+                },
+              ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child:
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            _SearchBar(),
-            const Padding(padding: EdgeInsets.all(8.0)),
-            Text(AppLocalizations.of(context)!.volunteering,
-                style: const TextStyle(fontSize: 24.0)),
-            Expanded(child: ListView(children: [
-              VolunteeringCard(
-                volunteering: volunteering1,
-              ),
-              VolunteeringCard(
-                volunteering: volunteering2,
-              ),
-              VolunteeringCard(
-                volunteering: volunteering3,
-              ),
-            ],))
-          ]),
-        ),
+        body: _screens[_currentScreen],
       ),
+    );
+  }
+}
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text('//TODO REMOVE THIS, profile');
+  }
+}
+
+class NewsScreen extends StatelessWidget {
+  const NewsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text('//TODO REMOVE THIS, news');
+  }
+}
+
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child:
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        _SearchBar(),
+        const Padding(padding: EdgeInsets.all(8.0)),
+        Text(AppLocalizations.of(context)!.volunteering,
+            style: const TextStyle(fontSize: 24.0)),
+        Expanded(child: ListView(children: [
+          VolunteeringCard(
+            volunteering: volunteering1,
+          ),
+          VolunteeringCard(
+            volunteering: volunteering2,
+          ),
+          VolunteeringCard(
+            volunteering: volunteering3,
+          ),
+        ],))
+      ]),
     );
   }
 }
