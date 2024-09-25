@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../domain/news.dart';
+import 'news_detail.dart';
 
 
 class NewsCard extends StatelessWidget {
@@ -39,7 +40,7 @@ class NewsCard extends StatelessWidget {
                       alignment: Alignment.bottomRight,
                       child: TextButton(
                             onPressed: () {
-                              // TODO: open detailed view
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetail(news: news)));
                             },
                             child: Text(
                               AppLocalizations.of(context)!.readMore,
