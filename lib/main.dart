@@ -1,15 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 // https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:ser_manos_mobile/home/presentation/home_page.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
   runApp(
       const ProviderScope(
           child: MyApp()
       )
+  );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 }
 
