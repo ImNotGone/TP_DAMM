@@ -15,6 +15,7 @@
   "haveAccount": "Ya tengo cuenta",
   "login": "Iniciar Sesión",
   "signUp": "Registrarse",
+  "signOut": "Cerrar Sesión",
   "apply": "Postularse",
     "search": "Buscar",
     "volunteering": "Voluntariados",
@@ -23,5 +24,12 @@
   "news": "Novedades",
     "readMore": "Leer Más",
     "share": "Compartir",
-    "shareThisNote": "Comparte esta nota"
+    "shareThisNote": "Comparte esta nota",
+  "profileInfo": "Información de Perfil",
+    "male": "Hombre",
+    "female": "Mujer",
+    "nonBinary": "No binario",
+  "volunteer": "Voluntario",
+  "completeProfile": "¡Completá tu perfil para tener acceso a mejores oportunidades!",
+  "complete": "Completar"
 }
