@@ -1,38 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/home/presentation/volunteering_card.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 
-class HomeScreen extends ConsumerWidget {
+import 'map.dart';
+
+class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final showMap = useState(false);
+
+    void toggleMap() {
+      showMap.value = !showMap.value;
+    }
+
     final allVolunteerings = ref.watch(volunteeringsProvider);
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child:
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        _SearchBar(),
-        const Padding(padding: EdgeInsets.all(8.0)),
-        Text(AppLocalizations.of(context)!.volunteering,
-            style: const TextStyle(fontSize: 24.0)),
-        Expanded(child: ListView.builder(
-          itemCount: allVolunteerings.length,
-          itemBuilder: (context, index) {
-            return VolunteeringCard(volunteering: allVolunteerings[index]);
-          },
-        ))
-      ]),
-    );
+        padding: const EdgeInsets.all(16.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          _SearchBar(onMapButtonPressed: toggleMap),
+          const Padding(padding: EdgeInsets.all(8.0)),
+          Expanded(
+            child: showMap.value
+                ? const MapSample()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                        Text(AppLocalizations.of(context)!.volunteering,
+                            style: const TextStyle(fontSize: 24.0)),
+                        Expanded(
+                            child: ListView.builder(
+                          itemCount: allVolunteerings.length,
+                          itemBuilder: (context, index) {
+                            return VolunteeringCard(
+                                volunteering: allVolunteerings[index]);
+                          },
+                        ))
+                      ]),
+          )
+        ]));
   }
 }
 
-class _SearchBar extends StatelessWidget {
+class _SearchBar extends HookWidget {
+  final VoidCallback onMapButtonPressed;
+
+  const _SearchBar({required this.onMapButtonPressed});
+
   @override
   Widget build(BuildContext context) {
+    final showMapIcon = useState(true);
+
+    void toggleMapIcon() {
+      showMapIcon.value = !showMapIcon.value;
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
@@ -61,9 +88,13 @@ class _SearchBar extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.map, color: Colors.green),
+            // TODO: check if color can come from theme
+            icon: showMapIcon.value
+                ? const Icon(Icons.map, color: Colors.green)
+                : const Icon(Icons.menu, color: Colors.green),
             onPressed: () {
-              // TODO: agregar accion
+              onMapButtonPressed();
+              toggleMapIcon();
             },
           ),
         ],
