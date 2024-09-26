@@ -12,16 +12,16 @@ class UtilElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4.0)
-              ),
-              backgroundColor: Theme.of(context).colorScheme.secondary,
-              foregroundColor: Theme.of(context).colorScheme.onPrimary
-          ),
-          child: Text(text)
+    return ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4.0)
+            ),
+            backgroundColor: Theme.of(context).colorScheme.secondary,
+            foregroundColor: Theme.of(context).colorScheme.onPrimary
+        ),
+        child: Text(text)
     );
   }
 }
