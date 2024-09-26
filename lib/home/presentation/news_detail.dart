@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ser_manos_mobile/utils/elevated_button.dart';
 import '../domain/news.dart';
 
 class NewsDetail extends StatelessWidget {
@@ -50,20 +51,12 @@ class NewsDetail extends StatelessWidget {
                   )
                 ),
               ),
-              ElevatedButton(
-                  onPressed: (){
+              UtilElevatedButton(
+                  onPressed: () {
                     // TODO: SHARE NEWS
                   },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4.0)
-                    ),
-                    backgroundColor: Theme.of(context).colorScheme.secondary
-                  ),
-                  child: Text(
-                    AppLocalizations.of(context)!.share,
-                    style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-                  ))
+                  text: AppLocalizations.of(context)!.share
+              )
             ],
           )
       ),

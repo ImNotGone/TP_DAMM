@@ -2,6 +2,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/home/presentation/home_page.dart';
 
+import '../../utils/elevated_button.dart';
+
 class PostLoginWelcome extends StatelessWidget {
   const PostLoginWelcome({super.key});
 
@@ -29,17 +31,11 @@ class PostLoginWelcome extends StatelessWidget {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
+                  child: UtilElevatedButton(
                     onPressed: () {
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    child: Text(AppLocalizations.of(context)!.begin, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
+                    text: AppLocalizations.of(context)!.begin,
                   ),
                 ),
                 const SizedBox(height: 48),

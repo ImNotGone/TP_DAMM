@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
+import 'package:ser_manos_mobile/utils/elevated_button.dart';
+import 'package:ser_manos_mobile/utils/text_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -72,47 +74,25 @@ class LoginScreenState extends State<LoginScreen> {
               children: [
                 SizedBox(
                   width: double.infinity,
-                  // TODO: this is laggy, if I clear all contents, redrawing is kinda weird, maybe replace the whole button?
-                  child: ElevatedButton(
-                    onPressed: (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
-                        ? () {
-                          // TODO: login!!!
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PostLoginWelcome()));
-                        }
-                        : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
-                          ? Theme.of(context).colorScheme.secondary
-                          : Colors.grey, // TODO: change to app colors?
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    child: Text(AppLocalizations.of(context)!.login,
-                        style: TextStyle(color: (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
-                            ? Theme.of(context).colorScheme.onPrimary
-                            : Colors.grey[600], // TODO: change to app colors?
-                           )),
+                  child: UtilElevatedButton(
+                      onPressed: (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
+                          ? () {
+                            // TODO: login!!!
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PostLoginWelcome()));
+                          }
+                          : null,
+                      text: AppLocalizations.of(context)!.login
                   ),
                 ),
                 const SizedBox(height: 8),
                 SizedBox(
                   width: double.infinity,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    child: Text(AppLocalizations.of(context)!.noAccount,
-                        style: TextStyle(color: Theme
-                            .of(context)
-                            .colorScheme
-                            .secondary)),
-                  ),
+                  child: UtilTextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                      },
+                      text: AppLocalizations.of(context)!.noAccount
+                  )
                 ),
               ],
             ),

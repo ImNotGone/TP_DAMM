@@ -1,6 +1,8 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
+import 'package:ser_manos_mobile/utils/elevated_button.dart';
+import 'package:ser_manos_mobile/utils/text_button.dart';
 import 'login.dart';
 
 class PreLoginWelcome extends StatelessWidget {
@@ -28,32 +30,21 @@ class PreLoginWelcome extends StatelessWidget {
               children: [
                 SizedBox(
                   width: double.infinity, 
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.secondary, 
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4), 
-                      ),
-                    ),
-                    child: Text(AppLocalizations.of(context)!.login, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary)),
+                  child: UtilElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+                      },
+                      text: AppLocalizations.of(context)!.login
                   ),
                 ),
                 const SizedBox(height: 8),
                 SizedBox(
                   width: double.infinity, 
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
-                    },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4), 
-                      ),
-                    ),
-                    child: Text(AppLocalizations.of(context)!.signUp, style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
+                  child: UtilTextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                      },
+                      text: AppLocalizations.of(context)!.signUp
                   ),
                 ),
               ],

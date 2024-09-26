@@ -3,6 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/auth/presentation/login.dart';
 import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 
+import '../../utils/elevated_button.dart';
+import '../../utils/text_button.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -101,45 +104,24 @@ class SignUpState extends State<SignUpScreen> {
                   // TODO: PREGUNTAR, ESTO NO PARECE SER LO PEDIDO, PERO TIENE SENTIDO???
 
                   // TODO: this is laggy, if I clear all contents, redrawing is kinda weird, maybe replace the whole button?
-                  child: ElevatedButton(
+                  child: UtilElevatedButton(
                     onPressed: (_nameController.text.isNotEmpty && _lastNameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
                         ? () {
                           // TODO: sign Up!!!
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PostLoginWelcome()));
                         }
                         : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: (_nameController.text.isNotEmpty && _lastNameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
-                          ? Theme.of(context).colorScheme.secondary
-                          : Colors.grey, // TODO: change to app colors?
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    child: Text(AppLocalizations.of(context)!.signUp,
-                        style: TextStyle(color: (_nameController.text.isNotEmpty && _lastNameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
-                            ? Theme.of(context).colorScheme.onPrimary
-                            : Colors.grey[600], // TODO: change to app colors?
-                        )),
+                    text: AppLocalizations.of(context)!.signUp
                   ),
                 ),
                 const SizedBox(height: 8),
                 SizedBox(
                   width: double.infinity,
-                  child: TextButton(
+                  child: UtilTextButton(
                     onPressed: () {
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
                     },
-                    style: TextButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    child: Text(AppLocalizations.of(context)!.haveAccount,
-                        style: TextStyle(color: Theme
-                            .of(context)
-                            .colorScheme
-                            .secondary)),
+                    text: AppLocalizations.of(context)!.haveAccount,
                   ),
                 ),
               ],
