@@ -18,7 +18,8 @@ class UtilElevatedButton extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(4.0)
               ),
-              backgroundColor: Theme.of(context).colorScheme.secondary
+              backgroundColor: Theme.of(context).colorScheme.secondary,
+              foregroundColor: Theme.of(context).colorScheme.onPrimary
           ),
           child: Text(text)
     );
