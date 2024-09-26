@@ -27,7 +27,7 @@ class HomeScreen extends HookConsumerWidget {
           const Padding(padding: EdgeInsets.all(8.0)),
           Expanded(
             child: showMap.value
-                ? const MapSample()
+                ? const Map()
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
