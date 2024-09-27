@@ -35,7 +35,7 @@ class PostLoginWelcome extends StatelessWidget {
                     },
                   text: AppLocalizations.of(context)!.begin,
                 ),
-                const SizedBox(height: 48),
+                const SizedBox(height: 56),
               ],
             ),
           ],
