@@ -99,30 +99,21 @@ class SignUpState extends State<SignUpScreen> {
             const Spacer(),
             Column(
               children: [
-                SizedBox(
-                  width: double.infinity,
-                  // TODO: PREGUNTAR, ESTO NO PARECE SER LO PEDIDO, PERO TIENE SENTIDO???
-
-                  // TODO: this is laggy, if I clear all contents, redrawing is kinda weird, maybe replace the whole button?
-                  child: UtilElevatedButton(
-                    onPressed: (_nameController.text.isNotEmpty && _lastNameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
-                        ? () {
-                          // TODO: sign Up!!!
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PostLoginWelcome()));
-                        }
-                        : null,
-                    text: AppLocalizations.of(context)!.signUp
-                  ),
+                UtilElevatedButton(
+                  onPressed: (_nameController.text.isNotEmpty && _lastNameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
+                      ? () {
+                        // TODO: sign Up!!!
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PostLoginWelcome()));
+                      }
+                      : null,
+                  text: AppLocalizations.of(context)!.signUp
                 ),
                 const SizedBox(height: 8),
-                SizedBox(
-                  width: double.infinity,
-                  child: UtilTextButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
-                    },
-                    text: AppLocalizations.of(context)!.haveAccount,
-                  ),
+                UtilTextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+                  },
+                  text: AppLocalizations.of(context)!.haveAccount,
                 ),
               ],
             ),

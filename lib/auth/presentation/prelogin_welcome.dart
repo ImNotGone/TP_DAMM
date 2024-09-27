@@ -28,24 +28,18 @@ class PreLoginWelcome extends StatelessWidget {
             const Spacer(),
             Column(
               children: [
-                SizedBox(
-                  width: double.infinity, 
-                  child: UtilElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
-                      },
-                      text: AppLocalizations.of(context)!.login
-                  ),
+                UtilElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+                    },
+                    text: AppLocalizations.of(context)!.login
                 ),
                 const SizedBox(height: 8),
-                SizedBox(
-                  width: double.infinity, 
-                  child: UtilTextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
-                      },
-                      text: AppLocalizations.of(context)!.signUp
-                  ),
+                UtilTextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                    },
+                    text: AppLocalizations.of(context)!.signUp
                 ),
               ],
             ),

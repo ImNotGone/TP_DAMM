@@ -29,14 +29,11 @@ class PostLoginWelcome extends StatelessWidget {
             const Spacer(),
             Column(
               children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: UtilElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                UtilElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
                     },
-                    text: AppLocalizations.of(context)!.begin,
-                  ),
+                  text: AppLocalizations.of(context)!.begin,
                 ),
                 const SizedBox(height: 48),
               ],

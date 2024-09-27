@@ -59,7 +59,6 @@ class LoginScreenState extends State<LoginScreen> {
                               _obscurePassword = !_obscurePassword;
                             });
                           },
-
                         ),
                       ),
                       obscureText: _obscurePassword,
@@ -72,27 +71,21 @@ class LoginScreenState extends State<LoginScreen> {
             const Spacer(),
             Column(
               children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: UtilElevatedButton(
-                      onPressed: (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
-                          ? () {
-                            // TODO: login!!!
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PostLoginWelcome()));
-                          }
-                          : null,
-                      text: AppLocalizations.of(context)!.login
-                  ),
+                UtilElevatedButton(
+                    onPressed: (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
+                        ? () {
+                          // TODO: login!!!
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PostLoginWelcome()));
+                        }
+                        : null,
+                    text: AppLocalizations.of(context)!.login
                 ),
                 const SizedBox(height: 8),
-                SizedBox(
-                  width: double.infinity,
-                  child: UtilTextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
-                      },
-                      text: AppLocalizations.of(context)!.noAccount
-                  )
+                UtilTextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                    },
+                    text: AppLocalizations.of(context)!.noAccount
                 ),
               ],
             ),
