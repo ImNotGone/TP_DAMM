@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/home/domain/volunteering.dart';
-import 'package:ser_manos_mobile/utils/vacancies_count.dart';
+import 'package:ser_manos_mobile/shared/molecules/components/vacancies.dart';
 
 
 class VolunteeringCard extends StatelessWidget {
@@ -50,7 +50,9 @@ class VolunteeringCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    UtilVacanciesCount(count: volunteering.vacancies),
+                    Vacancies(
+                        count: volunteering.vacancies
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[

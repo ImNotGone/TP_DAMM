@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class UtilElevatedButton extends StatelessWidget {
+class UtilFilledButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String text;
 
-  const UtilElevatedButton({
+  const UtilFilledButton({
     super.key,
     required this.onPressed,
     required this.text,

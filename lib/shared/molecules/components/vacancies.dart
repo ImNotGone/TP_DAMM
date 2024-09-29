@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class UtilVacanciesCount extends StatelessWidget {
+class Vacancies extends StatelessWidget {
   final int count;
 
-  const UtilVacanciesCount({super.key, required this.count});
+  const Vacancies({super.key, required this.count});
 
   @override
   Widget build(BuildContext context) {

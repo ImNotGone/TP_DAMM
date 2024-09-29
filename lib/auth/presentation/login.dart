@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
-import 'package:ser_manos_mobile/utils/elevated_button.dart';
-import 'package:ser_manos_mobile/utils/text_button.dart';
+import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
+import '../../shared/molecules/buttons/text.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -71,7 +71,7 @@ class LoginScreenState extends State<LoginScreen> {
             const Spacer(),
             Column(
               children: [
-                UtilElevatedButton(
+                UtilFilledButton(
                     onPressed: (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
                         ? () {
                           // TODO: login!!!
