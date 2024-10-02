@@ -31,19 +31,26 @@ class HomeScreen extends HookConsumerWidget {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                        Text(AppLocalizations.of(context)!.volunteering,
-                            style: const TextStyle(fontSize: 24.0)),
+                        Text(
+                            AppLocalizations.of(context)!.volunteering,
+                            style: Theme.of(context).textTheme.headlineLarge
+                        ),
                         Expanded(
                             child: ListView.builder(
-                          itemCount: allVolunteerings.length,
-                          itemBuilder: (context, index) {
-                            return VolunteeringCard(
-                                volunteering: allVolunteerings[index]);
-                          },
-                        ))
-                      ]),
+                              itemCount: allVolunteerings.length,
+                              itemBuilder: (context, index) {
+                                return VolunteeringCard(
+                                    volunteering: allVolunteerings[index]
+                                );
+                              },
+                            )
+                        )
+                    ]
+            ),
           )
-        ]));
+        ]
+      )
+    );
   }
 }
 
