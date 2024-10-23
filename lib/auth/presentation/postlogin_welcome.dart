@@ -1,8 +1,8 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/home/presentation/home_page.dart';
+import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 
-import '../../utils/elevated_button.dart';
 
 class PostLoginWelcome extends StatelessWidget {
   const PostLoginWelcome({super.key});
@@ -29,16 +29,13 @@ class PostLoginWelcome extends StatelessWidget {
             const Spacer(),
             Column(
               children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: UtilElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                UtilFilledButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
                     },
-                    text: AppLocalizations.of(context)!.begin,
-                  ),
+                  text: AppLocalizations.of(context)!.begin,
                 ),
-                const SizedBox(height: 48),
+                const SizedBox(height: 56),
               ],
             ),
           ],

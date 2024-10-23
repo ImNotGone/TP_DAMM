@@ -18,6 +18,7 @@ class UtilTextButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),
           ),
+          minimumSize: const Size(double.infinity, 44),
           foregroundColor: Theme.of(context).colorScheme.secondary
       ),
       child: Text(text),

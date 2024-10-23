@@ -52,7 +52,10 @@ class HomePageState extends State<HomePage> {
             },
           ),
         ),
-        body: _screens[_currentScreen],
+        body: Container(
+            color: const Color(0xFFEAF5FD),
+            child: _screens[_currentScreen]
+        ),
       ),
     );
   }

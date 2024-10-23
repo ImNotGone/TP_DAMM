@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ser_manos_mobile/utils/elevated_button.dart';
+import '../../shared/molecules/buttons/filled.dart';
 import '../domain/news.dart';
 
 class NewsDetail extends StatelessWidget {
@@ -51,7 +51,7 @@ class NewsDetail extends StatelessWidget {
                   )
                 ),
               ),
-              UtilElevatedButton(
+              UtilFilledButton(
                   onPressed: () {
                     // TODO: SHARE NEWS
                   },

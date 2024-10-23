@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class UtilElevatedButton extends StatelessWidget {
+class UtilFilledButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String text;
 
-  const UtilElevatedButton({
+  const UtilFilledButton({
     super.key,
     required this.onPressed,
     required this.text,
@@ -18,6 +18,7 @@ class UtilElevatedButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0)
             ),
+            minimumSize: const Size(double.infinity, 44),
             backgroundColor: Theme.of(context).colorScheme.secondary,
             foregroundColor: Theme.of(context).colorScheme.onPrimary
         ),

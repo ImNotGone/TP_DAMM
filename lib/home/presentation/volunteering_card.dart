@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/home/domain/volunteering.dart';
+import 'package:ser_manos_mobile/shared/molecules/components/vacancies.dart';
 
 
 class VolunteeringCard extends StatelessWidget {
@@ -50,29 +50,8 @@ class VolunteeringCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.blue[100],
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      child: Row(
-                        children: <Widget>[
-                          Text('${AppLocalizations.of(context)!.vacancies}:',
-                              style: Theme.of(context).textTheme.bodyMedium),
-                          Icon(
-                            Icons.person,
-                            size: 16,
-                            color: Colors.blue[900],
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                              volunteering.vacancies.toString(),
-                              style: Theme.of(context).textTheme.titleMedium
-                          ),
-                        ],
-                      ),
+                    Vacancies(
+                        count: volunteering.vacancies
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

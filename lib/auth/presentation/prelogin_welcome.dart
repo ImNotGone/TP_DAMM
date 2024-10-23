@@ -1,8 +1,8 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
-import 'package:ser_manos_mobile/utils/elevated_button.dart';
-import 'package:ser_manos_mobile/utils/text_button.dart';
+import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
+import '../../shared/molecules/buttons/text.dart';
 import 'login.dart';
 
 class PreLoginWelcome extends StatelessWidget {
@@ -28,24 +28,18 @@ class PreLoginWelcome extends StatelessWidget {
             const Spacer(),
             Column(
               children: [
-                SizedBox(
-                  width: double.infinity, 
-                  child: UtilElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
-                      },
-                      text: AppLocalizations.of(context)!.login
-                  ),
+                UtilFilledButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+                    },
+                    text: AppLocalizations.of(context)!.login
                 ),
                 const SizedBox(height: 8),
-                SizedBox(
-                  width: double.infinity, 
-                  child: UtilTextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
-                      },
-                      text: AppLocalizations.of(context)!.signUp
-                  ),
+                UtilTextButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                    },
+                    text: AppLocalizations.of(context)!.signUp
                 ),
               ],
             ),

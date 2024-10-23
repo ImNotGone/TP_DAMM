@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/home/presentation/volunteering_card.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
+import 'package:ser_manos_mobile/shared/molecules/components/no_volunteering.dart';
 
 import 'map.dart';
 
@@ -31,19 +32,29 @@ class HomeScreen extends HookConsumerWidget {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                        Text(AppLocalizations.of(context)!.volunteering,
-                            style: const TextStyle(fontSize: 24.0)),
-                        Expanded(
-                            child: ListView.builder(
-                          itemCount: allVolunteerings.length,
-                          itemBuilder: (context, index) {
-                            return VolunteeringCard(
-                                volunteering: allVolunteerings[index]);
-                          },
-                        ))
-                      ]),
+                        Text(
+                            AppLocalizations.of(context)!.volunteering,
+                            style: Theme.of(context).textTheme.headlineLarge
+                        ),
+                        const SizedBox(height: 8),
+                        allVolunteerings.isEmpty
+                            ? const NoVolunteering()
+                            : Expanded(
+                                child: ListView.builder(
+                                  itemCount: allVolunteerings.length,
+                                  itemBuilder: (context, index) {
+                                    return VolunteeringCard(
+                                        volunteering: allVolunteerings[index]
+                                    );
+                                    },
+                                )
+                            )
+                    ]
+            ),
           )
-        ]));
+        ]
+      )
+    );
   }
 }
 
