@@ -3,22 +3,20 @@ import 'package:flutter/material.dart';
 // https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'package:ser_manos_mobile/home/presentation/home_page.dart';
-import 'firebase_options.dart';
+import 'package:ser_manos_mobile/auth/presentation/prelogin_welcome.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
       const ProviderScope(
           child: MyApp()
       )
   );
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({super.key});
 
   @override
@@ -96,6 +94,6 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: const HomePage());
+        home: const PreLoginWelcome());
   }
 }

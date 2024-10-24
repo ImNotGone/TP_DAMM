@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/auth/presentation/login.dart';
 import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import '../../shared/molecules/buttons/text.dart';
+
+import 'package:ser_manos_mobile/auth/application/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -18,6 +22,8 @@ class SignUpState extends State<SignUpScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
+
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +85,9 @@ class SignUpState extends State<SignUpScreen> {
                         border: const OutlineInputBorder(),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                            _obscurePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
@@ -99,18 +107,20 @@ class SignUpState extends State<SignUpScreen> {
             Column(
               children: [
                 UtilFilledButton(
-                  onPressed: (_nameController.text.isNotEmpty && _lastNameController.text.isNotEmpty && _emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
-                      ? () {
-                        // TODO: sign Up!!!
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PostLoginWelcome()));
-                      }
-                      : null,
-                  text: AppLocalizations.of(context)!.signUp
-                ),
+                    onPressed: (_nameController.text.isNotEmpty &&
+                            _lastNameController.text.isNotEmpty &&
+                            _emailController.text.isNotEmpty &&
+                            _passwordController.text.isNotEmpty)
+                        ? _handleSignup
+                        : null,
+                    text: AppLocalizations.of(context)!.signUp),
                 const SizedBox(height: 8),
                 UtilTextButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
                   },
                   text: AppLocalizations.of(context)!.haveAccount,
                 ),
@@ -120,5 +130,29 @@ class SignUpState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  //TODO: Migrate to router and reutilize logic shared with login
+  Future<void> _handleSignup() async {
+    final user = await _authService.signUpWithEmailAndPassword(
+      _emailController.text,
+      _passwordController.text,
+    );
+
+    if (user != null) {
+      _navigateToWelcome();
+    } else {
+      log('Login failed');
+      // Handle login failure (e.g., show a snackbar or dialog)
+    }
+  }
+
+  void _navigateToWelcome() {
+    if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const PostLoginWelcome()),
+      );
+    }
   }
 }

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ser_manos_mobile/auth/application/auth_service.dart';
 import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
@@ -16,6 +19,8 @@ class LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
+
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,6 @@ class LoginScreenState extends State<LoginScreen> {
                       onChanged: (value) => setState(() {}),
                     ),
                     const SizedBox(height: 16),
-
                     TextField(
                       controller: _passwordController,
                       decoration: InputDecoration(
@@ -52,7 +56,9 @@ class LoginScreenState extends State<LoginScreen> {
                         border: const OutlineInputBorder(),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                            _obscurePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
@@ -72,26 +78,48 @@ class LoginScreenState extends State<LoginScreen> {
             Column(
               children: [
                 UtilFilledButton(
-                    onPressed: (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty)
-                        ? () {
-                          // TODO: login!!!
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const PostLoginWelcome()));
-                        }
+                    onPressed: (_emailController.text.isNotEmpty &&
+                        _passwordController.text.isNotEmpty)
+                        ? _handleLogin
                         : null,
-                    text: AppLocalizations.of(context)!.login
-                ),
+                    text: AppLocalizations.of(context)!.login),
                 const SizedBox(height: 8),
                 UtilTextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SignUpScreen()));
                     },
-                    text: AppLocalizations.of(context)!.noAccount
-                ),
+                    text: AppLocalizations.of(context)!.noAccount),
               ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _handleLogin() async {
+    final user = await _authService.signInWithEmailAndPassword(
+      _emailController.text,
+      _passwordController.text,
+    );
+
+    if (user != null) {
+      _navigateToWelcome();
+    } else {
+      log('Login failed');
+      // Handle login failure (e.g., show a snackbar or dialog)
+    }
+  }
+
+  void _navigateToWelcome() {
+    if (mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const PostLoginWelcome()),
+      );
+    }
   }
 }

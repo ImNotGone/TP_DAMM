@@ -2,18 +2,16 @@ class User {
   String name;
   String lastName;
   String email;
-  String password;
   DateTime? birthDate;
   Gender? gender;
   String? phoneNumber;
-  // String? profilePicture;
+  String? profilePictureURL;
 
 
   User({
     required this.name,
     required this.lastName,
     required this.email,
-    required this.password,
   });
 
   bool isComplete (){

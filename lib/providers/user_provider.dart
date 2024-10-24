@@ -7,7 +7,6 @@ User currentUser = User(
   name: 'Juan',
   lastName: 'Perez',
   email: 'juan@gmail.com',
-  password: '123456',
 );
 
 @riverpod
