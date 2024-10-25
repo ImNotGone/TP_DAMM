@@ -9,7 +9,9 @@ import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/prelogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
 
+import 'home/domain/news.dart';
 import 'home/presentation/home_page.dart';
+import 'home/presentation/news_detail.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +49,13 @@ class MyApp extends StatelessWidget {
         GoRoute(
             path: '/home',
             builder: (context, state) => const HomePage()
+        ),
+        GoRoute(
+          path: '/newsDetail',
+          builder: (context, state) {
+            final news = state.extra as News; // Cast 'extra' to your news type
+            return NewsDetail(news: news);
+          },
         ),
       ]
   );

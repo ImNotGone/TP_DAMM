@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import '../../shared/molecules/buttons/filled.dart';
 import '../domain/news.dart';
 
@@ -13,7 +14,11 @@ class NewsDetail extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.news, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
         centerTitle: true,
-        leading: IconButton(onPressed: ()  => Navigator.pop(context), icon: const Icon(Icons.arrow_back), color: Theme.of(context).colorScheme.onPrimary),
+        leading: IconButton(
+            onPressed: ()  => context.pop(),
+            icon: const Icon(Icons.arrow_back),
+            color: Theme.of(context).colorScheme.onPrimary
+        ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Padding(
