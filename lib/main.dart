@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 // https://docs.flutter.dev/ui/accessibility-and-internationalization/internationalization
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ser_manos_mobile/auth/presentation/login.dart';
+import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/prelogin_welcome.dart';
+import 'package:ser_manos_mobile/auth/presentation/signup.dart';
+
+import 'home/presentation/home_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-      const ProviderScope(
+      ProviderScope(
           child: MyApp()
       )
   );
@@ -17,12 +23,39 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
 
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final GoRouter _router = GoRouter(
+      initialLocation: '/',
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const PreLoginWelcome(),
+        ),
+        GoRoute(
+            path: '/login',
+            builder: (context, state) => const LoginScreen()
+        ),
+        GoRoute(
+            path: '/sign_up',
+            builder: (context, state) => const SignUpScreen()
+        ),
+        GoRoute(
+            path: '/post_login_welcome',
+            builder: (context, state) => const PostLoginWelcome()
+        ),
+        GoRoute(
+            path: '/home',
+            builder: (context, state) => const HomePage()
+        ),
+      ]
+  );
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
         title: 'Ser Manos',
+        routerConfig: _router,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         theme: ThemeData(
@@ -94,6 +127,6 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: const PreLoginWelcome());
+    );
   }
 }

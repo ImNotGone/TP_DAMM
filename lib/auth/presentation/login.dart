@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/auth/application/auth_service.dart';
 import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
+import 'package:ser_manos_mobile/main.dart';
 import 'package:ser_manos_mobile/providers/auth_service_provider.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import '../../shared/molecules/buttons/text.dart';
@@ -48,10 +50,7 @@ class LoginScreen extends HookConsumerWidget {
       );
 
       if (user != null && context.mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const PostLoginWelcome()),
-        );
+        context.go('/post_login_welcome');
       } else {
         log('Login failed');
         // Handle login failure (e.g., show a snackbar or dialog)
@@ -100,11 +99,7 @@ class LoginScreen extends HookConsumerWidget {
                   const SizedBox(height: 8),
                   UtilTextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignUpScreen()),
-                      );
+                      context.go('/sign_up');
                     },
                     text: AppLocalizations.of(context)!.noAccount,
                   ),

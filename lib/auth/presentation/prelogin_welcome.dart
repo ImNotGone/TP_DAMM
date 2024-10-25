@@ -1,5 +1,6 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import '../../shared/molecules/buttons/text.dart';
@@ -30,14 +31,14 @@ class PreLoginWelcome extends StatelessWidget {
               children: [
                 UtilFilledButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
+                      context.go('/login');
                     },
                     text: AppLocalizations.of(context)!.login
                 ),
                 const SizedBox(height: 8),
                 UtilTextButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                      context.go('/sign_up');
                     },
                     text: AppLocalizations.of(context)!.signUp
                 ),
