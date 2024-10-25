@@ -22,7 +22,38 @@ class SignUpScreen extends HookConsumerWidget {
     final passwordController = useTextEditingController();
     final obscurePassword = useState(true);
 
+    // State to track if the button should be enabled or not
+    final isSignUpButtonEnabled = useState(false);
+
     final AuthService authServiceInstance = ref.watch(authServiceProvider);
+
+    // Function to check if all fields are filled
+    void checkFields() {
+      if (nameController.text.isNotEmpty &&
+          lastNameController.text.isNotEmpty &&
+          emailController.text.isNotEmpty &&
+          passwordController.text.isNotEmpty) {
+        isSignUpButtonEnabled.value = true;
+      } else {
+        isSignUpButtonEnabled.value = false;
+      }
+    }
+
+    // Add listeners to each text controller
+    useEffect(() {
+      nameController.addListener(checkFields);
+      lastNameController.addListener(checkFields);
+      emailController.addListener(checkFields);
+      passwordController.addListener(checkFields);
+
+      // Clean up the listeners when the widget is disposed
+      return () {
+        nameController.removeListener(checkFields);
+        lastNameController.removeListener(checkFields);
+        emailController.removeListener(checkFields);
+        passwordController.removeListener(checkFields);
+      };
+    }, []);
 
     Future<void> handleSignup() async {
       final user = await authServiceInstance.signUpWithEmailAndPassword(
@@ -115,10 +146,7 @@ class SignUpScreen extends HookConsumerWidget {
             Column(
               children: [
                 UtilFilledButton(
-                    onPressed: (nameController.text.isNotEmpty &&
-                        lastNameController.text.isNotEmpty &&
-                        emailController.text.isNotEmpty &&
-                        passwordController.text.isNotEmpty)
+                    onPressed: isSignUpButtonEnabled.value
                         ? handleSignup
                         : null,
                     text: AppLocalizations.of(context)!.signUp),
