@@ -2,31 +2,45 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/auth/presentation/login.dart';
 import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
+import 'package:ser_manos_mobile/providers/auth_service_provider.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import '../../shared/molecules/buttons/text.dart';
+import '../application/auth_service.dart';
 
-import 'package:ser_manos_mobile/auth/application/auth_service.dart';
-
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends HookConsumerWidget {
   const SignUpScreen({super.key});
 
   @override
-  SignUpState createState() => SignUpState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final nameController = useTextEditingController();
+    final lastNameController = useTextEditingController();
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final obscurePassword = useState(true);
 
-class SignUpState extends State<SignUpScreen> {
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  bool _obscurePassword = true;
+    final AuthService authServiceInstance = ref.watch(authServiceProvider);
 
-  final AuthService _authService = AuthService();
+    Future<void> handleSignup() async {
+      final user = await authServiceInstance.signUpWithEmailAndPassword(
+        emailController.text,
+        passwordController.text,
+      );
 
-  @override
-  Widget build(BuildContext context) {
+      if (user != null && context.mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const PostLoginWelcome()),
+        );
+      } else {
+        log('Sign-up failed');
+        // Handle sign-up failure (e.g., show a snackbar or dialog)
+      }
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,29 +57,27 @@ class SignUpState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextField(
-                      controller: _nameController,
+                      controller: nameController,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         label: Text(AppLocalizations.of(context)!.name),
                         hintText: AppLocalizations.of(context)!.nameExample,
                         border: const OutlineInputBorder(),
                       ),
-                      onChanged: (value) => setState(() {}),
                     ),
                     const SizedBox(height: 16),
                     TextField(
-                      controller: _lastNameController,
+                      controller: lastNameController,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         label: Text(AppLocalizations.of(context)!.lastName),
                         hintText: AppLocalizations.of(context)!.lastNameExample,
                         border: const OutlineInputBorder(),
                       ),
-                      onChanged: (value) => setState(() {}),
                     ),
                     const SizedBox(height: 16),
                     TextField(
-                      controller: _emailController,
+                      controller: emailController,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         label: Text(AppLocalizations.of(context)!.email),
@@ -73,11 +85,10 @@ class SignUpState extends State<SignUpScreen> {
                         border: const OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.emailAddress,
-                      onChanged: (value) => setState(() {}),
                     ),
                     const SizedBox(height: 16),
                     TextField(
-                      controller: _passwordController,
+                      controller: passwordController,
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         label: Text(AppLocalizations.of(context)!.password),
@@ -85,19 +96,16 @@ class SignUpState extends State<SignUpScreen> {
                         border: const OutlineInputBorder(),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscurePassword
+                            obscurePassword.value
                                 ? Icons.visibility
                                 : Icons.visibility_off,
                           ),
                           onPressed: () {
-                            setState(() {
-                              _obscurePassword = !_obscurePassword;
-                            });
+                            obscurePassword.value = !obscurePassword.value;
                           },
                         ),
                       ),
-                      obscureText: _obscurePassword,
-                      onChanged: (value) => setState(() {}),
+                      obscureText: obscurePassword.value,
                     ),
                   ],
                 ),
@@ -107,20 +115,22 @@ class SignUpState extends State<SignUpScreen> {
             Column(
               children: [
                 UtilFilledButton(
-                    onPressed: (_nameController.text.isNotEmpty &&
-                            _lastNameController.text.isNotEmpty &&
-                            _emailController.text.isNotEmpty &&
-                            _passwordController.text.isNotEmpty)
-                        ? _handleSignup
+                    onPressed: (nameController.text.isNotEmpty &&
+                        lastNameController.text.isNotEmpty &&
+                        emailController.text.isNotEmpty &&
+                        passwordController.text.isNotEmpty)
+                        ? handleSignup
                         : null,
                     text: AppLocalizations.of(context)!.signUp),
                 const SizedBox(height: 8),
                 UtilTextButton(
                   onPressed: () {
                     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    );
                   },
                   text: AppLocalizations.of(context)!.haveAccount,
                 ),
@@ -130,29 +140,5 @@ class SignUpState extends State<SignUpScreen> {
         ),
       ),
     );
-  }
-
-  //TODO: Migrate to router and reutilize logic shared with login
-  Future<void> _handleSignup() async {
-    final user = await _authService.signUpWithEmailAndPassword(
-      _emailController.text,
-      _passwordController.text,
-    );
-
-    if (user != null) {
-      _navigateToWelcome();
-    } else {
-      log('Login failed');
-      // Handle login failure (e.g., show a snackbar or dialog)
-    }
-  }
-
-  void _navigateToWelcome() {
-    if (mounted) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const PostLoginWelcome()),
-      );
-    }
   }
 }
