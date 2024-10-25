@@ -63,10 +63,7 @@ class SignUpScreen extends HookConsumerWidget {
       );
 
       if (user != null && context.mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const PostLoginWelcome()),
-        );
+        context.go('/post_login_welcome');
       } else {
         log('Sign-up failed');
         // Handle sign-up failure (e.g., show a snackbar or dialog)
