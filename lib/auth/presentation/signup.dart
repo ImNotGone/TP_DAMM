@@ -5,12 +5,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ser_manos_mobile/auth/presentation/login.dart';
-import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
-import 'package:ser_manos_mobile/providers/auth_service_provider.dart';
+import 'package:ser_manos_mobile/auth/application/user_service.dart';
+import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
+import '../../providers/user_provider.dart';
 import '../../shared/molecules/buttons/text.dart';
-import '../application/auth_service.dart';
+import '../domain/app_user.dart';
 
 class SignUpScreen extends HookConsumerWidget {
   const SignUpScreen({super.key});
@@ -26,7 +26,7 @@ class SignUpScreen extends HookConsumerWidget {
     // State to track if the button should be enabled or not
     final isSignUpButtonEnabled = useState(false);
 
-    final AuthService authServiceInstance = ref.watch(authServiceProvider);
+    final UserService userService = ref.watch(userServiceProvider);
 
     // Function to check if all fields are filled
     void checkFields() {
@@ -57,13 +57,20 @@ class SignUpScreen extends HookConsumerWidget {
     }, []);
 
     Future<void> handleSignup() async {
-      final user = await authServiceInstance.signUpWithEmailAndPassword(
+      await userService.signUp(
+        nameController.text,
+        lastNameController.text,
         emailController.text,
         passwordController.text,
       );
 
-      if (user != null && context.mounted) {
-        context.go('/post_login_welcome');
+      if (userService.isLoggedIn() && context.mounted) {
+        AppUser? appUser = await userService.getCurrentUser();
+        ref.read(currentUserNotifierProvider.notifier).setUser(appUser);
+
+        if(context.mounted){
+          context.go('/post_login_welcome');
+        }
       } else {
         log('Sign-up failed');
         // Handle sign-up failure (e.g., show a snackbar or dialog)

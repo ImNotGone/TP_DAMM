@@ -1,5 +1,12 @@
-class User {
-  String name;
+import 'package:json_annotation/json_annotation.dart';
+
+part 'app_user.g.dart';
+
+@JsonSerializable()
+class AppUser {
+
+  String uid;
+  String firstName;
   String lastName;
   String email;
   DateTime? birthDate;
@@ -8,8 +15,9 @@ class User {
   String? profilePictureURL;
 
 
-  User({
-    required this.name,
+  AppUser({
+    required this.uid,
+    required this.firstName,
     required this.lastName,
     required this.email,
   });
@@ -18,6 +26,10 @@ class User {
     return
       birthDate != null && email.isNotEmpty && gender != null && phoneNumber != null;
   }
+
+  factory AppUser.fromJson(Map<String, dynamic> json) => _$AppUserFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AppUserToJson(this);
 }
 
 enum Gender{

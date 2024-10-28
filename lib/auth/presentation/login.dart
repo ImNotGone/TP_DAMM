@@ -5,13 +5,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ser_manos_mobile/auth/application/auth_service.dart';
-import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
-import 'package:ser_manos_mobile/auth/presentation/signup.dart';
-import 'package:ser_manos_mobile/main.dart';
-import 'package:ser_manos_mobile/providers/auth_service_provider.dart';
+import 'package:ser_manos_mobile/auth/application/user_service.dart';
+import 'package:ser_manos_mobile/providers/service_providers.dart';
+import 'package:ser_manos_mobile/providers/user_provider.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import '../../shared/molecules/buttons/text.dart';
+import '../domain/app_user.dart';
 
 class LoginScreen extends HookConsumerWidget {
   const LoginScreen({super.key});
@@ -23,7 +22,7 @@ class LoginScreen extends HookConsumerWidget {
     final obscurePassword = useState(true);
     final isButtonEnabled = useState(false);
 
-    final AuthService authServiceInstance = ref.watch(authServiceProvider);
+    final UserService userService = ref.watch(userServiceProvider);
 
     // Enable or disable the login button when text changes
     void updateButtonState() {
@@ -44,13 +43,18 @@ class LoginScreen extends HookConsumerWidget {
     }, []);
 
     Future<void> handleLogin() async {
-      final user = await authServiceInstance.signInWithEmailAndPassword(
+      await userService.signIn(
         emailController.text,
         passwordController.text,
       );
 
-      if (user != null && context.mounted) {
-        context.go('/post_login_welcome');
+      if (userService.isLoggedIn()) {
+        AppUser? appUser = await userService.getCurrentUser();
+        ref.read(currentUserNotifierProvider.notifier).setUser(appUser);
+
+        if(context.mounted) {
+          context.go('/post_login_welcome');
+        }
       } else {
         log('Login failed');
         // Handle login failure (e.g., show a snackbar or dialog)
