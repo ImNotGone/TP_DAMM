@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ser_manos_mobile/providers/user_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ser_manos_mobile/providers/user_provider.dart';
 
 class ProfileScreen extends HookConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentUser = ref.watch(usersProvider);
+    final currentUser = ref.watch(currentUserNotifierProvider);
 
-    return currentUser.isComplete()
+    return currentUser!.isComplete()
         ? const _UserData()
         : _MissingDataScreen(
-            username: currentUser.name,
+            username: currentUser.firstName,
           );
   }
 }
@@ -61,7 +61,7 @@ class _MissingDataScreen extends HookConsumerWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          currentUser.name,
+          username,
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
