@@ -8,21 +8,21 @@ part 'firebase_providers.g.dart';
 
 final FirebaseAuth firebaseAuthInstance = FirebaseAuth.instance;
 
-@riverpod
+@Riverpod(keepAlive: true)
 FirebaseAuth firebaseAuth(ref) {
   return firebaseAuthInstance;
 }
 
 final FirebaseStorage firebaseStorageInstance = FirebaseStorage.instance;
 
-@riverpod
+@Riverpod(keepAlive: true)
 FirebaseStorage firebaseStorage(ref) {
   return firebaseStorageInstance;
 }
 
 final FirebaseFirestore firebaseFirestoreInstance = FirebaseFirestore.instance;
 
-@riverpod
+@Riverpod(keepAlive: true)
 FirebaseFirestore firebaseFirestore(ref) {
   return firebaseFirestoreInstance;
 }

@@ -4,7 +4,7 @@ import '../auth/domain/app_user.dart';
 part 'user_provider.g.dart';
 
 
-@riverpod
+@Riverpod(keepAlive: true)
 class CurrentUserNotifier extends _$CurrentUserNotifier {
   @override
   AppUser? build() {

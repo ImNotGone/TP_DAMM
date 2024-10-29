@@ -8,7 +8,7 @@ import 'firebase_providers.dart';
 
 part 'service_providers.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 UserService userService(ref) {
   FirebaseFirestore firestore = ref.read(firebaseFirestoreProvider);
   FirebaseAuth auth = ref.read(firebaseAuthProvider);

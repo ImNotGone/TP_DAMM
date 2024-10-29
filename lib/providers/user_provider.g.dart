@@ -7,12 +7,12 @@ part of 'user_provider.dart';
 // **************************************************************************
 
 String _$currentUserNotifierHash() =>
-    r'f52b7fa39533ad9284635672815b2a03060c5cfc';
+    r'875d49543357ab50677a9d541e03c2ad73a5c751';
 
 /// See also [CurrentUserNotifier].
 @ProviderFor(CurrentUserNotifier)
 final currentUserNotifierProvider =
-    AutoDisposeNotifierProvider<CurrentUserNotifier, AppUser?>.internal(
+    NotifierProvider<CurrentUserNotifier, AppUser?>.internal(
   CurrentUserNotifier.new,
   name: r'currentUserNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final currentUserNotifierProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$CurrentUserNotifier = AutoDisposeNotifier<AppUser?>;
+typedef _$CurrentUserNotifier = Notifier<AppUser?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
