@@ -38,6 +38,11 @@ class UserRepository {
     return fetchUser(_auth.currentUser!.uid);
   }
 
+  Future<AppUser> updateUser(AppUser user) async {
+    await _firestore.collection('users').doc(user.uid).update(user.toJson());
+    return user;
+  }
+
   Future<User?> signUp(String email, String password) async {
     try {
       final credential =

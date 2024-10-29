@@ -37,4 +37,8 @@ class UserService{
   Future<AppUser?> getCurrentUser() {
     return _userRepository.fetchCurrentUser();
   }
+
+  Future<AppUser> updateUser(AppUser user) async {
+    return await _userRepository.updateUser(user);
+  }
 }
