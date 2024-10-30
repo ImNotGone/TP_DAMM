@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -40,5 +41,9 @@ class UserService{
 
   Future<AppUser> updateUser(AppUser user) async {
     return await _userRepository.updateUser(user);
+  }
+
+  Future<void> uploadProfilePicture(File imageFile) async {
+    return await _userRepository.uploadProfilePicture(imageFile);
   }
 }

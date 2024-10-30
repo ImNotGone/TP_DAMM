@@ -1,13 +1,16 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:ser_manos_mobile/auth/domain/app_user.dart';
 
 class UserRepository {
   final FirebaseFirestore _firestore;
   final FirebaseAuth _auth;
+  final FirebaseStorage _storage;
 
-  UserRepository(this._firestore, this._auth);
+  UserRepository(this._firestore, this._auth, this._storage);
 
   Future<AppUser> createUser(User user, String firstName, String lastName) async {
     final newUser = AppUser(
@@ -42,6 +45,37 @@ class UserRepository {
     await _firestore.collection('users').doc(user.uid).update(user.toJson());
     return user;
   }
+
+  Future<void> uploadProfilePicture(File imageFile) async {
+    try {
+      if (!isLoggedIn) {
+        log('No authenticated user found.');
+        return;
+      }
+      String userId = _auth.currentUser!.uid;
+
+      // Create a storage reference
+      Reference storageRef = _storage.ref().child('profile_pictures/$userId');
+
+      // Upload the file to Firebase Storage
+      UploadTask uploadTask = storageRef.putFile(imageFile);
+      final TaskSnapshot snapshot = await uploadTask;
+
+      // Get the download URL
+      final photoURL = await snapshot.ref.getDownloadURL();
+
+      // Update Firebase Auth profile photo URL
+      await _auth.currentUser?.updatePhotoURL(photoURL);
+
+      // Update Firestore user document with the profile picture URL
+      await _firestore.collection('users').doc(userId).update({
+        'profilePictureURL': photoURL,
+      });
+    } catch (e) {
+      log('Error uploading profile picture: $e');
+    }
+  }
+
 
   Future<User?> signUp(String email, String password) async {
     try {

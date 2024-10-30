@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,6 +28,9 @@ class ProfileEditScreen extends HookConsumerWidget {
     final selectedGender = useState<Gender?>(user?.gender);
     final profilePictureUrl = useState<String?>(user?.profilePictureURL);
 
+    final ImagePicker picker = ImagePicker();
+
+
     Future<void> selectDate(BuildContext context) async {
       final DateTime? pickedDate = await showDatePicker(
         context: context,
@@ -39,9 +45,14 @@ class ProfileEditScreen extends HookConsumerWidget {
     }
 
     Future<void> pickImage() async {
-      final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (pickedImage != null) {
-        profilePictureUrl.value = pickedImage.path;
+      try {
+        final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+        if (pickedFile != null) {
+          File imageFile = File(pickedFile.path);
+          userService.uploadProfilePicture(imageFile);
+        }
+      } catch (e) {
+        log('Error picking image: $e');
       }
     }
 

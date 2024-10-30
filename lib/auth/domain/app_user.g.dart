@@ -11,13 +11,13 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser(
       firstName: json['firstName'] as String,
       lastName: json['lastName'] as String,
       email: json['email'] as String,
-    )
-      ..birthDate = json['birthDate'] == null
+      birthDate: json['birthDate'] == null
           ? null
-          : DateTime.parse(json['birthDate'] as String)
-      ..gender = $enumDecodeNullable(_$GenderEnumMap, json['gender'])
-      ..phoneNumber = json['phoneNumber'] as String?
-      ..profilePictureURL = json['profilePictureURL'] as String?;
+          : DateTime.parse(json['birthDate'] as String),
+      gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
+      phoneNumber: json['phoneNumber'] as String?,
+      profilePictureURL: json['profilePictureURL'] as String?,
+    );
 
 Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
       'uid': instance.uid,
