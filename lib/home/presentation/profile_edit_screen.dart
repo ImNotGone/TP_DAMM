@@ -6,6 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ser_manos_mobile/home/presentation/info_card.dart';
 import '../../auth/domain/app_user.dart';
 import '../../providers/service_providers.dart';
 import '../../providers/user_provider.dart';
@@ -102,31 +103,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                 readOnly: true,
               ),
               const SizedBox(height: 16.0),
-              const Text('Información de perfil', style: TextStyle(fontWeight: FontWeight.bold)),
-              RadioListTile<Gender>(
-                title: const Text('Hombre'),
-                value: Gender.male,
-                groupValue: selectedGender.value,
-                onChanged: (Gender? value) {
-                  selectedGender.value = value;
-                },
-              ),
-              RadioListTile<Gender>(
-                title: const Text('Mujer'),
-                value: Gender.female,
-                groupValue: selectedGender.value,
-                onChanged: (Gender? value) {
-                  selectedGender.value = value;
-                },
-              ),
-              RadioListTile<Gender>(
-                title: const Text('No binario'),
-                value: Gender.nonBinary,
-                groupValue: selectedGender.value,
-                onChanged: (Gender? value) {
-                  selectedGender.value = value;
-                },
-              ),
+              const ProfileInfoCard(),
               const SizedBox(height: 16.0),
               const Text('Foto de perfil', style: TextStyle(fontWeight: FontWeight.bold)),
               ElevatedButton(
