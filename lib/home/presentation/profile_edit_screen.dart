@@ -49,7 +49,9 @@ class ProfileEditScreen extends HookConsumerWidget {
         final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
         if (pickedFile != null) {
           File imageFile = File(pickedFile.path);
-          userService.uploadProfilePicture(imageFile);
+          String? photoURL = await userService.uploadProfilePicture(imageFile);
+          AppUser? updatedUser = user?.copyWith(profilePictureURL: photoURL);
+          ref.read(currentUserNotifierProvider.notifier).setUser(updatedUser);
         }
       } catch (e) {
         log('Error picking image: $e');

@@ -46,11 +46,11 @@ class UserRepository {
     return user;
   }
 
-  Future<void> uploadProfilePicture(File imageFile) async {
+  Future<String?> uploadProfilePicture(File imageFile) async {
     try {
       if (!isLoggedIn) {
         log('No authenticated user found.');
-        return;
+        return null;
       }
       String userId = _auth.currentUser!.uid;
 
@@ -71,9 +71,11 @@ class UserRepository {
       await _firestore.collection('users').doc(userId).update({
         'profilePictureURL': photoURL,
       });
+      return photoURL;
     } catch (e) {
       log('Error uploading profile picture: $e');
     }
+    return null;
   }
 
 

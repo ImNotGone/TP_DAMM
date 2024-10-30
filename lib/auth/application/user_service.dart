@@ -43,7 +43,7 @@ class UserService{
     return await _userRepository.updateUser(user);
   }
 
-  Future<void> uploadProfilePicture(File imageFile) async {
+  Future<String?> uploadProfilePicture(File imageFile) async {
     return await _userRepository.uploadProfilePicture(imageFile);
   }
 }
