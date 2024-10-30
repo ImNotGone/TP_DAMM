@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'news.g.dart';
+
+@JsonSerializable(createToJson: false)
 class News {
   String imageUrl;
   String title;
@@ -12,4 +17,6 @@ class News {
     required this.subtitle,
     required this.content
   });
+
+  factory News.fromJson(Map<String, dynamic> json) => _$NewsFromJson(json);
 }
