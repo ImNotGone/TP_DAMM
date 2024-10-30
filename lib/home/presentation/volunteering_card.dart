@@ -37,7 +37,7 @@ class VolunteeringCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                    volunteering.type,
+                    volunteering.type.localizedName(context),
                     style: Theme.of(context).textTheme.labelSmall
                 ),
                 const SizedBox(height: 4),
