@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'app_user.g.dart';
 
@@ -62,5 +64,16 @@ class AppUser {
 enum Gender{
   male,
   female,
-  nonBinary
+  nonBinary;
+
+  String localizedName(BuildContext context) {
+    switch (this) {
+      case Gender.male:
+        return AppLocalizations.of(context)!.male;
+      case Gender.female:
+        return AppLocalizations.of(context)!.female;
+      case Gender.nonBinary:
+        return AppLocalizations.of(context)!.nonBinary;
+    }
+  }
 }
