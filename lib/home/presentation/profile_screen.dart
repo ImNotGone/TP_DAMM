@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ser_manos_mobile/home/presentation/profile_edit_screen.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
 
 class ProfileScreen extends HookConsumerWidget {
@@ -78,7 +79,9 @@ class _MissingDataScreen extends HookConsumerWidget {
         const SizedBox(height: 80),
         ElevatedButton.icon(
           onPressed: () {
-            // Add your profile completion logic here
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const ProfileEditScreen();
+            }));
           },
           icon: const Icon(Icons.add),
           label: Text(AppLocalizations.of(context)!.complete),
