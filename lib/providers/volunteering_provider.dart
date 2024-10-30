@@ -7,7 +7,7 @@ List<Volunteering> allVolunteerings = [
 Volunteering(
   imageUrl: 'https://via.placeholder.com/400x200',
   title: 'Un Techo Para mi País',
-  type: 'ACCIÓN SOCIAL',
+  type: VolunteeringType.socialAction,
   purpose: '',
   activitiesDetail: '',
   address: '',
@@ -18,7 +18,7 @@ vacancies: 10
 Volunteering(
   imageUrl: 'https://via.placeholder.com/400x200',
   title: 'Manos caritativas',
-  type: 'ACCIÓN SOCIAL',
+  type: VolunteeringType.socialAction,
   purpose: '',
   activitiesDetail: '',
   address: '',
@@ -29,7 +29,7 @@ Volunteering(
 Volunteering(
   imageUrl: 'https://via.placeholder.com/400x200',
   title: 'Asociacion Conciencia',
-  type: 'ACCIÓN SOCIAL',
+  type: VolunteeringType.socialAction,
   purpose: '',
   activitiesDetail: '',
   address: '',
