@@ -4,6 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/home/presentation/profile_edit_screen.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
 
+import '../../auth/domain/app_user.dart';
+
 class ProfileScreen extends HookConsumerWidget {
   const ProfileScreen({super.key});
 
@@ -13,9 +15,7 @@ class ProfileScreen extends HookConsumerWidget {
 
     return currentUser!.isComplete()
         ? const _UserData()
-        : _MissingDataScreen(
-            username: currentUser.firstName,
-          );
+        : _MissingDataScreen(currentUser);
   }
 }
 
@@ -33,9 +33,9 @@ class _UserData extends HookConsumerWidget {
 }
 
 class _MissingDataScreen extends HookConsumerWidget {
-  final String username;
+  const _MissingDataScreen(this.currentUser);
 
-  const _MissingDataScreen({required this.username});
+  final AppUser currentUser;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,67 +43,81 @@ class _MissingDataScreen extends HookConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CircleAvatar(
-          radius: 50,
-          backgroundColor: Colors.blue[100],
-          child: Icon(
-            Icons.person,
-            size: 50,
-            color: Theme.of(context).colorScheme.primary,
+      CircleAvatar(
+      radius: 50,
+      backgroundColor: Colors.blue[100],
+      child: currentUser.profilePictureURL == null
+          ? Icon(
+        Icons.person,
+        size: 50,
+        color: Theme
+            .of(context)
+            .colorScheme
+            .primary,
+      )
+          : Image.network(
+        currentUser.profilePictureURL!,
+        fit: BoxFit.cover,
+      ),
+      ),
+      const SizedBox(height: 20),
+      Text(
+        AppLocalizations.of(context)!.volunteer.toUpperCase(),
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          letterSpacing: 2,
+        ),
+      ),
+      const SizedBox(height: 10),
+      Text(
+        currentUser.firstName,
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      const SizedBox(height: 10),
+      Text(
+        AppLocalizations.of(context)!.completeProfile,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.grey[700],
+        ),
+      ),
+      const SizedBox(height: 80),
+      ElevatedButton.icon(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const ProfileEditScreen();
+          }));
+        },
+        icon: const Icon(Icons.add),
+        label: Text(AppLocalizations.of(context)!.complete),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme
+              .of(context)
+              .colorScheme
+              .secondary,
+          foregroundColor: Theme
+              .of(context)
+              .colorScheme
+              .onSecondary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
-        const SizedBox(height: 20),
-        Text(
-          AppLocalizations.of(context)!.volunteer.toUpperCase(),
+      ),
+      TextButton(
+        onPressed: () {
+          // Add your logout logic here
+        },
+        child: Text(
+          AppLocalizations.of(context)!.signOut,
           style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2,
+            color: Colors.red,
           ),
         ),
-        const SizedBox(height: 10),
-        Text(
-          username,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 10),
-        Text(
-          AppLocalizations.of(context)!.completeProfile,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.grey[700],
-          ),
-        ),
-        const SizedBox(height: 80),
-        ElevatedButton.icon(
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) {
-              return const ProfileEditScreen();
-            }));
-          },
-          icon: const Icon(Icons.add),
-          label: Text(AppLocalizations.of(context)!.complete),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            foregroundColor: Theme.of(context).colorScheme.onSecondary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        ),
-        TextButton(
-          onPressed: () {
-            // Add your logout logic here
-          },
-          child: Text(
-            AppLocalizations.of(context)!.signOut,
-            style: const TextStyle(
-              color: Colors.red,
-            ),
-          ),
-        ),
+      ),
       ],
     ));
   }
