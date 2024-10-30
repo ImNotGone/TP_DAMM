@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/home/presentation/profile_edit_screen.dart';
+import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
 
-import '../../auth/domain/app_user.dart';
 
 class ProfileScreen extends HookConsumerWidget {
   const ProfileScreen({super.key});
@@ -15,7 +15,7 @@ class ProfileScreen extends HookConsumerWidget {
 
     return currentUser!.isComplete()
         ? const _UserData()
-        : _MissingDataScreen(currentUser);
+        : const _MissingDataScreen();
   }
 }
 
@@ -33,12 +33,19 @@ class _UserData extends HookConsumerWidget {
 }
 
 class _MissingDataScreen extends HookConsumerWidget {
-  const _MissingDataScreen(this.currentUser);
-
-  final AppUser currentUser;
+  const _MissingDataScreen();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final currentUser = ref.watch(currentUserNotifierProvider);
+    final userService = ref.read(userServiceProvider);
+
+    void signOut() {
+      userService.signOut();
+      ref.read(currentUserNotifierProvider.notifier).clearUser();
+      //TODO: return to login screen
+    }
+
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +54,7 @@ class _MissingDataScreen extends HookConsumerWidget {
         CircleAvatar(
           radius: 50,
           backgroundColor: Colors.blue[100],
-          child: currentUser.profilePictureURL == null
+          child: currentUser?.profilePictureURL == null
               ? Icon(
                   Icons.person,
                   size: 50,
@@ -55,7 +62,7 @@ class _MissingDataScreen extends HookConsumerWidget {
                 )
               : ClipOval(
                   child: Image.network(
-                    currentUser.profilePictureURL!,
+                    currentUser!.profilePictureURL!,
                     fit: BoxFit.cover,
                     width: 100,
                     height: 100,
@@ -72,7 +79,7 @@ class _MissingDataScreen extends HookConsumerWidget {
         ),
         const SizedBox(height: 10),
         Text(
-          currentUser.firstName,
+          currentUser!.firstName,
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -105,7 +112,7 @@ class _MissingDataScreen extends HookConsumerWidget {
         ),
         TextButton(
           onPressed: () {
-            // Add your logout logic here
+            signOut();
           },
           child: Text(
             AppLocalizations.of(context)!.signOut,
