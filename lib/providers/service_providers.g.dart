@@ -22,5 +22,23 @@ final userServiceProvider = Provider<UserService>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef UserServiceRef = ProviderRef<UserService>;
+String _$volunteeringServiceHash() =>
+    r'0948994dd733f69fad562729f48a82ff9fb4dcd9';
+
+/// See also [volunteeringService].
+@ProviderFor(volunteeringService)
+final volunteeringServiceProvider = Provider<VolunteeringService>.internal(
+  volunteeringService,
+  name: r'volunteeringServiceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$volunteeringServiceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef VolunteeringServiceRef = ProviderRef<VolunteeringService>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -11,7 +11,7 @@ Volunteering _$VolunteeringFromJson(Map<String, dynamic> json) => Volunteering(
       title: json['title'] as String,
       type: $enumDecode(_$VolunteeringTypeEnumMap, json['type']),
       purpose: json['purpose'] as String,
-      activitiesDetail: json['activitiesDetail'] as String,
+      activityDetail: json['activityDetail'] as String,
       address: json['address'] as String,
       requirements: json['requirements'] as String,
       creationDate: DateTime.parse(json['creationDate'] as String),

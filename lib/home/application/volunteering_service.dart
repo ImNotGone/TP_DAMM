@@ -6,7 +6,12 @@ class VolunteeringService{
 
   VolunteeringService(this._volunteeringRepository);
 
-  Future<List<Volunteering>> fetchVolunteering() async {
-    return _volunteeringRepository.fetchVolunteering();
+  Future<List<Volunteering>> fetchVolunteerings() async {
+    return _volunteeringRepository.fetchVolunteerings();
   }
+
+  // TODO: uncomment this method to upload volunteerings
+  // void uploadVolunteerings() {
+  //   _volunteeringRepository.uploadVolunteerings();
+  // }
 }

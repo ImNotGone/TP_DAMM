@@ -6,6 +6,7 @@ import 'package:ser_manos_mobile/home/presentation/volunteering_card.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 import 'package:ser_manos_mobile/shared/molecules/components/no_volunteering.dart';
 
+import '../../providers/service_providers.dart';
 import 'map.dart';
 
 class HomeScreen extends HookConsumerWidget {
@@ -19,11 +20,33 @@ class HomeScreen extends HookConsumerWidget {
       showMap.value = !showMap.value;
     }
 
-    final allVolunteerings = ref.watch(volunteeringsProvider);
+    final volunteeringsNotifier =
+        ref.read(volunteeringsNotifierProvider.notifier);
+    final volunteeringService = ref.read(volunteeringServiceProvider);
+
+    useEffect(() {
+      // TODO: uncomment this line to upload volunteerings
+      // volunteeringService.uploadVolunteerings();
+
+      // Fetch volunteerings when the widget is built
+      volunteeringService.fetchVolunteerings().then((volunteerings) {
+        volunteeringsNotifier.setVolunteerings(volunteerings);
+      });
+      return null;
+    }, []);
+
+    final allVolunteerings = ref.watch(volunteeringsNotifierProvider);
+
+    Future<void> refreshVolunteerings() async {
+      final newVolunteerings = await volunteeringService.fetchVolunteerings();
+      volunteeringsNotifier.setVolunteerings(newVolunteerings);
+    }
 
     return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           _SearchBar(onMapButtonPressed: toggleMap),
           const Padding(padding: EdgeInsets.all(8.0)),
           Expanded(
@@ -32,28 +55,32 @@ class HomeScreen extends HookConsumerWidget {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                        Text(
-                            AppLocalizations.of(context)!.volunteering,
-                            style: Theme.of(context).textTheme.headlineLarge
-                        ),
-                        const SizedBox(height: 8),
-                        allVolunteerings.isEmpty
-                            ? const NoVolunteering()
-                            : Expanded(
-                                child: ListView.builder(
+                      Text(
+                        AppLocalizations.of(context)!.volunteering,
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                      const SizedBox(height: 8),
+                      Expanded(
+                        child: RefreshIndicator(
+                          onRefresh: refreshVolunteerings,
+                          child: allVolunteerings == null ||
+                                  allVolunteerings.isEmpty
+                              ? const NoVolunteering()
+                              : ListView.builder(
                                   itemCount: allVolunteerings.length,
                                   itemBuilder: (context, index) {
                                     return VolunteeringCard(
-                                        volunteering: allVolunteerings[index]
+                                      volunteering: allVolunteerings[index],
                                     );
-                                    },
-                                )
-                            )
-                    ]
-            ),
-          )
-        ]
-      )
+                                  },
+                                ),
+                        ),
+                      ),
+                    ],
+                  ),
+          ),
+        ],
+      ),
     );
   }
 }

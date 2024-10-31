@@ -3,43 +3,18 @@ import 'package:ser_manos_mobile/home/domain/volunteering.dart';
 
 part 'volunteering_provider.g.dart';
 
-List<Volunteering> allVolunteerings = [
-Volunteering(
-  imageUrl: 'https://via.placeholder.com/400x200',
-  title: 'Un Techo Para mi País',
-  type: VolunteeringType.socialAction,
-  purpose: '',
-  activitiesDetail: '',
-  address: '',
-  requirements: '',
-  creationDate: DateTime.now(),
-vacancies: 10
-),
-Volunteering(
-  imageUrl: 'https://via.placeholder.com/400x200',
-  title: 'Manos caritativas',
-  type: VolunteeringType.socialAction,
-  purpose: '',
-  activitiesDetail: '',
-  address: '',
-  requirements: '',
-  creationDate: DateTime.now(),
-  vacancies: 10
-),
-Volunteering(
-  imageUrl: 'https://via.placeholder.com/400x200',
-  title: 'Asociacion Conciencia',
-  type: VolunteeringType.socialAction,
-  purpose: '',
-  activitiesDetail: '',
-  address: '',
-  requirements: '',
-  creationDate: DateTime.now(),
-  vacancies: 10
-),
-];
+@Riverpod(keepAlive: true)
+class VolunteeringsNotifier extends _$VolunteeringsNotifier {
+  @override
+  List<Volunteering>? build() {
+    return null;
+  }
 
-@riverpod
-List<Volunteering> volunteerings(ref) {
-  return allVolunteerings;
+  void setVolunteerings(List<Volunteering> volunteerings) {
+    state = volunteerings;
+  }
+
+  void clearVolunteerings() {
+    state = null;
+  }
 }

@@ -10,7 +10,7 @@ class Volunteering {
   String title;
   VolunteeringType type;
   String purpose;
-  String activitiesDetail;
+  String activityDetail;
 
   // TODO: ubicacion en coordenadas? dos float?
   // Coordenates
@@ -26,7 +26,7 @@ class Volunteering {
       required this.title,
       required this.type,
       required this.purpose,
-      required this.activitiesDetail,
+      required this.activityDetail,
       required this.address,
       required this.requirements,
       required this.creationDate,
@@ -34,6 +34,8 @@ class Volunteering {
 
   factory Volunteering.fromJson(Map<String, dynamic> json) =>
       _$VolunteeringFromJson(json);
+
+  // Map<String, dynamic> toJson() => _$VolunteeringToJson(this);
 }
 
 enum VolunteeringType {

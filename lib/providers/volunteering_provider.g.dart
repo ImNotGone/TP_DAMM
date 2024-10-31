@@ -6,22 +6,22 @@ part of 'volunteering_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$volunteeringsHash() => r'762e5f2d26244e80b949d641b630431f6ac8f45b';
+String _$volunteeringsNotifierHash() =>
+    r'116a96c049beff716bf7a05be385dd00cac22efe';
 
-/// See also [volunteerings].
-@ProviderFor(volunteerings)
-final volunteeringsProvider = AutoDisposeProvider<List<Volunteering>>.internal(
-  volunteerings,
-  name: r'volunteeringsProvider',
+/// See also [VolunteeringsNotifier].
+@ProviderFor(VolunteeringsNotifier)
+final volunteeringsNotifierProvider =
+    NotifierProvider<VolunteeringsNotifier, List<Volunteering>?>.internal(
+  VolunteeringsNotifier.new,
+  name: r'volunteeringsNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$volunteeringsHash,
+      : _$volunteeringsNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef VolunteeringsRef = AutoDisposeProviderRef<List<Volunteering>>;
+typedef _$VolunteeringsNotifier = Notifier<List<Volunteering>?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
