@@ -20,27 +20,25 @@ class HomeScreen extends HookConsumerWidget {
       showMap.value = !showMap.value;
     }
 
-    final volunteeringsNotifier =
-        ref.read(volunteeringsNotifierProvider.notifier);
+    final volunteeringsNotifier = ref.read(volunteeringsNotifierProvider.notifier);
     final volunteeringService = ref.read(volunteeringServiceProvider);
+    final allVolunteerings = ref.watch(volunteeringsNotifierProvider);
+
+    Future<void> refreshVolunteerings() async {
+      await volunteeringService.fetchVolunteerings().then((volunteerings) {
+        volunteerings.sort((a, b) => b.creationDate.compareTo(a.creationDate));
+        volunteeringsNotifier.setVolunteerings(volunteerings);
+      });
+    }
 
     useEffect(() {
       // TODO: uncomment this line to upload volunteerings
       // volunteeringService.uploadVolunteerings();
 
       // Fetch volunteerings when the widget is built
-      volunteeringService.fetchVolunteerings().then((volunteerings) {
-        volunteeringsNotifier.setVolunteerings(volunteerings);
-      });
+      refreshVolunteerings();
       return null;
     }, []);
-
-    final allVolunteerings = ref.watch(volunteeringsNotifierProvider);
-
-    Future<void> refreshVolunteerings() async {
-      final newVolunteerings = await volunteeringService.fetchVolunteerings();
-      volunteeringsNotifier.setVolunteerings(newVolunteerings);
-    }
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
