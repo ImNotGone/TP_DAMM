@@ -36,6 +36,7 @@
   "socialAction": "Social Action",
   "activityDetailsTitle": "About the activity",
   "location": "Location",
+  "address": "address",
   "participateInVolunteering": "Participate in the volunteering",
   "applyForVolunteering": "Apply"
 }
