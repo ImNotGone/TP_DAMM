@@ -33,5 +33,9 @@
   "noVolunteering":"Actualmente no hay voluntariados vigentes. Pronto se irán incorporando nuevos",
   "completeProfile": "Complete your profile to access better opportunities!",
   "complete": "Complete",
-  "socialAction": "Social Action"
+  "socialAction": "Social Action",
+  "activityDetailsTitle": "About the activity",
+  "location": "Location",
+  "participateInVolunteering": "Participate in the volunteering",
+  "applyForVolunteering": "Apply"
 }

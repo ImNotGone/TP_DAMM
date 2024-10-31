@@ -12,6 +12,7 @@ import 'package:ser_manos_mobile/auth/presentation/signup.dart';
 import 'home/domain/news.dart';
 import 'home/presentation/home_page.dart';
 import 'home/presentation/news_detail.dart';
+import 'home/presentation/volunteering_detail.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,6 +56,13 @@ class MyApp extends StatelessWidget {
           builder: (context, state) {
             final news = state.extra as News; // Cast 'extra' to your news type
             return NewsDetail(news: news);
+          },
+        ),
+        GoRoute(
+          path: '/volunteering/:id',
+          builder: (context, state) {
+            final volunteeringId = state.extra as String;
+            return VolunteeringDetail(volunteeringId: volunteeringId);
           },
         ),
       ]
