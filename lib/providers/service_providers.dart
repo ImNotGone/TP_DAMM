@@ -7,6 +7,8 @@ import 'package:ser_manos_mobile/auth/data/user_repository.dart';
 import 'package:ser_manos_mobile/home/application/volunteering_service.dart';
 import 'package:ser_manos_mobile/home/data/volunteering_repository.dart';
 
+import '../home/application/news_service.dart';
+import '../home/data/news_repository.dart';
 import 'firebase_providers.dart';
 
 part 'service_providers.g.dart';
@@ -29,5 +31,13 @@ VolunteeringService volunteeringService(ref) {
   VolunteeringRepository volunteeringRepository = VolunteeringRepository(firestore);
   final VolunteeringService volunteeringServiceInstance = VolunteeringService(volunteeringRepository);
   return volunteeringServiceInstance;
+}
+
+@Riverpod(keepAlive: true)
+NewsService newsService(ref) {
+  FirebaseFirestore firestore = ref.read(firebaseFirestoreProvider);
+  final NewsRepository newsRepository = NewsRepository(firestore);
+  final NewsService newsServiceInstance = NewsService(newsRepository);
+  return newsServiceInstance;
 }
 

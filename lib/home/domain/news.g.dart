@@ -12,4 +12,5 @@ News _$NewsFromJson(Map<String, dynamic> json) => News(
       paper: json['paper'] as String,
       subtitle: json['subtitle'] as String,
       content: json['content'] as String,
+      creationDate: DateTime.parse(json['creationDate'] as String),
     );
