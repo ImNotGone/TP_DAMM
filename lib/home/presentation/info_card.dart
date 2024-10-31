@@ -13,7 +13,7 @@ class ProfileInfoCardState extends State<ProfileInfoCard> {
 
   @override
   Widget build(BuildContext context) {
-    return TitleCard(
+    return CustomCard(
       title: AppLocalizations.of(context)!.profileInfo,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,27 +27,31 @@ class ProfileInfoCardState extends State<ProfileInfoCard> {
   }
 
   Widget _buildRadioButton(BuildContext context, {required String label}) {
-    return RadioListTile<String>(
-          title: Text(label, style: Theme.of(context).textTheme.bodyLarge,),
-          value: label,
-          groupValue: selectedGender,
-          onChanged: (value) {
-            setState(() {
-              selectedGender = value;
-            });
+    return
+      RadioListTile<String>(
+        title: Text(label, style: Theme.of(context).textTheme.bodyLarge,),
+        value: label,
+        groupValue: selectedGender,
+        onChanged: (value) {
+          setState(() {
+            selectedGender = value;
+          });
           },
-          contentPadding: EdgeInsets.zero,
-        );
+        dense: true,
+        activeColor: Colors.green,
+        hoverColor: Colors.green,
+        contentPadding: EdgeInsets.zero,
+      );
   }
 }
 
 
 
-class TitleCard extends StatelessWidget {
+class CustomCard extends StatelessWidget {
   final String title;
   final Widget child;
 
-  const TitleCard({
+  const CustomCard({
     super.key,
     required this.title,
     required this.child,
@@ -60,24 +64,26 @@ class TitleCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            color: const Color(0xFFCAE5FB),
-            child: SizedBox(
-              height: 40,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Text(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            decoration: const BoxDecoration(
+              color: Color(0xFFCAE5FB),
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(4)
+              )
+            ),
+            child:  Text(
                     title,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
-              ),
-            ),
-          ),
-          child,
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: child,
+          )
         ],
       ),
     );
