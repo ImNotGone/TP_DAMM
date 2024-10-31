@@ -15,6 +15,8 @@ class HomeScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final showMap = useState(false);
+    final searchController = useTextEditingController();
+    final searchQuery = useState('');
 
     void toggleMap() {
       showMap.value = !showMap.value;
@@ -40,42 +42,51 @@ class HomeScreen extends HookConsumerWidget {
       return null;
     }, []);
 
+    final filteredVolunteerings = allVolunteerings?.where((volunteering) {
+      return volunteering.title.toLowerCase().contains(searchQuery.value.toLowerCase());
+    }).toList();
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _SearchBar(onMapButtonPressed: toggleMap),
+          _SearchBar(
+            onMapButtonPressed: toggleMap,
+            searchController: searchController,
+            onSearchChanged: (query) {
+              searchQuery.value = query;
+            },
+          ),
           const Padding(padding: EdgeInsets.all(8.0)),
           Expanded(
             child: showMap.value
                 ? const Map()
                 : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.volunteering,
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
-                      const SizedBox(height: 8),
-                      Expanded(
-                        child: RefreshIndicator(
-                          onRefresh: refreshVolunteerings,
-                          child: allVolunteerings == null ||
-                                  allVolunteerings.isEmpty
-                              ? const NoVolunteering()
-                              : ListView.builder(
-                                  itemCount: allVolunteerings.length,
-                                  itemBuilder: (context, index) {
-                                    return VolunteeringCard(
-                                      volunteering: allVolunteerings[index],
-                                    );
-                                  },
-                                ),
-                        ),
-                      ),
-                    ],
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.volunteering,
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const SizedBox(height: 8),
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: refreshVolunteerings,
+                    child: filteredVolunteerings == null || filteredVolunteerings.isEmpty
+                        ? const NoVolunteering()
+                        : ListView.builder(
+                      itemCount: filteredVolunteerings.length,
+                      itemBuilder: (context, index) {
+                        return VolunteeringCard(
+                          volunteering: filteredVolunteerings[index],
+                        );
+                      },
+                    ),
                   ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -85,8 +96,14 @@ class HomeScreen extends HookConsumerWidget {
 
 class _SearchBar extends HookWidget {
   final VoidCallback onMapButtonPressed;
+  final TextEditingController searchController;
+  final ValueChanged<String> onSearchChanged;
 
-  const _SearchBar({required this.onMapButtonPressed});
+  const _SearchBar({
+    required this.onMapButtonPressed,
+    required this.searchController,
+    required this.onSearchChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -117,14 +134,15 @@ class _SearchBar extends HookWidget {
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
+              controller: searchController,
               decoration: InputDecoration(
-                hintText: (AppLocalizations.of(context)!.search),
+                hintText: AppLocalizations.of(context)!.search,
                 border: InputBorder.none,
               ),
+              onChanged: onSearchChanged,
             ),
           ),
           IconButton(
-            // TODO: check if color can come from theme
             icon: showMapIcon.value
                 ? const Icon(Icons.map, color: Colors.green)
                 : const Icon(Icons.menu, color: Colors.green),
