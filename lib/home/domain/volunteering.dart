@@ -6,6 +6,7 @@ part 'volunteering.g.dart';
 
 @JsonSerializable(createToJson: false)
 class Volunteering {
+  String uid;
   String imageUrl;
   String title;
   VolunteeringType type;
@@ -22,7 +23,8 @@ class Volunteering {
   int vacancies;
 
   Volunteering(
-      {required this.imageUrl,
+      {required this.uid,
+      required this.imageUrl,
       required this.title,
       required this.type,
       required this.purpose,
@@ -35,7 +37,7 @@ class Volunteering {
   factory Volunteering.fromJson(Map<String, dynamic> json) =>
       _$VolunteeringFromJson(json);
 
-  // Map<String, dynamic> toJson() => _$VolunteeringToJson(this);
+// Map<String, dynamic> toJson() => _$VolunteeringToJson(this);
 }
 
 enum VolunteeringType {

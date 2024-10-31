@@ -7,6 +7,7 @@ part of 'volunteering.dart';
 // **************************************************************************
 
 Volunteering _$VolunteeringFromJson(Map<String, dynamic> json) => Volunteering(
+      uid: json['uid'] as String,
       imageUrl: json['imageUrl'] as String,
       title: json['title'] as String,
       type: $enumDecode(_$VolunteeringTypeEnumMap, json['type']),
