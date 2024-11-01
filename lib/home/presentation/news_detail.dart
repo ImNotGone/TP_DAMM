@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ser_manos_mobile/providers/news_provider.dart';
 import '../../shared/molecules/buttons/filled.dart';
 import '../domain/news.dart';
 
-class NewsDetail extends StatelessWidget {
-  final News news;
-  const NewsDetail({super.key, required this.news});
+class NewsDetail extends HookConsumerWidget {
+  final String newsId;
+
+  const NewsDetail({super.key, required this.newsId});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final News? news = ref.read(newsNotifierProvider)?.firstWhere((news) => news.uid == newsId);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.news, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
@@ -22,10 +27,10 @@ class NewsDetail extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: ListView(
             children: [
-              Text(news.paper, style: Theme.of(context).textTheme.labelSmall,),
+              Text(news!.paper, style: Theme.of(context).textTheme.labelSmall,),
               Text(news.title, style: Theme.of(context).textTheme.headlineMedium,),
               const SizedBox(height: 16.0),
               SizedBox(
@@ -41,19 +46,18 @@ class NewsDetail extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               Text(news.subtitle, style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: Theme.of(context).colorScheme.primary
+                  color: Theme.of(context).colorScheme.primary
               ),),
               const SizedBox(height: 16.0),
               Text(news.content, style: Theme.of(context).textTheme.bodyLarge,),
               const SizedBox(height: 16.0),
-              // TODO: En las que no tienen content los botones deberian ir al fondo???
               Padding(padding: const EdgeInsets.all(4.0),
                 child: Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    AppLocalizations.of(context)!.shareThisNote,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  )
+                    alignment: Alignment.center,
+                    child: Text(
+                      AppLocalizations.of(context)!.shareThisNote,
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    )
                 ),
               ),
               UtilFilledButton(
@@ -66,4 +70,5 @@ class NewsDetail extends StatelessWidget {
           )
       ),
     );
-  }}
+  }
+}
