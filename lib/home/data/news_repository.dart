@@ -10,7 +10,9 @@ class NewsRepository{
     final newsJson = await _firestore.collection('news').get();
     List<News> news = [];
     for (var newsDoc in newsJson.docs) {
-      news.add(News.fromJson(newsDoc.data()));
+      final data = newsDoc.data();
+      data['uid'] = newsDoc.id;
+      news.add(News.fromJson(data));
     }
     return news;
   }

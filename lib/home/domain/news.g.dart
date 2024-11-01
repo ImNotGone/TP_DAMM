@@ -7,6 +7,7 @@ part of 'news.dart';
 // **************************************************************************
 
 News _$NewsFromJson(Map<String, dynamic> json) => News(
+      uid: json['uid'] as String,
       imageUrl: json['imageUrl'] as String,
       title: json['title'] as String,
       paper: json['paper'] as String,

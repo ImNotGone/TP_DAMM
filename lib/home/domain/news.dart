@@ -4,6 +4,7 @@ part 'news.g.dart';
 
 @JsonSerializable(createToJson: false)
 class News {
+  String uid;
   String imageUrl;
   String title;
   String paper;
@@ -12,6 +13,7 @@ class News {
   DateTime creationDate;
 
   News({
+    required this.uid,
     required this.imageUrl,
     required this.title,
     required this.paper,

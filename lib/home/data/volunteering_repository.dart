@@ -10,7 +10,9 @@ class VolunteeringRepository{
     final volunteeringJson = await _firestore.collection('volunteerings').get();
     List<Volunteering> volunteering = [];
     for (var volunteeringDoc in volunteeringJson.docs) {
-      volunteering.add(Volunteering.fromJson(volunteeringDoc.data()));
+      final data = volunteeringDoc.data();
+      data['uid'] = volunteeringDoc.id;
+      volunteering.add(Volunteering.fromJson(data));
     }
     return volunteering;
   }
