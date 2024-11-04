@@ -30,7 +30,9 @@ class UserRepository {
       throw Exception('User not found');
     }
 
-    AppUser user = AppUser.fromJson(userJson.data()!);
+    final data = userJson.data();
+    data?['uid'] = uid;
+    AppUser user = AppUser.fromJson(data!);
     return user;
   }
 
