@@ -30,7 +30,7 @@ class HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image.asset('assets/logo_rectangular.png',
-                  fit: BoxFit.cover, height: 40.0),
+                  fit: BoxFit.cover, height: 25, width: 147),
             ],
           ),
           bottom: TabBar(

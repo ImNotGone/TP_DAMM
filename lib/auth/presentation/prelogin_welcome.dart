@@ -19,7 +19,7 @@ class PreLoginWelcome extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Image.asset('assets/logo_square.png'),
+                Image.asset('assets/logo_square.png', width: 150, height: 150),
                 const SizedBox(height: 16),
                 Text(AppLocalizations.of(context)!.preLoginWelcome, style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.center,)
               ],

@@ -69,7 +69,7 @@ class LoginScreen extends HookConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/logo_square.png'), // Logo at the top
+                  Image.asset('assets/logo_square.png', width: 150, height: 150), // Logo at the top
                   const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
