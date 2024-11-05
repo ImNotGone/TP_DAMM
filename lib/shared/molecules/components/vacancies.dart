@@ -20,9 +20,12 @@ class Vacancies extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Text(
-              '${AppLocalizations.of(context)!.vacancies}:',
-              style: Theme.of(context).textTheme.bodyMedium
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            child: Text(
+                '${AppLocalizations.of(context)!.vacancies}:',
+                style: Theme.of(context).textTheme.bodyMedium
+            ),
           ),
           const SizedBox(width: 8),
           Icon(
@@ -31,6 +34,7 @@ class Vacancies extends StatelessWidget {
             color: count == 0? const Color(0xFF6CB6F3) : Colors.blue[900],
           ),
           Text(
+            // TODO: can this be aligned slightly up?
             count.toString(),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 color: count == 0? const Color(0xFF6CB6F3) : Colors.blue[900]
