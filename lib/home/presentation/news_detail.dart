@@ -27,9 +27,10 @@ class NewsDetail extends HookConsumerWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: ListView(
             children: [
+              const SizedBox(height: 24.0),
               Text(news!.paper, style: Theme.of(context).textTheme.labelSmall,),
               Text(news.title, style: Theme.of(context).textTheme.headlineMedium,),
               const SizedBox(height: 16.0),
@@ -51,21 +52,21 @@ class NewsDetail extends HookConsumerWidget {
               const SizedBox(height: 16.0),
               Text(news.content, style: Theme.of(context).textTheme.bodyLarge,),
               const SizedBox(height: 16.0),
-              Padding(padding: const EdgeInsets.all(4.0),
-                child: Container(
+              Container(
                     alignment: Alignment.center,
                     child: Text(
                       AppLocalizations.of(context)!.shareThisNote,
                       style: Theme.of(context).textTheme.headlineMedium,
                     )
                 ),
-              ),
+              const SizedBox(height: 16.0),
               UtilFilledButton(
                   onPressed: () {
                     // TODO: SHARE NEWS
                   },
                   text: AppLocalizations.of(context)!.share
-              )
+              ),
+              const SizedBox(height: 32.0),
             ],
           )
       ),
