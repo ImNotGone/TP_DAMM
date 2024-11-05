@@ -25,7 +25,9 @@ class VolunteeringDetail extends HookConsumerWidget {
         );
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: const Color(0x00FFFFFF),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -40,82 +42,77 @@ class VolunteeringDetail extends HookConsumerWidget {
   }
 
   Widget _buildContent(BuildContext context, Volunteering volunteering) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Image at the top
-        ClipRRect(
-          child: Image.network(
-            volunteering.imageUrl,
-            fit: BoxFit.cover,
-            width: double.infinity, // Make it full width
-            height: 200.0, // Set a fixed height for the image
-          ),
-        ),
-        const SizedBox(height: 16), // Space between image and content
-
-        // Main content area with a white background
-        Expanded(
+    return Expanded(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              color: Colors.white, // Set the background color to white
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title and Type
-                  Text(
-                    volunteering.type.localizedName(context).toUpperCase(),
-                    style: Theme.of(context).textTheme.labelSmall,
+                  // TODO: revisar altura y shadow de esto
+                  ClipRRect(
+                    child: Image.network(
+                      volunteering.imageUrl,
+                      fit: BoxFit.cover,
+                      width: double.infinity, // Make it full width
+                      height: 200.0, // Set a fixed height for the image
+                    ),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    volunteering.title,
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // TIPO Y TITULO
+                        const SizedBox(height: 24),
+                        Text(
+                          volunteering.type.localizedName(context).toUpperCase(),
+                          style: Theme.of(context).textTheme.labelSmall,
+                        ),
+                        Text(
+                          volunteering.title,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          volunteering.purpose,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: const Color(0xFF0D47A1)),
+                        ),
 
-                  // Description
-                  Text(
-                    volunteering.purpose,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: const Color(0xFF0D47A1)),
-                  ),
-                  const SizedBox(height: 16),
 
-                  // Activity Details
-                  Text(
-                    AppLocalizations.of(context)!.activityDetailsTitle,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    volunteering.activityDetail,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  const SizedBox(height: 16),
+                        // ABOUT
+                        const SizedBox(height: 24),
+                        Text(
+                          AppLocalizations.of(context)!.activityDetailsTitle,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          volunteering.activityDetail,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
 
-                  _buildLocation(context, volunteering),
+                        // TARJETA
+                        const SizedBox(height: 24),
+                        _buildLocation(context, volunteering),
 
-                  const SizedBox(height: 16),
+                        // INFO DE PARTICIPACION
+                        const SizedBox(height: 24),
+                        _buildParticipationInfo(context, volunteering),
 
-                  // Participation Info
-                  _buildParticipationInfo(context, volunteering),
-
-                  // Apply Button
-                  const SizedBox(height: 16),
-                  UtilFilledButton(
-                    onPressed: () {
-                      // Handle apply logic
-                    },
-                    text: AppLocalizations.of(context)!.applyForVolunteering,
-                  ),
+                        // Apply Button
+                        const SizedBox(height: 24),
+                        UtilFilledButton(
+                          onPressed: () {
+                            // Handle apply logic
+                          },
+                          text: AppLocalizations.of(context)!.applyForVolunteering,
+                        ),
+                        const SizedBox(height: 32),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),
-          ),
-        ),
-      ],
-    );
+          );
   }
 
   Widget _buildLocation(BuildContext context, Volunteering volunteering) {
@@ -124,27 +121,32 @@ class VolunteeringDetail extends HookConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // TODO: insert map, now dummy
-          Image.network(
-            'https://staticmapmaker.com/img/google-placeholder.png',
-            fit: BoxFit.cover,
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(6),
+              bottomRight: Radius.circular(6),
+            ),
+            child: Image.network(
+              // TODO: revisar el height
+              //height: 155,
+              'https://staticmapmaker.com/img/google-placeholder.png',
+            ),
           ),
-          const SizedBox(height: 8),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 8),
-              Text(
-                AppLocalizations.of(context)!.address.toUpperCase(),
-                style: Theme.of(context).textTheme.labelSmall
-              ),
-              const SizedBox(height: 4),
-              Text(
-                volunteering.address,
-                style: Theme.of(context).textTheme.bodyLarge
-              ),
-              const SizedBox(height: 8),
-            ],
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      AppLocalizations.of(context)!.address.toUpperCase(),
+                      style: Theme.of(context).textTheme.labelSmall
+                  ),
+                  Text(
+                      volunteering.address,
+                      style: Theme.of(context).textTheme.bodyLarge
+                  ),
+                ],
+            )
           )
         ],
       ),
