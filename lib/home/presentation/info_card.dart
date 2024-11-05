@@ -66,24 +66,22 @@ class CustomCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Header azul
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             decoration: const BoxDecoration(
               color: Color(0xFFCAE5FB),
               borderRadius: BorderRadius.vertical(
                 top: Radius.circular(4)
               )
             ),
-            child:  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: child,
-          )
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          child,
         ],
       ),
     );
