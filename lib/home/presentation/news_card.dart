@@ -28,9 +28,8 @@ class NewsCard extends StatelessWidget {
                 fit: BoxFit.cover,
           ),
           Expanded(
-              child: Padding(padding: const EdgeInsets.all(8.0),
+              child: Padding(padding: const EdgeInsets.only(top: 16.0, left: 8.0, right: 8.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(news.paper, style: Theme.of(context).textTheme.labelSmall,),
