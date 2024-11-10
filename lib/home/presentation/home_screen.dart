@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/home/presentation/volunteering_card.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
+import 'package:ser_manos_mobile/shared/cells/cards/actual_volunteering_card.dart';
 import 'package:ser_manos_mobile/shared/molecules/components/no_volunteering.dart';
 
 import '../../providers/service_providers.dart';
@@ -47,7 +48,7 @@ class HomeScreen extends HookConsumerWidget {
     }).toList();
 
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -58,18 +59,31 @@ class HomeScreen extends HookConsumerWidget {
               searchQuery.value = query;
             },
           ),
-          const Padding(padding: EdgeInsets.all(8.0)),
+          const SizedBox(height: 32,),
+          // TODO: Replace this with if user, has activity
+          if(true) ...[
+            Text(
+              AppLocalizations.of(context)!.yourActivity,
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            const SizedBox(height: 16,),
+
+            // TODO: pass propper title and type to Volunteering card
+            const ActualVolunteeringCard(type: 'acción social', title: 'Un Techo para mi País '),
+            const SizedBox(height: 24,),
+          ],
           Expanded(
             child: showMap.value
                 ? const Map()
                 : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+
               children: [
                 Text(
                   AppLocalizations.of(context)!.volunteering,
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 16),
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: refreshVolunteerings,
