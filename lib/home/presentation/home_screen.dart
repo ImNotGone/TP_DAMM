@@ -152,6 +152,7 @@ class _SearchBar extends HookWidget {
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context)!.search,
                 border: InputBorder.none,
+                hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: const Color(0xff666666)),
               ),
               onChanged: onSearchChanged,
             ),
