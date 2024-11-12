@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ser_manos_mobile/shared/cells/cards/blue_header_card.dart';
 
 class ProfileInfoCard extends StatefulWidget {
   const ProfileInfoCard({super.key});
@@ -13,7 +14,7 @@ class ProfileInfoCardState extends State<ProfileInfoCard> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomCard(
+    return BlueHeaderCard(
       title: AppLocalizations.of(context)!.profileInfo,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,49 +43,6 @@ class ProfileInfoCardState extends State<ProfileInfoCard> {
         hoverColor: Theme.of(context).colorScheme.primary,
         contentPadding: EdgeInsets.zero,
       );
-  }
-}
-
-
-
-class CustomCard extends StatelessWidget {
-  final String title;
-  final Widget child;
-
-  const CustomCard({
-    super.key,
-    required this.title,
-    required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header azul
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondaryFixed,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(4)
-              )
-            ),
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-          ),
-          child,
-        ],
-      ),
-    );
   }
 }
 

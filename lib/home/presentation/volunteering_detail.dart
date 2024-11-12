@@ -3,8 +3,8 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ser_manos_mobile/home/presentation/info_card.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
+import 'package:ser_manos_mobile/shared/cells/cards/location_card.dart';
 import 'package:ser_manos_mobile/shared/molecules/components/vacancies.dart';
 import '../../shared/molecules/buttons/filled.dart';
 import '../domain/volunteering.dart';
@@ -91,7 +91,7 @@ class VolunteeringDetail extends HookConsumerWidget {
 
                         // TARJETA
                         const SizedBox(height: 24),
-                        _buildLocation(context, volunteering),
+                        LocationCard(address: volunteering.address),
 
                         // INFO DE PARTICIPACION
                         const SizedBox(height: 24),
@@ -113,44 +113,6 @@ class VolunteeringDetail extends HookConsumerWidget {
               ),
             ),
           );
-  }
-
-  Widget _buildLocation(BuildContext context, Volunteering volunteering) {
-    return CustomCard(
-      title: AppLocalizations.of(context)!.location,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(6),
-              bottomRight: Radius.circular(6),
-            ),
-            child: Image.network(
-              // TODO: revisar el height
-              //height: 155,
-              'https://staticmapmaker.com/img/google-placeholder.png',
-            ),
-          ),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                      AppLocalizations.of(context)!.address.toUpperCase(),
-                      style: Theme.of(context).textTheme.labelSmall
-                  ),
-                  Text(
-                      volunteering.address,
-                      style: Theme.of(context).textTheme.bodyLarge
-                  ),
-                ],
-            )
-          )
-        ],
-      ),
-    );
   }
 
   Widget _buildParticipationInfo(

@@ -6,7 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ser_manos_mobile/home/presentation/info_card.dart';
+import 'package:ser_manos_mobile/shared/cells/cards/info_card.dart';
 import '../../auth/domain/app_user.dart';
 import '../../providers/service_providers.dart';
 import '../../providers/user_provider.dart';
