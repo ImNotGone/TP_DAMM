@@ -38,8 +38,8 @@ class ProfileInfoCardState extends State<ProfileInfoCard> {
           });
           },
         dense: true,
-        activeColor: Colors.green,
-        hoverColor: Colors.green,
+        activeColor: Theme.of(context).colorScheme.primary,
+        hoverColor: Theme.of(context).colorScheme.primary,
         contentPadding: EdgeInsets.zero,
       );
   }
@@ -70,9 +70,9 @@ class CustomCard extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            decoration: const BoxDecoration(
-              color: Color(0xFFCAE5FB),
-              borderRadius: BorderRadius.vertical(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondaryFixed,
+              borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(4)
               )
             ),
