@@ -9,7 +9,8 @@ class CurrrentVolunteerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      height: 72,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
         color: const Color(0xFFf3F9F5), // light greenish background color
         borderRadius: BorderRadius.circular(6),
