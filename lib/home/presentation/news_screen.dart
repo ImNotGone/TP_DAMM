@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/providers/news_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
-import 'news_card.dart';
+import '../../shared/cells/cards/news_card.dart';
 
 class NewsScreen extends HookConsumerWidget {
   const NewsScreen({super.key});
