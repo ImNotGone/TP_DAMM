@@ -62,6 +62,7 @@ class LoginScreen extends HookConsumerWidget {
     }
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       body: SafeArea(
         child: Column(
           children: [
