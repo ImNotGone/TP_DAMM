@@ -3,10 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:ser_manos_mobile/home/domain/volunteering.dart';
 import 'package:ser_manos_mobile/shared/molecules/components/vacancies.dart';
 
-class VolunteeringCard extends StatelessWidget {
+class VolunteerCard extends StatelessWidget {
   final Volunteering volunteering;
 
-  const VolunteeringCard({
+  const VolunteerCard({
     super.key,
     required this.volunteering,
   });
@@ -41,7 +41,7 @@ class VolunteeringCard extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     volunteering.type.localizedName(context).toUpperCase(),
-                    style: Theme.of(context).textTheme.labelSmall,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666)),
                   ),
                   // Title Text
                   Text(
@@ -90,7 +90,7 @@ class VolunteeringCard extends StatelessWidget {
       height: 24,
       child: IconButton(
         icon: Icon(icon,),
-        color: Colors.green,
+        color: const Color(0xff14903f),
         onPressed: onPressed,
         padding: EdgeInsets.zero,
         constraints: const BoxConstraints(),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ser_manos_mobile/home/presentation/volunteering_card.dart';
+import 'package:ser_manos_mobile/shared/cells/cards/volunteer_card.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/current_volunteer_card.dart';
 import 'package:ser_manos_mobile/shared/molecules/components/no_volunteering.dart';
@@ -92,7 +92,7 @@ class HomeScreen extends HookConsumerWidget {
                         : ListView.builder(
                       itemCount: filteredVolunteerings.length,
                       itemBuilder: (context, index) {
-                        return VolunteeringCard(
+                        return VolunteerCard(
                           volunteering: filteredVolunteerings[index],
                         );
                       },
