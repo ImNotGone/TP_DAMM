@@ -42,5 +42,7 @@
   "applyForVolunteering": "Apply",
   "cancel": "Cancel",
   "confirm": "Confirm",
-  "youAreApplyingTo": "You are applying to"
+  "youAreApplyingTo": "You are applying to",
+  "sureToLogOut": "Are you sure you want to log out?",
+  "logOut": "Log out"
 }

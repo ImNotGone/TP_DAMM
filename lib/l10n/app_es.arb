@@ -42,5 +42,7 @@
   "applyForVolunteering": "Postularme",
   "cancel": "Cancelar",
   "confirm": "Confirmar",
-  "youAreApplyingTo": "Te estas por postualar a"
+  "youAreApplyingTo": "Te estas por postualar a",
+  "sureToLogOut": "¿Estás seguro que quieres cerrar sesión?",
+  "logOut": "Cerrar sesión"
 }
