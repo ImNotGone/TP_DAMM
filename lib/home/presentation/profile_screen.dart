@@ -54,25 +54,10 @@ class _MissingDataScreen extends HookConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              width: 100.0, // Adjust the size as needed
-              height: 100.0,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.secondary, // Border color
-                  width: 10.0, // Border width
-                ),
-              ),
-              child: CircleAvatar(
-                radius: 50,
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                child: Icon(
-                  color: Theme.of(context).colorScheme.secondary,
-                  Icons.person_outline,
-                  size: 80,
-                ),
-              ),
+            Image.asset(
+              'assets/no_profile_pic_icon.png',
+              width: 120,
+              height: 120,
             ),
             const SizedBox(height: 20),
             Text(
