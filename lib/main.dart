@@ -97,54 +97,60 @@ class MyApp extends StatelessWidget {
         textTheme: const TextTheme(
           headlineLarge: TextStyle(
             fontSize: 24.0,
-            fontWeight: FontWeight.w400, // Regular weight
+            fontWeight: FontWeight.w400,
             color: Colors.black,
+            letterSpacing: 0.18,
+            height: 1.0
           ),
-          // Roboto Regular 24px
           headlineMedium: TextStyle(
             fontSize: 20.0,
-            fontWeight: FontWeight.w500, // Medium weight
+            fontWeight: FontWeight.w500,
             color: Colors.black,
+            letterSpacing: 0.15,
+            height: 1.2
           ),
-          // Roboto Medium 20px
           titleMedium: TextStyle(
             fontSize: 16.0,
-            fontWeight: FontWeight.w400, // Regular weight
+            fontWeight: FontWeight.w400,
             color: Colors.black,
+            letterSpacing: 0.15,
+            height: 1.5
           ),
-          // Roboto Regular 16px
           bodyLarge: TextStyle(
             fontSize: 14.0,
-            fontWeight: FontWeight.w400, // Regular weight
+            fontWeight: FontWeight.w400,
             color: Colors.black,
+            letterSpacing: 0.25,
+            height: 1.43
           ),
-          // Roboto Regular 14px
           bodyMedium: TextStyle(
             fontSize: 12.0,
-            fontWeight: FontWeight.w400, // Regular weight
+            fontWeight: FontWeight.w400,
             color: Colors.black,
+            letterSpacing: 0.4,
+            height: 1.34
           ),
-          // Roboto Regular 12px
           bodySmall: TextStyle(
             fontSize: 12.0,
-            fontWeight: FontWeight.w400, // Regular weight
-            color: Colors.black54,
+            fontWeight: FontWeight.w400,
+            color: Color(0xff191919),
+            letterSpacing: 0.4,
+            height: 1.34
           ),
           labelLarge: TextStyle(
             fontSize: 14.0,
-            fontWeight: FontWeight.w500, // Medium weight
+            fontWeight: FontWeight.w500,
             color: Colors.black,
+            letterSpacing: 0.1,
+            height: 1.43
           ),
-          // Roboto Medium 14px
-          // Roboto Regular 12px (for caption)
           labelSmall: TextStyle(
             fontSize: 10.0,
             fontWeight: FontWeight.w500,
-            // Medium weight
             letterSpacing: 1.5,
-            // Usually overlines have larger letter-spacing
             color: Colors.black,
-          ), // Roboto Medium 10px
+            height: 1.6
+          ),
         ),
         colorScheme: ColorScheme(
           brightness: Brightness.light,
