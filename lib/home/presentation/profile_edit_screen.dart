@@ -11,18 +11,23 @@ import '../../auth/domain/app_user.dart';
 import '../../providers/service_providers.dart';
 import '../../providers/user_provider.dart';
 
-
 class ProfileEditScreen extends HookConsumerWidget {
   const ProfileEditScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(currentUserNotifierProvider); // Watching the current user
-    final userService = ref.read(userServiceProvider); // Accessing the user service
+    final user =
+        ref.watch(currentUserNotifierProvider); // Watching the current user
+    final userService =
+        ref.read(userServiceProvider); // Accessing the user service
 
     // Controllers
-    final birthDateController = useTextEditingController(text: user?.birthDate != null ? DateFormat('dd/MM/yyyy').format(user!.birthDate!) : '');
-    final phoneNumberController = useTextEditingController(text: user?.phoneNumber ?? '');
+    final birthDateController = useTextEditingController(
+        text: user?.birthDate != null
+            ? DateFormat('dd/MM/yyyy').format(user!.birthDate!)
+            : '');
+    final phoneNumberController =
+        useTextEditingController(text: user?.phoneNumber ?? '');
     final emailController = useTextEditingController(text: user?.email ?? '');
 
     final selectedDate = useState<DateTime?>(user?.birthDate);
@@ -30,7 +35,6 @@ class ProfileEditScreen extends HookConsumerWidget {
     final profilePictureUrl = useState<String?>(user?.profilePictureURL);
 
     final ImagePicker picker = ImagePicker();
-
 
     Future<void> selectDate(BuildContext context) async {
       final DateTime? pickedDate = await showDatePicker(
@@ -47,7 +51,8 @@ class ProfileEditScreen extends HookConsumerWidget {
 
     Future<void> pickImage() async {
       try {
-        final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+        final XFile? pickedFile =
+            await picker.pickImage(source: ImageSource.gallery);
         if (pickedFile != null) {
           File imageFile = File(pickedFile.path);
           String? photoURL = await userService.uploadProfilePicture(imageFile);
@@ -69,7 +74,8 @@ class ProfileEditScreen extends HookConsumerWidget {
         );
 
         // Call the user service to update the profile
-        userService.updateUser(updatedUser); // Assuming updateUser method exists in userService
+        userService.updateUser(
+            updatedUser); // Assuming updateUser method exists in userService
         ref.read(currentUserNotifierProvider.notifier).setUser(updatedUser);
 
         Navigator.pop(context); // Close the screen after saving
@@ -105,7 +111,8 @@ class ProfileEditScreen extends HookConsumerWidget {
               const SizedBox(height: 16.0),
               const ProfileInfoCard(),
               const SizedBox(height: 16.0),
-              const Text('Foto de perfil', style: TextStyle(fontWeight: FontWeight.bold)),
+              const Text('Foto de perfil',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
               ElevatedButton(
                 onPressed: pickImage,
                 child: const Text('Subir foto'),
@@ -137,7 +144,10 @@ class ProfileEditScreen extends HookConsumerWidget {
               const SizedBox(height: 32.0),
               ElevatedButton(
                 onPressed: saveProfile,
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                ),
                 child: const Text('Guardar datos'),
               ),
             ],
