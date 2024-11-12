@@ -64,7 +64,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                         const SizedBox(height: 24),
                         Text(
                           volunteering.type.localizedName(context).toUpperCase(),
-                          style: Theme.of(context).textTheme.labelSmall,
+                          style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666)),
                         ),
                         Text(
                           volunteering.title,
