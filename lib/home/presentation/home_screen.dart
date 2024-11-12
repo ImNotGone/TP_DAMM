@@ -130,9 +130,9 @@ class _SearchBar extends HookWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(0.0),
-        border: Border.all(color: Colors.grey[300]!),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -144,7 +144,7 @@ class _SearchBar extends HookWidget {
       ),
       child: Row(
         children: [
-          const Icon(Icons.search, color: Colors.grey),
+          Icon(Icons.search, color: Theme.of(context).iconTheme.color),
           const SizedBox(width: 10),
           Expanded(
             child: TextField(
@@ -158,8 +158,8 @@ class _SearchBar extends HookWidget {
           ),
           IconButton(
             icon: showMapIcon.value
-                ? const Icon(Icons.map, color: Colors.green)
-                : const Icon(Icons.menu, color: Colors.green),
+                ? Icon(Icons.map, color: Theme.of(context).colorScheme.primary)
+                : Icon(Icons.menu, color: Theme.of(context).colorScheme.primary),
             onPressed: () {
               onMapButtonPressed();
               toggleMapIcon();
