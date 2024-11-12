@@ -39,5 +39,8 @@
   "location": "Location",
   "address": "address",
   "participateInVolunteering": "Participate in the volunteering",
-  "applyForVolunteering": "Apply"
+  "applyForVolunteering": "Apply",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "youAreApplyingTo": "You are applying to"
 }

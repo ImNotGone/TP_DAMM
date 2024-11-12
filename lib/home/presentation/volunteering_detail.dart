@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/location_card.dart';
+import 'package:ser_manos_mobile/shared/cells/modals/modal.dart';
 import 'package:ser_manos_mobile/shared/molecules/components/vacancies.dart';
 import '../../shared/molecules/buttons/filled.dart';
 import '../domain/volunteering.dart';
@@ -42,8 +43,7 @@ class VolunteeringDetail extends HookConsumerWidget {
   }
 
   Widget _buildContent(BuildContext context, Volunteering volunteering) {
-    return Expanded(
-          child: SingleChildScrollView(
+    return SingleChildScrollView(
               child: Column(
                 children: [
                   // TODO: revisar altura y shadow de esto
@@ -101,7 +101,26 @@ class VolunteeringDetail extends HookConsumerWidget {
                         const SizedBox(height: 24),
                         UtilFilledButton(
                           onPressed: () {
-                            // Handle apply logic
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => Modal(
+                                confirmButtonText: AppLocalizations.of(context)!.confirm,
+                                onConfirm: () {},
+                                context: context,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)!.youAreApplyingTo,
+                                      style: Theme.of(context).textTheme.titleMedium,
+                                    ),
+                                    Text(
+                                      volunteering.title,
+                                      style: Theme.of(context).textTheme.headlineMedium,
+                                    )
+                                  ],
+                                ))
+                            );
                           },
                           text: AppLocalizations.of(context)!.applyForVolunteering,
                         ),
@@ -111,7 +130,6 @@ class VolunteeringDetail extends HookConsumerWidget {
                   )
                 ],
               ),
-            ),
           );
   }
 

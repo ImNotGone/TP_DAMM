@@ -39,5 +39,8 @@
   "location": "Ubicación",
   "address": "Dirección",
   "participateInVolunteering": "Participar del voluntariado",
-  "applyForVolunteering": "Postularme"
+  "applyForVolunteering": "Postularme",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "youAreApplyingTo": "Te estas por postualar a"
 }
