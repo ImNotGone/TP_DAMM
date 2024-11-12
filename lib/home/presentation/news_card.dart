@@ -43,7 +43,7 @@ class NewsCard extends StatelessWidget {
                             },
                             child: Text(
                               AppLocalizations.of(context)!.readMore,
-                              style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                              style: TextStyle(color: Theme.of(context).colorScheme.primary),
                             )
                           )
                     )
