@@ -17,14 +17,14 @@ class NewsDetail extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.news, style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),),
+        title: Text(AppLocalizations.of(context)!.news, style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),),
         centerTitle: true,
         leading: IconButton(
             onPressed: ()  => context.pop(),
             icon: const Icon(Icons.arrow_back),
-            color: Theme.of(context).colorScheme.onPrimary
+            color: Theme.of(context).colorScheme.onSecondary
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -47,7 +47,7 @@ class NewsDetail extends HookConsumerWidget {
               ),
               const SizedBox(height: 16.0),
               Text(news.subtitle, style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.primary
+                  color: Theme.of(context).colorScheme.secondaryContainer,
               ),),
               const SizedBox(height: 16.0),
               Text(news.content, style: Theme.of(context).textTheme.bodyLarge,),
