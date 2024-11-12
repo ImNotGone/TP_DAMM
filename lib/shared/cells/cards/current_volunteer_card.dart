@@ -12,9 +12,10 @@ class CurrrentVolunteerCard extends StatelessWidget {
       height: 72,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: const Color(0xFFf3F9F5), // light greenish background color
+        // TODO: primarySwatch 5
+        color: const Color(0xFFf3F9F5),
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: const Color(0xFF14903f), width: 2), // green border color
+        border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,7 +25,7 @@ class CurrrentVolunteerCard extends StatelessWidget {
             children: [
               Text(
                 type.toUpperCase(),
-                style: Theme.of(context).textTheme.labelSmall
+                style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666))
               ),
               Text(
                 title,
@@ -32,9 +33,9 @@ class CurrrentVolunteerCard extends StatelessWidget {
                 ),
             ],
           ),
-          const Icon(
+          Icon(
             Icons.place,
-            color: Color(0xFF14903f), // green icon color
+            color: Theme.of(context).colorScheme.primary,
             size: 24,
           ),
         ],
