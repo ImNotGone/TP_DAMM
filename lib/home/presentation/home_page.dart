@@ -25,7 +25,7 @@ class HomePageState extends State<HomePage> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.secondary,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -34,10 +34,10 @@ class HomePageState extends State<HomePage> {
             ],
           ),
           bottom: TabBar(
-            labelColor: Theme.of(context).colorScheme.onPrimary,
-            unselectedLabelColor: Theme.of(context).colorScheme.onPrimary,
+            labelColor: Theme.of(context).colorScheme.onSecondary,
+            unselectedLabelColor: Theme.of(context).colorScheme.onSecondary,
             indicator: BoxDecoration(
-              color: Theme.of(context).colorScheme.primaryContainer, // Change this to your desired color
+              color: Theme.of(context).colorScheme.secondaryContainer, // Change this to your desired color
             ),
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
@@ -53,7 +53,7 @@ class HomePageState extends State<HomePage> {
           ),
         ),
         body: Container(
-            color: const Color(0xFFEAF5FD),
+            color: Theme.of(context).colorScheme.surface,
             child: _screens[_currentScreen]
         ),
       ),

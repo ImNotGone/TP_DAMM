@@ -154,6 +154,7 @@ class MyApp extends StatelessWidget {
           onPrimaryContainer: neutralSwatch[100]!,
           secondary: secondarySwatch[100]!,
           onSecondary: neutralSwatch[0]!,
+          secondaryContainer: secondarySwatch[200]!,
           error: const Color(0xFFB3261E),
           onError: neutralSwatch[0]!,
           surface: secondarySwatch[10]!,
