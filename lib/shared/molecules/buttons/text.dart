@@ -19,7 +19,7 @@ class UtilTextButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           minimumSize: const Size(double.infinity, 44),
-          foregroundColor: Theme.of(context).colorScheme.secondary
+          foregroundColor: Theme.of(context).colorScheme.primary
       ),
       child: Text(text),
     );

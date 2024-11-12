@@ -51,23 +51,25 @@ class _MissingDataScreen extends HookConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CircleAvatar(
-          radius: 50,
-          backgroundColor: Colors.blue[100],
-          child: currentUser?.profilePictureURL == null
-              ? Icon(
-                  Icons.person,
-                  size: 50,
-                  color: Theme.of(context).colorScheme.primary,
-                )
-              : ClipOval(
-                  child: Image.network(
-                    currentUser!.profilePictureURL!,
-                    fit: BoxFit.cover,
-                    width: 100,
-                    height: 100,
-                  ),
-                ),
+        Container(
+          width: 100.0, // Adjust the size as needed
+          height: 100.0,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: Theme.of(context).colorScheme.secondary, // Border color
+              width: 10.0, // Border width
+            ),
+          ),
+          child: CircleAvatar(
+            radius: 50,
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            child: Icon(
+              color: Theme.of(context).colorScheme.secondary,
+              Icons.person_outline,
+              size: 80,
+            ),
+          ),
         ),
         const SizedBox(height: 20),
         Text(
@@ -103,8 +105,8 @@ class _MissingDataScreen extends HookConsumerWidget {
           icon: const Icon(Icons.add),
           label: Text(AppLocalizations.of(context)!.complete),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            foregroundColor: Theme.of(context).colorScheme.onSecondary,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).colorScheme.onPrimary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
