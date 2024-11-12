@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ActualVolunteeringCard extends StatelessWidget {
+class CurrrentVolunteerCard extends StatelessWidget {
   final String type;
   final String title;
 
-  const ActualVolunteeringCard({super.key, required this.type, required this.title});
+  const CurrrentVolunteerCard({super.key, required this.type, required this.title});
 
   @override
   Widget build(BuildContext context) {
