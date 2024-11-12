@@ -98,35 +98,35 @@ class MyApp extends StatelessWidget {
           headlineLarge: TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.w400,
-            color: Colors.black,
+            color: Color(0xff191919),
             letterSpacing: 0.18,
             height: 1.0
           ),
           headlineMedium: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.w500,
-            color: Colors.black,
+            color: Color(0xff191919),
             letterSpacing: 0.15,
             height: 1.2
           ),
           titleMedium: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.w400,
-            color: Colors.black,
+            color: Color(0xff191919),
             letterSpacing: 0.15,
             height: 1.5
           ),
           bodyLarge: TextStyle(
             fontSize: 14.0,
             fontWeight: FontWeight.w400,
-            color: Colors.black,
+            color: Color(0xff191919),
             letterSpacing: 0.25,
             height: 1.43
           ),
           bodyMedium: TextStyle(
             fontSize: 12.0,
             fontWeight: FontWeight.w400,
-            color: Colors.black,
+            color: Color(0xff191919),
             letterSpacing: 0.4,
             height: 1.34
           ),
@@ -140,7 +140,7 @@ class MyApp extends StatelessWidget {
           labelLarge: TextStyle(
             fontSize: 14.0,
             fontWeight: FontWeight.w500,
-            color: Colors.black,
+            color: Color(0xff191919),
             letterSpacing: 0.1,
             height: 1.43
           ),
@@ -148,7 +148,7 @@ class MyApp extends StatelessWidget {
             fontSize: 10.0,
             fontWeight: FontWeight.w500,
             letterSpacing: 1.5,
-            color: Colors.black,
+            color: Color(0xff191919),
             height: 1.6
           ),
         ),
