@@ -31,7 +31,7 @@ class NewsDetail extends HookConsumerWidget {
           child: ListView(
             children: [
               const SizedBox(height: 24.0),
-              Text(news!.paper, style: Theme.of(context).textTheme.labelSmall,),
+              Text(news!.paper, style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666)),),
               Text(news.title, style: Theme.of(context).textTheme.headlineMedium,),
               const SizedBox(height: 16.0),
               SizedBox(
