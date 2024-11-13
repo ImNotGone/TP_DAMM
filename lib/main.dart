@@ -29,7 +29,6 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userService = ref.read(userServiceProvider);
-    final currentUser = ref.watch(currentUserNotifierProvider);
 
     useEffect(() {
       Future<void> fetchUser() async {
@@ -80,7 +79,7 @@ class MyApp extends HookConsumerWidget {
         )
       ],
       redirect: (context, state) {
-        if (currentUser != null && state.matchedLocation == '/') {
+        if (userService.isLoggedIn() && state.matchedLocation == '/') {
           return '/home';
         }
         return null;
