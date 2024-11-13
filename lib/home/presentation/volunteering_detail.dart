@@ -21,9 +21,7 @@ class VolunteeringDetail extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // find the volunteering that has volunteeringId
-    final volunteering = ref.read(volunteeringsNotifierProvider)?.firstWhere(
-          (volunteering) => volunteering.uid == volunteeringId,
-        );
+    final volunteering = ref.read(volunteeringsNotifierProvider)?[volunteeringId];
 
     return Scaffold(
       extendBodyBehindAppBar: true,

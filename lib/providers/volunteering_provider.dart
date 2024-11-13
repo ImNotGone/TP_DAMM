@@ -6,15 +6,20 @@ part 'volunteering_provider.g.dart';
 @Riverpod(keepAlive: true)
 class VolunteeringsNotifier extends _$VolunteeringsNotifier {
   @override
-  List<Volunteering>? build() {
+  Map<String, Volunteering>? build() {
     return null;
   }
 
-  void setVolunteerings(List<Volunteering> volunteerings) {
+  void setVolunteerings(Map<String, Volunteering> volunteerings) {
     state = volunteerings;
   }
 
   void clearVolunteerings() {
     state = null;
   }
+
+  void updateVolunteering(Volunteering volunteering) {
+    state = {...?state, volunteering.uid: volunteering};
+  }
+
 }

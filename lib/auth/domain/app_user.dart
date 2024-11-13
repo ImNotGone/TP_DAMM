@@ -15,6 +15,8 @@ class AppUser {
   Gender? gender;
   String? phoneNumber;
   String? profilePictureURL;
+  String? registeredVolunteeringId;
+  List<String>? favouriteVolunteeringIds;
 
 
   AppUser({
@@ -25,7 +27,9 @@ class AppUser {
     this.birthDate,
     this.gender,
     this.phoneNumber,
-    this.profilePictureURL
+    this.profilePictureURL,
+    this.registeredVolunteeringId,
+    this.favouriteVolunteeringIds
   });
 
   bool isComplete (){
@@ -33,9 +37,48 @@ class AppUser {
       birthDate != null && email.isNotEmpty && gender != null && phoneNumber != null;
   }
 
+  bool isVolunteer(){
+    return registeredVolunteeringId != null;
+  }
+
   factory AppUser.fromJson(Map<String, dynamic> json) => _$AppUserFromJson(json);
 
   Map<String, dynamic> toJson() => _$AppUserToJson(this);
+
+
+  @override
+  String toString() {
+    return 'AppUser{uid: $uid, firstName: $firstName, lastName: $lastName, email: $email, birthDate: $birthDate, gender: $gender, phoneNumber: $phoneNumber, profilePictureURL: $profilePictureURL, registeredVolunteeringId: $registeredVolunteeringId, favouriteVolunteeringIds: $favouriteVolunteeringIds}';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AppUser &&
+          runtimeType == other.runtimeType &&
+          uid == other.uid &&
+          firstName == other.firstName &&
+          lastName == other.lastName &&
+          email == other.email &&
+          birthDate == other.birthDate &&
+          gender == other.gender &&
+          phoneNumber == other.phoneNumber &&
+          profilePictureURL == other.profilePictureURL &&
+          registeredVolunteeringId == other.registeredVolunteeringId &&
+          favouriteVolunteeringIds == other.favouriteVolunteeringIds;
+
+  @override
+  int get hashCode =>
+      uid.hashCode ^
+      firstName.hashCode ^
+      lastName.hashCode ^
+      email.hashCode ^
+      birthDate.hashCode ^
+      gender.hashCode ^
+      phoneNumber.hashCode ^
+      profilePictureURL.hashCode ^
+      registeredVolunteeringId.hashCode ^
+      favouriteVolunteeringIds.hashCode;
 
   AppUser copyWith({
     String? uid,
@@ -46,6 +89,8 @@ class AppUser {
     Gender? gender,
     String? phoneNumber,
     String? profilePictureURL,
+    String? registeredVolunteeringId,
+    List<String>? favouriteVolunteeringIds,
   }) {
     return AppUser(
       uid: uid ?? this.uid,
@@ -56,6 +101,8 @@ class AppUser {
       gender: gender ?? this.gender,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       profilePictureURL: profilePictureURL ?? this.profilePictureURL,
+      registeredVolunteeringId: registeredVolunteeringId ?? this.registeredVolunteeringId,
+      favouriteVolunteeringIds: favouriteVolunteeringIds ?? this.favouriteVolunteeringIds,
     );
   }
 

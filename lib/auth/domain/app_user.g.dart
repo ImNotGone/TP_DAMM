@@ -17,6 +17,11 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser(
       gender: $enumDecodeNullable(_$GenderEnumMap, json['gender']),
       phoneNumber: json['phoneNumber'] as String?,
       profilePictureURL: json['profilePictureURL'] as String?,
+      registeredVolunteeringId: json['registeredVolunteeringId'] as String?,
+      favouriteVolunteeringIds:
+          (json['favouriteVolunteeringIds'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
     );
 
 Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
@@ -28,6 +33,8 @@ Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
       'gender': _$GenderEnumMap[instance.gender],
       'phoneNumber': instance.phoneNumber,
       'profilePictureURL': instance.profilePictureURL,
+      'registeredVolunteeringId': instance.registeredVolunteeringId,
+      'favouriteVolunteeringIds': instance.favouriteVolunteeringIds,
     };
 
 const _$GenderEnumMap = {
