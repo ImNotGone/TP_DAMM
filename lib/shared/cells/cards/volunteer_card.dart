@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -27,17 +29,30 @@ class VolunteerCard extends HookConsumerWidget {
     }
 
     Future<void> markAsFavorite() async {
-      AppUser user = await userService.markVolunteeringAsFavourite(volunteeringId);
-      ref.read(currentUserNotifierProvider.notifier).setUser(user);
       Volunteering updatedVolunteering = volunteering.copyWith(isFavourite: true);
       ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+      try{
+        AppUser user = await userService.markVolunteeringAsFavourite(volunteeringId);
+        ref.read(currentUserNotifierProvider.notifier).setUser(user);
+      }
+      catch (e) {
+        log(e.toString());
+        Volunteering updatedVolunteering = volunteering.copyWith(isFavourite: false);
+        ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+      }
     }
 
     Future<void> unmarkAsFavorite() async {
-      AppUser user = await userService.unmarkVolunteeringAsFavourite(volunteeringId);
-      ref.read(currentUserNotifierProvider.notifier).setUser(user);
       Volunteering updatedVolunteering = volunteering.copyWith(isFavourite: false);
       ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+      try{
+        AppUser user = await userService.unmarkVolunteeringAsFavourite(volunteeringId);
+        ref.read(currentUserNotifierProvider.notifier).setUser(user);
+      }catch(e){
+        log(e.toString());
+        Volunteering updatedVolunteering = volunteering.copyWith(isFavourite: true);
+        ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+      }
     }
 
     return GestureDetector(
