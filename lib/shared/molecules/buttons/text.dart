@@ -4,12 +4,14 @@ class UtilTextButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String text;
   final double? minWidth;
+  final Color? foregroundColor;
 
   const UtilTextButton({
     super.key,
     required this.onPressed,
     required this.text,
-    this.minWidth
+    this.minWidth,
+    this.foregroundColor
   });
 
   @override
@@ -21,7 +23,7 @@ class UtilTextButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           minimumSize: Size(minWidth ?? double.infinity, 44),
-          foregroundColor: Theme.of(context).colorScheme.primary
+          foregroundColor: foregroundColor ?? Theme.of(context).colorScheme.primary
       ),
       child: Text(text),
     );

@@ -9,6 +9,7 @@ import 'package:ser_manos_mobile/auth/presentation/login.dart';
 import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/prelogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
+import 'package:ser_manos_mobile/home/presentation/profile_edit_screen.dart';
 
 import 'home/presentation/home_page.dart';
 import 'home/presentation/news_detail.dart';
@@ -49,6 +50,10 @@ class MyApp extends StatelessWidget {
         return VolunteeringDetail(volunteeringId: volunteeringId);
       },
     ),
+    GoRoute(
+      path: '/profile_edit',
+      builder: (context, state) => const ProfileEditScreen()
+    )
   ]);
 
   final MaterialColor primarySwatch = const MaterialColor(
