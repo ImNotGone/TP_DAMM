@@ -48,5 +48,10 @@
   "profileData": "Profile data",
   "contactData": "Contact data",
   "contactDataDetail": "These data will be shared with the organizations for them to contact you",
-  "saveData": "Save data"
+  "saveData": "Save data",
+  "personalInformation": "Personal information",
+  "birthDate": "Birthdate",
+  "gender": "Gender",
+  "cellphone": "Cellphone",
+  "editProfile": "Edit profile"
 }

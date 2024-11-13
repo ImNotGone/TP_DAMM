@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
+import 'package:ser_manos_mobile/shared/cells/cards/info_card.dart';
+import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 
 import '../../shared/cells/modals/modal.dart';
 import '../../shared/molecules/buttons/text.dart';
@@ -27,11 +30,96 @@ class _UserData extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [Text('Complete User Data Screen')]));
+    final currentUser = ref.watch(currentUserNotifierProvider);
+    final userService = ref.read(userServiceProvider);
+
+    void signOut() {
+      userService.signOut();
+      ref.read(currentUserNotifierProvider.notifier).clearUser();
+      GoRouter.of(context).go('/');
+    }
+
+    return Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        currentUser!.profilePictureURL!,
+                        width: 110,
+                        height: 110,
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                          AppLocalizations.of(context)!.volunteer.toUpperCase(),
+                          style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666))
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                          '${currentUser.firstName} ${currentUser.lastName}',
+                          style: Theme.of(context).textTheme.titleMedium
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                          currentUser.email,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: const Color(0xff0d47a1))
+                      ),
+                      const SizedBox(height: 32),
+                      InfoCard(
+                          title: AppLocalizations.of(context)!.personalInformation,
+                          label1: AppLocalizations.of(context)!.birthDate,
+                          content1: DateFormat('dd/MM/yyyy').format(currentUser.birthDate!),
+                          label2: AppLocalizations.of(context)!.gender,
+                          content2: currentUser.gender!.localizedName(context)
+                      ),
+                      const SizedBox(height: 32),
+                      InfoCard(
+                          title: AppLocalizations.of(context)!.contactData,
+                          label1: AppLocalizations.of(context)!.cellphone,
+                          content1: currentUser.phoneNumber!,
+                          label2: AppLocalizations.of(context)!.email,
+                          content2: currentUser.email
+                      )
+                    ],
+                  )
+              ),
+              UtilFilledButton(
+                  onPressed: () {
+                    context.push('/profile_edit');
+                    },
+                  text: AppLocalizations.of(context)!.editProfile
+              ),
+              const SizedBox(height: 8),
+              UtilTextButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => Modal(
+                        confirmButtonText: AppLocalizations.of(context)!.logOut,
+                        onConfirm: () {
+                          signOut();
+                        },
+                        context: context,
+                        child: Text(
+                          AppLocalizations.of(context)!.sureToLogOut,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      )
+                  );
+                },
+                text: AppLocalizations.of(context)!.signOut,
+                foregroundColor: Theme.of(context).colorScheme.error,
+              ),
+              const SizedBox(height: 16), // TODO: revisar
+            ],
+          ),
+        )
+    );
   }
 }
 
@@ -58,10 +146,13 @@ class _MissingDataScreen extends HookConsumerWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/no_profile_pic_icon.png',
-                          width: 120,
-                          height: 120,
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Image.asset(
+                            'assets/no_profile_pic_icon.png',
+                            width: 100,
+                            height: 100,
+                          ),
                         ),
                         const SizedBox(height: 16),
                         Text(
