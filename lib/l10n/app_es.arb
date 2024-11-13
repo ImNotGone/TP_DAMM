@@ -44,5 +44,9 @@
   "confirm": "Confirmar",
   "youAreApplyingTo": "Te estas por postualar a",
   "sureToLogOut": "¿Estás seguro que quieres cerrar sesión?",
-  "logOut": "Cerrar sesión"
+  "logOut": "Cerrar sesión",
+  "profileData": "Datos de perfil",
+  "contactData": "Datos de contacto",
+  "contactDataDetail": "Estos datos serán compartidos con la organización para ponerse en contacto contigo",
+  "saveData": "Guardar datos"
 }

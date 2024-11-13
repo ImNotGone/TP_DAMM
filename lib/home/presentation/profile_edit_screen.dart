@@ -3,13 +3,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/info_card.dart';
+import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import '../../auth/domain/app_user.dart';
 import '../../providers/service_providers.dart';
 import '../../providers/user_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileEditScreen extends HookConsumerWidget {
   const ProfileEditScreen({super.key});
@@ -84,17 +87,59 @@ class ProfileEditScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Datos de perfil'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.check),
-            onPressed: saveProfile,
-          ),
-        ],
+        leading: IconButton(
+            onPressed: ()  => context.pop(),
+            icon: const Icon(Icons.close),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              AppLocalizations.of(context)!.profileData,
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            const SizedBox(height: 24),
+            // TODO: date field
+            const SizedBox(height: 24),
+            ProfileInfoCard(onGenderSelected: _handleGenderSelection),
+            const SizedBox(height: 24),
+            // TODO: ProfilePictureCard
+            const SizedBox(height: 32),
+            Text(
+              AppLocalizations.of(context)!.contactData,
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+            const SizedBox(height: 24),
+            Text(
+              AppLocalizations.of(context)!.contactDataDetail,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 24),
+            // TODO: cellphoneField
+            const SizedBox(height: 24),
+            // TODO: emailField
+            const SizedBox(height: 32),
+            UtilFilledButton(
+                onPressed: null,
+                text: AppLocalizations.of(context)!.saveData
+            ),
+            const SizedBox(height: 16),
+          ],
+        )
+      ),
+    );
+  }
+
+  void _handleGenderSelection(String gender) {
+    debugPrint(gender);
+  }
+}
+
+/*
+Form(
           child: ListView(
             children: <Widget>[
               TextFormField(
@@ -153,7 +198,4 @@ class ProfileEditScreen extends HookConsumerWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
+ */
