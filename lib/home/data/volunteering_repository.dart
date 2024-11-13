@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../domain/volunteering.dart';
 
@@ -6,15 +8,15 @@ class VolunteeringRepository{
 
   VolunteeringRepository(this._firestore);
 
-  Future<List<Volunteering>> fetchVolunteerings() async {
+  Future<Map<String, Volunteering>> fetchVolunteerings() async {
     final volunteeringJson = await _firestore.collection('volunteerings').get();
-    List<Volunteering> volunteering = [];
+    HashMap<String, Volunteering> volunteerings = HashMap();
     for (var volunteeringDoc in volunteeringJson.docs) {
       final data = volunteeringDoc.data();
       data['uid'] = volunteeringDoc.id;
-      volunteering.add(Volunteering.fromJson(data));
+      volunteerings[volunteeringDoc.id] = Volunteering.fromJson(data);
     }
-    return volunteering;
+    return volunteerings;
   }
 
   // TODO: uncomment this method to upload volunteerings

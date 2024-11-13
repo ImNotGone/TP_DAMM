@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class Map extends StatefulWidget {
-  const Map({super.key});
+class CustomMap extends StatefulWidget {
+  const CustomMap({super.key});
 
   @override
-  State<Map> createState() => _MapState();
+  State<CustomMap> createState() => _CustomMapState();
 }
 
-class _MapState extends State<Map> {
+class _CustomMapState extends State<CustomMap> {
   GoogleMapController? mapController;
   LatLng? _center;
   Position? _currentPosition;
