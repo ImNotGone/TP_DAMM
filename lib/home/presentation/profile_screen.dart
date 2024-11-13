@@ -148,10 +148,19 @@ class _MissingDataScreen extends HookConsumerWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10),
-                          child: Image.asset(
+                          child: currentUser?.profilePictureURL == null ?
+                          Image.asset(
                             'assets/no_profile_pic_icon.png',
                             width: 100,
                             height: 100,
+                          ) :
+                          ClipOval(
+                            child: Image.network(
+                              currentUser!.profilePictureURL!,
+                              fit: BoxFit.cover,
+                              width: 100,
+                              height: 100,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 16),
