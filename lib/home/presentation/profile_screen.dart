@@ -46,7 +46,7 @@ class _MissingDataScreen extends HookConsumerWidget {
     void signOut() {
       userService.signOut();
       ref.read(currentUserNotifierProvider.notifier).clearUser();
-      GoRouter.of(context).go('/login');
+      GoRouter.of(context).go('/');
     }
 
     return Scaffold(
