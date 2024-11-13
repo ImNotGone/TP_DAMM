@@ -17,8 +17,7 @@ class Volunteering {
   @JsonKey(includeFromJson: false, includeToJson: false)
   bool isFavourite;
 
-  // TODO: ubicacion en coordenadas? dos float?
-  // Coordenates
+  Location location;
   String address;
 
   String requirements;
@@ -32,6 +31,7 @@ class Volunteering {
       required this.type,
       required this.purpose,
       required this.activityDetail,
+      required this.location,
       required this.address,
       required this.requirements,
       required this.creationDate,
@@ -50,6 +50,7 @@ class Volunteering {
     VolunteeringType? type,
     String? purpose,
     String? activityDetail,
+    Location? location,
     String? address,
     String? requirements,
     DateTime? creationDate,
@@ -63,6 +64,7 @@ class Volunteering {
       type: type ?? this.type,
       purpose: purpose ?? this.purpose,
       activityDetail: activityDetail ?? this.activityDetail,
+      location: location ?? this.location,
       address: address ?? this.address,
       requirements: requirements ?? this.requirements,
       creationDate: creationDate ?? this.creationDate,
@@ -117,4 +119,17 @@ enum VolunteeringType {
         return AppLocalizations.of(context)!.socialAction;
     }
   }
+}
+
+@JsonSerializable(createToJson: false)
+class Location {
+  double lat;
+  double lng;
+
+  Location({
+    required this.lat,
+    required this.lng
+  });
+  factory Location.fromJson(Map<String, dynamic> json) =>
+      _$LocationFromJson(json);
 }

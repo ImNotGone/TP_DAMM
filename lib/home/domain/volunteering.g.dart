@@ -13,6 +13,7 @@ Volunteering _$VolunteeringFromJson(Map<String, dynamic> json) => Volunteering(
       type: $enumDecode(_$VolunteeringTypeEnumMap, json['type']),
       purpose: json['purpose'] as String,
       activityDetail: json['activityDetail'] as String,
+      location: Location.fromJson(json['location'] as Map<String, dynamic>),
       address: json['address'] as String,
       requirements: json['requirements'] as String,
       creationDate: DateTime.parse(json['creationDate'] as String),
@@ -22,3 +23,8 @@ Volunteering _$VolunteeringFromJson(Map<String, dynamic> json) => Volunteering(
 const _$VolunteeringTypeEnumMap = {
   VolunteeringType.socialAction: 'socialAction',
 };
+
+Location _$LocationFromJson(Map<String, dynamic> json) => Location(
+      lat: (json['lat'] as num).toDouble(),
+      lng: (json['lng'] as num).toDouble(),
+    );
