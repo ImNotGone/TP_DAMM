@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 import '../../../auth/domain/app_user.dart';
-import '../../../home/domain/volunteering.dart';
 import '../../../providers/service_providers.dart';
 import '../../../providers/user_provider.dart';
 import '../../molecules/components/vacancies.dart';
@@ -29,29 +28,25 @@ class VolunteerCard extends HookConsumerWidget {
     }
 
     Future<void> markAsFavorite() async {
-      Volunteering updatedVolunteering = volunteering.copyWith(isFavourite: true);
-      ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+      volunteering.isFavourite = true;
       try{
         AppUser user = await userService.markVolunteeringAsFavourite(volunteeringId);
         ref.read(currentUserNotifierProvider.notifier).setUser(user);
       }
       catch (e) {
         log(e.toString());
-        Volunteering updatedVolunteering = volunteering.copyWith(isFavourite: false);
-        ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+        volunteering.isFavourite = false;
       }
     }
 
     Future<void> unmarkAsFavorite() async {
-      Volunteering updatedVolunteering = volunteering.copyWith(isFavourite: false);
-      ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+      volunteering.isFavourite = false;
       try{
         AppUser user = await userService.unmarkVolunteeringAsFavourite(volunteeringId);
         ref.read(currentUserNotifierProvider.notifier).setUser(user);
       }catch(e){
         log(e.toString());
-        Volunteering updatedVolunteering = volunteering.copyWith(isFavourite: true);
-        ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+        volunteering.isFavourite = true;
       }
     }
 
