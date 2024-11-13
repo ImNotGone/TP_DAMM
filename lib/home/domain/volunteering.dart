@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,7 +18,9 @@ class Volunteering {
   @JsonKey(includeFromJson: false, includeToJson: false)
   bool isFavourite;
 
-  Location location;
+  // GeoPoint is not JsonSerializable so we need to provide custom serialization
+  @JsonKey(fromJson: _fromJsonGeoPoint, toJson: _toJsonGeoPoint)
+  GeoPoint location;
   String address;
 
   String requirements;
@@ -50,7 +53,7 @@ class Volunteering {
     VolunteeringType? type,
     String? purpose,
     String? activityDetail,
-    Location? location,
+    GeoPoint? location,
     String? address,
     String? requirements,
     DateTime? creationDate,
@@ -73,6 +76,7 @@ class Volunteering {
     );
   }
 
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -85,6 +89,7 @@ class Volunteering {
           purpose == other.purpose &&
           activityDetail == other.activityDetail &&
           isFavourite == other.isFavourite &&
+          location == other.location &&
           address == other.address &&
           requirements == other.requirements &&
           creationDate == other.creationDate &&
@@ -99,6 +104,7 @@ class Volunteering {
       purpose.hashCode ^
       activityDetail.hashCode ^
       isFavourite.hashCode ^
+      location.hashCode ^
       address.hashCode ^
       requirements.hashCode ^
       creationDate.hashCode ^
@@ -106,7 +112,15 @@ class Volunteering {
 
   @override
   String toString() {
-    return 'Volunteering{uid: $uid, imageUrl: $imageUrl, title: $title, type: $type, purpose: $purpose, activityDetail: $activityDetail, isFavourite: $isFavourite, address: $address, requirements: $requirements, creationDate: $creationDate, vacancies: $vacancies}';
+    return 'Volunteering{uid: $uid, imageUrl: $imageUrl, title: $title, type: $type, purpose: $purpose, activityDetail: $activityDetail, isFavourite: $isFavourite, location: $location, address: $address, requirements: $requirements, creationDate: $creationDate, vacancies: $vacancies}';
+  }
+
+  static GeoPoint _fromJsonGeoPoint(GeoPoint geoPoint) {
+    return geoPoint;
+  }
+
+  static GeoPoint _toJsonGeoPoint(GeoPoint geoPoint) {
+    return geoPoint;
   }
 }
 
@@ -119,17 +133,4 @@ enum VolunteeringType {
         return AppLocalizations.of(context)!.socialAction;
     }
   }
-}
-
-@JsonSerializable(createToJson: false)
-class Location {
-  double lat;
-  double lng;
-
-  Location({
-    required this.lat,
-    required this.lng
-  });
-  factory Location.fromJson(Map<String, dynamic> json) =>
-      _$LocationFromJson(json);
 }
