@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 
 class UtilFloatingButton extends StatelessWidget {
   final VoidCallback? onPressed;
-  final IconData? icon;
 
   const UtilFloatingButton({
     super.key,
     required this.onPressed,
-    required this.icon,
   });
 
   @override
