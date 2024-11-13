@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class UtilFloatingButton extends StatelessWidget {
@@ -30,13 +28,10 @@ class UtilFloatingButton extends StatelessWidget {
             elevation: 4.0, // Shadow depth
             padding: EdgeInsets.zero
           ),
-          child: Transform.rotate(
-            angle: 45 * pi / 180,
-            child: Icon(
-              icon,
+          child: const Icon(
+              Icons.near_me,
               size: 24,
             ),
-          ),
         ),
     );
   }
