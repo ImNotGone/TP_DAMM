@@ -55,30 +55,11 @@ class AppUser {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is AppUser &&
-          runtimeType == other.runtimeType &&
-          uid == other.uid &&
-          firstName == other.firstName &&
-          lastName == other.lastName &&
-          email == other.email &&
-          birthDate == other.birthDate &&
-          gender == other.gender &&
-          phoneNumber == other.phoneNumber &&
-          profilePictureURL == other.profilePictureURL &&
-          registeredVolunteeringId == other.registeredVolunteeringId &&
-          favouriteVolunteeringIds == other.favouriteVolunteeringIds;
+          uid == other.uid;
 
   @override
   int get hashCode =>
-      uid.hashCode ^
-      firstName.hashCode ^
-      lastName.hashCode ^
-      email.hashCode ^
-      birthDate.hashCode ^
-      gender.hashCode ^
-      phoneNumber.hashCode ^
-      profilePictureURL.hashCode ^
-      registeredVolunteeringId.hashCode ^
-      favouriteVolunteeringIds.hashCode;
+      uid.hashCode;
 
   AppUser copyWith({
     String? uid,

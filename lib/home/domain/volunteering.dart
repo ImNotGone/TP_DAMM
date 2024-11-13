@@ -81,34 +81,11 @@ class Volunteering {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is Volunteering &&
-          runtimeType == other.runtimeType &&
-          uid == other.uid &&
-          imageUrl == other.imageUrl &&
-          title == other.title &&
-          type == other.type &&
-          purpose == other.purpose &&
-          activityDetail == other.activityDetail &&
-          isFavourite == other.isFavourite &&
-          location == other.location &&
-          address == other.address &&
-          requirements == other.requirements &&
-          creationDate == other.creationDate &&
-          vacancies == other.vacancies;
+          uid == other.uid;
 
   @override
   int get hashCode =>
-      uid.hashCode ^
-      imageUrl.hashCode ^
-      title.hashCode ^
-      type.hashCode ^
-      purpose.hashCode ^
-      activityDetail.hashCode ^
-      isFavourite.hashCode ^
-      location.hashCode ^
-      address.hashCode ^
-      requirements.hashCode ^
-      creationDate.hashCode ^
-      vacancies.hashCode;
+      uid.hashCode;
 
   @override
   String toString() {

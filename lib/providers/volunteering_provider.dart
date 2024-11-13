@@ -7,7 +7,7 @@ part 'volunteering_provider.g.dart';
 class VolunteeringsNotifier extends _$VolunteeringsNotifier {
   @override
   Map<String, Volunteering>? build() {
-    return null;
+    return {};
   }
 
   void setVolunteerings(Map<String, Volunteering> volunteerings) {
@@ -15,11 +15,10 @@ class VolunteeringsNotifier extends _$VolunteeringsNotifier {
   }
 
   void clearVolunteerings() {
-    state = null;
+    state = {};
   }
 
   void updateVolunteering(Volunteering volunteering) {
     state = {...?state, volunteering.uid: volunteering};
   }
-
 }
