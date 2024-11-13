@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/blue_header_card.dart';
 
+//TODO: revisar size
 class InfoCard extends StatelessWidget {
   final String title;
   final String label1;
