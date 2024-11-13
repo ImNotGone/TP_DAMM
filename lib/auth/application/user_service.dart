@@ -46,4 +46,17 @@ class UserService{
   Future<String?> uploadProfilePicture(File imageFile) async {
     return await _userRepository.uploadProfilePicture(imageFile);
   }
+
+  Future<AppUser> markVolunteeringAsFavourite(String volunteeringId) async {
+    AppUser user = await _userRepository.fetchCurrentUser();
+    user.favouriteVolunteeringIds ??= [];
+    user.favouriteVolunteeringIds!.add(volunteeringId);
+    return await _userRepository.updateUser(user);
+  }
+
+  Future<AppUser> unmarkVolunteeringAsFavourite(String volunteeringId) async {
+    AppUser user = await _userRepository.fetchCurrentUser();
+    user.favouriteVolunteeringIds?.remove(volunteeringId);
+    return await _userRepository.updateUser(user);
+  }
 }

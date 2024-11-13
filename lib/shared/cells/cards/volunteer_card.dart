@@ -1,21 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ser_manos_mobile/home/domain/volunteering.dart';
-import 'package:ser_manos_mobile/shared/molecules/components/vacancies.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
+import '../../../auth/domain/app_user.dart';
+import '../../../home/domain/volunteering.dart';
+import '../../../providers/service_providers.dart';
+import '../../../providers/user_provider.dart';
+import '../../molecules/components/vacancies.dart';
 
-class VolunteerCard extends StatelessWidget {
-  final Volunteering volunteering;
+class VolunteerCard extends HookConsumerWidget {
+  final String volunteeringId;
 
   const VolunteerCard({
     super.key,
-    required this.volunteering,
+    required this.volunteeringId,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userService = ref.read(userServiceProvider);
+
+    final volunteering = ref.watch(volunteeringsNotifierProvider)?[volunteeringId];
+
+    if (volunteering == null) {
+      return const SizedBox.shrink();
+    }
+
+    Future<void> markAsFavorite() async {
+      AppUser user = await userService.markVolunteeringAsFavourite(volunteeringId);
+      ref.read(currentUserNotifierProvider.notifier).setUser(user);
+      Volunteering updatedVolunteering = volunteering.copyWith(isFavourite: true);
+      ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+    }
+
+    Future<void> unmarkAsFavorite() async {
+      AppUser user = await userService.unmarkVolunteeringAsFavourite(volunteeringId);
+      ref.read(currentUserNotifierProvider.notifier).setUser(user);
+      Volunteering updatedVolunteering = volunteering.copyWith(isFavourite: false);
+      ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+    }
+
     return GestureDetector(
       onTap: () {
-        context.push('/volunteering/${volunteering.uid}', extra: volunteering.uid);
+        context.push('/volunteering/$volunteeringId', extra: volunteeringId);
       },
       child: Card(
         elevation: 4,
@@ -59,10 +86,11 @@ class VolunteerCard extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            _buildIcon(Icons.favorite_border, () {
-                              // TODO: Handle favorite button press
-                            }),
-                            const SizedBox(width: 16,),
+                            _buildIcon(
+                              volunteering.isFavourite ? Icons.favorite : Icons.favorite_border,
+                              volunteering.isFavourite ? unmarkAsFavorite : markAsFavorite,
+                            ),
+                            const SizedBox(width: 16),
                             _buildIcon(Icons.place, () {
                               // TODO: Handle location button press
                             }),
@@ -71,7 +99,7 @@ class VolunteerCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 8,)
+                  const SizedBox(height: 8),
                 ],
               ),
             ),
@@ -81,15 +109,12 @@ class VolunteerCard extends StatelessWidget {
     );
   }
 
-  Widget _buildIcon(
-      IconData icon,
-      VoidCallback? onPressed
-      ) {
+  Widget _buildIcon(IconData icon, VoidCallback? onPressed) {
     return SizedBox(
       width: 24,
       height: 24,
       child: IconButton(
-        icon: Icon(icon,),
+        icon: Icon(icon),
         color: const Color(0xff14903f),
         onPressed: onPressed,
         padding: EdgeInsets.zero,

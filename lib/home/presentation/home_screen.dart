@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos_mobile/home/domain/volunteering.dart';
+import 'package:ser_manos_mobile/home/presentation/custom_map.dart';
+import 'package:ser_manos_mobile/providers/user_provider.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/volunteer_card.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/current_volunteer_card.dart';
 import 'package:ser_manos_mobile/shared/molecules/components/no_volunteering.dart';
 
 import '../../providers/service_providers.dart';
-import 'map.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
@@ -25,13 +27,18 @@ class HomeScreen extends HookConsumerWidget {
 
     final volunteeringsNotifier = ref.read(volunteeringsNotifierProvider.notifier);
     final volunteeringService = ref.read(volunteeringServiceProvider);
+
     final allVolunteerings = ref.watch(volunteeringsNotifierProvider);
+    final currentUser = ref.watch(currentUserNotifierProvider);
 
     Future<void> refreshVolunteerings() async {
-      await volunteeringService.fetchVolunteerings().then((volunteerings) {
-        volunteerings.sort((a, b) => b.creationDate.compareTo(a.creationDate));
-        volunteeringsNotifier.setVolunteerings(volunteerings);
-      });
+      Map<String, Volunteering> volunteerings = await volunteeringService.fetchVolunteerings();
+      for (String volunteeringId in currentUser?.favouriteVolunteeringIds ?? []) {
+        if (volunteerings.containsKey(volunteeringId)) {
+          volunteerings[volunteeringId]!.isFavourite = true;
+        }
+      }
+      volunteeringsNotifier.setVolunteerings(volunteerings);
     }
 
     useEffect(() {
@@ -43,9 +50,12 @@ class HomeScreen extends HookConsumerWidget {
       return null;
     }, []);
 
-    final filteredVolunteerings = allVolunteerings?.where((volunteering) {
-      return volunteering.title.toLowerCase().contains(searchQuery.value.toLowerCase());
-    }).toList();
+    final filteredVolunteerings = allVolunteerings?.values
+        .where((volunteering) => volunteering.title
+        .toLowerCase()
+        .contains(searchQuery.value.toLowerCase()))
+        .toList()
+      ?..sort((a, b) => b.creationDate.compareTo(a.creationDate));
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
@@ -59,25 +69,31 @@ class HomeScreen extends HookConsumerWidget {
               searchQuery.value = query;
             },
           ),
-          const SizedBox(height: 32,),
+          const SizedBox(
+            height: 32,
+          ),
           // TODO: Replace this with if user, has activity
-          if(true) ...[
+          if (true) ...[
             Text(
               AppLocalizations.of(context)!.yourActivity,
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            const SizedBox(height: 16,),
+            const SizedBox(
+              height: 16,
+            ),
 
             // TODO: pass propper title and type to Volunteering card
-            const CurrrentVolunteerCard(type: 'acción social', title: 'Un Techo para mi País '),
-            const SizedBox(height: 24,),
+            const CurrrentVolunteerCard(
+                type: 'acción social', title: 'Un Techo para mi País '),
+            const SizedBox(
+              height: 24,
+            ),
           ],
           Expanded(
             child: showMap.value
-                ? const Map()
+                ? const CustomMap()
                 : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-
               children: [
                 Text(
                   AppLocalizations.of(context)!.volunteering,
@@ -87,13 +103,14 @@ class HomeScreen extends HookConsumerWidget {
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: refreshVolunteerings,
-                    child: filteredVolunteerings == null || filteredVolunteerings.isEmpty
+                    child: filteredVolunteerings == null ||
+                        filteredVolunteerings.isEmpty
                         ? const NoVolunteering()
                         : ListView.builder(
                       itemCount: filteredVolunteerings.length,
                       itemBuilder: (context, index) {
                         return VolunteerCard(
-                          volunteering: filteredVolunteerings[index],
+                          volunteeringId: filteredVolunteerings[index].uid,
                         );
                       },
                     ),
@@ -152,7 +169,10 @@ class _SearchBar extends HookWidget {
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context)!.search,
                 border: InputBorder.none,
-                hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: const Color(0xff666666)),
+                hintStyle: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(color: const Color(0xff666666)),
               ),
               onChanged: onSearchChanged,
             ),
@@ -160,7 +180,8 @@ class _SearchBar extends HookWidget {
           IconButton(
             icon: showMapIcon.value
                 ? Icon(Icons.map, color: Theme.of(context).colorScheme.primary)
-                : Icon(Icons.menu, color: Theme.of(context).colorScheme.primary),
+                : Icon(Icons.menu,
+                    color: Theme.of(context).colorScheme.primary),
             onPressed: () {
               onMapButtonPressed();
               toggleMapIcon();
