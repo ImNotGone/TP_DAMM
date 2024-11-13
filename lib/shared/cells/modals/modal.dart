@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import '../../molecules/buttons/text.dart';
 
 class Modal extends Dialog {
@@ -30,14 +31,14 @@ class Modal extends Dialog {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 UtilTextButton(
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () => GoRouter.of(context).pop(),
                   text: AppLocalizations.of(context)!.cancel,
                   minWidth: 0,
                 ),
                 UtilTextButton(
                   onPressed: () {
                     onConfirm();
-                    Navigator.of(context).pop();
+                    GoRouter.of(context).pop();
                   },
                   text: confirmButtonText,
                   minWidth: 0,
