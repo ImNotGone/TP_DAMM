@@ -48,7 +48,7 @@ class _UserData extends HookConsumerWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
+                      Image.network(
                         currentUser!.profilePictureURL!,
                         width: 110,
                         height: 110,
@@ -148,19 +148,10 @@ class _MissingDataScreen extends HookConsumerWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10),
-                          child: currentUser?.profilePictureURL == null ?
-                          Image.asset(
+                          child: Image.asset(
                             'assets/no_profile_pic_icon.png',
                             width: 100,
                             height: 100,
-                          ) :
-                          ClipOval(
-                            child: Image.network(
-                              currentUser!.profilePictureURL!,
-                              fit: BoxFit.cover,
-                              width: 100,
-                              height: 100,
-                            ),
                           ),
                         ),
                         const SizedBox(height: 16),
