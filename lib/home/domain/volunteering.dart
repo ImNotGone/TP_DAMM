@@ -21,7 +21,6 @@ class Volunteering {
   // Coordenates
   String address;
 
-  // TODO: how can it be markdown??
   String requirements;
   DateTime creationDate;
   int vacancies;

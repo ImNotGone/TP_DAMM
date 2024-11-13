@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/home/domain/volunteering.dart';
 import 'package:ser_manos_mobile/home/presentation/custom_map.dart';
@@ -72,52 +73,59 @@ class HomeScreen extends HookConsumerWidget {
           const SizedBox(
             height: 32,
           ),
-          // TODO: Replace this with if user, has activity
-          if (true) ...[
-            Text(
-              AppLocalizations.of(context)!.yourActivity,
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-
-            // TODO: pass propper title and type to Volunteering card
-            const CurrrentVolunteerCard(
-                type: 'acción social', title: 'Un Techo para mi País '),
-            const SizedBox(
-              height: 24,
-            ),
-          ],
           Expanded(
             child: showMap.value
                 ? const CustomMap()
                 : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.volunteering,
-                  style: Theme.of(context).textTheme.headlineLarge,
-                ),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: RefreshIndicator(
-                    onRefresh: refreshVolunteerings,
-                    child: filteredVolunteerings == null ||
-                        filteredVolunteerings.isEmpty
-                        ? const NoVolunteering()
-                        : ListView.builder(
-                      itemCount: filteredVolunteerings.length,
-                      itemBuilder: (context, index) {
-                        return VolunteerCard(
-                          volunteeringId: filteredVolunteerings[index].uid,
-                        );
-                      },
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // TODO: Replace this with if user, has activity
+                    if (true) ...[
+                      Text(
+                        AppLocalizations.of(context)!.yourActivity,
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          // TODO: route based on user volunteering id
+                          context.push('/volunteering/mEmoxTBkTgKUDPti4nbA', extra: 'mEmoxTBkTgKUDPti4nbA');
+                        },
+                        child: const CurrrentVolunteerCard(
+                            // TODO: pass propper title and type to Volunteering card
+                            type: 'acción social',
+                            title: 'Un Techo para mi País '
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                    ],
+                    Text(
+                      AppLocalizations.of(context)!.volunteering,
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
-                  ),
+                    const SizedBox(height: 16),
+                    Expanded(
+                      child: RefreshIndicator(
+                        onRefresh: refreshVolunteerings,
+                        child: filteredVolunteerings == null ||
+                            filteredVolunteerings.isEmpty
+                            ? const NoVolunteering()
+                            : ListView.builder(
+                                itemCount: filteredVolunteerings.length,
+                                itemBuilder: (context, index) {
+                                  return VolunteerCard(
+                                    volunteeringId: filteredVolunteerings[index].uid,
+                                  );
+                                },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
           ),
         ],
       ),
