@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ser_manos_mobile/providers/news_provider.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../shared/molecules/buttons/filled.dart';
 import '../domain/news.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 class NewsDetail extends HookConsumerWidget {
   final String newsId;
@@ -61,8 +66,12 @@ class NewsDetail extends HookConsumerWidget {
                 ),
               const SizedBox(height: 16.0),
               UtilFilledButton(
-                  onPressed: () {
-                    // TODO: SHARE NEWS
+                  onPressed: () async {
+                    final img = await getNetworkImage(news.imageUrl);
+                    Share.shareXFiles(
+                      [img],
+                      text: news.subtitle,
+                    );
                   },
                   text: AppLocalizations.of(context)!.share
               ),
@@ -71,5 +80,14 @@ class NewsDetail extends HookConsumerWidget {
           )
       ),
     );
+  }
+
+  // https://stackoverflow.com/questions/63353484/flutter-network-image-to-file
+  Future<XFile> getNetworkImage(String url) async {
+    final response = await http.get(Uri.parse(url));
+    final documentDirectory = await getApplicationDocumentsDirectory();
+    final file = File('${documentDirectory.path}/${DateTime.now().millisecondsSinceEpoch}.png');
+    file.writeAsBytesSync(response.bodyBytes);
+    return XFile(file.path);
   }
 }
