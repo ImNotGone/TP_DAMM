@@ -13,6 +13,8 @@ class BlueHeaderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      // TODO: neutralSwatch 10?
+      color: const Color(0xFFFAFAFA),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
       ),
