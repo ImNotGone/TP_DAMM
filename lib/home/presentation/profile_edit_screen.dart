@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ser_manos_mobile/shared/cells/cards/info_card.dart';
+import 'package:ser_manos_mobile/shared/cells/cards/input_card.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import '../../auth/domain/app_user.dart';
 import '../../providers/service_providers.dart';
@@ -104,7 +104,7 @@ class ProfileEditScreen extends HookConsumerWidget {
             const SizedBox(height: 24),
             // TODO: date field
             const SizedBox(height: 24),
-            ProfileInfoCard(onGenderSelected: _handleGenderSelection),
+            InputCard(onGenderSelected: _handleGenderSelection),
             const SizedBox(height: 24),
             // TODO: ProfilePictureCard
             const SizedBox(height: 32),

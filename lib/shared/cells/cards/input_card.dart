@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/blue_header_card.dart';
 
-class ProfileInfoCard extends StatefulWidget {
+class InputCard extends StatefulWidget {
   final void Function(String) onGenderSelected;
-  const ProfileInfoCard({super.key, required this.onGenderSelected});
+  const InputCard({super.key, required this.onGenderSelected});
 
   @override
-  ProfileInfoCardState createState() => ProfileInfoCardState();
+  InputCardState createState() => InputCardState();
 }
 
-class ProfileInfoCardState extends State<ProfileInfoCard> {
+class InputCardState extends State<InputCard> {
   String? selectedGender;
 
   @override
