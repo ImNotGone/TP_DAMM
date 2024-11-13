@@ -59,4 +59,16 @@ class UserService{
     user.favouriteVolunteeringIds?.remove(volunteeringId);
     return await _userRepository.updateUser(user);
   }
+
+  Future<AppUser> applyToVolunteering(String volunteeringId) async {
+    AppUser user = await _userRepository.fetchCurrentUser();
+    user.registeredVolunteeringId = volunteeringId;
+    return await _userRepository.updateUser(user);
+  }
+
+  Future<AppUser> unapplyToVolunteering() async {
+    AppUser user = await _userRepository.fetchCurrentUser();
+    user.registeredVolunteeringId = null;
+    return await _userRepository.updateUser(user);
+  }
 }
