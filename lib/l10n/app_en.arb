@@ -53,5 +53,8 @@
   "birthDate": "Birthdate",
   "gender": "Gender",
   "cellphone": "Cellphone",
-  "editProfile": "Edit profile"
+  "editProfile": "Edit profile",
+  "profilePicture": "Profile picture",
+  "uploadPicture": "Upload picture",
+  "changePicture": "Change picture"
 }

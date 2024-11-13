@@ -7,7 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ser_manos_mobile/shared/cells/cards/change_profile_picture_card.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/input_card.dart';
+import 'package:ser_manos_mobile/shared/cells/cards/upload_profile_picture_card.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import '../../auth/domain/app_user.dart';
 import '../../providers/service_providers.dart';
@@ -106,7 +108,9 @@ class ProfileEditScreen extends HookConsumerWidget {
             const SizedBox(height: 24),
             InputCard(onGenderSelected: _handleGenderSelection),
             const SizedBox(height: 24),
-            // TODO: ProfilePictureCard
+            user?.profilePictureURL == null
+              ? UploadProfilePictureCard(onUploadPicture: pickImage)
+              : ChangeProfilePictureCard(onUploadPicture: pickImage, profilePictureUrl: user!.profilePictureURL!),
             const SizedBox(height: 32),
             Text(
               AppLocalizations.of(context)!.contactData,

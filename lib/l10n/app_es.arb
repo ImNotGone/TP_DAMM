@@ -53,5 +53,8 @@
   "birthDate": "Fecha de nacimiento",
   "gender": "Género",
   "cellphone": "Teléfono",
-  "editProfile": "Editar perfil"
+  "editProfile": "Editar perfil",
+  "profilePicture": "Foto de prefil",
+  "uploadPicture": "Subir foto",
+  "changePicture": "Cambiar foto"
 }
