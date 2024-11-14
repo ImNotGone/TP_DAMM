@@ -8,13 +8,20 @@ class VolunteeringRepository {
 
   VolunteeringRepository(this._firestore);
 
+  Volunteering? _addUidToVolunteering(DocumentSnapshot volunteeringDoc) {
+    if (volunteeringDoc.exists && volunteeringDoc.data() != null) {
+      final Map<String, dynamic> data = volunteeringDoc.data() as Map<String, dynamic>;
+      data['uid'] = volunteeringDoc.id;
+      return Volunteering.fromJson(data);
+    }
+    return null;
+  }
+
   Future<Map<String, Volunteering>> fetchVolunteerings() async {
     final volunteeringJson = await _firestore.collection('volunteerings').get();
     HashMap<String, Volunteering> volunteerings = HashMap();
     for (var volunteeringDoc in volunteeringJson.docs) {
-      final data = volunteeringDoc.data();
-      data['uid'] = volunteeringDoc.id;
-      volunteerings[volunteeringDoc.id] = Volunteering.fromJson(data);
+      volunteerings[volunteeringDoc.id] = _addUidToVolunteering(volunteeringDoc)!;
     }
     return volunteerings;
   }
@@ -27,7 +34,7 @@ class VolunteeringRepository {
 
     return await _firestore.runTransaction((transaction) async {
       final volunteeringDoc = await transaction.get(volunteeringRef);
-      final volunteering = Volunteering.fromJson(volunteeringDoc.data()!);
+      final volunteering = _addUidToVolunteering(volunteeringDoc)!;
       if (volunteering.vacancies <= 0) {
         throw Exception('No vacancies left');
       }
@@ -37,9 +44,7 @@ class VolunteeringRepository {
     }).then(
       (value) async {
         final updatedDoc = await volunteeringRef.get();
-        final data = updatedDoc.data();
-        data!['uid'] = updatedDoc.id;
-        return Volunteering.fromJson(data);
+        return _addUidToVolunteering(updatedDoc);
       },
       onError: (e) => throw Exception('Error updating Volunteering $e'),
     );
@@ -52,16 +57,14 @@ class VolunteeringRepository {
 
     return await _firestore.runTransaction((transaction) async {
       final volunteeringDoc = await transaction.get(volunteeringRef);
-      final volunteering = Volunteering.fromJson(volunteeringDoc.data()!);
+      final volunteering = _addUidToVolunteering(volunteeringDoc)!;
       transaction
           .update(volunteeringRef, {'vacancies': volunteering.vacancies + 1});
       return volunteering;
     }).then(
       (value) async {
         final updatedDoc = await volunteeringRef.get();
-        final data = updatedDoc.data();
-        data!['uid'] = updatedDoc.id;
-        return Volunteering.fromJson(data);
+        return _addUidToVolunteering(updatedDoc);
       },
       onError: (e) => throw Exception('Error updating Volunteering $e'),
     );
