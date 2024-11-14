@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class TextInput extends HookWidget {
+class PasswordInput extends HookWidget {
   final String? label;
   final String? hintText;
   final TextEditingController controller;
-  final TextInputType keyboardType;
   final bool labelWhenEmpty;
 
-  const TextInput({
+  const PasswordInput({
     super.key,
     this.label,
     required this.hintText,
     required this.controller,
-    required this.keyboardType,
-    this.labelWhenEmpty = true
+    this.labelWhenEmpty = true,
   });
 
   @override
   Widget build(BuildContext context) {
     final labelColor = useState(const Color(0xff666666));
     final focusNode = useFocusNode();
+    final obscureText = useState(true);
     final showLabel = useState(labelWhenEmpty);
 
     useEffect(() {
@@ -50,13 +49,7 @@ class TextInput extends HookWidget {
     return TextFormField(
       controller: controller,
       focusNode: focusNode,
-      keyboardType: keyboardType,
-      // TODO: general formatter?
-      //inputFormatters: [
-      //],
-      // TODO: validator
-      // validator: ,
-
+      obscureText: obscureText.value,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: showLabel.value ? label : null,
@@ -76,13 +69,13 @@ class TextInput extends HookWidget {
           borderRadius: BorderRadius.circular(4),
         ),
         suffixIcon: IconButton(
-          onPressed: () {
-            controller.text = '';
-          },
           icon: Icon(
-              Icons.close,
-              color: Theme.of(context).colorScheme.primary
+            obscureText.value ? Icons.visibility : Icons.visibility_off,
+            color: Theme.of(context).iconTheme.color,
           ),
+          onPressed: () {
+            obscureText.value = !obscureText.value;
+          },
         ),
       ),
     );

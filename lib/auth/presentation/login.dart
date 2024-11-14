@@ -9,6 +9,7 @@ import 'package:ser_manos_mobile/auth/application/user_service.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/password_input.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/text_input.dart';
 import '../../shared/molecules/buttons/text.dart';
 import '../domain/app_user.dart';
@@ -20,7 +21,6 @@ class LoginScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
-    final obscurePassword = useState(true);
     final isButtonEnabled = useState(false);
 
     final UserService userService = ref.watch(userServiceProvider);
@@ -82,13 +82,12 @@ class LoginScreen extends HookConsumerWidget {
                         keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: 16),
-
-                        _buildPasswordField(
-                          passwordController: passwordController,
-                          obscurePassword: obscurePassword,
+                      PasswordInput(
+                          label: AppLocalizations.of(context)!.password,
+                          labelWhenEmpty: false,
                           hintText: AppLocalizations.of(context)!.password,
-                        ),
-
+                          controller: passwordController,
+                      )
                     ],
                 ),
             ),
@@ -111,32 +110,6 @@ class LoginScreen extends HookConsumerWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildPasswordField({
-    required TextEditingController passwordController,
-    required ValueNotifier<bool> obscurePassword,
-    required String hintText,
-  }) {
-    return ValueListenableBuilder<bool>(
-      valueListenable: obscurePassword,
-      builder: (context, obscure, _) {
-        return TextField(
-          controller: passwordController,
-          obscureText: obscure,
-          decoration: InputDecoration(
-            hintText: hintText,
-            border: const OutlineInputBorder(),
-            suffixIcon: IconButton(
-              icon: Icon(
-                obscure ? Icons.visibility : Icons.visibility_off,
-              ),
-              onPressed: () => obscurePassword.value = !obscurePassword.value,
-            ),
-          ),
-        );
-      },
     );
   }
 }

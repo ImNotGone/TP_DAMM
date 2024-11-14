@@ -11,6 +11,7 @@ import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/text_input.dart';
 import '../../providers/user_provider.dart';
 import '../../shared/molecules/buttons/text.dart';
+import '../../shared/molecules/inputs/password_input.dart';
 import '../domain/app_user.dart';
 
 class SignUpScreen extends HookConsumerWidget {
@@ -22,7 +23,6 @@ class SignUpScreen extends HookConsumerWidget {
     final lastNameController = useTextEditingController();
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
-    final obscurePassword = useState(true);
 
     // State to track if the button should be enabled or not
     final isSignUpButtonEnabled = useState(false);
@@ -120,26 +120,11 @@ class SignUpScreen extends HookConsumerWidget {
                               keyboardType: TextInputType.emailAddress,
                             ),
                             const SizedBox(height: 16),
-                            TextField(
+                            PasswordInput(
+                              label: AppLocalizations.of(context)!.password,
+                              hintText: AppLocalizations.of(context)!.passwordHint,
                               controller: passwordController,
-                              decoration: InputDecoration(
-                                floatingLabelBehavior: FloatingLabelBehavior.always,
-                                label: Text(AppLocalizations.of(context)!.password),
-                                hintText: AppLocalizations.of(context)!.passwordHint,
-                                border: const OutlineInputBorder(),
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    obscurePassword.value
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                  ),
-                                  onPressed: () {
-                                    obscurePassword.value = !obscurePassword.value;
-                                  },
-                                ),
-                              ),
-                              obscureText: obscurePassword.value,
-                            ),
+                            )
                           ],
                         ),
                       ],
