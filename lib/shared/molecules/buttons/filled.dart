@@ -20,8 +20,9 @@ class UtilFilledButton extends StatelessWidget {
             ),
             minimumSize: const Size(double.infinity, 44),
             backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary
+            foregroundColor: Theme.of(context).colorScheme.onPrimary,
         ),
+
         child: Text(text)
     );
   }

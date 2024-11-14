@@ -12,7 +12,12 @@ import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/password_input.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/text_input.dart';
 import '../../shared/molecules/buttons/text.dart';
+import '../../shared/molecules/inputs/validation/email_validation.dart';
+import '../../shared/molecules/inputs/validation/password_validation.dart';
+import '../../shared/molecules/inputs/validation/required_validation.dart';
+import '../../shared/molecules/inputs/validation/validator.dart';
 import '../domain/app_user.dart';
+final formKey = GlobalKey<FormState>();
 
 class LoginScreen extends HookConsumerWidget {
   const LoginScreen({super.key});
@@ -21,27 +26,9 @@ class LoginScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
-    final isButtonEnabled = useState(false);
+    final isLoginEnabled = useState(false);
 
     final UserService userService = ref.watch(userServiceProvider);
-
-    // Enable or disable the login button when text changes
-    void updateButtonState() {
-      isButtonEnabled.value = emailController.text.isNotEmpty &&
-          passwordController.text.isNotEmpty;
-    }
-
-    // Attach listeners to the text controllers
-    useEffect(() {
-      emailController.addListener(updateButtonState);
-      passwordController.addListener(updateButtonState);
-
-      // Clean up listeners when widget is disposed
-      return () {
-        emailController.removeListener(updateButtonState);
-        passwordController.removeListener(updateButtonState);
-      };
-    }, []);
 
     Future<void> handleLogin() async {
       await userService.signIn(
@@ -62,6 +49,7 @@ class LoginScreen extends HookConsumerWidget {
       }
     }
 
+    // TODO: this shit wont go to the center
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       body: Padding(
@@ -69,33 +57,54 @@ class LoginScreen extends HookConsumerWidget {
         child: Column(
           children: [
             Expanded(
-              child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset('assets/logo_square.png', width: 150, height: 150), // Logo at the top
-                      const SizedBox(height: 16),
-                      TextInput(
-                        label: AppLocalizations.of(context)!.email,
-                        labelWhenEmpty: false,
-                        hintText: AppLocalizations.of(context)!.email,
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      const SizedBox(height: 16),
-                      PasswordInput(
-                          label: AppLocalizations.of(context)!.password,
+              child: SingleChildScrollView(
+                child: Form(
+                  key: formKey,
+                  onChanged: () {
+                    isLoginEnabled.value = formKey.currentState?.validate() ?? false;
+                  },
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Image.asset('assets/logo_square.png', width: 150, height: 150), // Logo at the top
+                        const SizedBox(height: 16),
+                        TextInput(
+                          label: AppLocalizations.of(context)!.email,
                           labelWhenEmpty: false,
-                          hintText: AppLocalizations.of(context)!.password,
-                          controller: passwordController,
-                      )
-                    ],
-                ),
+                          hintText: AppLocalizations.of(context)!.email,
+                          controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: Validator.apply(
+                              context,
+                              [
+                                const RequiredValidation(),
+                                const EmailValidation()
+                              ]
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        PasswordInput(
+                            label: AppLocalizations.of(context)!.password,
+                            labelWhenEmpty: false,
+                            hintText: AppLocalizations.of(context)!.password,
+                            controller: passwordController,
+                            validator: Validator.apply(
+                                context,
+                                [
+                                  const RequiredValidation(),
+                                  const PasswordValidation()
+                                ]
+                            ),
+                        )
+                      ],
+                  ),
+               ),
+              )
             ),
             Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 UtilFilledButton(
-                  onPressed: isButtonEnabled.value ? handleLogin : null,
+                  onPressed: isLoginEnabled.value ? handleLogin : null,
                   text: AppLocalizations.of(context)!.login,
                 ),
                 const SizedBox(height: 8),
