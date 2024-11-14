@@ -1,14 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangeProfilePictureCard extends StatelessWidget {
   final Future<void> Function() onUploadPicture;
-  final String profilePictureUrl;
+  final String? profilePictureUrl;
+  final File? pickedImage;
 
   const ChangeProfilePictureCard({
     super.key,
     required this.onUploadPicture,
-    required this.profilePictureUrl,
+    this.profilePictureUrl,
+    this.pickedImage,
   });
 
   @override
@@ -50,12 +54,19 @@ class ChangeProfilePictureCard extends StatelessWidget {
                 ),
               ),
               ClipOval(
-                child: Image.network(
-                  profilePictureUrl,
+                child: profilePictureUrl != null ?
+                Image.network(
+                  profilePictureUrl!,
                   width: 84,
                   height: 84,
                   fit: BoxFit.cover,
-                ),
+                )
+                : Image.file(
+                  pickedImage!,
+                  width: 84,
+                  height: 84,
+                  fit: BoxFit.cover,
+                )
               ),
             ],
           ),

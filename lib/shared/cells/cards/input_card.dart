@@ -2,16 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/blue_header_card.dart';
 
+import '../../../auth/domain/app_user.dart';
+
 class InputCard extends StatefulWidget {
-  final void Function(String) onGenderSelected;
-  const InputCard({super.key, required this.onGenderSelected});
+  final void Function(Gender) onGenderSelected;
+  final Gender? previousGender;
+  const InputCard({super.key, required this.onGenderSelected, this.previousGender});
 
   @override
   InputCardState createState() => InputCardState();
 }
 
 class InputCardState extends State<InputCard> {
-  String? selectedGender;
+  Gender? selectedGender;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedGender = widget.previousGender;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +32,16 @@ class InputCardState extends State<InputCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildRadioButton(context, label: AppLocalizations.of(context)!.male, value: 'male'),
-              _buildRadioButton(context, label: AppLocalizations.of(context)!.female, value: 'female'),
-              _buildRadioButton(context, label: AppLocalizations.of(context)!.nonBinary, value: 'nonBinary')
+              _buildRadioButton(context, label: Gender.male.localizedName(context), value: Gender.male),
+              _buildRadioButton(context, label: Gender.female.localizedName(context), value: Gender.female),
+              _buildRadioButton(context, label: Gender.nonBinary.localizedName(context), value: Gender.nonBinary),
             ],
           ),
         ),
     );
   }
 
-  Widget _buildRadioButton(BuildContext context, {required String label, required String value}) {
+  Widget _buildRadioButton(BuildContext context, {required String label, required Gender value}) {
     return InkWell(
       onTap: () {
         setState(() {
@@ -53,7 +62,7 @@ class InputCardState extends State<InputCard> {
                 child: Radio(
                   value: value,
                   groupValue: selectedGender,
-                  onChanged: (String? newValue) {
+                  onChanged: (Gender? newValue) {
                     setState(() {
                       selectedGender = newValue;
                     });

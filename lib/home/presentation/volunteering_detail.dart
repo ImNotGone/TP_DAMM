@@ -290,8 +290,40 @@ class VolunteeringDetail extends HookConsumerWidget {
                         text: AppLocalizations.of(context)!
                             .applyForVolunteering,
                       ),
-                    ] else
-                      ...[
+                    ] else if(!currentUser.isComplete()) ...[
+                    UtilFilledButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              Modal(
+                                confirmButtonText:
+                                AppLocalizations.of(context)!.completeData,
+                                onConfirm: () {
+                                  context.push('/profile_edit', extra: volunteeringId);
+                                },
+                                context: context,
+                                child: Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .firstCompleteProfile,
+                                      style: Theme
+                                          .of(context)
+                                          .textTheme
+                                          .titleMedium,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                        );
+                      },
+                      text: AppLocalizations.of(context)!
+                          .applyForVolunteering,
+                    ),
+                  ] else ...[
                         UtilFilledButton(
                           onPressed: () {
                             showDialog(
