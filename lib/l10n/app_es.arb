@@ -63,5 +63,7 @@
   "youreParticipating": "Estas participando",
   "organizationConfirmation": "La organización confirmó que ya estas participando de este voluntariado",
   "alreadyParticipating": "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este.",
-  "dayMonthYear": "Día / Mes / Año"
+  "dayMonthYear": "Día / Mes / Año",
+  "firstCompleteProfile": "Para postularte debes primero completar tus datos.",
+  "completeData": "Completar datos"
 }

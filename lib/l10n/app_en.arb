@@ -63,5 +63,7 @@
   "youreParticipating": "You are participating",
   "organizationConfirmation": "The organization confirmed that you are already participating in this volunteering",
   "alreadyParticipating": "You are already participating in another volunteering, you must abandon it first to apply for this one.",
-  "dayMonthYear": "Day / Month / Year"
+  "dayMonthYear": "Day / Month / Year",
+  "firstCompleteProfile": "To apply you must first complete your data.",
+  "completeData": "Complete data"
 }
