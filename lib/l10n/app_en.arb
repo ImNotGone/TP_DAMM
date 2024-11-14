@@ -7,10 +7,10 @@
   "password": "Password",
   "name": "Name",
   "lastName": "Last Name",
-  "emailExample": "E.g. juanbarcena@mail.com",
-  "passwordExample": "E.g. ABCD1234",
-  "nameExample": "E.g. Juan",
-  "lastNameExample": "E.g. Barcena",
+  "emailHint": "E.g. juanbarcena@mail.com",
+  "passwordHint": "E.g. ABCD1234",
+  "nameHint": "E.g. Juan",
+  "lastNameHint": "E.g. Barcena",
   "noAccount": "I don't have an account",
   "haveAccount": "I already have an account",
   "login": "Login",
@@ -65,5 +65,6 @@
   "alreadyParticipating": "You are already participating in another volunteering, you must abandon it first to apply for this one.",
   "dayMonthYear": "Day / Month / Year",
   "firstCompleteProfile": "To apply you must first complete your data.",
-  "completeData": "Complete data"
+  "completeData": "Complete data",
+  "cellphoneHint": "E.g. +541178445459"
 }

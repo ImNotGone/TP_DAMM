@@ -8,19 +8,18 @@ class CalendarInput extends HookWidget {
   final DateTime? initialDate;
   final String label;
   final TextEditingController controller;
-  final FocusNode focusNode;
 
   const CalendarInput({
     super.key,
     required this.initialDate,
     required this.label,
     required this.controller,
-    required this.focusNode
   });
 
   @override
   Widget build(BuildContext context) {
     final labelColor = useState<Color>(const Color(0xff666666)); // Initial color
+    final focusNode = useFocusNode();
 
     useEffect(() {
       if (controller.text.isEmpty && initialDate != null) {
@@ -36,6 +35,7 @@ class CalendarInput extends HookWidget {
       controller: controller,
       focusNode: focusNode,
       keyboardType: TextInputType.datetime,
+      style: Theme.of(context).textTheme.titleMedium,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         _DateInputFormatter(),
