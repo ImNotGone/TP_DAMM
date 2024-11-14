@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:ser_manos_mobile/home/presentation/profile_screen.dart';
+import 'package:ser_manos_mobile/profile/presentation/profile_screen.dart';
 import 'home_screen.dart';
 import 'news_screen.dart';
 

@@ -11,6 +11,7 @@ import 'package:ser_manos_mobile/shared/cells/cards/change_profile_picture_card.
 import 'package:ser_manos_mobile/shared/cells/cards/input_card.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/upload_profile_picture_card.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/calendar_input.dart';
 import '../../auth/domain/app_user.dart';
 import '../../providers/service_providers.dart';
 import '../../providers/user_provider.dart';
@@ -26,6 +27,8 @@ class ProfileEditScreen extends HookConsumerWidget {
     final userService =
         ref.read(userServiceProvider); // Accessing the user service
 
+    final focusNode = useFocusNode();
+
     // Controllers
     final birthDateController = useTextEditingController(
         text: user?.birthDate != null
@@ -40,19 +43,6 @@ class ProfileEditScreen extends HookConsumerWidget {
     final profilePictureUrl = useState<String?>(user?.profilePictureURL);
 
     final ImagePicker picker = ImagePicker();
-
-    Future<void> selectDate(BuildContext context) async {
-      final DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: selectedDate.value ?? DateTime.now(),
-        firstDate: DateTime(1900),
-        lastDate: DateTime.now(),
-      );
-      if (pickedDate != null) {
-        selectedDate.value = pickedDate;
-        birthDateController.text = DateFormat('dd/MM/yyyy').format(pickedDate);
-      }
-    }
 
     Future<void> pickImage() async {
       try {
@@ -94,45 +84,53 @@ class ProfileEditScreen extends HookConsumerWidget {
             icon: const Icon(Icons.close),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppLocalizations.of(context)!.profileData,
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            const SizedBox(height: 24),
-            // TODO: date field
-            const SizedBox(height: 24),
-            InputCard(onGenderSelected: _handleGenderSelection),
-            const SizedBox(height: 24),
-            user?.profilePictureURL == null
-              ? UploadProfilePictureCard(onUploadPicture: pickImage)
-              : ChangeProfilePictureCard(onUploadPicture: pickImage, profilePictureUrl: user!.profilePictureURL!),
-            const SizedBox(height: 32),
-            Text(
-              AppLocalizations.of(context)!.contactData,
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            const SizedBox(height: 24),
-            Text(
-              AppLocalizations.of(context)!.contactDataDetail,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 24),
-            // TODO: cellphoneField
-            const SizedBox(height: 24),
-            // TODO: emailField
-            const SizedBox(height: 32),
-            UtilFilledButton(
-                onPressed: null,
-                text: AppLocalizations.of(context)!.saveData
-            ),
-            const SizedBox(height: 16),
-          ],
-        )
+      body:
+      SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.profileData,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: 24),
+              CalendarInput(
+                initialDate: selectedDate.value,
+                label: AppLocalizations.of(context)!.birthDate,
+                controller: birthDateController,
+                focusNode: focusNode,
+              ),
+              const SizedBox(height: 24),
+              InputCard(onGenderSelected: _handleGenderSelection),
+              const SizedBox(height: 24),
+              user?.profilePictureURL == null
+                ? UploadProfilePictureCard(onUploadPicture: pickImage)
+                : ChangeProfilePictureCard(onUploadPicture: pickImage, profilePictureUrl: user!.profilePictureURL!),
+              const SizedBox(height: 32),
+              Text(
+                AppLocalizations.of(context)!.contactData,
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: 24),
+              Text(
+                AppLocalizations.of(context)!.contactDataDetail,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 24),
+              // TODO: cellphoneField
+              const SizedBox(height: 24),
+              // TODO: emailField
+              const SizedBox(height: 32),
+              UtilFilledButton(
+                  onPressed: null,
+                  text: AppLocalizations.of(context)!.saveData
+              ),
+              const SizedBox(height: 16),
+            ],
+          )
+        ),
       ),
     );
   }

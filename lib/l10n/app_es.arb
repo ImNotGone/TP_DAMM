@@ -62,5 +62,6 @@
   "sureToAbandon": "¿Estás seguro que querés abandonar tu voluntariado?",
   "youreParticipating": "Estas participando",
   "organizationConfirmation": "La organización confirmó que ya estas participando de este voluntariado",
-  "alreadyParticipating": "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este."
+  "alreadyParticipating": "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este.",
+  "dayMonthYear": "Día / Mes / Año"
 }

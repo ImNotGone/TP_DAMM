@@ -32,6 +32,7 @@ class ProfileScreen extends HookConsumerWidget {
                 fit: BoxFit.cover,
               ),
             ),
+
             detailsWidget: Column(
                 children: [
                   const SizedBox(height: 2),

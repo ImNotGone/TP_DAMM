@@ -8,7 +8,7 @@ import 'package:ser_manos_mobile/auth/presentation/login.dart';
 import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/prelogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
-import 'package:ser_manos_mobile/home/presentation/profile_edit_screen.dart';
+import 'package:ser_manos_mobile/profile/presentation/profile_edit_screen.dart';
 import 'package:ser_manos_mobile/home/presentation/home_page.dart';
 import 'package:ser_manos_mobile/home/presentation/news_detail.dart';
 import 'package:ser_manos_mobile/home/presentation/volunteering_detail.dart';
