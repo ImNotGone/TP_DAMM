@@ -61,5 +61,6 @@
   "abandonVolunteering": "Abandon volunteering",
   "sureToAbandon": "Are you sure you want to abandon your volunteering?",
   "youreParticipating": "You are participating",
-  "organizationConfirmation": "The organization confirmed that you are already participating in this volunteering"
+  "organizationConfirmation": "The organization confirmed that you are already participating in this volunteering",
+  "alreadyParticipating": "You are already participating in another volunteering, you must abandon it first to apply for this one."
 }

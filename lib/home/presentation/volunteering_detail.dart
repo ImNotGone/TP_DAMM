@@ -30,17 +30,17 @@ class VolunteeringDetail extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // find the volunteering that has volunteeringId
     final Volunteering? volunteering =
-        ref.watch(volunteeringsNotifierProvider)?[volunteeringId];
+    ref.watch(volunteeringsNotifierProvider)?[volunteeringId];
     final AppUser? currentUser = ref.watch(currentUserNotifierProvider);
 
     final VolunteeringService volunteeringService =
-        ref.read(volunteeringServiceProvider);
+    ref.read(volunteeringServiceProvider);
     final UserService userService = ref.read(userServiceProvider);
 
     Future<void> volunteerToVolunteering() async {
       try {
         Volunteering? updatedVolunteering =
-            await volunteeringService.volunteerToVolunteering(volunteeringId);
+        await volunteeringService.volunteerToVolunteering(volunteeringId);
         if (updatedVolunteering != null) {
           ref
               .read(volunteeringsNotifierProvider.notifier)
@@ -53,10 +53,10 @@ class VolunteeringDetail extends HookConsumerWidget {
       }
     }
 
-    Future<void> unvolunteerToVolunteering() async {
+    Future<void> unvolunteerToVolunteering(String volId) async {
       try {
         Volunteering? updatedVolunteering =
-            await volunteeringService.unvolunteerToVolunteering(volunteeringId);
+        await volunteeringService.unvolunteerToVolunteering(volId);
         if (updatedVolunteering != null) {
           ref
               .read(volunteeringsNotifierProvider.notifier)
@@ -83,168 +83,265 @@ class VolunteeringDetail extends HookConsumerWidget {
       body: volunteering == null
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
+        child: Column(
+          children: [
+            ClipRRect(
+              child: Image.network(
+                volunteering.imageUrl,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: 200.0,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    child: Image.network(
-                      volunteering.imageUrl,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 200.0,
-                    ),
+                  const SizedBox(height: 24),
+                  Text(
+                    volunteering.type
+                        .localizedName(context)
+                        .toUpperCase(),
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(color: const Color(0xff666666)),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 24),
-                        Text(
-                          volunteering.type
-                              .localizedName(context)
-                              .toUpperCase(),
-                          style: Theme.of(context)
+                  Text(
+                    volunteering.title,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .headlineLarge,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    volunteering.purpose,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(color: const Color(0xFF0D47A1)),
+                  ),
+                  const SizedBox(height: 24),
+                  Text(
+                    AppLocalizations.of(context)!.activityDetailsTitle,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .headlineMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    volunteering.activityDetail,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyLarge,
+                  ),
+                  const SizedBox(height: 24),
+                  LocationCard(address: volunteering.address),
+                  const SizedBox(height: 24),
+                  _buildParticipationInfo(context, volunteering),
+                  const SizedBox(height: 24),
+                  if (currentUser!.registeredVolunteeringId != null) ...[
+                    if (currentUser.registeredVolunteeringId ==
+                        volunteeringId) ...[
+                      Center(
+                        child: Text(
+                          AppLocalizations.of(context)!
+                              .youreParticipating,
+                          style:
+                          Theme
+                              .of(context)
                               .textTheme
-                              .labelSmall
-                              ?.copyWith(color: const Color(0xff666666)),
+                              .headlineMedium,
                         ),
-                        Text(
-                          volunteering.title,
-                          style: Theme.of(context).textTheme.headlineLarge,
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          volunteering.purpose,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(color: const Color(0xFF0D47A1)),
-                        ),
-                        const SizedBox(height: 24),
-                        Text(
-                          AppLocalizations.of(context)!.activityDetailsTitle,
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          volunteering.activityDetail,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        const SizedBox(height: 24),
-                        LocationCard(address: volunteering.address),
-                        const SizedBox(height: 24),
-                        _buildParticipationInfo(context, volunteering),
-                        const SizedBox(height: 24),
-                        if (currentUser!.registeredVolunteeringId ==
-                            volunteeringId) ...[
-                          Center(
-                            child: Text(
-                              AppLocalizations.of(context)!.youreParticipating,
-                              style: Theme.of(context).textTheme.headlineMedium,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            AppLocalizations.of(context)!
-                                .organizationConfirmation,
-                            style: Theme.of(context).textTheme.bodyLarge,
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 8),
-                          UtilTextButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) => Modal(
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        AppLocalizations.of(context)!
+                            .organizationConfirmation,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyLarge,
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 8),
+                      UtilTextButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  Modal(
                                     confirmButtonText:
-                                        AppLocalizations.of(context)!.confirm,
-                                    onConfirm: unvolunteerToVolunteering,
+                                    AppLocalizations.of(context)!.confirm,
+                                    onConfirm: () {
+                                      unvolunteerToVolunteering(
+                                          volunteeringId);
+                                    },
                                     context: context,
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           AppLocalizations.of(context)!
-                                              .sureToLogOut,
-                                          style: Theme.of(context)
+                                              .sureToAbandon,
+                                          style: Theme
+                                              .of(context)
                                               .textTheme
                                               .titleMedium,
                                         ),
                                         Text(
                                           volunteering.title,
-                                          style: Theme.of(context)
+                                          style: Theme
+                                              .of(context)
                                               .textTheme
                                               .headlineMedium,
                                         ),
                                       ],
                                     ),
                                   ),
-                                );
-                              },
-                              text: AppLocalizations.of(context)!
-                                  .abandonVolunteering),
-                        ] else if (volunteering.vacancies <= 0) ...[
-                          Center(
-                            child: Text(
-                              AppLocalizations.of(context)!.noVacancies,
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            ),
+                            );
+                          },
+                          text: AppLocalizations.of(context)!
+                              .abandonVolunteering),
+                    ] else
+                      if (currentUser.registeredVolunteeringId !=
+                          volunteeringId) ...[
+                        Center(
+                          child: Text(
+                            AppLocalizations.of(context)!
+                                .alreadyParticipating,
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .bodyLarge,
                           ),
-                          const SizedBox(height: 24),
-                          UtilFilledButton(
-                            onPressed: null,
-                            text: AppLocalizations.of(context)!
-                                .applyForVolunteering,
-                          ),
-                        ] else ...[
-                          UtilFilledButton(
+                        ),
+                        const SizedBox(height: 8),
+                        UtilTextButton(
                             onPressed: () {
                               showDialog(
                                 context: context,
-                                builder: (BuildContext context) => Modal(
-                                  confirmButtonText:
+                                builder: (BuildContext context) =>
+                                    Modal(
+                                      confirmButtonText:
                                       AppLocalizations.of(context)!.confirm,
-                                  onConfirm: volunteerToVolunteering,
-                                  context: context,
-                                  child: Column(
-                                    crossAxisAlignment:
+                                      onConfirm: () {
+                                        unvolunteerToVolunteering(currentUser
+                                            .registeredVolunteeringId!);
+                                      },
+                                      context: context,
+                                      child: Column(
+                                        crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        AppLocalizations.of(context)!
-                                            .youAreApplyingTo,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
+                                        children: [
+                                          Text(
+                                            AppLocalizations.of(context)!
+                                                .sureToAbandon,
+                                            style: Theme
+                                                .of(context)
+                                                .textTheme
+                                                .titleMedium,
+                                          ),
+                                          Text(
+                                            ref.read(
+                                                volunteeringsNotifierProvider)
+                                            ![currentUser
+                                                .registeredVolunteeringId!]
+                                            !.title,
+                                            style: Theme
+                                                .of(context)
+                                                .textTheme
+                                                .headlineMedium,
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        volunteering.title,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineMedium,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                    ),
                               );
                             },
                             text: AppLocalizations.of(context)!
-                                .applyForVolunteering,
-                          ),
-                        ],
-                        const SizedBox(height: 32),
+                                .abandonVolunteering),
+                        const SizedBox(height: 24),
+                        UtilFilledButton(
+                          onPressed: null,
+                          text: AppLocalizations.of(context)!
+                              .applyForVolunteering,
+                        ),
+                      ]
+                  ] else if (volunteering.vacancies <= 0) ...[
+                      Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.noVacancies,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyLarge,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      UtilFilledButton(
+                        onPressed: null,
+                        text: AppLocalizations.of(context)!
+                            .applyForVolunteering,
+                      ),
+                    ] else
+                      ...[
+                        UtilFilledButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  Modal(
+                                    confirmButtonText:
+                                    AppLocalizations.of(context)!.confirm,
+                                    onConfirm: volunteerToVolunteering,
+                                    context: context,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          AppLocalizations.of(context)!
+                                              .youAreApplyingTo,
+                                          style: Theme
+                                              .of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                        Text(
+                                          volunteering.title,
+                                          style: Theme
+                                              .of(context)
+                                              .textTheme
+                                              .headlineMedium,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                            );
+                          },
+                          text: AppLocalizations.of(context)!
+                              .applyForVolunteering,
+                        ),
                       ],
-                    ),
-                  )
+                  const SizedBox(height: 32),
                 ],
               ),
-            ),
+            )
+          ],
+        ),
+      ),
     );
   }
 
-  Widget _buildParticipationInfo(
-      BuildContext context, Volunteering volunteering) {
+  Widget _buildParticipationInfo(BuildContext context,
+      Volunteering volunteering) {
     final requirementsList = volunteering.requirements.split('  ');
     final formattedRequirements = requirementsList.join('\n');
 
@@ -253,7 +350,10 @@ class VolunteeringDetail extends HookConsumerWidget {
       children: [
         Text(
           AppLocalizations.of(context)!.participateInVolunteering,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: Theme
+              .of(context)
+              .textTheme
+              .headlineMedium,
         ),
         const SizedBox(height: 8),
         MarkdownBody(
