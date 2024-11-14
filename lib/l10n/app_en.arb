@@ -57,5 +57,9 @@
   "profilePicture": "Profile picture",
   "uploadPicture": "Upload picture",
   "changePicture": "Change picture",
-  "noVacancies": "There are no vacancies available to apply"
+  "noVacancies": "There are no vacancies available to apply",
+  "abandonVolunteering": "Abandon volunteering",
+  "sureToAbandon": "Are you sure you want to abandon your volunteering?",
+  "youreParticipating": "You are participating",
+  "organizationConfirmation": "The organization confirmed that you are already participating in this volunteering"
 }

@@ -11,6 +11,7 @@ import 'package:ser_manos_mobile/providers/user_provider.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/location_card.dart';
 import 'package:ser_manos_mobile/shared/cells/modals/modal.dart';
+import 'package:ser_manos_mobile/shared/molecules/buttons/text.dart';
 import 'package:ser_manos_mobile/shared/molecules/components/vacancies.dart';
 import '../../auth/domain/app_user.dart';
 import '../../providers/service_providers.dart';
@@ -30,6 +31,7 @@ class VolunteeringDetail extends HookConsumerWidget {
     // find the volunteering that has volunteeringId
     final Volunteering? volunteering =
         ref.watch(volunteeringsNotifierProvider)?[volunteeringId];
+    final AppUser? currentUser = ref.watch(currentUserNotifierProvider);
 
     final VolunteeringService volunteeringService =
         ref.read(volunteeringServiceProvider);
@@ -51,21 +53,21 @@ class VolunteeringDetail extends HookConsumerWidget {
       }
     }
 
-    // Future<void> unvolunteerToVolunteering() async {
-    //   try {
-    //     Volunteering? updatedVolunteering =
-    //         await volunteeringService.unvolunteerToVolunteering(volunteeringId);
-    //     if (updatedVolunteering != null) {
-    //       ref
-    //           .read(volunteeringsNotifierProvider.notifier)
-    //           .updateVolunteering(updatedVolunteering);
-    //       AppUser user = await userService.unapplyToVolunteering();
-    //       ref.read(currentUserNotifierProvider.notifier).setUser(user);
-    //     }
-    //   } catch (e) {
-    //     log(e.toString());
-    //   }
-    // }
+    Future<void> unvolunteerToVolunteering() async {
+      try {
+        Volunteering? updatedVolunteering =
+            await volunteeringService.unvolunteerToVolunteering(volunteeringId);
+        if (updatedVolunteering != null) {
+          ref
+              .read(volunteeringsNotifierProvider.notifier)
+              .updateVolunteering(updatedVolunteering);
+          AppUser user = await userService.unapplyToVolunteering();
+          ref.read(currentUserNotifierProvider.notifier).setUser(user);
+        }
+      } catch (e) {
+        log(e.toString());
+      }
+    }
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -133,7 +135,56 @@ class VolunteeringDetail extends HookConsumerWidget {
                         const SizedBox(height: 24),
                         _buildParticipationInfo(context, volunteering),
                         const SizedBox(height: 24),
-                        if (volunteering.vacancies <= 0) ...[
+                        if (currentUser!.registeredVolunteeringId ==
+                            volunteeringId) ...[
+                          Center(
+                            child: Text(
+                              AppLocalizations.of(context)!.youreParticipating,
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .organizationConfirmation,
+                            style: Theme.of(context).textTheme.bodyLarge,
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 8),
+                          UtilTextButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) => Modal(
+                                    confirmButtonText:
+                                        AppLocalizations.of(context)!.confirm,
+                                    onConfirm: unvolunteerToVolunteering,
+                                    context: context,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          AppLocalizations.of(context)!
+                                              .sureToLogOut,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium,
+                                        ),
+                                        Text(
+                                          volunteering.title,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                              text: AppLocalizations.of(context)!
+                                  .abandonVolunteering),
+                        ] else if (volunteering.vacancies <= 0) ...[
                           Center(
                             child: Text(
                               AppLocalizations.of(context)!.noVacancies,
@@ -143,7 +194,8 @@ class VolunteeringDetail extends HookConsumerWidget {
                           const SizedBox(height: 24),
                           UtilFilledButton(
                             onPressed: null,
-                            text: AppLocalizations.of(context)!.applyForVolunteering,
+                            text: AppLocalizations.of(context)!
+                                .applyForVolunteering,
                           ),
                         ] else ...[
                           UtilFilledButton(
@@ -151,26 +203,34 @@ class VolunteeringDetail extends HookConsumerWidget {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) => Modal(
-                                  confirmButtonText: AppLocalizations.of(context)!.confirm,
+                                  confirmButtonText:
+                                      AppLocalizations.of(context)!.confirm,
                                   onConfirm: volunteerToVolunteering,
                                   context: context,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        AppLocalizations.of(context)!.youAreApplyingTo,
-                                        style: Theme.of(context).textTheme.titleMedium,
+                                        AppLocalizations.of(context)!
+                                            .youAreApplyingTo,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium,
                                       ),
                                       Text(
                                         volunteering.title,
-                                        style: Theme.of(context).textTheme.headlineMedium,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium,
                                       ),
                                     ],
                                   ),
                                 ),
                               );
                             },
-                            text: AppLocalizations.of(context)!.applyForVolunteering,
+                            text: AppLocalizations.of(context)!
+                                .applyForVolunteering,
                           ),
                         ],
                         const SizedBox(height: 32),

@@ -57,5 +57,9 @@
   "profilePicture": "Foto de prefil",
   "uploadPicture": "Subir foto",
   "changePicture": "Cambiar foto",
-  "noVacancies": "No hay vacantes disponibles para postularse"
+  "noVacancies": "No hay vacantes disponibles para postularse",
+  "abandonVolunteering": "Abandonar voluntariado",
+  "sureToAbandon": "¿Estás seguro que querés abandonar tu voluntariado?",
+  "youreParticipating": "Estas participando",
+  "organizationConfirmation": "La organización confirmó que ya estas participando de este voluntariado"
 }
