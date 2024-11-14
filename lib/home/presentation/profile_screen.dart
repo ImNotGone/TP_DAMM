@@ -89,18 +89,11 @@ class ProfileScreen extends HookConsumerWidget {
                   ),
                 ],
               ),
-            editButton: ElevatedButton.icon(
-              onPressed: () => context.push('/profile_edit'),
-              icon: const Icon(Icons.add),
-              label: Text(AppLocalizations.of(context)!.complete),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
+            editButton: UtilShortButton(
+                onPressed: () => context.push('/profile_edit'),
+                text: AppLocalizations.of(context)!.complete,
+                icon: Icons.add
+            )
           );
   }
 }

@@ -28,19 +28,19 @@ class UploadProfilePictureCard extends StatelessWidget {
                 AppLocalizations.of(context)!.profilePicture,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              // TODO: replace this button
-              ElevatedButton.icon(
-                onPressed: () {
-                  onUploadPicture();
-                },
-                label: Text(AppLocalizations.of(context)!.uploadPicture),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
+              SizedBox(
+                  height: 36,
+                  child: ElevatedButton(
+                      onPressed: onUploadPicture,
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0)
+                          ),
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          foregroundColor: Theme.of(context).colorScheme.onPrimary
+                      ),
+                      child: Text(AppLocalizations.of(context)!.uploadPicture)
+                  )
               ),
             ],
           ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangeProfilePictureCard extends StatelessWidget {
-
   final Future<void> Function() onUploadPicture;
   final String profilePictureUrl;
 
@@ -15,12 +14,12 @@ class ChangeProfilePictureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).colorScheme.secondaryFixed,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 8, 19, 8),
+        color: Theme.of(context).colorScheme.secondaryFixed,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 4, 19, 4),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -34,23 +33,19 @@ class ChangeProfilePictureCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(height: 8),
-                    // TODO: replace this button
                     SizedBox(
-                      height: 36,
-                      child: ElevatedButton.icon(
-                        onPressed: () {
-                          onUploadPicture();
-                        },
-                        label: Text(AppLocalizations.of(context)!.changePicture),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-                          foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                      ),
-                    )
+                        height: 36,
+                        child: ElevatedButton(
+                            onPressed: onUploadPicture,
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4.0)),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                foregroundColor:
+                                    Theme.of(context).colorScheme.onPrimary),
+                            child: Text(
+                                AppLocalizations.of(context)!.changePicture))),
                   ],
                 ),
               ),
@@ -65,6 +60,6 @@ class ChangeProfilePictureCard extends StatelessWidget {
             ],
           ),
         ),
-    );
+      );
   }
 }
