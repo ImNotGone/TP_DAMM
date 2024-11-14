@@ -103,10 +103,10 @@ class ProfileEditScreen extends HookConsumerWidget {
           );
 
           ref.read(currentUserNotifierProvider.notifier).setUser(updatedUser);
-          userService.updateUser(updatedUser);
           if(context.mounted) {
             context.pop();
           }
+          userService.updateUser(updatedUser);
         } catch (e) {
           log('Error updating user: $e');
           volunteeringService.unvolunteerToVolunteering(volunteeringId!);
