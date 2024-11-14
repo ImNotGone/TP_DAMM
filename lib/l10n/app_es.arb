@@ -64,13 +64,13 @@
   "organizationConfirmation": "La organización confirmó que ya estas participando de este voluntariado",
   "alreadyParticipating": "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este.",
   "dayMonthYear": "Día / Mes / Año",
+  "cellphoneHint": "Ej: +541178445459",
   "requiredError": "Campo requerido",
   "invalidEmailError": "Por favor, inserte un email valido",
   "invalidPhoneError": "Por favor, ingrese un número de teléfono válido de Argentina.",
   "invalidPasswordError": "La contraseña debe tener al menos 8 caracteres.",
   "invalidDateError": "Por favor, ingrese una fecha válida en formato DD/MM/YYYY.",
-  "dateInFutureError": "La fecha no puede ser en el futuro."
+  "dateInFutureError": "La fecha no puede ser en el futuro.",
   "firstCompleteProfile": "Para postularte debes primero completar tus datos.",
-  "completeData": "Completar datos",
-  "cellphoneHint": "Ej: +541178445459"
+  "completeData": "Completar datos"
 }
