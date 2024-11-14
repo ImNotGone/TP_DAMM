@@ -26,15 +26,18 @@ class HomeScreen extends HookConsumerWidget {
       showMap.value = !showMap.value;
     }
 
-    final volunteeringsNotifier = ref.read(volunteeringsNotifierProvider.notifier);
+    final volunteeringsNotifier =
+        ref.read(volunteeringsNotifierProvider.notifier);
     final volunteeringService = ref.read(volunteeringServiceProvider);
 
     final allVolunteerings = ref.watch(volunteeringsNotifierProvider);
     final currentUser = ref.watch(currentUserNotifierProvider);
 
     Future<void> refreshVolunteerings() async {
-      Map<String, Volunteering> volunteerings = await volunteeringService.fetchVolunteerings();
-      for (String volunteeringId in currentUser?.favouriteVolunteeringIds ?? []) {
+      Map<String, Volunteering> volunteerings =
+          await volunteeringService.fetchVolunteerings();
+      for (String volunteeringId
+          in currentUser?.favouriteVolunteeringIds ?? []) {
         if (volunteerings.containsKey(volunteeringId)) {
           volunteerings[volunteeringId]!.isFavourite = true;
         }
@@ -53,75 +56,77 @@ class HomeScreen extends HookConsumerWidget {
 
     final filteredVolunteerings = allVolunteerings?.values
         .where((volunteering) => volunteering.title
-        .toLowerCase()
-        .contains(searchQuery.value.toLowerCase()))
+            .toLowerCase()
+            .contains(searchQuery.value.toLowerCase()))
         .toList()
       ?..sort((a, b) => b.creationDate.compareTo(a.creationDate));
 
     return showMap.value
-                ? VolunteerMapScreen(onIconPressed: toggleMap)
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          UtilSearchBar(
-                            onIconPressed: toggleMap,
-                            onSearchChanged: (query) {
-                              searchQuery.value = query;
+        ? VolunteerMapScreen(onIconPressed: toggleMap)
+        : Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                UtilSearchBar(
+                  onIconPressed: toggleMap,
+                  onSearchChanged: (query) {
+                    searchQuery.value = query;
+                  },
+                  icon: Icons.map,
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                if (currentUser!.registeredVolunteeringId != null) ...[
+                  Text(
+                    AppLocalizations.of(context)!.yourActivity,
+                    style: Theme.of(context).textTheme.headlineLarge,
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      context.push(
+                          '/volunteering/${currentUser.registeredVolunteeringId}',
+                          extra: currentUser.registeredVolunteeringId);
+                    },
+                    child: CurrrentVolunteerCard(
+                      type: allVolunteerings![currentUser.registeredVolunteeringId]!.type.localizedName(context),
+                      title:
+                      allVolunteerings[currentUser.registeredVolunteeringId]!.title,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                ],
+                Text(
+                  AppLocalizations.of(context)!.volunteering,
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const SizedBox(height: 16),
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: refreshVolunteerings,
+                    child: filteredVolunteerings == null ||
+                            filteredVolunteerings.isEmpty
+                        ? const NoVolunteering() // TODO: if searching it should be different
+                        : ListView.builder(
+                            itemCount: filteredVolunteerings.length,
+                            itemBuilder: (context, index) {
+                              return VolunteerCard(
+                                volunteeringId:
+                                    filteredVolunteerings[index].uid,
+                              );
                             },
-                            icon: Icons.map,
                           ),
-                          const SizedBox(
-                            height: 32,
-                          ),
-                          // TODO: Replace this with if user, has activity
-                          if (true) ...[
-                            Text(
-                              AppLocalizations.of(context)!.yourActivity,
-                              style: Theme.of(context).textTheme.headlineLarge,
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                // TODO: route based on user volunteering id
-                                context.push('/volunteering/mEmoxTBkTgKUDPti4nbA', extra: 'mEmoxTBkTgKUDPti4nbA');
-                              },
-                              child: const CurrrentVolunteerCard(
-                                  // TODO: pass propper title and type to Volunteering card
-                                  type: 'acción social',
-                                  title: 'Un Techo para mi País '
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 24,
-                            ),
-                          ],
-                          Text(
-                            AppLocalizations.of(context)!.volunteering,
-                            style: Theme.of(context).textTheme.headlineLarge,
-                          ),
-                          const SizedBox(height: 16),
-                          Expanded(
-                            child: RefreshIndicator(
-                              onRefresh: refreshVolunteerings,
-                              child: filteredVolunteerings == null ||
-                                  filteredVolunteerings.isEmpty
-                                  ? const NoVolunteering() // TODO: if searching it should be different
-                                  : ListView.builder(
-                                      itemCount: filteredVolunteerings.length,
-                                      itemBuilder: (context, index) {
-                                        return VolunteerCard(
-                                          volunteeringId: filteredVolunteerings[index].uid,
-                                        );
-                                      },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-    );
+                  ),
+                ),
+              ],
+            ),
+          );
   }
 }
