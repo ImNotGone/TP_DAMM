@@ -102,13 +102,15 @@ class SignUpScreen extends HookConsumerWidget {
                             TextInput(
                                 label: AppLocalizations.of(context)!.name,
                                 hintText: AppLocalizations.of(context)!.nameHint,
-                                controller: nameController
+                                controller: nameController,
+                                keyboardType: TextInputType.text,
                             ),
                             const SizedBox(height: 16),
                             TextInput(
                                 label: AppLocalizations.of(context)!.lastName,
                                 hintText: AppLocalizations.of(context)!.lastNameHint,
-                                controller: lastNameController
+                                controller: lastNameController,
+                                keyboardType: TextInputType.text,
                             ),
                             const SizedBox(height: 16),
                             TextInput(

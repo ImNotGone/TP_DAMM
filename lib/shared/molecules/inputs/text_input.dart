@@ -5,30 +5,43 @@ class TextInput extends HookWidget {
   final String? label;
   final String? hintText;
   final TextEditingController controller;
-  final TextInputType? keyboardType;
+  final TextInputType keyboardType;
+  final bool labelWhenEmpty;
 
   const TextInput({
     super.key,
-    required this.label,
+    this.label,
     required this.hintText,
     required this.controller,
-    this.keyboardType
+    required this.keyboardType,
+    this.labelWhenEmpty = true
   });
 
   @override
   Widget build(BuildContext context) {
     final labelColor = useState<Color>(const Color(0xff666666));
     final focusNode = useFocusNode();
+    final showLabel = useState(labelWhenEmpty);
 
     useEffect(() {
+      void updateLabelVisibility() {
+        showLabel.value = focusNode.hasFocus || controller.text.isNotEmpty;
+      }
+
       void updateLabelColor() {
         labelColor.value = focusNode.hasFocus ? const Color(0xff0D47A1) : const Color(0xff666666);
       }
 
       focusNode.addListener(updateLabelColor);
+      focusNode.addListener(updateLabelVisibility);
+      controller.addListener(updateLabelVisibility);
 
-      return () => focusNode.removeListener(updateLabelColor);
-    }, [focusNode]);
+      return () {
+        focusNode.removeListener(updateLabelColor);
+        focusNode.removeListener(updateLabelVisibility);
+        controller.removeListener(updateLabelVisibility);
+      };
+    }, [focusNode, controller]);
 
     return TextFormField(
       controller: controller,
@@ -42,7 +55,7 @@ class TextInput extends HookWidget {
 
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        labelText: label,
+        labelText: showLabel.value ? label : null,
         labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: labelColor.value),
         hintText: hintText,
         hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: const Color(0xff9e9e9e)),
