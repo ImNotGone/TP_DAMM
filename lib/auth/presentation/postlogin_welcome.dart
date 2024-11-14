@@ -1,14 +1,14 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
+import 'package:ser_manos_mobile/providers/is_logged_in_provider.dart';
 
-
-class PostLoginWelcome extends StatelessWidget {
+class PostLoginWelcome extends HookConsumerWidget {
   const PostLoginWelcome({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       body: Padding(
@@ -32,8 +32,8 @@ class PostLoginWelcome extends StatelessWidget {
               children: [
                 UtilFilledButton(
                   onPressed: () {
-                    context.go('/home');
-                    },
+                    ref.read(isLoggedInNotifierProvider.notifier).logIn();
+                  },
                   text: AppLocalizations.of(context)!.begin,
                 ),
                 const SizedBox(height: 56),
@@ -44,5 +44,4 @@ class PostLoginWelcome extends StatelessWidget {
       ),
     );
   }
-
 }

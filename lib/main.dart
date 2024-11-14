@@ -12,6 +12,7 @@ import 'package:ser_manos_mobile/home/presentation/profile_edit_screen.dart';
 import 'package:ser_manos_mobile/home/presentation/home_page.dart';
 import 'package:ser_manos_mobile/home/presentation/news_detail.dart';
 import 'package:ser_manos_mobile/home/presentation/volunteering_detail.dart';
+import 'package:ser_manos_mobile/providers/is_logged_in_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
 
@@ -29,12 +30,14 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userService = ref.read(userServiceProvider);
+    final bool isLoggedIn = ref.watch(isLoggedInNotifierProvider);
 
     useEffect(() {
       Future<void> fetchUser() async {
         AppUser? user = await userService.getCurrentUser();
         if (user != null) {
           ref.read(currentUserNotifierProvider.notifier).setUser(user);
+          ref.read(isLoggedInNotifierProvider.notifier).logIn();
         }
       }
 
@@ -78,12 +81,19 @@ class MyApp extends HookConsumerWidget {
           builder: (context, state) => const ProfileEditScreen(),
         )
       ],
-      redirect: (context, state) {
-        if (userService.isLoggedIn() && state.matchedLocation == '/') {
-          return '/home';
-        }
-        return null;
-      },
+        redirect: (context, state) {
+         final allowedPaths = ['/', '/login', '/sign_up', '/post_login_welcome'];
+
+          if (!isLoggedIn && !allowedPaths.contains(state.matchedLocation)) {
+            return '/';
+          }
+
+          if (isLoggedIn && state.matchedLocation == '/') {
+            return '/home';
+          }
+
+          return null;
+        },
     );
 
     const MaterialColor primarySwatch = MaterialColor(
