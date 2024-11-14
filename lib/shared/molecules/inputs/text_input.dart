@@ -22,6 +22,7 @@ class TextInput extends HookWidget {
     final labelColor = useState(const Color(0xff666666));
     final focusNode = useFocusNode();
     final showLabel = useState(labelWhenEmpty);
+    final showCloseIcon = useState(false);
 
     useEffect(() {
       void updateLabelVisibility() {
@@ -32,11 +33,17 @@ class TextInput extends HookWidget {
         labelColor.value = focusNode.hasFocus ? const Color(0xff0D47A1) : const Color(0xff666666);
       }
 
+      void updateCloseIconVisibility() {
+        showCloseIcon.value = focusNode.hasFocus && controller.text.isNotEmpty;
+      }
+
       focusNode.addListener(updateLabelColor);
       if(!labelWhenEmpty) {
         focusNode.addListener(updateLabelVisibility);
         controller.addListener(updateLabelVisibility);
       }
+      focusNode.addListener(updateCloseIconVisibility);
+      controller.addListener(updateCloseIconVisibility);
 
       return () {
         focusNode.removeListener(updateLabelColor);
@@ -44,6 +51,8 @@ class TextInput extends HookWidget {
           focusNode.removeListener(updateLabelVisibility);
           controller.removeListener(updateLabelVisibility);
         }
+        focusNode.removeListener(updateCloseIconVisibility);
+        controller.removeListener(updateCloseIconVisibility);
       };
     }, [focusNode, controller]);
 
@@ -75,16 +84,18 @@ class TextInput extends HookWidget {
           borderSide: const BorderSide(color: Color(0xffB3261E), width: 2),
           borderRadius: BorderRadius.circular(4),
         ),
-        suffixIcon: IconButton(
-          onPressed: () {
-            controller.text = '';
-          },
-          icon: Icon(
-              Icons.close,
-              color: Theme.of(context).colorScheme.primary
-          ),
+        suffixIcon: showCloseIcon.value
+          ? IconButton(
+              onPressed: () {
+                controller.text = '';
+              },
+              icon: Icon(
+                  Icons.close,
+                  color: Theme.of(context).colorScheme.primary
+              )
+          )
+          : null,
         ),
-      ),
-    );
+      );
   }
 }
