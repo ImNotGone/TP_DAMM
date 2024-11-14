@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/validation/date_validation.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/validation/required_validation.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/validation/validator.dart';
 
 class CalendarInput extends HookWidget {
   final DateTime? initialDate;
@@ -40,8 +43,10 @@ class CalendarInput extends HookWidget {
         FilteringTextInputFormatter.digitsOnly,
         _DateInputFormatter(),
       ],
-      // TODO: validator
-      // validator: ,
+      validator: Validator.apply(context, [
+        const DateValidation(),
+        const RequiredValidation(),
+      ]),
 
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -60,6 +65,10 @@ class CalendarInput extends HookWidget {
             borderRadius: BorderRadius.circular(4),
         ),
         errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color(0xffB3261E), width: 2),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Color(0xffB3261E), width: 2),
           borderRadius: BorderRadius.circular(4),
         ),

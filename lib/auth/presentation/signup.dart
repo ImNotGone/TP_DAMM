@@ -9,53 +9,31 @@ import 'package:ser_manos_mobile/auth/application/user_service.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/text_input.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/validation/email_validation.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/validation/password_validation.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/validation/required_validation.dart';
 import '../../providers/user_provider.dart';
 import '../../shared/molecules/buttons/text.dart';
 import '../../shared/molecules/inputs/password_input.dart';
+import '../../shared/molecules/inputs/validation/validator.dart';
 import '../domain/app_user.dart';
+
+final formKey = GlobalKey<FormState>();
 
 class SignUpScreen extends HookConsumerWidget {
   const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     final nameController = useTextEditingController();
     final lastNameController = useTextEditingController();
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
 
-    // State to track if the button should be enabled or not
     final isSignUpButtonEnabled = useState(false);
 
     final UserService userService = ref.watch(userServiceProvider);
-
-    // Function to check if all fields are filled
-    void checkFields() {
-      if (nameController.text.isNotEmpty &&
-          lastNameController.text.isNotEmpty &&
-          emailController.text.isNotEmpty &&
-          passwordController.text.isNotEmpty) {
-        isSignUpButtonEnabled.value = true;
-      } else {
-        isSignUpButtonEnabled.value = false;
-      }
-    }
-
-    // Add listeners to each text controller
-    useEffect(() {
-      nameController.addListener(checkFields);
-      lastNameController.addListener(checkFields);
-      emailController.addListener(checkFields);
-      passwordController.addListener(checkFields);
-
-      // Clean up the listeners when the widget is disposed
-      return () {
-        nameController.removeListener(checkFields);
-        lastNameController.removeListener(checkFields);
-        emailController.removeListener(checkFields);
-        passwordController.removeListener(checkFields);
-      };
-    }, []);
 
     Future<void> handleSignup() async {
       await userService.signUp(
@@ -96,37 +74,69 @@ class SignUpScreen extends HookConsumerWidget {
                           width: 150,
                         ),
                         const SizedBox(height: 32),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TextInput(
-                                label: AppLocalizations.of(context)!.name,
-                                hintText: AppLocalizations.of(context)!.nameHint,
-                                controller: nameController,
-                                keyboardType: TextInputType.text,
-                            ),
-                            const SizedBox(height: 16),
-                            TextInput(
-                                label: AppLocalizations.of(context)!.lastName,
-                                hintText: AppLocalizations.of(context)!.lastNameHint,
-                                controller: lastNameController,
-                                keyboardType: TextInputType.text,
-                            ),
-                            const SizedBox(height: 16),
-                            TextInput(
-                              label: AppLocalizations.of(context)!.email,
-                              hintText: AppLocalizations.of(context)!.emailHint,
-                              controller: emailController,
-                              keyboardType: TextInputType.emailAddress,
-                            ),
-                            const SizedBox(height: 16),
-                            PasswordInput(
-                              label: AppLocalizations.of(context)!.password,
-                              hintText: AppLocalizations.of(context)!.passwordHint,
-                              controller: passwordController,
-                            )
-                          ],
-                        ),
+                        Form(
+                          key: formKey,
+                          onChanged: () {
+                            isSignUpButtonEnabled.value = formKey.currentState?.validate() ?? false;
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              TextInput(
+                                  label: AppLocalizations.of(context)!.name,
+                                  hintText: AppLocalizations.of(context)!.nameHint,
+                                  controller: nameController,
+                                  keyboardType: TextInputType.text,
+                                  validator: Validator.apply(
+                                      context,
+                                      [
+                                        const RequiredValidation(),
+                                      ]
+                                  )
+                              ),
+                              const SizedBox(height: 16),
+                              TextInput(
+                                  label: AppLocalizations.of(context)!.lastName,
+                                  hintText: AppLocalizations.of(context)!.lastNameHint,
+                                  controller: lastNameController,
+                                  keyboardType: TextInputType.text,
+                                  validator: Validator.apply(
+                                      context,
+                                      [
+                                        const RequiredValidation(),
+                                      ]
+                                  )
+                              ),
+                              const SizedBox(height: 16),
+                              TextInput(
+                                label: AppLocalizations.of(context)!.email,
+                                hintText: AppLocalizations.of(context)!.emailHint,
+                                controller: emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                validator: Validator.apply(
+                                    context,
+                                    [
+                                      const RequiredValidation(),
+                                      const EmailValidation()
+                                    ]
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              PasswordInput(
+                                label: AppLocalizations.of(context)!.password,
+                                hintText: AppLocalizations.of(context)!.passwordHint,
+                                controller: passwordController,
+                                validator: Validator.apply(
+                                  context,
+                                  [
+                                    const RequiredValidation(),
+                                    const PasswordValidation()
+                                  ]
+                                ),
+                              )
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),

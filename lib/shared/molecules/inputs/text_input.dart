@@ -7,6 +7,7 @@ class TextInput extends HookWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final bool labelWhenEmpty;
+  final String? Function(String?)? validator;
 
   const TextInput({
     super.key,
@@ -14,7 +15,8 @@ class TextInput extends HookWidget {
     required this.hintText,
     required this.controller,
     required this.keyboardType,
-    this.labelWhenEmpty = true
+    this.labelWhenEmpty = true,
+    this.validator
   });
 
   @override
@@ -61,11 +63,7 @@ class TextInput extends HookWidget {
       focusNode: focusNode,
       keyboardType: keyboardType,
       style: Theme.of(context).textTheme.titleMedium,
-      // TODO: general formatter?
-      //inputFormatters: [
-      //],
-      // TODO: validator
-      // validator: ,
+      validator: validator,
 
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -85,6 +83,10 @@ class TextInput extends HookWidget {
           borderSide: const BorderSide(color: Color(0xffB3261E), width: 2),
           borderRadius: BorderRadius.circular(4),
         ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color(0xffB3261E), width: 2),
+          borderRadius: BorderRadius.circular(4),
+        ),
         suffixIcon: showCloseIcon.value
           ? IconButton(
               onPressed: () {
@@ -92,7 +94,7 @@ class TextInput extends HookWidget {
               },
               icon: Icon(
                   Icons.close,
-                  color: Theme.of(context).colorScheme.primary
+                  color: Theme.of(context).iconTheme.color
               )
           )
           : null,

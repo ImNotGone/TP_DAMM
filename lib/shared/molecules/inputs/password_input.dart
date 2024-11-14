@@ -6,6 +6,7 @@ class PasswordInput extends HookWidget {
   final String? hintText;
   final TextEditingController controller;
   final bool labelWhenEmpty;
+  final String? Function(String?)? validator;
 
   const PasswordInput({
     super.key,
@@ -13,7 +14,9 @@ class PasswordInput extends HookWidget {
     required this.hintText,
     required this.controller,
     this.labelWhenEmpty = true,
+    this.validator
   });
+
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +54,7 @@ class PasswordInput extends HookWidget {
       focusNode: focusNode,
       obscureText: obscureText.value,
       style: Theme.of(context).textTheme.titleMedium,
+      validator: validator,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: showLabel.value ? label : null,
@@ -66,6 +70,10 @@ class PasswordInput extends HookWidget {
           borderRadius: BorderRadius.circular(4),
         ),
         errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color(0xffB3261E), width: 2),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Color(0xffB3261E), width: 2),
           borderRadius: BorderRadius.circular(4),
         ),
