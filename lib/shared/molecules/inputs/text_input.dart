@@ -21,10 +21,13 @@ class TextInput extends HookWidget {
     final focusNode = useFocusNode();
 
     useEffect(() {
-      focusNode.addListener(() {
+      void updateLabelColor() {
         labelColor.value = focusNode.hasFocus ? const Color(0xff0D47A1) : const Color(0xff666666);
-      });
-      return () => focusNode.dispose();
+      }
+
+      focusNode.addListener(updateLabelColor);
+
+      return () => focusNode.removeListener(updateLabelColor);
     }, [focusNode]);
 
     return TextFormField(
