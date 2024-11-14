@@ -7,7 +7,7 @@
   "password": "Contraseña",
   "name": "Nombre",
   "lastName": "Apellido",
-  "emailExample": "Ej: juanbarcena@mail.com",
+  "emailHint": "Ej: juanbarcena@mail.com",
   "passwordExample": "Ej: ABCD1234",
   "nameExample": "Ej: Juan",
   "lastNameExample": "Ej: Barcena",
@@ -63,5 +63,6 @@
   "youreParticipating": "Estas participando",
   "organizationConfirmation": "La organización confirmó que ya estas participando de este voluntariado",
   "alreadyParticipating": "Ya estas participando en otro voluntariado, debes abandonarlo primero para postularte a este.",
-  "dayMonthYear": "Día / Mes / Año"
+  "dayMonthYear": "Día / Mes / Año",
+  "cellphoneHint": "Ej: +541178445459"
 }

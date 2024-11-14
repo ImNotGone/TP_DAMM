@@ -118,7 +118,7 @@ class SignUpScreen extends HookConsumerWidget {
                       decoration: InputDecoration(
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         label: Text(AppLocalizations.of(context)!.email),
-                        hintText: AppLocalizations.of(context)!.emailExample,
+                        hintText: AppLocalizations.of(context)!.emailHint,
                         border: const OutlineInputBorder(),
                       ),
                       keyboardType: TextInputType.emailAddress,

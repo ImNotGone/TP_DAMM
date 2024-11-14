@@ -17,6 +17,8 @@ import '../../providers/service_providers.dart';
 import '../../providers/user_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../shared/molecules/inputs/text_input.dart';
+
 class ProfileEditScreen extends HookConsumerWidget {
   const ProfileEditScreen({super.key});
 
@@ -26,8 +28,6 @@ class ProfileEditScreen extends HookConsumerWidget {
         ref.watch(currentUserNotifierProvider); // Watching the current user
     final userService =
         ref.read(userServiceProvider); // Accessing the user service
-
-    final focusNode = useFocusNode();
 
     // Controllers
     final birthDateController = useTextEditingController(
@@ -100,7 +100,6 @@ class ProfileEditScreen extends HookConsumerWidget {
                 initialDate: selectedDate.value,
                 label: AppLocalizations.of(context)!.birthDate,
                 controller: birthDateController,
-                focusNode: focusNode,
               ),
               const SizedBox(height: 24),
               InputCard(onGenderSelected: _handleGenderSelection),
@@ -119,9 +118,19 @@ class ProfileEditScreen extends HookConsumerWidget {
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               const SizedBox(height: 24),
-              // TODO: cellphoneField
+              TextInput(
+                label: AppLocalizations.of(context)!.cellphone,
+                hintText: AppLocalizations.of(context)!.cellphoneHint,
+                controller: phoneNumberController,
+                keyboardType: TextInputType.phone,
+              ),
               const SizedBox(height: 24),
-              // TODO: emailField
+              TextInput(
+                label: AppLocalizations.of(context)!.email,
+                hintText: AppLocalizations.of(context)!.emailHint,
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+              ),
               const SizedBox(height: 32),
               UtilFilledButton(
                   onPressed: null,
