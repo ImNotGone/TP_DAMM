@@ -35,6 +35,7 @@ class CalendarInput extends HookWidget {
       controller: controller,
       focusNode: focusNode,
       keyboardType: TextInputType.datetime,
+      style: Theme.of(context).textTheme.titleMedium,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         _DateInputFormatter(),

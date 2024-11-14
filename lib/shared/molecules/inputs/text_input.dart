@@ -60,6 +60,7 @@ class TextInput extends HookWidget {
       controller: controller,
       focusNode: focusNode,
       keyboardType: keyboardType,
+      style: Theme.of(context).textTheme.titleMedium,
       // TODO: general formatter?
       //inputFormatters: [
       //],

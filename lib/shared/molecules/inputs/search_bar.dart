@@ -51,6 +51,7 @@ class UtilSearchBar extends HookWidget {
             child: TextField(
               controller: searchController,
               focusNode: focusNode,
+              style: Theme.of(context).textTheme.titleMedium,
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context)!.search,
                 border: InputBorder.none,

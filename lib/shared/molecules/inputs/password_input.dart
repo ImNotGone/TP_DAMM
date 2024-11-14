@@ -50,6 +50,7 @@ class PasswordInput extends HookWidget {
       controller: controller,
       focusNode: focusNode,
       obscureText: obscureText.value,
+      style: Theme.of(context).textTheme.titleMedium,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: showLabel.value ? label : null,
