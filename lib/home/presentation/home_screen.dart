@@ -61,6 +61,16 @@ class HomeScreen extends HookConsumerWidget {
         .toList()
       ?..sort((a, b) => b.creationDate.compareTo(a.creationDate));
 
+    if (currentUser == null ||
+        allVolunteerings == null ||
+        allVolunteerings.isEmpty) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return showMap.value
         ? VolunteerMapScreen(onIconPressed: toggleMap)
         : Padding(
@@ -79,7 +89,7 @@ class HomeScreen extends HookConsumerWidget {
                 const SizedBox(
                   height: 32,
                 ),
-                if (currentUser!.registeredVolunteeringId != null) ...[
+                if (currentUser.registeredVolunteeringId != null) ...[
                   Text(
                     AppLocalizations.of(context)!.yourActivity,
                     style: Theme.of(context).textTheme.headlineLarge,
@@ -94,9 +104,13 @@ class HomeScreen extends HookConsumerWidget {
                           extra: currentUser.registeredVolunteeringId);
                     },
                     child: CurrrentVolunteerCard(
-                      type: allVolunteerings![currentUser.registeredVolunteeringId]!.type.localizedName(context),
-                      title:
-                      allVolunteerings[currentUser.registeredVolunteeringId]!.title,
+                      type: allVolunteerings[
+                              currentUser.registeredVolunteeringId]!
+                          .type
+                          .localizedName(context),
+                      title: allVolunteerings[
+                              currentUser.registeredVolunteeringId]!
+                          .title,
                     ),
                   ),
                   const SizedBox(
