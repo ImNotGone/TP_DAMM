@@ -56,5 +56,6 @@
   "editProfile": "Editar perfil",
   "profilePicture": "Foto de prefil",
   "uploadPicture": "Subir foto",
-  "changePicture": "Cambiar foto"
+  "changePicture": "Cambiar foto",
+  "noVacancies": "No hay vacantes disponibles para postularse"
 }

@@ -28,16 +28,21 @@ class VolunteeringDetail extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // find the volunteering that has volunteeringId
-    final Volunteering? volunteering = ref.watch(volunteeringsNotifierProvider)?[volunteeringId];
+    final Volunteering? volunteering =
+        ref.watch(volunteeringsNotifierProvider)?[volunteeringId];
 
-    final VolunteeringService volunteeringService = ref.read(volunteeringServiceProvider);
+    final VolunteeringService volunteeringService =
+        ref.read(volunteeringServiceProvider);
     final UserService userService = ref.read(userServiceProvider);
 
     Future<void> volunteerToVolunteering() async {
       try {
-        Volunteering? updatedVolunteering = await volunteeringService.volunteerToVolunteering(volunteeringId);
+        Volunteering? updatedVolunteering =
+            await volunteeringService.volunteerToVolunteering(volunteeringId);
         if (updatedVolunteering != null) {
-          ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+          ref
+              .read(volunteeringsNotifierProvider.notifier)
+              .updateVolunteering(updatedVolunteering);
           AppUser user = await userService.applyToVolunteering(volunteeringId);
           ref.read(currentUserNotifierProvider.notifier).setUser(user);
         }
@@ -48,9 +53,12 @@ class VolunteeringDetail extends HookConsumerWidget {
 
     // Future<void> unvolunteerToVolunteering() async {
     //   try {
-    //     Volunteering? updatedVolunteering = await volunteeringService.unvolunteerToVolunteering(volunteeringId);
+    //     Volunteering? updatedVolunteering =
+    //         await volunteeringService.unvolunteerToVolunteering(volunteeringId);
     //     if (updatedVolunteering != null) {
-    //       ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(updatedVolunteering);
+    //       ref
+    //           .read(volunteeringsNotifierProvider.notifier)
+    //           .updateVolunteering(updatedVolunteering);
     //       AppUser user = await userService.unapplyToVolunteering();
     //       ref.read(currentUserNotifierProvider.notifier).setUser(user);
     //     }
@@ -73,87 +81,110 @@ class VolunteeringDetail extends HookConsumerWidget {
       body: volunteering == null
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-        child: Column(
-          children: [
-            ClipRRect(
-              child: Image.network(
-                volunteering.imageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 200.0,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 24),
-                  Text(
-                    volunteering.type.localizedName(context).toUpperCase(),
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666)),
+                  ClipRRect(
+                    child: Image.network(
+                      volunteering.imageUrl,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 200.0,
+                    ),
                   ),
-                  Text(
-                    volunteering.title,
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    volunteering.purpose,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: const Color(0xFF0D47A1)),
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    AppLocalizations.of(context)!.activityDetailsTitle,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    volunteering.activityDetail,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  const SizedBox(height: 24),
-                  LocationCard(address: volunteering.address),
-                  const SizedBox(height: 24),
-                  _buildParticipationInfo(context, volunteering),
-                  const SizedBox(height: 24),
-                  UtilFilledButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => Modal(
-                          confirmButtonText: AppLocalizations.of(context)!.confirm,
-                          onConfirm: volunteerToVolunteering,
-                          context: context,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                AppLocalizations.of(context)!.youAreApplyingTo,
-                                style: Theme.of(context).textTheme.titleMedium,
-                              ),
-                              Text(
-                                volunteering.title,
-                                style: Theme.of(context).textTheme.headlineMedium,
-                              ),
-                            ],
-                          ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 24),
+                        Text(
+                          volunteering.type
+                              .localizedName(context)
+                              .toUpperCase(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelSmall
+                              ?.copyWith(color: const Color(0xff666666)),
                         ),
-                      );
-                    },
-                    text: AppLocalizations.of(context)!.applyForVolunteering,
-                  ),
-                  const SizedBox(height: 32),
+                        Text(
+                          volunteering.title,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          volunteering.purpose,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(color: const Color(0xFF0D47A1)),
+                        ),
+                        const SizedBox(height: 24),
+                        Text(
+                          AppLocalizations.of(context)!.activityDetailsTitle,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          volunteering.activityDetail,
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        const SizedBox(height: 24),
+                        LocationCard(address: volunteering.address),
+                        const SizedBox(height: 24),
+                        _buildParticipationInfo(context, volunteering),
+                        const SizedBox(height: 24),
+                        if (volunteering.vacancies <= 0) ...[
+                          Center(
+                            child: Text(
+                              AppLocalizations.of(context)!.noVacancies,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          UtilFilledButton(
+                            onPressed: null,
+                            text: AppLocalizations.of(context)!.applyForVolunteering,
+                          ),
+                        ] else ...[
+                          UtilFilledButton(
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => Modal(
+                                  confirmButtonText: AppLocalizations.of(context)!.confirm,
+                                  onConfirm: volunteerToVolunteering,
+                                  context: context,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!.youAreApplyingTo,
+                                        style: Theme.of(context).textTheme.titleMedium,
+                                      ),
+                                      Text(
+                                        volunteering.title,
+                                        style: Theme.of(context).textTheme.headlineMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                            text: AppLocalizations.of(context)!.applyForVolunteering,
+                          ),
+                        ],
+                        const SizedBox(height: 32),
+                      ],
+                    ),
+                  )
                 ],
               ),
-            )
-          ],
-        ),
-      ),
+            ),
     );
   }
 
-  Widget _buildParticipationInfo(BuildContext context, Volunteering volunteering) {
+  Widget _buildParticipationInfo(
+      BuildContext context, Volunteering volunteering) {
     final requirementsList = volunteering.requirements.split('  ');
     final formattedRequirements = requirementsList.join('\n');
 
