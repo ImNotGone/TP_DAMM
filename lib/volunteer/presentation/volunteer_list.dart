@@ -104,13 +104,7 @@ class VolunteerList extends HookConsumerWidget {
                           extra: currentUser.registeredVolunteeringId);
                     },
                     child: CurrrentVolunteerCard(
-                      type: allVolunteerings[
-                              currentUser.registeredVolunteeringId]!
-                          .type
-                          .localizedName(context),
-                      title: allVolunteerings[
-                              currentUser.registeredVolunteeringId]!
-                          .title,
+                      id: currentUser.registeredVolunteeringId!
                     ),
                   ),
                   const SizedBox(
