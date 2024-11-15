@@ -1,10 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/floating.dart';
-
 import '../../providers/volunteering_provider.dart';
 import '../../shared/cells/cards/volunteer_card.dart';
 import '../../shared/molecules/components/no_volunteering.dart';
@@ -21,6 +20,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchQuery = useState('');
+    final mapController = useState<GoogleMapController?>(null);
 
     final allVolunteerings = ref.watch(volunteeringsNotifierProvider);
 
@@ -40,7 +40,11 @@ class VolunteerMapScreen extends HookConsumerWidget {
           ),
           onMapCreated: (controller) {
             // Save controller for further interactions if needed
+            mapController.value = controller;
           },
+          zoomControlsEnabled: false,
+          myLocationButtonEnabled: false,
+          myLocationEnabled: true,
           markers: _getCustomMarkers(),
         ),
         Column(
@@ -59,13 +63,30 @@ class VolunteerMapScreen extends HookConsumerWidget {
                 ),
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 16),
-                    child: UtilFloatingButton(onPressed: () {}),
+                    child: UtilFloatingButton(onPressed: () => {
+                        // TODO: posicion actual del usuario
+                      },
+                    ),
                   ),
                   const SizedBox(height: 16,),
-                  // TODO: carrousel slider
+                  Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: filteredVolunteerings?.isEmpty ?? true
+                          ? const NoVolunteering()
+                          : CarouselSlider(
+                        items: filteredVolunteerings!.map((volunteering) =>
+                            VolunteerCard(volunteeringId: volunteering.uid)).toList(),
+                        options: CarouselOptions(
+                            height: 242,
+                            viewportFraction: 0.9,
+                            enableInfiniteScroll: false
+                        ),
+                      ),
+                  )
                 ],
               )
 

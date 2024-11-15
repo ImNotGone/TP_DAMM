@@ -54,6 +54,7 @@ dependencies:
   share_plus: ^10.1.2
   path_provider: ^2.1.5
   http: ^1.2.2
+  carousel_slider: ^5.0.0
 
 
 dev_dependencies:
