@@ -141,7 +141,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                         .bodyLarge,
                   ),
                   const SizedBox(height: 24),
-                  LocationCard(address: volunteering.address),
+                  LocationCard(address: volunteering.address, location: volunteering.location),
                   const SizedBox(height: 24),
                   _buildParticipationInfo(context, volunteering),
                   const SizedBox(height: 24),
