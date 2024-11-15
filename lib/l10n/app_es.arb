@@ -72,5 +72,8 @@
   "invalidDateError": "Por favor, ingrese una fecha válida en formato DD/MM/YYYY.",
   "dateInFutureError": "La fecha no puede ser en el futuro.",
   "firstCompleteProfile": "Para postularte debes primero completar tus datos.",
-  "completeData": "Completar datos"
+  "completeData": "Completar datos",
+  "chooseImageSource": "Seleccionar fuente de imagen",
+  "camera": "Cámara",
+  "gallery": "Galería"
 }

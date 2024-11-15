@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UploadProfilePictureCard extends StatelessWidget {
 
-  final Future<void> Function() onUploadPicture;
+  final void Function() onUploadPicture;
 
   const UploadProfilePictureCard({
     super.key,

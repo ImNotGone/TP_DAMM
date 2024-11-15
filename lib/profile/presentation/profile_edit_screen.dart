@@ -48,16 +48,55 @@ class ProfileEditScreen extends HookConsumerWidget {
 
     final ImagePicker picker = ImagePicker();
 
-    Future<void> pickImage() async {
+    Future<void> pickImage(ImageSource source) async {
       try {
-        final XFile? pickedFile =
-            await picker.pickImage(source: ImageSource.gallery);
+        final XFile? pickedFile = await picker.pickImage(source: source);
         if (pickedFile != null) {
           pickedImage.value = File(pickedFile.path);
-        }
+         }
       } catch (e) {
         log('Error picking image: $e');
       }
+    }
+
+    void showImageSourceDialog() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context)!.chooseImageSource),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.camera_alt),
+                  title: Text(AppLocalizations.of(context)!.camera),
+                  onTap: () {
+                    Navigator.pop(context); // Close the dialog
+                    pickImage(ImageSource.camera);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.photo),
+                  title: Text(AppLocalizations.of(context)!.gallery),
+                  onTap: () {
+                    Navigator.pop(context); // Close the dialog
+                    pickImage(ImageSource.gallery);
+                  },
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context); // Close the dialog
+                },
+                child: Text(AppLocalizations.of(context)!.cancel),
+              ),
+            ],
+          );
+        },
+      );
     }
 
     Future<void> applyChangesWithVolunteering() async {
@@ -133,6 +172,9 @@ class ProfileEditScreen extends HookConsumerWidget {
 
         try {
           ref.read(currentUserNotifierProvider.notifier).setUser(updatedUser);
+          if(context.mounted){
+            context.pop();
+          }
           userService.updateUser(updatedUser);
         } catch (e) {
           log('Error updating user: $e');
@@ -173,7 +215,6 @@ class ProfileEditScreen extends HookConsumerWidget {
               });
         } else {
           applyChangesNoVolunteering();
-          context.pop();
         }
       }
     }
@@ -212,12 +253,12 @@ class ProfileEditScreen extends HookConsumerWidget {
               const SizedBox(height: 24),
               pickedImage.value == null
                   ? (user?.profilePictureURL == null
-                      ? UploadProfilePictureCard(onUploadPicture: pickImage)
+                      ? UploadProfilePictureCard(onUploadPicture: showImageSourceDialog)
                       : ChangeProfilePictureCard(
-                          onUploadPicture: pickImage,
+                          onUploadPicture: showImageSourceDialog,
                           profilePictureUrl: user!.profilePictureURL!))
                   : ChangeProfilePictureCard(
-                      onUploadPicture: pickImage,
+                      onUploadPicture: showImageSourceDialog,
                       pickedImage: pickedImage.value),
               const SizedBox(height: 32),
               Text(
