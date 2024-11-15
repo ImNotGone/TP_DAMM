@@ -14,8 +14,8 @@ import 'package:ser_manos_mobile/shared/molecules/components/no_volunteering.dar
 import '../../providers/service_providers.dart';
 import '../../shared/molecules/inputs/search_bar.dart';
 
-class HomeScreen extends HookConsumerWidget {
-  const HomeScreen({super.key});
+class VolunteerList extends HookConsumerWidget {
+  const VolunteerList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

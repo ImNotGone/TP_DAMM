@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/profile/presentation/profile_screen.dart';
-import 'home_screen.dart';
+import 'volunteer_list.dart';
 import 'news_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +15,7 @@ class HomePageState extends State<HomePage> {
   int _currentScreen = 0;
 
   final List<Widget> _screens = [
-    const HomeScreen(),
+    const VolunteerList(),
     const ProfileScreen(),
     const NewsScreen(),
   ];

@@ -11,7 +11,7 @@ import 'package:ser_manos_mobile/auth/presentation/signup.dart';
 import 'package:ser_manos_mobile/profile/presentation/profile_edit_screen.dart';
 import 'package:ser_manos_mobile/home/presentation/home_page.dart';
 import 'package:ser_manos_mobile/home/presentation/news_detail.dart';
-import 'package:ser_manos_mobile/home/presentation/volunteering_detail.dart';
+import 'package:ser_manos_mobile/home/presentation/volunteer_detail.dart';
 import 'package:ser_manos_mobile/providers/is_logged_in_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
