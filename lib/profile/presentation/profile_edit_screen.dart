@@ -12,6 +12,10 @@ import 'package:ser_manos_mobile/shared/cells/cards/input_card.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/upload_profile_picture_card.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/calendar_input.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/validation/email_validation.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/validation/phone_validation.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/validation/required_validation.dart';
+import 'package:ser_manos_mobile/shared/molecules/inputs/validation/validator.dart';
 import '../../auth/domain/app_user.dart';
 import '../../volunteer/application/volunteering_service.dart';
 import '../../volunteer/domain/volunteering.dart';
@@ -23,6 +27,8 @@ import '../../providers/volunteering_provider.dart';
 import '../../shared/molecules/inputs/text_input.dart';
 import '../../shared/cells/modals/modal.dart';
 
+final formKey = GlobalKey<FormState>();
+
 class ProfileEditScreen extends HookConsumerWidget {
   final String? volunteeringId;
 
@@ -32,6 +38,8 @@ class ProfileEditScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.read(currentUserNotifierProvider);
     final userService = ref.read(userServiceProvider);
+
+    final isSaveDataEnabled = useState(user?.isComplete() ?? false);
 
     final birthDateController = useTextEditingController(
         text: user?.birthDate != null
@@ -233,129 +241,84 @@ class ProfileEditScreen extends HookConsumerWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.profileData,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              const SizedBox(height: 24),
-              CalendarInput(
-                initialDate: selectedDate.value,
-                label: AppLocalizations.of(context)!.birthDate,
-                controller: birthDateController,
-              ),
-              const SizedBox(height: 24),
-              InputCard(
-                  onGenderSelected: handleGenderSelection,
-                  previousGender: selectedGender.value),
-              const SizedBox(height: 24),
-              pickedImage.value == null
-                  ? (user?.profilePictureURL == null
-                      ? UploadProfilePictureCard(onUploadPicture: showImageSourceDialog)
-                      : ChangeProfilePictureCard(
-                          onUploadPicture: showImageSourceDialog,
-                          profilePictureUrl: user!.profilePictureURL!))
-                  : ChangeProfilePictureCard(
-                      onUploadPicture: showImageSourceDialog,
-                      pickedImage: pickedImage.value),
-              const SizedBox(height: 32),
-              Text(
-                AppLocalizations.of(context)!.contactData,
-                style: Theme.of(context).textTheme.headlineLarge,
-              ),
-              const SizedBox(height: 24),
-              Text(
-                AppLocalizations.of(context)!.contactDataDetail,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 24),
-              TextInput(
-                label: AppLocalizations.of(context)!.cellphone,
-                hintText: AppLocalizations.of(context)!.cellphoneHint,
-                controller: phoneNumberController,
-                keyboardType: TextInputType.phone,
-              ),
-              const SizedBox(height: 24),
-              TextInput(
-                label: AppLocalizations.of(context)!.email,
-                hintText: AppLocalizations.of(context)!.emailHint,
-                controller: emailController,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 32),
-              UtilFilledButton(
-                onPressed: saveProfile,
-                text: AppLocalizations.of(context)!.saveData,
-              ),
-              const SizedBox(height: 16),
-            ],
+          child: Form(
+            key: formKey,
+            onChanged: () {
+              isSaveDataEnabled.value = formKey.currentState?.validate() ?? false;
+            },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.profileData,
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const SizedBox(height: 24),
+                CalendarInput(
+                  initialDate: selectedDate.value,
+                  label: AppLocalizations.of(context)!.birthDate,
+                  controller: birthDateController,
+                ),
+                const SizedBox(height: 24),
+                InputCard(
+                    onGenderSelected: handleGenderSelection,
+                    previousGender: selectedGender.value
+                ),
+                const SizedBox(height: 24),
+                pickedImage.value == null
+                    ? (user?.profilePictureURL == null
+                        ? UploadProfilePictureCard(onUploadPicture: showImageSourceDialog)
+                        : ChangeProfilePictureCard(
+                            onUploadPicture: showImageSourceDialog,
+                            profilePictureUrl: user!.profilePictureURL!))
+                    : ChangeProfilePictureCard(
+                        onUploadPicture: showImageSourceDialog,
+                        pickedImage: pickedImage.value),
+                const SizedBox(height: 32),
+                Text(
+                  AppLocalizations.of(context)!.contactData,
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  AppLocalizations.of(context)!.contactDataDetail,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 24),
+                TextInput(
+                  label: AppLocalizations.of(context)!.cellphone,
+                  hintText: AppLocalizations.of(context)!.cellphoneHint,
+                  controller: phoneNumberController,
+                  keyboardType: TextInputType.phone,
+                  validator: Validator.apply(context, [
+                      const RequiredValidation(),
+                      const PhoneValidation(),
+                    ]
+                  ),
+                ),
+                const SizedBox(height: 24),
+                TextInput(
+                  label: AppLocalizations.of(context)!.email,
+                  hintText: AppLocalizations.of(context)!.emailHint,
+                  controller: emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: Validator.apply(context, [
+                      const RequiredValidation(),
+                      const EmailValidation(),
+                    ]
+                  ),
+                ),
+                const SizedBox(height: 32),
+                UtilFilledButton(
+                  onPressed: isSaveDataEnabled.value ? saveProfile : null,
+                  text: AppLocalizations.of(context)!.saveData,
+                ),
+                const SizedBox(height: 16),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-/*
-Form(
-          child: ListView(
-            children: <Widget>[
-              TextFormField(
-                controller: birthDateController,
-                decoration: InputDecoration(
-                  labelText: 'Fecha de nacimiento',
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.calendar_today),
-                    onPressed: () => selectDate(context),
-                  ),
-                ),
-                readOnly: true,
-              ),
-              const SizedBox(height: 16.0),
-              const ProfileInfoCard(),
-              const SizedBox(height: 16.0),
-              const Text('Foto de perfil',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              ElevatedButton(
-                onPressed: pickImage,
-                child: const Text('Subir foto'),
-              ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                controller: phoneNumberController,
-                decoration: const InputDecoration(
-                  labelText: 'Teléfono',
-                  hintText: '+541178445459',
-                ),
-                keyboardType: TextInputType.phone,
-              ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                controller: emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Mail',
-                  hintText: 'mimail@mail.com',
-                ),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor ingrese un email';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: saveProfile,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                ),
-                child: const Text('Guardar datos'),
-              ),
-            ],
-          ),
-        ),
- */
