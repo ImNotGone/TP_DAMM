@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 class UtilFilledButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String text;
+  final bool isLoading;
 
   const UtilFilledButton({
     super.key,
     required this.onPressed,
     required this.text,
+    this.isLoading = false
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isLoading?  null : onPressed,
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0)
@@ -23,7 +25,9 @@ class UtilFilledButton extends StatelessWidget {
             foregroundColor: Theme.of(context).colorScheme.onPrimary,
         ),
 
-        child: Text(text)
+        child: isLoading
+            ? const CircularProgressIndicator(color: Colors.black) // Show spinner when loading
+            : Text(text),
     );
   }
 }

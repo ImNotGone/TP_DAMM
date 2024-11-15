@@ -40,6 +40,7 @@ class ProfileEditScreen extends HookConsumerWidget {
     final userService = ref.read(userServiceProvider);
 
     final isSaveDataEnabled = useState(user?.isComplete() ?? false);
+    final isLoading = useState(false);
 
     final birthDateController = useTextEditingController(
         text: user?.birthDate != null
@@ -163,6 +164,7 @@ class ProfileEditScreen extends HookConsumerWidget {
     }
 
     Future<void> applyChangesNoVolunteering() async {
+      isLoading.value = true;
       if (user != null) {
         String? photoURL = profilePictureUrl.value;
         if (pickedImage.value != null) {
@@ -189,6 +191,7 @@ class ProfileEditScreen extends HookConsumerWidget {
           ref.read(currentUserNotifierProvider.notifier).setUser(user);
         }
       }
+      isLoading.value = false;
     }
 
     void saveProfile() async {
@@ -310,8 +313,12 @@ class ProfileEditScreen extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 32),
                 UtilFilledButton(
-                  onPressed: isSaveDataEnabled.value ? saveProfile : null,
+                  onPressed: isSaveDataEnabled.value ?
+                  () {
+                    saveProfile();
+                  } : null,
                   text: AppLocalizations.of(context)!.saveData,
+                  isLoading: isLoading.value,
                 ),
                 const SizedBox(height: 16),
               ],
