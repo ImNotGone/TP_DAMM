@@ -27,6 +27,8 @@ class Volunteering {
   DateTime creationDate;
   int vacancies;
 
+  Map<String, bool> applicants;
+
   Volunteering(
       {required this.uid,
       required this.imageUrl,
@@ -39,6 +41,7 @@ class Volunteering {
       required this.requirements,
       required this.creationDate,
       required this.vacancies,
+      this.applicants = const {},
       this.isFavourite = false});
 
   factory Volunteering.fromJson(Map<String, dynamic> json) =>
@@ -59,6 +62,7 @@ class Volunteering {
     DateTime? creationDate,
     int? vacancies,
     bool? isFavourite,
+    Map<String, bool>? applicants,
   }) {
     return Volunteering(
       uid: uid ?? this.uid,
@@ -73,6 +77,7 @@ class Volunteering {
       creationDate: creationDate ?? this.creationDate,
       vacancies: vacancies ?? this.vacancies,
       isFavourite: isFavourite ?? this.isFavourite,
+      applicants: applicants ?? this.applicants,
     );
   }
 

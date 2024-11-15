@@ -106,7 +106,7 @@ class ProfileEditScreen extends HookConsumerWidget {
 
         try {
           Volunteering? updatedVolunteering = await volunteeringService
-              .volunteerToVolunteering(volunteeringId!);
+              .volunteerToVolunteering(volunteeringId!, user.uid);
 
           AppUser? updatedUser;
 
@@ -148,7 +148,7 @@ class ProfileEditScreen extends HookConsumerWidget {
           userService.updateUser(updatedUser);
         } catch (e) {
           log('Error updating user: $e');
-          volunteeringService.unvolunteerToVolunteering(volunteeringId!);
+          volunteeringService.unvolunteerToVolunteering(volunteeringId!, user.uid);
           ref.read(currentUserNotifierProvider.notifier).setUser(user);
         }
       }
