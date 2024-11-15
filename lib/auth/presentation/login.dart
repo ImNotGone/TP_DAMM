@@ -49,7 +49,6 @@ class LoginScreen extends HookConsumerWidget {
       }
     }
 
-    // TODO: this shit wont go to the center
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       body: Padding(

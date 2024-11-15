@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../auth/domain/app_user.dart';
 import '../../../providers/service_providers.dart';
 import '../../../providers/user_provider.dart';
@@ -102,7 +103,7 @@ class VolunteerCard extends HookConsumerWidget {
                             ),
                             const SizedBox(width: 16),
                             _buildIcon(Icons.place, () {
-                              // TODO: Handle location button press
+                              _openGoogleMaps(volunteering.location.latitude, volunteering.location.longitude);
                             }),
                           ],
                         ),
@@ -117,6 +118,15 @@ class VolunteerCard extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _openGoogleMaps(double latitude, double longitude) async {
+    final url = Uri.parse('https://www.google.com/maps/search/?api=1&query=$latitude,$longitude');
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   Widget _buildIcon(IconData icon, VoidCallback? onPressed) {
