@@ -1,14 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'blue_header_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LocationCard extends StatelessWidget {
   final String address;
+  final GeoPoint location;
 
   const LocationCard({
     super.key,
     required this.address,
+    required this.location,
   });
 
   @override
@@ -23,27 +27,45 @@ class LocationCard extends StatelessWidget {
               bottomLeft: Radius.circular(6),
               bottomRight: Radius.circular(6),
             ),
-            child: Image.network(
-              // TODO: revisar el height
-              //height: 155,
-              'https://staticmapmaker.com/img/google-placeholder.png',
+            child: SizedBox(
+              height: 155,
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(location.latitude, location.longitude),
+                  zoom: 15,
+                ),
+                markers: {
+                  Marker(
+                    markerId: const MarkerId('location'),
+                    position: LatLng(location.latitude, location.longitude),
+                  ),
+                },
+                zoomControlsEnabled: false,
+                scrollGesturesEnabled: false,
+                tiltGesturesEnabled: false,
+                rotateGesturesEnabled: false,
+                myLocationButtonEnabled: false,
+                mapType: MapType.normal,
+              ),
             ),
           ),
           Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                      AppLocalizations.of(context)!.address.toUpperCase(),
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666))
-                  ),
-                  Text(
-                      address,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.black)
-                  ),
-                ],
-              ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(AppLocalizations.of(context)!.address.toUpperCase(),
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelSmall
+                        ?.copyWith(color: const Color(0xff666666))),
+                Text(address,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(color: Colors.black)),
+              ],
+            ),
           )
         ],
       ),

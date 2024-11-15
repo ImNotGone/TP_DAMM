@@ -49,7 +49,6 @@ class LoginScreen extends HookConsumerWidget {
       }
     }
 
-    // TODO: this shit wont go to the center
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       body: Padding(
@@ -57,14 +56,16 @@ class LoginScreen extends HookConsumerWidget {
         child: Column(
           children: [
             Expanded(
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  onChanged: () {
-                    isLoginEnabled.value = formKey.currentState?.validate() ?? false;
-                  },
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: formKey,
+                    onChanged: () {
+                      isLoginEnabled.value = formKey.currentState?.validate() ?? false;
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset('assets/logo_square.png', width: 150, height: 150), // Logo at the top
                         const SizedBox(height: 16),
@@ -84,22 +85,23 @@ class LoginScreen extends HookConsumerWidget {
                         ),
                         const SizedBox(height: 16),
                         PasswordInput(
-                            label: AppLocalizations.of(context)!.password,
-                            labelWhenEmpty: false,
-                            hintText: AppLocalizations.of(context)!.password,
-                            controller: passwordController,
-                            validator: Validator.apply(
-                                context,
-                                [
-                                  const RequiredValidation(),
-                                  const PasswordValidation()
-                                ]
-                            ),
-                        )
+                          label: AppLocalizations.of(context)!.password,
+                          labelWhenEmpty: false,
+                          hintText: AppLocalizations.of(context)!.password,
+                          controller: passwordController,
+                          validator: Validator.apply(
+                              context,
+                              [
+                                const RequiredValidation(),
+                                const PasswordValidation()
+                              ]
+                          ),
+                        ),
                       ],
+                    ),
                   ),
-               ),
-              )
+                ),
+              ),
             ),
             Column(
               children: [
