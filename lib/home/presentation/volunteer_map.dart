@@ -151,7 +151,8 @@ class VolunteerMapScreen extends HookConsumerWidget {
                             options: CarouselOptions(
                                 height: 242,
                                 viewportFraction: 0.9,
-                                enableInfiniteScroll: false
+                                enableInfiniteScroll: false,
+                                onPageChanged: (i, r) => currentCardIndex.value = i
                             ),
                           ),
                       )
