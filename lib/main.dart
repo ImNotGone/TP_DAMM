@@ -78,14 +78,20 @@ class MyApp extends HookConsumerWidget {
         ),
         GoRoute(
           path: '/profile_edit',
-          builder: (context, state) => const ProfileEditScreen(),
+          builder: (context, state) {
+            if(state.extra == null) {
+              return const ProfileEditScreen();
+            }
+            final String volunteeringId = state.extra as String;
+            return ProfileEditScreen(volunteeringId: volunteeringId);
+          },
         )
       ],
         redirect: (context, state) {
          final allowedPaths = ['/', '/login', '/sign_up', '/post_login_welcome'];
 
           if (!isLoggedIn && !allowedPaths.contains(state.matchedLocation)) {
-            return '/';
+            return '/login';
           }
 
           if (isLoggedIn && state.matchedLocation == '/') {

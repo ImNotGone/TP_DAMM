@@ -28,7 +28,7 @@ class VolunteeringRepository {
 
   // New volunteer to volunteering -> vacancies - 1 in transaction to avoid race condition
   // Check if vacancies is <= 0. If so, fail
-  Future<Volunteering?> volunteerToVolunteering(String volunteeringId) async {
+  Future<Volunteering?> volunteerToVolunteering(String volunteeringId, String userId) async {
     final volunteeringRef =
         _firestore.collection('volunteerings').doc(volunteeringId);
 
@@ -39,7 +39,7 @@ class VolunteeringRepository {
         throw Exception('No vacancies left');
       }
       transaction
-          .update(volunteeringRef, {'vacancies': volunteering.vacancies - 1});
+          .update(volunteeringRef, {'applicants.$userId': false});
       return volunteering;
     }).then(
       (value) async {
@@ -51,7 +51,7 @@ class VolunteeringRepository {
   }
 
   // Volunteer gets out of volunteering
-  Future<Volunteering?> unvolunteerToVolunteering(String volunteeringId) async {
+  Future<Volunteering?> unvolunteerToVolunteering(String volunteeringId, String userId) async {
     final volunteeringRef =
         _firestore.collection('volunteerings').doc(volunteeringId);
 
@@ -59,7 +59,7 @@ class VolunteeringRepository {
       final volunteeringDoc = await transaction.get(volunteeringRef);
       final volunteering = _addUidToVolunteering(volunteeringDoc)!;
       transaction
-          .update(volunteeringRef, {'vacancies': volunteering.vacancies + 1});
+          .delete(volunteeringRef.collection('applicants').doc(userId));
       return volunteering;
     }).then(
       (value) async {

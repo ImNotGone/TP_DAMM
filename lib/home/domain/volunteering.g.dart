@@ -18,6 +18,10 @@ Volunteering _$VolunteeringFromJson(Map<String, dynamic> json) => Volunteering(
       requirements: json['requirements'] as String,
       creationDate: DateTime.parse(json['creationDate'] as String),
       vacancies: (json['vacancies'] as num).toInt(),
+      applicants: (json['applicants'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as bool),
+          ) ??
+          const {},
     );
 
 const _$VolunteeringTypeEnumMap = {

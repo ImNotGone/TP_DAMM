@@ -10,12 +10,12 @@ class VolunteeringService{
     return _volunteeringRepository.fetchVolunteerings();
   }
 
-  Future<Volunteering?> volunteerToVolunteering(String volunteeringId)  async {
-    return await _volunteeringRepository.volunteerToVolunteering(volunteeringId);
+  Future<Volunteering?> volunteerToVolunteering(String volunteeringId, String userId)  async {
+    return await _volunteeringRepository.volunteerToVolunteering(volunteeringId, userId);
   }
 
-  Future<Volunteering?> unvolunteerToVolunteering(String volunteeringId) async {
-    return await _volunteeringRepository.unvolunteerToVolunteering(volunteeringId);
+  Future<Volunteering?> unvolunteerToVolunteering(String volunteeringId, String userId) async {
+    return await _volunteeringRepository.unvolunteerToVolunteering(volunteeringId, userId);
   }
 
   // TODO: uncomment this method to upload volunteerings
