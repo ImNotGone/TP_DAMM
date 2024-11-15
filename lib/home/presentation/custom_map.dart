@@ -1,91 +1,71 @@
-// https://medium.com/@yousafjamil50/implementing-users-current-location-in-flutter-with-google-maps-9234f597f220
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:ser_manos_mobile/providers/location_provider.dart';
 
-class CustomMap extends StatefulWidget {
+class CustomMap extends HookConsumerWidget {
   const CustomMap({super.key});
 
   @override
-  State<CustomMap> createState() => _CustomMapState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mapController = useState<GoogleMapController?>(null);
+    final center = useState<LatLng?>(null);
+    final currentPosition = useState<Position?>(null);
 
-class _CustomMapState extends State<CustomMap> {
-  GoogleMapController? mapController;
-  LatLng? _center;
-  Position? _currentPosition;
+    Future<void> getUserLocation(ValueNotifier<LatLng?> center, ValueNotifier<Position?> currentPosition) async {
+      bool serviceEnabled;
+      LocationPermission permission;
 
-  @override
-  void initState() {
-    super.initState();
-    _getUserLocation();
-  }
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
-  _getUserLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-// Check if location services are enabled
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return;
-    }
-// Request permission to get the user's location
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.deniedForever) {
-      return;
-    }
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission != LocationPermission.whileInUse &&
-          permission != LocationPermission.always) {
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
         return;
       }
-    }
-// Get the current location of the user
-    _currentPosition = await Geolocator.getCurrentPosition();
-    setState(() {
-      _center = LatLng(_currentPosition!.latitude, _currentPosition!.longitude);
-    });
-  }
 
-  @override
-  Widget build(BuildContext context) {
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.deniedForever) {
+        return;
+      }
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission != LocationPermission.whileInUse && permission != LocationPermission.always) {
+          return;
+        }
+      }
+
+      currentPosition.value = await Geolocator.getCurrentPosition();
+      final latLng = LatLng(currentPosition.value!.latitude, currentPosition.value!.longitude);
+      center.value = latLng;
+      ref.read(locationNotifierProvider.notifier).setLocation(latLng);
+    }
+
+    useEffect(() {
+      getUserLocation(center, currentPosition);
+      return null;
+    }, []);
+
+    void onMapCreated(GoogleMapController controller) {
+      mapController.value = controller;
+    }
+
     return Scaffold(
-      body: _center == null
+      body: center.value == null
           ? const Center(child: CircularProgressIndicator())
           : SizedBox(
-              height: double.infinity,
-              child: GoogleMap(
-                myLocationButtonEnabled: true,
-                myLocationEnabled: true,
-                onMapCreated: _onMapCreated,
-                initialCameraPosition: CameraPosition(
-                  target: _center!,
-                  zoom: 15.0,
-                ),
-                // TODO: Poner los voluntariados en el mapa
-                // markers: {},
-              ),
-            ),
+        height: double.infinity,
+        child: GoogleMap(
+          myLocationButtonEnabled: true,
+          myLocationEnabled: true,
+          onMapCreated: onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: center.value!,
+            zoom: 15.0,
+          ),
+          // TODO: Poner los voluntariados en el mapa
+          // markers: {},
+        ),
+      ),
     );
   }
 }
-
-/*
-TODO: onlcick de card de voluntariado lleve al marker en el mapa
-static const CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }
- */
