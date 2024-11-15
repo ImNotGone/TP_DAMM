@@ -21,6 +21,10 @@ class VolunteerMapScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchQuery = useState('');
     final mapController = useState<GoogleMapController?>(null);
+    final currentCardIndex = useState<int>(0);
+    final markers = useState(<Marker>{});
+    final selectedMarker = useState(BitmapDescriptor.defaultMarker);
+    final notSelectedMarker = useState(BitmapDescriptor.defaultMarker);
 
     final allVolunteerings = ref.watch(volunteeringsNotifierProvider);
 
@@ -30,6 +34,31 @@ class VolunteerMapScreen extends HookConsumerWidget {
         .contains(searchQuery.value.toLowerCase()))
         .toList()
       ?..sort((a, b) => b.creationDate.compareTo(a.creationDate));
+
+
+    var i = 0;
+    filteredVolunteerings?.forEach(
+        (v) {
+          final marker = Marker(
+            markerId: MarkerId(v.uid),
+            position: LatLng(v.location.latitude, v.location.longitude),
+            icon: i == currentCardIndex.value ? selectedMarker.value:notSelectedMarker.value
+          );
+          markers.value.add(marker);
+          i++;
+        }
+    );
+
+    if (mapController.value != null && filteredVolunteerings != null && filteredVolunteerings.isNotEmpty) {
+      mapController.value!.animateCamera(
+          CameraUpdate.newLatLng(
+            LatLng(
+              filteredVolunteerings[currentCardIndex.value].location.latitude,
+              filteredVolunteerings[currentCardIndex.value].location.longitude,
+            ),
+          )
+      );
+    }
 
     return Stack(
       children: [
@@ -45,7 +74,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
           zoomControlsEnabled: false,
           myLocationButtonEnabled: false,
           myLocationEnabled: true,
-          markers: _getCustomMarkers(),
+          markers: markers.value,
         ),
         Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -94,16 +123,5 @@ class VolunteerMapScreen extends HookConsumerWidget {
           )
       ],
     );
-  }
-
-  Set<Marker> _getCustomMarkers() {
-    return {
-      const Marker(
-        markerId: MarkerId('location1'),
-        position: LatLng(-34.560, -58.440),
-        infoWindow: InfoWindow(title: 'Hospital Pirovano'),
-      ),
-      // Add more markers as needed
-    };
   }
 }
