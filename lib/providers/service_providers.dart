@@ -4,11 +4,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ser_manos_mobile/auth/application/user_service.dart';
 import 'package:ser_manos_mobile/auth/data/user_repository.dart';
-import 'package:ser_manos_mobile/home/application/volunteering_service.dart';
-import 'package:ser_manos_mobile/home/data/volunteering_repository.dart';
+import 'package:ser_manos_mobile/volunteer/application/volunteering_service.dart';
+import 'package:ser_manos_mobile/volunteer/data/volunteering_repository.dart';
 
-import '../home/application/news_service.dart';
-import '../home/data/news_repository.dart';
+import '../news/application/news_service.dart';
+import '../news/data/news_repository.dart';
 import 'firebase_providers.dart';
 
 part 'service_providers.g.dart';

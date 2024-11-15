@@ -1,4 +1,4 @@
-import 'package:ser_manos_mobile/home/data/news_repository.dart';
+import 'package:ser_manos_mobile/news/data/news_repository.dart';
 import '../domain/news.dart';
 
 class NewsService{

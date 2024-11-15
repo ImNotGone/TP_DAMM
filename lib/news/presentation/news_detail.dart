@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ser_manos_mobile/providers/news_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../shared/molecules/buttons/filled.dart';
-import '../domain/news.dart';
+import '../../news/domain/news.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 

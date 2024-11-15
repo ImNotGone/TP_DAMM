@@ -13,8 +13,8 @@ import 'package:ser_manos_mobile/shared/cells/cards/upload_profile_picture_card.
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/calendar_input.dart';
 import '../../auth/domain/app_user.dart';
-import '../../home/application/volunteering_service.dart';
-import '../../home/domain/volunteering.dart';
+import '../../volunteer/application/volunteering_service.dart';
+import '../../volunteer/domain/volunteering.dart';
 import '../../providers/service_providers.dart';
 import '../../providers/user_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

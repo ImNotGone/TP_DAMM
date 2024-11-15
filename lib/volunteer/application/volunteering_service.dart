@@ -1,4 +1,4 @@
-import 'package:ser_manos_mobile/home/data/volunteering_repository.dart';
+import 'package:ser_manos_mobile/volunteer/data/volunteering_repository.dart';
 import '../domain/volunteering.dart';
 
 class VolunteeringService{

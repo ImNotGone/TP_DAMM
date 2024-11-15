@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/profile/presentation/profile_screen.dart';
-import 'volunteer_list.dart';
-import 'news_screen.dart';
+import '../../volunteer/presentation/volunteer_list.dart';
+import '../../news/presentation/news_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

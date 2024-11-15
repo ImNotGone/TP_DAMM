@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import '../home/domain/news.dart';
+import '../news/domain/news.dart';
 
 part 'news_provider.g.dart';
 
