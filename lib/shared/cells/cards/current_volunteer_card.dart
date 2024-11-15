@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
+import 'package:ser_manos_mobile/shared/cells/cards/volunteer_card.dart';
 
-class CurrrentVolunteerCard extends StatelessWidget {
-  final String type;
-  final String title;
+class CurrrentVolunteerCard extends HookConsumerWidget {
+  final String id;
 
-  const CurrrentVolunteerCard({super.key, required this.type, required this.title});
+  const CurrrentVolunteerCard({super.key, required this.id});
+
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final volunteering = ref.read(volunteeringsNotifierProvider)?[id];
+
     return Container(
       height: 72,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        // TODO: primarySwatch 5
         color: const Color(0xFFf3F9F5),
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
@@ -24,20 +28,18 @@ class CurrrentVolunteerCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                type.toUpperCase(),
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666))
+                  volunteering!.type.localizedName(context).toUpperCase(),
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666))
               ),
               Text(
-                title,
-                style: Theme.of(context).textTheme.titleMedium
-                ),
+                  volunteering.title,
+                  style: Theme.of(context).textTheme.titleMedium
+              ),
             ],
           ),
-          Icon(
-            Icons.place,
-            color: Theme.of(context).colorScheme.primary,
-            size: 24,
-          ),
+          buildIcon(Icons.place, () {
+            openGoogleMaps(volunteering.location.latitude, volunteering.location.longitude);
+          }),
         ],
       ),
     );

@@ -97,13 +97,13 @@ class VolunteerCard extends HookConsumerWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            _buildIcon(
+                            buildIcon(
                               volunteering.isFavourite ? Icons.favorite : Icons.favorite_border,
                               volunteering.isFavourite ? unmarkAsFavorite : markAsFavorite,
                             ),
                             const SizedBox(width: 16),
-                            _buildIcon(Icons.place, () {
-                              _openGoogleMaps(volunteering.location.latitude, volunteering.location.longitude);
+                            buildIcon(Icons.place, () {
+                              openGoogleMaps(volunteering.location.latitude, volunteering.location.longitude);
                             }),
                           ],
                         ),
@@ -119,27 +119,27 @@ class VolunteerCard extends HookConsumerWidget {
       ),
     );
   }
+}
 
-  void _openGoogleMaps(double latitude, double longitude) async {
-    final url = Uri.parse('https://www.google.com/maps/search/?api=1&query=$latitude,$longitude');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+void openGoogleMaps(double latitude, double longitude) async {
+  final url = Uri.parse('https://www.google.com/maps/search/?api=1&query=$latitude,$longitude');
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url);
+  } else {
+    throw 'Could not launch $url';
   }
+}
 
-  Widget _buildIcon(IconData icon, VoidCallback? onPressed) {
-    return SizedBox(
-      width: 24,
-      height: 24,
-      child: IconButton(
-        icon: Icon(icon),
-        color: const Color(0xff14903f),
-        onPressed: onPressed,
-        padding: EdgeInsets.zero,
-        constraints: const BoxConstraints(),
-      ),
-    );
-  }
+Widget buildIcon(IconData icon, VoidCallback? onPressed) {
+  return SizedBox(
+    width: 24,
+    height: 24,
+    child: IconButton(
+      icon: Icon(icon),
+      color: const Color(0xff14903f),
+      onPressed: onPressed,
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints(),
+    ),
+  );
 }
