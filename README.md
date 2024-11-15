@@ -1,16 +1,29 @@
-# ser_manos_mobile
+# Ser Manos - DAMM
 
-Ser Manos multiplatform mobile app made in Flutter.
+## Tech Stack
+Each technology in the stack was chosen to enhance the app's functionality, maintainability, and user experience. These choices are further documented in the README and the presentation.
 
-## Getting Started
+### Core
+- **Flutter**: The main framework for developing a cross-platform mobile application.
+- **Dart**: Programming language used with Flutter for fast, expressive UI.
 
-This project is a starting point for a Flutter application.
+### State Management
+- **Riverpod (flutter_riverpod)**: Chosen for predictable, manageable state management across the app.
+- **flutter_hooks**: Simplifies code for widget lifecycle and logic.
 
-A few resources to get you started if this is your first Flutter project:
+### Navigation
+- **GoRouter**: Handles navigation and routing within the app, including for nested routes and deep linking.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Firebase
+- **firebase_core & firebase_auth**: Used for user authentication and core app services.
+- **firebase_storage & cloud_firestore**: Data storage and retrieval.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Other Integrations
+- **Google Maps Flutter**: For map display and custom markers.
+- **carousel_slider**: Used for the interactive volunteer cards carousel at the bottom of the screen.
+- **geolocator**: Retrieves user location for improved map interaction.
+- **intl & flutter_localizations**: Adds internationalization and localization support.
+
+### Development Tools
+- **build_runner**: Automates code generation.
+- **json_serializable**: Enables JSON serialization for network calls.
