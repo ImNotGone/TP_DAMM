@@ -85,8 +85,9 @@ class CalendarInput extends HookWidget {
               controller.text = DateFormat('dd/MM/yyyy').format(date);
             }
           },
-          icon: Icon(Icons.calendar_month_outlined,
-              color: Theme.of(context).colorScheme.primary
+          icon: const Icon(
+              Icons.calendar_month_outlined,
+              color: SerManosColors.primary100
           ),
         ),
       ),
