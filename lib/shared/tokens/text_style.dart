@@ -45,6 +45,7 @@ abstract final class SerManosTextStyle {
   static TextStyle button() => const TextStyle(
     fontSize: 14.0,
     fontWeight: FontWeight.w500,
+    // no color so it inherits from the button
     letterSpacing: 0.1,
     height: 1.43
   );
@@ -60,8 +61,9 @@ abstract final class SerManosTextStyle {
   static TextStyle overline() => const TextStyle(
     fontSize: 10.0,
     fontWeight: FontWeight.w500,
-    letterSpacing: 1.5,
+    // neutral 75, because its used like this in all the app
     color: SerManosColors.neutral75,
+    letterSpacing: 1.5,
     height: 1.6
   );
 }
