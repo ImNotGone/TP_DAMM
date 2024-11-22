@@ -5,6 +5,7 @@ import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import 'package:ser_manos_mobile/providers/is_logged_in_provider.dart';
 
 import '../../shared/tokens/colors.dart';
+import '../../shared/tokens/text_style.dart';
 
 class PostLoginWelcome extends HookConsumerWidget {
   const PostLoginWelcome({super.key});
@@ -24,9 +25,9 @@ class PostLoginWelcome extends HookConsumerWidget {
               children: [
                 Image.asset('assets/logo_square.png', width: 150, height: 150),
                 const SizedBox(height: 16),
-                Text(AppLocalizations.of(context)!.welcome, style: Theme.of(context).textTheme.headlineLarge),
+                Text(AppLocalizations.of(context)!.welcome, style: SerManosTextStyle.headline01()),
                 const SizedBox(height: 16),
-                Text(AppLocalizations.of(context)!.postLoginWelcome, style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.center,)
+                Text(AppLocalizations.of(context)!.postLoginWelcome, style: SerManosTextStyle.subtitle01(), textAlign: TextAlign.center,)
               ],
             ),
             const Spacer(),

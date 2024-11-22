@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/blue_header_card.dart';
 
 import '../../../auth/domain/app_user.dart';
+import '../../tokens/text_style.dart';
 
 class InputCard extends StatefulWidget {
   final void Function(Gender) onGenderSelected;
@@ -71,7 +72,7 @@ class InputCardState extends State<InputCard> {
                 ),
               ),
               const SizedBox(width: 8),
-              Text(label, style: Theme.of(context).textTheme.bodyLarge)
+              Text(label, style: SerManosTextStyle.body01())
             ],
           ),
         )

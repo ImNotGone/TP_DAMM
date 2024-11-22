@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../tokens/colors.dart';
+import '../../tokens/text_style.dart';
 import 'blue_header_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -26,11 +27,11 @@ class LocationDetailCard extends StatelessWidget {
                 children: [
                   Text(
                       AppLocalizations.of(context)!.address.toUpperCase(),
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75)
+                      style: SerManosTextStyle.overline()
                   ),
                   Text(
                       address,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: SerManosColors.neutral100)
+                      style: SerManosTextStyle.body01()
                   ),
                 ],
               ),

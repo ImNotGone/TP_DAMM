@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
+import '../../tokens/text_style.dart';
+
 class BlueHeaderCard extends StatelessWidget {
   final String title;
   final Widget child;
@@ -33,7 +35,7 @@ class BlueHeaderCard extends StatelessWidget {
             ),
             child: Text(
               title,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: SerManosTextStyle.subtitle01(),
             ),
           ),
           child,

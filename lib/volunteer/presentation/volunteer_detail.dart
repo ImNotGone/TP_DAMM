@@ -17,6 +17,7 @@ import '../../auth/domain/app_user.dart';
 import '../../providers/service_providers.dart';
 import '../../shared/molecules/buttons/filled.dart';
 import '../../shared/tokens/colors.dart';
+import '../../shared/tokens/text_style.dart';
 import '../domain/volunteering.dart';
 
 class VolunteeringDetail extends HookConsumerWidget {
@@ -103,43 +104,26 @@ class VolunteeringDetail extends HookConsumerWidget {
                     volunteering.type
                         .localizedName(context)
                         .toUpperCase(),
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .labelSmall
-                        ?.copyWith(color: SerManosColors.neutral75),
+                    style: SerManosTextStyle.headline01(),
                   ),
                   Text(
                     volunteering.title,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headlineLarge,
+                    style: SerManosTextStyle.headline01(),
                   ),
                   const SizedBox(height: 16),
                   Text(
                     volunteering.purpose,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(color: SerManosColors.secondary200),
+                    style: SerManosTextStyle.body01().copyWith(color: SerManosColors.secondary200),
                   ),
                   const SizedBox(height: 24),
                   Text(
                     AppLocalizations.of(context)!.activityDetailsTitle,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headlineMedium,
+                    style: SerManosTextStyle.headline02(),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     volunteering.activityDetail,
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .bodyLarge,
+                    style: SerManosTextStyle.body01(),
                   ),
                   const SizedBox(height: 24),
                   LocationCard(address: volunteering.address, location: volunteering.location),
@@ -153,21 +137,14 @@ class VolunteeringDetail extends HookConsumerWidget {
                           child: Text(
                             AppLocalizations.of(context)!
                                 .youreParticipating,
-                            style:
-                            Theme
-                                .of(context)
-                                .textTheme
-                                .headlineMedium,
+                            style: SerManosTextStyle.headline02(),
                           ),
                         ),
                         const SizedBox(height: 8),
                         Text(
                           AppLocalizations.of(context)!
                               .organizationConfirmation,
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge,
+                          style: SerManosTextStyle.body01(),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 8),
@@ -191,17 +168,11 @@ class VolunteeringDetail extends HookConsumerWidget {
                                           Text(
                                             AppLocalizations.of(context)!
                                                 .sureToAbandon,
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .titleMedium,
+                                            style: SerManosTextStyle.subtitle01(),
                                           ),
                                           Text(
                                             volunteering.title,
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .headlineMedium,
+                                            style: SerManosTextStyle.headline02(),
                                           ),
                                         ],
                                       ),
@@ -216,21 +187,14 @@ class VolunteeringDetail extends HookConsumerWidget {
                           child: Text(
                             AppLocalizations.of(context)!
                                 .youApplied,
-                            style:
-                            Theme
-                                .of(context)
-                                .textTheme
-                                .headlineMedium,
+                            style: SerManosTextStyle.headline02()
                           ),
                         ),
                         const SizedBox(height: 8),
                         Text(
                           AppLocalizations.of(context)!
                               .confirmationPending,
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge,
+                          style: SerManosTextStyle.body01(),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 8),
@@ -254,17 +218,11 @@ class VolunteeringDetail extends HookConsumerWidget {
                                           Text(
                                             AppLocalizations.of(context)!
                                                 .sureToUnapply,
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .titleMedium,
+                                            style: SerManosTextStyle.subtitle01(),
                                           ),
                                           Text(
                                             volunteering.title,
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .headlineMedium,
+                                            style: SerManosTextStyle.headline02(),
                                           ),
                                         ],
                                       ),
@@ -281,10 +239,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                           child: Text(
                             AppLocalizations.of(context)!
                                 .alreadyParticipating,
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .bodyLarge,
+                            style: SerManosTextStyle.body01(),
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -308,10 +263,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                           Text(
                                             AppLocalizations.of(context)!
                                                 .sureToAbandon,
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .titleMedium,
+                                            style: SerManosTextStyle.subtitle01(),
                                           ),
                                           Text(
                                             ref.read(
@@ -319,10 +271,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                             ![currentUser
                                                 .registeredVolunteeringId!]
                                             !.title,
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .headlineMedium,
+                                            style: SerManosTextStyle.headline02(),
                                           ),
                                         ],
                                       ),
@@ -342,10 +291,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                       Center(
                         child: Text(
                           AppLocalizations.of(context)!.noVacancies,
-                          style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge,
+                          style: SerManosTextStyle.body01(),
                         ),
                       ),
                       const SizedBox(height: 24),
@@ -374,10 +320,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                     Text(
                                       AppLocalizations.of(context)!
                                           .firstCompleteProfile,
-                                      style: Theme
-                                          .of(context)
-                                          .textTheme
-                                          .titleMedium,
+                                      style: SerManosTextStyle.subtitle01(),
                                     ),
                                   ],
                                 ),
@@ -405,17 +348,11 @@ class VolunteeringDetail extends HookConsumerWidget {
                                         Text(
                                           AppLocalizations.of(context)!
                                               .youAreApplyingTo,
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .titleMedium,
+                                          style: SerManosTextStyle.subtitle01(),
                                         ),
                                         Text(
                                           volunteering.title,
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .headlineMedium,
+                                          style: SerManosTextStyle.headline02(),
                                         ),
                                       ],
                                     ),
@@ -446,10 +383,7 @@ class VolunteeringDetail extends HookConsumerWidget {
       children: [
         Text(
           AppLocalizations.of(context)!.participateInVolunteering,
-          style: Theme
-              .of(context)
-              .textTheme
-              .headlineMedium,
+          style: SerManosTextStyle.headline02(),
         ),
         const SizedBox(height: 8),
         MarkdownBody(

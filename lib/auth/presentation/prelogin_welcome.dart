@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import '../../shared/molecules/buttons/text.dart';
 import '../../shared/tokens/colors.dart';
+import '../../shared/tokens/text_style.dart';
 
 class PreLoginWelcome extends StatelessWidget {
   const PreLoginWelcome({super.key});
@@ -23,7 +24,7 @@ class PreLoginWelcome extends StatelessWidget {
               children: [
                 Image.asset('assets/logo_square.png', width: 150, height: 150),
                 const SizedBox(height: 16),
-                Text(AppLocalizations.of(context)!.preLoginWelcome, style: Theme.of(context).textTheme.titleMedium, textAlign: TextAlign.center,)
+                Text(AppLocalizations.of(context)!.preLoginWelcome, style: SerManosTextStyle.subtitle01(), textAlign: TextAlign.center,)
               ],
             ),
             const Spacer(),

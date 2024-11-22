@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
+import '../../tokens/text_style.dart';
 import 'blue_header_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -55,16 +55,14 @@ class LocationCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(AppLocalizations.of(context)!.address.toUpperCase(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelSmall
-                        ?.copyWith(color: SerManosColors.neutral75)),
-                Text(address,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(color: SerManosColors.neutral100)),
+                Text(
+                    AppLocalizations.of(context)!.address.toUpperCase(),
+                    style: SerManosTextStyle.overline()
+                ),
+                Text(
+                    address,
+                    style: SerManosTextStyle.body01()
+                ),
               ],
             ),
           )

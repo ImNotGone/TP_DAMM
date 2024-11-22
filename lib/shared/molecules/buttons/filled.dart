@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
+import 'package:ser_manos_mobile/shared/tokens/text_style.dart';
 
 class UtilFilledButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -28,7 +29,10 @@ class UtilFilledButton extends StatelessWidget {
 
         child: isLoading
             ? const CircularProgressIndicator(color: SerManosColors.neutral100) // Show spinner when loading
-            : Text(text),
+            : Text(
+                text,
+                style: SerManosTextStyle.button(),
+            ),
     );
   }
 }
@@ -54,7 +58,10 @@ class UtilShortButton extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: onPressed,
         icon: Icon(icon),
-        label: Text(text),
+        label: Text(
+            text,
+            style: SerManosTextStyle.button(),
+        ),
         style: ElevatedButton.styleFrom(
           backgroundColor: SerManosColors.primary100,
           foregroundColor: SerManosColors.neutral0,

@@ -2,6 +2,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
+import '../../tokens/text_style.dart';
+
 class NoVolunteering extends StatelessWidget {
   const NoVolunteering({super.key});
 
@@ -17,7 +19,7 @@ class NoVolunteering extends StatelessWidget {
       child: Text(
         AppLocalizations.of(context)!.noVolunteering,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: SerManosTextStyle.subtitle01(),
       ),
     );
   }

@@ -12,6 +12,7 @@ import '../../providers/is_logged_in_provider.dart';
 import '../../shared/cells/modals/modal.dart';
 import '../../shared/molecules/buttons/text.dart';
 import '../../shared/tokens/colors.dart';
+import '../../shared/tokens/text_style.dart';
 
 
 class ProfileScreen extends HookConsumerWidget {
@@ -39,13 +40,13 @@ class ProfileScreen extends HookConsumerWidget {
                   const SizedBox(height: 2),
                   Text(
                       '${currentUser.firstName} ${currentUser.lastName}',
-                      style: Theme.of(context).textTheme.titleMedium
+                      style: SerManosTextStyle.subtitle01()
                   ),
                   const SizedBox(height: 2),
                   Text(
                       currentUser.email,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: SerManosColors.secondary200)
+                      style: SerManosTextStyle.body01().copyWith(color: SerManosColors.secondary200)
                   ),
                   const SizedBox(height: 32),
                   InfoCard(
@@ -81,13 +82,13 @@ class ProfileScreen extends HookConsumerWidget {
                   const SizedBox(height: 8),
                   Text(
                       '${currentUser.firstName} ${currentUser.lastName}',
-                      style: Theme.of(context).textTheme.titleMedium
+                      style: SerManosTextStyle.subtitle01()
                   ),
                   const SizedBox(height: 8),
                   Text(
                       AppLocalizations.of(context)!.completeProfile,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: SerManosColors.neutral75),
+                      style: SerManosTextStyle.body01().copyWith(color: SerManosColors.neutral75),
                   ),
                 ],
               ),
@@ -127,7 +128,7 @@ class _UserContent extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     AppLocalizations.of(context)!.volunteer.toUpperCase(),
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75),
+                    style: SerManosTextStyle.overline(),
                   ),
                   detailsWidget,
                 ],
@@ -173,7 +174,7 @@ class _SignOutButton extends HookConsumerWidget {
               context: context,
               child: Text(
                 AppLocalizations.of(context)!.sureToLogOut,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: SerManosTextStyle.subtitle01(),
               ),
             ),
           );

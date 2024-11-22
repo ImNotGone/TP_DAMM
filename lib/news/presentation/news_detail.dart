@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
 import '../../shared/tokens/colors.dart';
+import '../../shared/tokens/text_style.dart';
 
 class NewsDetail extends HookConsumerWidget {
   final String newsId;
@@ -38,8 +39,8 @@ class NewsDetail extends HookConsumerWidget {
           child: ListView(
             children: [
               const SizedBox(height: 24.0),
-              Text(news!.paper, style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75),),
-              Text(news.title, style: Theme.of(context).textTheme.headlineMedium,),
+              Text(news!.paper, style: SerManosTextStyle.overline()),
+              Text(news.title, style: SerManosTextStyle.headline02()),
               const SizedBox(height: 16.0),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -53,17 +54,17 @@ class NewsDetail extends HookConsumerWidget {
                 ),
               ),
               const SizedBox(height: 16.0),
-              Text(news.subtitle, style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              Text(news.subtitle, style: SerManosTextStyle.subtitle01().copyWith(
                   color: SerManosColors.secondary200,
               ),),
               const SizedBox(height: 16.0),
-              Text(news.content, style: Theme.of(context).textTheme.bodyLarge,),
+              Text(news.content, style: SerManosTextStyle.body01(),),
               const SizedBox(height: 16.0),
               Container(
                     alignment: Alignment.center,
                     child: Text(
                       AppLocalizations.of(context)!.shareThisNote,
-                      style: Theme.of(context).textTheme.headlineMedium,
+                      style: SerManosTextStyle.headline02(),
                     )
                 ),
               const SizedBox(height: 16.0),

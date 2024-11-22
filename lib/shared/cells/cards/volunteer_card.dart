@@ -10,6 +10,7 @@ import '../../../providers/service_providers.dart';
 import '../../../providers/user_provider.dart';
 import '../../molecules/components/vacancies.dart';
 import '../../tokens/colors.dart';
+import '../../tokens/text_style.dart';
 
 class VolunteerCard extends HookConsumerWidget {
   final String volunteeringId;
@@ -80,12 +81,12 @@ class VolunteerCard extends HookConsumerWidget {
                 children: <Widget>[
                   Text(
                     volunteering.type.localizedName(context).toUpperCase(),
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75),
+                    style: SerManosTextStyle.overline(),
                   ),
                   // Title Text
                   Text(
                     volunteering.title,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: SerManosTextStyle.subtitle01(),
                   ),
                   // Vacancy Row
                   const SizedBox(height: 4),

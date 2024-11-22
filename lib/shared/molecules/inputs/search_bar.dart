@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../tokens/colors.dart';
+import '../../tokens/text_style.dart';
 
 
 class UtilSearchBar extends HookWidget {
@@ -54,11 +55,11 @@ class UtilSearchBar extends HookWidget {
             child: TextField(
               controller: searchController,
               focusNode: focusNode,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: SerManosTextStyle.subtitle01(),
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context)!.search,
                 border: InputBorder.none,
-                hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: SerManosColors.neutral75),
+                hintStyle: SerManosTextStyle.subtitle01().copyWith(color: SerManosColors.neutral75),
               ),
               onChanged: onSearchChanged,
             ),

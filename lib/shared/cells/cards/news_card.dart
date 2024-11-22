@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import '../../../news/domain/news.dart';
 import '../../tokens/colors.dart';
+import '../../tokens/text_style.dart';
 
 
 class NewsCard extends StatelessWidget {
@@ -34,9 +35,9 @@ class NewsCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(news.paper, style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75),),
-                    Text(news.title, style: Theme.of(context).textTheme.titleMedium,),
-                    Text(news.subtitle, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: SerManosColors.neutral75),),
+                    Text(news.paper, style: SerManosTextStyle.overline()),
+                    Text(news.title, style: SerManosTextStyle.subtitle01()),
+                    Text(news.subtitle, style: SerManosTextStyle.overline()),
                     Container(
                       alignment: Alignment.bottomRight,
                       child: TextButton(

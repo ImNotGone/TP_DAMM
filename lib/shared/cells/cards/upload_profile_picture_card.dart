@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../tokens/colors.dart';
+import '../../tokens/text_style.dart';
 
 class UploadProfilePictureCard extends StatelessWidget {
 
@@ -28,7 +29,7 @@ class UploadProfilePictureCard extends StatelessWidget {
             children: [
               Text(
                 AppLocalizations.of(context)!.profilePicture,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: SerManosTextStyle.subtitle01(),
               ),
               SizedBox(
                   height: 36,

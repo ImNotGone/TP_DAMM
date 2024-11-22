@@ -17,6 +17,7 @@ import 'package:ser_manos_mobile/shared/molecules/inputs/validation/phone_valida
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/required_validation.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/validator.dart';
 import '../../auth/domain/app_user.dart';
+import '../../shared/tokens/text_style.dart';
 import '../../volunteer/application/volunteering_service.dart';
 import '../../volunteer/domain/volunteering.dart';
 import '../../providers/service_providers.dart';
@@ -211,14 +212,14 @@ class ProfileEditScreen extends HookConsumerWidget {
                     children: [
                       Text(
                         AppLocalizations.of(context)!.youAreApplyingTo,
-                        style: Theme.of(context).textTheme.titleMedium,
+                        style: SerManosTextStyle.subtitle01(),
                       ),
                       Text(
                         ref
                             .read(
                                 volunteeringsNotifierProvider)![volunteeringId]!
                             .title,
-                        style: Theme.of(context).textTheme.headlineMedium,
+                        style: SerManosTextStyle.headline02()
                       ),
                     ],
                   ),
@@ -254,7 +255,7 @@ class ProfileEditScreen extends HookConsumerWidget {
               children: [
                 Text(
                   AppLocalizations.of(context)!.profileData,
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  style: SerManosTextStyle.headline01(),
                 ),
                 const SizedBox(height: 24),
                 CalendarInput(
@@ -280,12 +281,12 @@ class ProfileEditScreen extends HookConsumerWidget {
                 const SizedBox(height: 32),
                 Text(
                   AppLocalizations.of(context)!.contactData,
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  style: SerManosTextStyle.headline01(),
                 ),
                 const SizedBox(height: 24),
                 Text(
                   AppLocalizations.of(context)!.contactDataDetail,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: SerManosTextStyle.subtitle01(),
                 ),
                 const SizedBox(height: 24),
                 TextInput(

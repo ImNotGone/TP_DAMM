@@ -8,6 +8,8 @@ import 'package:ser_manos_mobile/shared/molecules/inputs/validation/required_val
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/validator.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
+import '../../tokens/text_style.dart';
+
 class CalendarInput extends HookWidget {
   final DateTime? initialDate;
   final String label;
@@ -39,7 +41,7 @@ class CalendarInput extends HookWidget {
       controller: controller,
       focusNode: focusNode,
       keyboardType: TextInputType.datetime,
-      style: Theme.of(context).textTheme.titleMedium,
+      style: SerManosTextStyle.subtitle01(),
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         _DateInputFormatter(),
@@ -52,11 +54,11 @@ class CalendarInput extends HookWidget {
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: label,
-        labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: labelColor.value),
+        labelStyle: SerManosTextStyle.body02().copyWith(color: labelColor.value),
         hintText: 'DD/MM/YYYY',
-        hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: SerManosColors.neutral50),
+        hintStyle: SerManosTextStyle.subtitle01().copyWith(color: SerManosColors.neutral50),
         helperText: focusNode.hasFocus ? AppLocalizations.of(context)!.dayMonthYear : null,
-        helperStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: SerManosColors.neutral75),
+        helperStyle: SerManosTextStyle.body02().copyWith(color: SerManosColors.neutral75),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: SerManosColors.neutral75, width: 1),
           borderRadius: BorderRadius.circular(4),

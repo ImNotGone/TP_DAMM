@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import '../../tokens/colors.dart';
+import '../../tokens/text_style.dart';
 
 class TextInput extends HookWidget {
   final String? label;
@@ -64,15 +65,15 @@ class TextInput extends HookWidget {
       controller: controller,
       focusNode: focusNode,
       keyboardType: keyboardType,
-      style: Theme.of(context).textTheme.titleMedium,
+      style: SerManosTextStyle.subtitle01(),
       validator: validator,
 
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: showLabel.value ? label : null,
-        labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: labelColor.value),
+        labelStyle: SerManosTextStyle.body02().copyWith(color: labelColor.value),
         hintText: hintText,
-        hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: SerManosColors.neutral50),
+        hintStyle: SerManosTextStyle.subtitle01().copyWith(color: SerManosColors.neutral50),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: SerManosColors.neutral75, width: 1),
           borderRadius: BorderRadius.circular(4),

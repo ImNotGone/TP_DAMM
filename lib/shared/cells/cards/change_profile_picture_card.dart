@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
+import '../../tokens/text_style.dart';
+
 class ChangeProfilePictureCard extends StatelessWidget {
   final void Function() onUploadPicture;
   final String? profilePictureUrl;
@@ -35,7 +37,7 @@ class ChangeProfilePictureCard extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.profilePicture,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: SerManosTextStyle.subtitle01(),
                     ),
                     const SizedBox(height: 8),
                     SizedBox(

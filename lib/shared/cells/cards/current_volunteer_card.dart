@@ -4,6 +4,8 @@ import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/volunteer_card.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
+import '../../tokens/text_style.dart';
+
 class CurrrentVolunteerCard extends HookConsumerWidget {
   final String id;
 
@@ -30,11 +32,11 @@ class CurrrentVolunteerCard extends HookConsumerWidget {
             children: [
               Text(
                   volunteering!.type.localizedName(context).toUpperCase(),
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75)
+                  style: SerManosTextStyle.overline()
               ),
               Text(
                   volunteering.title,
-                  style: Theme.of(context).textTheme.titleMedium
+                  style: SerManosTextStyle.subtitle01()
               ),
             ],
           ),

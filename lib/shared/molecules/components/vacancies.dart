@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
+import '../../tokens/text_style.dart';
+
 class Vacancies extends StatelessWidget {
   final int count;
 
@@ -25,7 +27,7 @@ class Vacancies extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 2),
             child: Text(
                 '${AppLocalizations.of(context)!.vacancies}:',
-                style: Theme.of(context).textTheme.bodyMedium
+                style: SerManosTextStyle.body02()
             ),
           ),
           const SizedBox(width: 8),
@@ -37,7 +39,7 @@ class Vacancies extends StatelessWidget {
           Text(
             // TODO: can this be aligned slightly up?
             count.toString(),
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            style: SerManosTextStyle.subtitle01().copyWith(
                 color: count == 0? SerManosColors.secondary80 : SerManosColors.secondary200
             ),
           )

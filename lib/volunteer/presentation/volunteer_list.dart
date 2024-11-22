@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos_mobile/shared/tokens/text_style.dart';
 import 'package:ser_manos_mobile/volunteer/domain/volunteering.dart';
 import 'package:ser_manos_mobile/volunteer/presentation/volunteer_map.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
@@ -92,7 +93,7 @@ class VolunteerList extends HookConsumerWidget {
                 if (currentUser.registeredVolunteeringId != null) ...[
                   Text(
                     AppLocalizations.of(context)!.yourActivity,
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    style: SerManosTextStyle.headline01(),
                   ),
                   const SizedBox(
                     height: 16,
@@ -113,7 +114,7 @@ class VolunteerList extends HookConsumerWidget {
                 ],
                 Text(
                   AppLocalizations.of(context)!.volunteering,
-                  style: Theme.of(context).textTheme.headlineLarge,
+                  style: SerManosTextStyle.headline01(),
                 ),
                 const SizedBox(height: 16),
                 Expanded(
