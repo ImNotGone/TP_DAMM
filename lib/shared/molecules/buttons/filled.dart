@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 class UtilFilledButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -21,12 +22,12 @@ class UtilFilledButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.0)
             ),
             minimumSize: const Size(double.infinity, 44),
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary,
+            backgroundColor: SerManosColors.primary100,
+            foregroundColor: SerManosColors.neutral0,
         ),
 
         child: isLoading
-            ? const CircularProgressIndicator(color: Colors.black) // Show spinner when loading
+            ? const CircularProgressIndicator(color: SerManosColors.neutral100) // Show spinner when loading
             : Text(text),
     );
   }
@@ -55,8 +56,8 @@ class UtilShortButton extends StatelessWidget {
         icon: Icon(icon),
         label: Text(text),
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          backgroundColor: SerManosColors.primary100,
+          foregroundColor: SerManosColors.neutral0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(4),
           ),

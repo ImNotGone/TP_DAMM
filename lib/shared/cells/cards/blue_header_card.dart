@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 class BlueHeaderCard extends StatelessWidget {
   final String title;
@@ -13,8 +14,7 @@ class BlueHeaderCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      // TODO: neutralSwatch 10?
-      color: const Color(0xFFFAFAFA),
+      color: SerManosColors.neutral10,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
       ),
@@ -25,9 +25,9 @@ class BlueHeaderCard extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondaryFixed,
-                borderRadius: const BorderRadius.vertical(
+            decoration: const BoxDecoration(
+                color: SerManosColors.secondary25,
+                borderRadius: BorderRadius.vertical(
                     top: Radius.circular(4)
                 )
             ),

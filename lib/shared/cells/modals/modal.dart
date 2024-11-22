@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import '../../molecules/buttons/text.dart';
 
+// TODO: color
 class Modal extends Dialog {
   Modal({
     super.key,

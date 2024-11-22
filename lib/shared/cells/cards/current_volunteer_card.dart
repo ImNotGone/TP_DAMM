@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/volunteer_card.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 class CurrrentVolunteerCard extends HookConsumerWidget {
   final String id;
@@ -17,9 +18,9 @@ class CurrrentVolunteerCard extends HookConsumerWidget {
       height: 72,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: const Color(0xFFf3F9F5),
+        color: SerManosColors.primary5,
         borderRadius: BorderRadius.circular(6),
-        border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
+        border: Border.all(color: SerManosColors.primary100, width: 2),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,7 +30,7 @@ class CurrrentVolunteerCard extends HookConsumerWidget {
             children: [
               Text(
                   volunteering!.type.localizedName(context).toUpperCase(),
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666))
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75)
               ),
               Text(
                   volunteering.title,

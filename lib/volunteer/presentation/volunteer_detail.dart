@@ -16,6 +16,7 @@ import 'package:ser_manos_mobile/shared/molecules/components/vacancies.dart';
 import '../../auth/domain/app_user.dart';
 import '../../providers/service_providers.dart';
 import '../../shared/molecules/buttons/filled.dart';
+import '../../shared/tokens/colors.dart';
 import '../domain/volunteering.dart';
 
 class VolunteeringDetail extends HookConsumerWidget {
@@ -71,7 +72,7 @@ class VolunteeringDetail extends HookConsumerWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: const Color(0x00FFFFFF),
+        backgroundColor: SerManosColors.neutral0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -106,7 +107,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                         .of(context)
                         .textTheme
                         .labelSmall
-                        ?.copyWith(color: const Color(0xff666666)),
+                        ?.copyWith(color: SerManosColors.neutral75),
                   ),
                   Text(
                     volunteering.title,
@@ -122,7 +123,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                         .of(context)
                         .textTheme
                         .bodyLarge
-                        ?.copyWith(color: const Color(0xFF0D47A1)),
+                        ?.copyWith(color: SerManosColors.secondary200),
                   ),
                   const SizedBox(height: 24),
                   Text(

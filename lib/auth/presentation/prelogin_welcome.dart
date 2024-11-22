@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import '../../shared/molecules/buttons/text.dart';
+import '../../shared/tokens/colors.dart';
 
 class PreLoginWelcome extends StatelessWidget {
   const PreLoginWelcome({super.key});
@@ -10,7 +11,7 @@ class PreLoginWelcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: SerManosColors.neutral0,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

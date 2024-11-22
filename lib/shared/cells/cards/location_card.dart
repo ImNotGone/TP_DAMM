@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 import 'blue_header_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -58,12 +59,12 @@ class LocationCard extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .labelSmall
-                        ?.copyWith(color: const Color(0xff666666))),
+                        ?.copyWith(color: SerManosColors.neutral75)),
                 Text(address,
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge
-                        ?.copyWith(color: Colors.black)),
+                        ?.copyWith(color: SerManosColors.neutral100)),
               ],
             ),
           )

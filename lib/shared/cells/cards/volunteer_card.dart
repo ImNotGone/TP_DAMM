@@ -9,6 +9,7 @@ import '../../../auth/domain/app_user.dart';
 import '../../../providers/service_providers.dart';
 import '../../../providers/user_provider.dart';
 import '../../molecules/components/vacancies.dart';
+import '../../tokens/colors.dart';
 
 class VolunteerCard extends HookConsumerWidget {
   final String volunteeringId;
@@ -79,7 +80,7 @@ class VolunteerCard extends HookConsumerWidget {
                 children: <Widget>[
                   Text(
                     volunteering.type.localizedName(context).toUpperCase(),
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666)),
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75),
                   ),
                   // Title Text
                   Text(
@@ -136,7 +137,7 @@ Widget buildIcon(IconData icon, VoidCallback? onPressed) {
     height: 24,
     child: IconButton(
       icon: Icon(icon),
-      color: const Color(0xff14903f),
+      color: SerManosColors.primary100,
       onPressed: onPressed,
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(),

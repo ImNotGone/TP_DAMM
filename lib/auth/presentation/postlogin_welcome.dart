@@ -4,13 +4,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import 'package:ser_manos_mobile/providers/is_logged_in_provider.dart';
 
+import '../../shared/tokens/colors.dart';
+
 class PostLoginWelcome extends HookConsumerWidget {
   const PostLoginWelcome({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: SerManosColors.neutral0,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../tokens/colors.dart';
+
 class UploadProfilePictureCard extends StatelessWidget {
 
   final void Function() onUploadPicture;
@@ -13,7 +15,7 @@ class UploadProfilePictureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).colorScheme.secondaryFixed,
+      color: SerManosColors.secondary25,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
       ),
@@ -36,8 +38,8 @@ class UploadProfilePictureCard extends StatelessWidget {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4.0)
                           ),
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-                          foregroundColor: Theme.of(context).colorScheme.onPrimary
+                          backgroundColor: SerManosColors.primary100,
+                          foregroundColor: SerManosColors.neutral0
                       ),
                       child: Text(AppLocalizations.of(context)!.uploadPicture)
                   )

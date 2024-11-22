@@ -1,5 +1,6 @@
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 class NoVolunteering extends StatelessWidget {
   const NoVolunteering({super.key});
@@ -11,7 +12,7 @@ class NoVolunteering extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        color: Colors.white,
+        color: SerManosColors.neutral0,
       ),
       child: Text(
         AppLocalizations.of(context)!.noVolunteering,

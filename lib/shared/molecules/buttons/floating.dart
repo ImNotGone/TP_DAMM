@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 class UtilFloatingButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -19,10 +20,10 @@ class UtilFloatingButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4), // Border radius of 4
             ),
-            foregroundColor: const Color(0xFF14903F),
-            backgroundColor: const Color(0xFFE7F4EC),
-            disabledForegroundColor: const Color(0xFFE0E0E0),
-            disabledBackgroundColor: const Color(0xFFFAFAFA),
+            foregroundColor: SerManosColors.primary100,
+            backgroundColor: SerManosColors.primary10,
+            disabledForegroundColor: SerManosColors.neutral25,
+            disabledBackgroundColor: SerManosColors.neutral10,
             elevation: 4.0, // Shadow depth
             padding: EdgeInsets.zero
           ),

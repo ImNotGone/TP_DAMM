@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 class Vacancies extends StatelessWidget {
   final int count;
@@ -11,7 +12,7 @@ class Vacancies extends StatelessWidget {
     return Container(
       height: 28,
       decoration: BoxDecoration(
-        color: count == 0? Colors.grey[300] : Colors.blue[100],
+        color: count == 0? SerManosColors.neutral25 : SerManosColors.secondary25,
         borderRadius: BorderRadius.circular(4),
       ),
       padding: const EdgeInsets.symmetric(
@@ -31,13 +32,13 @@ class Vacancies extends StatelessWidget {
           Icon(
             Icons.person,
             size: 20,
-            color: count == 0? const Color(0xFF6CB6F3) : Colors.blue[900],
+            color: count == 0? SerManosColors.secondary80 : SerManosColors.secondary200,
           ),
           Text(
             // TODO: can this be aligned slightly up?
             count.toString(),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: count == 0? const Color(0xFF6CB6F3) : Colors.blue[900]
+                color: count == 0? SerManosColors.secondary80 : SerManosColors.secondary200
             ),
           )
         ],

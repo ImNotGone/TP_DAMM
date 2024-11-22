@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/date_validation.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/required_validation.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/validator.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 class CalendarInput extends HookWidget {
   final DateTime? initialDate;
@@ -21,7 +22,7 @@ class CalendarInput extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final labelColor = useState<Color>(const Color(0xff666666)); // Initial color
+    final labelColor = useState<Color>(SerManosColors.neutral75); // Initial color
     final focusNode = useFocusNode();
 
     useEffect(() {
@@ -29,7 +30,7 @@ class CalendarInput extends HookWidget {
         controller.text = DateFormat('dd/MM/yyyy').format(initialDate!);
       }
       focusNode.addListener(() {
-        labelColor.value = focusNode.hasFocus ? const Color(0xff0D47A1) : const Color(0xff666666);
+        labelColor.value = focusNode.hasFocus ? SerManosColors.secondary200 : SerManosColors.neutral75;
       });
       return () => focusNode.dispose();
     }, [focusNode]);
@@ -53,23 +54,23 @@ class CalendarInput extends HookWidget {
         labelText: label,
         labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: labelColor.value),
         hintText: 'DD/MM/YYYY',
-        hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: const Color(0xff9e9e9e)),
+        hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: SerManosColors.neutral50),
         helperText: focusNode.hasFocus ? AppLocalizations.of(context)!.dayMonthYear : null,
-        helperStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: const Color(0xff666666)),
+        helperStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: SerManosColors.neutral75),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xff666666), width: 1),
+          borderSide: const BorderSide(color: SerManosColors.neutral75, width: 1),
           borderRadius: BorderRadius.circular(4),
         ),
         focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff0D47A1), width: 2),
+            borderSide: const BorderSide(color: SerManosColors.secondary200, width: 2),
             borderRadius: BorderRadius.circular(4),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xffB3261E), width: 2),
+          borderSide: const BorderSide(color: SerManosColors.error100, width: 2),
           borderRadius: BorderRadius.circular(4),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xffB3261E), width: 2),
+          borderSide: const BorderSide(color: SerManosColors.error100, width: 2),
           borderRadius: BorderRadius.circular(4),
         ),
         suffixIcon: IconButton(

@@ -11,6 +11,7 @@ import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import '../../providers/is_logged_in_provider.dart';
 import '../../shared/cells/modals/modal.dart';
 import '../../shared/molecules/buttons/text.dart';
+import '../../shared/tokens/colors.dart';
 
 
 class ProfileScreen extends HookConsumerWidget {
@@ -44,7 +45,7 @@ class ProfileScreen extends HookConsumerWidget {
                   Text(
                       currentUser.email,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: const Color(0xff0d47a1))
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: SerManosColors.secondary200)
                   ),
                   const SizedBox(height: 32),
                   InfoCard(
@@ -86,7 +87,7 @@ class ProfileScreen extends HookConsumerWidget {
                   Text(
                       AppLocalizations.of(context)!.completeProfile,
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: const Color(0xff666666)),
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: SerManosColors.neutral75),
                   ),
                 ],
               ),
@@ -126,7 +127,7 @@ class _UserContent extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     AppLocalizations.of(context)!.volunteer.toUpperCase(),
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666)),
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75),
                   ),
                   detailsWidget,
                 ],
@@ -178,7 +179,7 @@ class _SignOutButton extends HookConsumerWidget {
           );
         },
         text: AppLocalizations.of(context)!.signOut,
-        foregroundColor: Theme.of(context).colorScheme.error,
+        foregroundColor: SerManosColors.error100,
       ),
     );
   }

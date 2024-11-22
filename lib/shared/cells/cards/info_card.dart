@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/blue_header_card.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 //TODO: revisar size
 class InfoCard extends StatelessWidget {
@@ -27,10 +28,10 @@ class InfoCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(label1.toUpperCase(), style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666)),),
+              Text(label1.toUpperCase(), style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75),),
               Text(content1, style: Theme.of(context).textTheme.bodyLarge),
               const SizedBox(height: 8),
-              Text(label2.toUpperCase(), style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666)),),
+              Text(label2.toUpperCase(), style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75),),
               Text(content2, style: Theme.of(context).textTheme.bodyLarge),
             ],
         ),

@@ -16,6 +16,7 @@ import '../../providers/user_provider.dart';
 import '../../shared/molecules/buttons/text.dart';
 import '../../shared/molecules/inputs/password_input.dart';
 import '../../shared/molecules/inputs/validation/validator.dart';
+import '../../shared/tokens/colors.dart';
 import '../domain/app_user.dart';
 
 final formKey = GlobalKey<FormState>();
@@ -57,7 +58,7 @@ class SignUpScreen extends HookConsumerWidget {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: SerManosColors.neutral0,
       body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
             child: Column(

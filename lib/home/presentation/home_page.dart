@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/profile/presentation/profile_screen.dart';
+import '../../shared/tokens/colors.dart';
 import '../../volunteer/presentation/volunteer_list.dart';
 import '../../news/presentation/news_screen.dart';
 
@@ -25,7 +26,7 @@ class HomePageState extends State<HomePage> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.secondary,
+          backgroundColor: SerManosColors.secondary100,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -34,10 +35,10 @@ class HomePageState extends State<HomePage> {
             ],
           ),
           bottom: TabBar(
-            labelColor: Theme.of(context).colorScheme.onSecondary,
-            unselectedLabelColor: Theme.of(context).colorScheme.onSecondary,
-            indicator: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondaryContainer, // Change this to your desired color
+            labelColor: SerManosColors.neutral0,
+            unselectedLabelColor: SerManosColors.neutral0,
+            indicator: const BoxDecoration(
+              color: SerManosColors.secondary200, // Change this to your desired color
             ),
             indicatorSize: TabBarIndicatorSize.tab,
             tabs: [
@@ -53,7 +54,7 @@ class HomePageState extends State<HomePage> {
           ),
         ),
         body: Container(
-            color: Theme.of(context).colorScheme.surface,
+            color: SerManosColors.secondary10,
             child: _screens[_currentScreen]
         ),
       ),

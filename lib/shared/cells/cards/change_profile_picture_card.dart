@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 class ChangeProfilePictureCard extends StatelessWidget {
   final void Function() onUploadPicture;
@@ -18,7 +19,7 @@ class ChangeProfilePictureCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        color: Theme.of(context).colorScheme.secondaryFixed,
+        color: SerManosColors.secondary25,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
@@ -45,9 +46,9 @@ class ChangeProfilePictureCard extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(4.0)),
                                 backgroundColor:
-                                    Theme.of(context).colorScheme.primary,
+                                    SerManosColors.primary100,
                                 foregroundColor:
-                                    Theme.of(context).colorScheme.onPrimary),
+                                    SerManosColors.neutral0),
                             child: Text(
                                 AppLocalizations.of(context)!.changePicture))),
                   ],

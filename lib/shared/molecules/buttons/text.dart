@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 class UtilTextButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -23,7 +24,7 @@ class UtilTextButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           minimumSize: Size(minWidth ?? double.infinity, 44),
-          foregroundColor: foregroundColor ?? Theme.of(context).colorScheme.primary
+          foregroundColor: foregroundColor ?? SerManosColors.primary100
       ),
       child: Text(text),
     );

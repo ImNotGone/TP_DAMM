@@ -11,6 +11,8 @@ import '../../news/domain/news.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 
+import '../../shared/tokens/colors.dart';
+
 class NewsDetail extends HookConsumerWidget {
   final String newsId;
 
@@ -22,21 +24,21 @@ class NewsDetail extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.news, style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),),
+        title: Text(AppLocalizations.of(context)!.news, style: const TextStyle(color: SerManosColors.neutral0),),
         centerTitle: true,
         leading: IconButton(
             onPressed: ()  => context.pop(),
             icon: const Icon(Icons.arrow_back),
-            color: Theme.of(context).colorScheme.onSecondary
+            color: SerManosColors.neutral0
         ),
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: SerManosColors.secondary100,
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: ListView(
             children: [
               const SizedBox(height: 24.0),
-              Text(news!.paper, style: Theme.of(context).textTheme.labelSmall?.copyWith(color: const Color(0xff666666)),),
+              Text(news!.paper, style: Theme.of(context).textTheme.labelSmall?.copyWith(color: SerManosColors.neutral75),),
               Text(news.title, style: Theme.of(context).textTheme.headlineMedium,),
               const SizedBox(height: 16.0),
               SizedBox(
@@ -52,7 +54,7 @@ class NewsDetail extends HookConsumerWidget {
               ),
               const SizedBox(height: 16.0),
               Text(news.subtitle, style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  color: SerManosColors.secondary200,
               ),),
               const SizedBox(height: 16.0),
               Text(news.content, style: Theme.of(context).textTheme.bodyLarge,),

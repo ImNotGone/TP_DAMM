@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import '../../tokens/colors.dart';
+
 class PasswordInput extends HookWidget {
   final String? label;
   final String? hintText;
@@ -20,7 +22,7 @@ class PasswordInput extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final labelColor = useState(const Color(0xff666666));
+    final labelColor = useState(SerManosColors.neutral75);
     final focusNode = useFocusNode();
     final obscureText = useState(true);
     final showLabel = useState(labelWhenEmpty);
@@ -31,7 +33,7 @@ class PasswordInput extends HookWidget {
       }
 
       void updateLabelColor() {
-        labelColor.value = focusNode.hasFocus ? const Color(0xff0D47A1) : const Color(0xff666666);
+        labelColor.value = focusNode.hasFocus ? SerManosColors.secondary200 : SerManosColors.neutral75;
       }
 
       focusNode.addListener(updateLabelColor);
@@ -60,27 +62,27 @@ class PasswordInput extends HookWidget {
         labelText: showLabel.value ? label : null,
         labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(color: labelColor.value),
         hintText: hintText,
-        hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: const Color(0xff9e9e9e)),
+        hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: SerManosColors.neutral50),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xff666666), width: 1),
+          borderSide: const BorderSide(color: SerManosColors.neutral75, width: 1),
           borderRadius: BorderRadius.circular(4),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xff0D47A1), width: 2),
+          borderSide: const BorderSide(color: SerManosColors.secondary200, width: 2),
           borderRadius: BorderRadius.circular(4),
         ),
         errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xffB3261E), width: 2),
+          borderSide: const BorderSide(color: SerManosColors.error100, width: 2),
           borderRadius: BorderRadius.circular(4),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Color(0xffB3261E), width: 2),
+          borderSide: const BorderSide(color: SerManosColors.error100, width: 2),
           borderRadius: BorderRadius.circular(4),
         ),
         suffixIcon: IconButton(
           icon: Icon(
             obscureText.value ? Icons.visibility : Icons.visibility_off,
-            color: Theme.of(context).iconTheme.color,
+            color: SerManosColors.neutral25,
           ),
           onPressed: () {
             obscureText.value = !obscureText.value;

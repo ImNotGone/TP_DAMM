@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../tokens/colors.dart';
+
 
 class UtilSearchBar extends HookWidget {
   final VoidCallback onIconPressed;
@@ -31,10 +33,11 @@ class UtilSearchBar extends HookWidget {
       // TODO: ver si puedo hacer que el icono sea 24x24 y se mantenga al centro
       padding: const EdgeInsets.only(left: 16.0, right: 8),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primaryContainer,
+        color: SerManosColors.neutral0,
         borderRadius: BorderRadius.circular(0.0),
-        border: Border.all(color: Theme.of(context).colorScheme.outline),
+        border: Border.all(color: SerManosColors.neutral25),
         boxShadow: [
+          // TODO: revisar color / shadows
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
             spreadRadius: 1,
@@ -45,7 +48,7 @@ class UtilSearchBar extends HookWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.search, color: Theme.of(context).iconTheme.color),
+          const Icon(Icons.search, color: SerManosColors.neutral75),
           const SizedBox(width: 8),
           Expanded(
             child: TextField(
@@ -55,7 +58,7 @@ class UtilSearchBar extends HookWidget {
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context)!.search,
                 border: InputBorder.none,
-                hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: const Color(0xff666666)),
+                hintStyle: Theme.of(context).textTheme.titleMedium?.copyWith(color: SerManosColors.neutral75),
               ),
               onChanged: onSearchChanged,
             ),
@@ -63,7 +66,7 @@ class UtilSearchBar extends HookWidget {
           if(searchController.text.isNotEmpty)
             IconButton(
               iconSize: 24,
-              icon: Icon(Icons.close, color: Theme.of(context).iconTheme.color,),
+              icon: const Icon(Icons.close, color: SerManosColors.neutral75),
               onPressed: () {
                 searchController.clear();
                 onSearchChanged('');
@@ -73,7 +76,7 @@ class UtilSearchBar extends HookWidget {
           // TODO: focus is kinda weird, for now it remains like this
           // if(!focusNode.hasFocus && searchController.text.isEmpty)
           IconButton(
-                icon: Icon(icon, color: Theme.of(context).colorScheme.primary),
+                icon: Icon(icon, color: SerManosColors.primary100),
                 onPressed: onIconPressed
             ),
         ],
