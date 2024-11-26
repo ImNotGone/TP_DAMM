@@ -24,6 +24,7 @@ class NewsDetail extends HookConsumerWidget {
     final News? news = ref.read(newsNotifierProvider)?.firstWhere((news) => news.uid == newsId);
 
     return Scaffold(
+      backgroundColor: SerManosColors.neutral0,
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.news, style: const TextStyle(color: SerManosColors.neutral0),),
         centerTitle: true,

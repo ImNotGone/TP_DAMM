@@ -44,7 +44,6 @@ class NewsCard extends StatelessWidget {
                             onPressed: () {
                               context.push('/newsDetail/${news.uid}', extra: news.uid);
                             },
-                            // TODO: TextStyle
                             child: Text(
                               AppLocalizations.of(context)!.readMore,
                               style: const TextStyle(color: SerManosColors.primary100),

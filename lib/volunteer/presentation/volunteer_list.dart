@@ -1,34 +1,35 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ser_manos_mobile/shared/tokens/text_style.dart';
-import 'package:ser_manos_mobile/volunteer/domain/volunteering.dart';
-import 'package:ser_manos_mobile/volunteer/presentation/volunteer_map.dart';
-import 'package:ser_manos_mobile/providers/user_provider.dart';
-import 'package:ser_manos_mobile/shared/cells/cards/volunteer_card.dart';
-import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
-import 'package:ser_manos_mobile/shared/cells/cards/current_volunteer_card.dart';
-import 'package:ser_manos_mobile/shared/molecules/components/no_volunteering.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
 import '../../providers/service_providers.dart';
+import '../../providers/user_provider.dart';
+import '../../providers/volunteering_provider.dart';
+import '../../shared/cells/cards/current_volunteer_card.dart';
+import '../../shared/cells/cards/volunteer_card.dart';
+import '../../shared/molecules/components/no_volunteering.dart';
 import '../../shared/molecules/inputs/search_bar.dart';
+import '../../shared/tokens/text_style.dart';
+import '../domain/volunteering.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class VolunteerList extends HookConsumerWidget {
-  const VolunteerList({super.key});
+class VolunteerListScreen extends HookConsumerWidget {
+  final void Function() onIconPressed;
+
+  const VolunteerListScreen({
+    super.key,
+    required this.onIconPressed
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final showMap = useState(false);
     final searchQuery = useState('');
 
-    void toggleMap() {
-      showMap.value = !showMap.value;
-    }
-
-    final volunteeringsNotifier =
-        ref.read(volunteeringsNotifierProvider.notifier);
+    final volunteeringsNotifier = ref.read(
+        volunteeringsNotifierProvider.notifier);
     final volunteeringService = ref.read(volunteeringServiceProvider);
 
     final allVolunteerings = ref.watch(volunteeringsNotifierProvider);
@@ -36,9 +37,9 @@ class VolunteerList extends HookConsumerWidget {
 
     Future<void> refreshVolunteerings() async {
       Map<String, Volunteering> volunteerings =
-          await volunteeringService.fetchVolunteerings();
+      await volunteeringService.fetchVolunteerings();
       for (String volunteeringId
-          in currentUser?.favouriteVolunteeringIds ?? []) {
+      in currentUser?.favouriteVolunteeringIds ?? []) {
         if (volunteerings.containsKey(volunteeringId)) {
           volunteerings[volunteeringId]!.isFavourite = true;
         }
@@ -46,42 +47,28 @@ class VolunteerList extends HookConsumerWidget {
       volunteeringsNotifier.setVolunteerings(volunteerings);
     }
 
-    useEffect(() {
-      // TODO: uncomment this line to upload volunteerings
-      // volunteeringService.uploadVolunteerings();
-
-      // Fetch volunteerings when the widget is built
-      refreshVolunteerings();
-      return null;
-    }, []);
-
     final filteredVolunteerings = allVolunteerings?.values
-        .where((volunteering) => volunteering.title
+        .where((volunteering) =>
+        volunteering.title
             .toLowerCase()
             .contains(searchQuery.value.toLowerCase()))
         .toList()
       ?..sort((a, b) => b.creationDate.compareTo(a.creationDate));
 
-    if (currentUser == null ||
-        allVolunteerings == null ||
-        allVolunteerings.isEmpty) {
-      return const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
+    useEffect(() {
+      refreshVolunteerings();
+      return null;
+    }, []);
 
-    return showMap.value
-        ? VolunteerMapScreen(onIconPressed: toggleMap)
-        : Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+    return Scaffold(
+      backgroundColor: SerManosColors.secondary10,
+      body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 UtilSearchBar(
-                  onIconPressed: toggleMap,
+                  onIconPressed: onIconPressed,
                   onSearchChanged: (query) {
                     searchQuery.value = query;
                   },
@@ -90,7 +77,7 @@ class VolunteerList extends HookConsumerWidget {
                 const SizedBox(
                   height: 32,
                 ),
-                if (currentUser.registeredVolunteeringId != null) ...[
+                if (currentUser?.registeredVolunteeringId != null) ...[
                   Text(
                     AppLocalizations.of(context)!.yourActivity,
                     style: SerManosTextStyle.headline01(),
@@ -105,7 +92,7 @@ class VolunteerList extends HookConsumerWidget {
                           extra: currentUser.registeredVolunteeringId);
                     },
                     child: CurrrentVolunteerCard(
-                      id: currentUser.registeredVolunteeringId!
+                        id: currentUser!.registeredVolunteeringId!
                     ),
                   ),
                   const SizedBox(
@@ -121,21 +108,22 @@ class VolunteerList extends HookConsumerWidget {
                   child: RefreshIndicator(
                     onRefresh: refreshVolunteerings,
                     child: filteredVolunteerings == null ||
-                            filteredVolunteerings.isEmpty
+                        filteredVolunteerings.isEmpty
                         ? const NoVolunteering() // TODO: if searching it should be different
                         : ListView.builder(
-                            itemCount: filteredVolunteerings.length,
-                            itemBuilder: (context, index) {
-                              return VolunteerCard(
-                                volunteeringId:
-                                    filteredVolunteerings[index].uid,
-                              );
-                            },
-                          ),
+                          itemCount: filteredVolunteerings.length,
+                          itemBuilder: (context, index) {
+                            return VolunteerCard(
+                              volunteeringId:
+                              filteredVolunteerings[index].uid,
+                            );
+                          },
+                    ),
                   ),
                 ),
               ],
             ),
-          );
+          )
+    );
   }
 }

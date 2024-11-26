@@ -71,6 +71,7 @@ class VolunteeringDetail extends HookConsumerWidget {
     }
 
     return Scaffold(
+      backgroundColor: SerManosColors.neutral0,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: SerManosColors.neutral0,
@@ -104,7 +105,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                     volunteering.type
                         .localizedName(context)
                         .toUpperCase(),
-                    style: SerManosTextStyle.headline01(),
+                    style: SerManosTextStyle.overline(),
                   ),
                   Text(
                     volunteering.title,

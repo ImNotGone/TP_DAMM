@@ -116,6 +116,7 @@ class _UserContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: SerManosColors.neutral0,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(

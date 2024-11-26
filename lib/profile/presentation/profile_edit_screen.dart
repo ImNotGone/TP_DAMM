@@ -16,6 +16,7 @@ import 'package:ser_manos_mobile/shared/molecules/inputs/validation/email_valida
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/phone_validation.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/required_validation.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/validator.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 import '../../auth/domain/app_user.dart';
 import '../../shared/tokens/text_style.dart';
 import '../../volunteer/application/volunteering_service.dart';
@@ -236,6 +237,7 @@ class ProfileEditScreen extends HookConsumerWidget {
     }
 
     return Scaffold(
+      backgroundColor: SerManosColors.neutral0,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => context.pop(),

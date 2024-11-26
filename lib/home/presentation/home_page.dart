@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/profile/presentation/profile_screen.dart';
 import '../../shared/tokens/colors.dart';
-import '../../volunteer/presentation/volunteer_list.dart';
+import '../../volunteer/presentation/volunteer_screen.dart';
 import '../../news/presentation/news_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +16,7 @@ class HomePageState extends State<HomePage> {
   int _currentScreen = 0;
 
   final List<Widget> _screens = [
-    const VolunteerList(),
+    const VolunteerScreen(),
     const ProfileScreen(),
     const NewsScreen(),
   ];

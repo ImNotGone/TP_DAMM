@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/providers/news_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 import '../../shared/cells/cards/news_card.dart';
 
 class NewsScreen extends HookConsumerWidget {
@@ -22,33 +23,33 @@ class NewsScreen extends HookConsumerWidget {
     }
 
     useEffect(() {
-      // TODO: uncomment this method to upload news
-      // newsService.uploadNews();
-      // Fetch news when the widget is built
       refreshNews();
       return null;
     }, []);
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: refreshNews,
-              child: allNews == null || allNews.isEmpty
-                  ? const Center(child: Text('No news available'))
-                  : ListView.builder(
-                physics: const AlwaysScrollableScrollPhysics(),
-                itemCount: allNews.length,
-                itemBuilder: (context, index) {
-                  return NewsCard(news: allNews[index]);
-                },
+    return Scaffold(
+      backgroundColor: SerManosColors.secondary10,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: refreshNews,
+                child: allNews == null || allNews.isEmpty
+                    ? const Center(child: Text('No news available'))
+                    : ListView.builder(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemCount: allNews.length,
+                      itemBuilder: (context, index) {
+                        return NewsCard(news: allNews[index]);
+                  },
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      )
     );
   }
 }
