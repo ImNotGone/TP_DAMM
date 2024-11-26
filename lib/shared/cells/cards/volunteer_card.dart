@@ -59,6 +59,7 @@ class VolunteerCard extends HookConsumerWidget {
       },
       child: Card(
         elevation: 4,
+        color: SerManosColors.neutral0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(2),
         ),
