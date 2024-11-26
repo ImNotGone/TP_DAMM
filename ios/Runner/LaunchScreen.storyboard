@@ -25,8 +25,6 @@
                         <constraints>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="8yp-s6-RCe" secondAttribute="bottom" constant="283" id="2hH-Z5-mGU"/>
                             <constraint firstItem="8yp-s6-RCe" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="283" id="Z0N-VA-3DP"/>
-                            <constraint firstItem="8yp-s6-RCe" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="gj1-FP-aJt"/>
-                            <constraint firstItem="8yp-s6-RCe" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="iyo-Sx-UQk"/>
                             <constraint firstItem="8yp-s6-RCe" firstAttribute="centerX" secondItem="Bcu-3y-fUS" secondAttribute="centerX" id="kSo-Sh-zKk"/>
                             <constraint firstItem="8yp-s6-RCe" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="10.4232" id="uXI-pt-AIx"/>
                             <constraint firstItem="8yp-s6-RCe" firstAttribute="centerY" secondItem="Bcu-3y-fUS" secondAttribute="centerY" id="vkB-IE-6Ho"/>
