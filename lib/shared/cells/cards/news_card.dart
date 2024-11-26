@@ -37,7 +37,7 @@ class NewsCard extends StatelessWidget {
                   children: [
                     Text(news.paper, style: SerManosTextStyle.overline()),
                     Text(news.title, style: SerManosTextStyle.subtitle01()),
-                    Text(news.subtitle, style: SerManosTextStyle.overline()),
+                    Text(news.subtitle, style: SerManosTextStyle.body02().copyWith(color: SerManosColors.neutral75)),
                     Container(
                       alignment: Alignment.bottomRight,
                       child: TextButton(
