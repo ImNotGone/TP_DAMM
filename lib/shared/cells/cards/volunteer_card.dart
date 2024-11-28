@@ -68,6 +68,10 @@ class VolunteerCard extends HookConsumerWidget {
           children: <Widget>[
             // Image section
             ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(2),
+                topRight: Radius.circular(2),
+              ),
               child: Image.network(
                 volunteering.imageUrl,
                 height: 138,
