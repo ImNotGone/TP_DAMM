@@ -74,9 +74,10 @@ class VolunteeringDetail extends HookConsumerWidget {
       backgroundColor: SerManosColors.neutral0,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: SerManosColors.neutral0,
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
+          color: SerManosColors.neutral0,
           onPressed: () {
             context.pop();
           },
