@@ -2,7 +2,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
-import 'package:ser_manos_mobile/providers/is_logged_in_provider.dart';
+import 'package:ser_manos_mobile/providers/app_state_provider.dart';
 
 import '../../shared/tokens/colors.dart';
 import '../../shared/tokens/text_style.dart';
@@ -35,7 +35,7 @@ class PostLoginWelcome extends HookConsumerWidget {
               children: [
                 UtilFilledButton(
                   onPressed: () {
-                    ref.read(isLoggedInNotifierProvider.notifier).logIn();
+                    ref.read(appStateNotifierProvider.notifier).authenticate();
                   },
                   text: AppLocalizations.of(context)!.begin,
                 ),

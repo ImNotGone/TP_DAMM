@@ -8,7 +8,7 @@ import 'package:ser_manos_mobile/providers/user_provider.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/info_card.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 
-import '../../providers/is_logged_in_provider.dart';
+import '../../providers/app_state_provider.dart';
 import '../../shared/cells/modals/modal.dart';
 import '../../shared/molecules/buttons/text.dart';
 import '../../shared/tokens/colors.dart';
@@ -160,7 +160,7 @@ class _SignOutButton extends HookConsumerWidget {
     void signOut() {
       userService.signOut();
       ref.read(currentUserNotifierProvider.notifier).clearUser();
-      ref.read(isLoggedInNotifierProvider.notifier).logOut();
+      ref.read(appStateNotifierProvider.notifier).unauthenticate();
     }
 
     return SizedBox(

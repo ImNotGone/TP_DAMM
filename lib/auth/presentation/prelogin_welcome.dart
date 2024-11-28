@@ -32,14 +32,14 @@ class PreLoginWelcome extends StatelessWidget {
               children: [
                 UtilFilledButton(
                     onPressed: () {
-                      context.go('/login');
+                      context.push('/login');
                     },
                     text: AppLocalizations.of(context)!.login
                 ),
                 const SizedBox(height: 8),
                 UtilTextButton(
                     onPressed: () {
-                      context.go('/sign_up');
+                      context.push('/sign_up');
                     },
                     text: AppLocalizations.of(context)!.signUp
                 ),
