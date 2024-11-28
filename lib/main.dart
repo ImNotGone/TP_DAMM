@@ -4,15 +4,17 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos_mobile/auth/domain/app_start_state.dart';
 import 'package:ser_manos_mobile/auth/presentation/login.dart';
 import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/prelogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
+import 'package:ser_manos_mobile/auth/presentation/loading_screen.dart';
 import 'package:ser_manos_mobile/profile/presentation/profile_edit_screen.dart';
 import 'package:ser_manos_mobile/home/presentation/home_page.dart';
 import 'package:ser_manos_mobile/news/presentation/news_detail.dart';
 import 'package:ser_manos_mobile/volunteer/presentation/volunteer_detail.dart';
-import 'package:ser_manos_mobile/providers/is_logged_in_provider.dart';
+import 'package:ser_manos_mobile/providers/app_state_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
 
@@ -30,14 +32,24 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userService = ref.read(userServiceProvider);
-    final bool isLoggedIn = ref.watch(isLoggedInNotifierProvider);
+    final AppStartState appStartState = ref.watch(appStateNotifierProvider);
 
     useEffect(() {
       Future<void> fetchUser() async {
-        AppUser? user = await userService.getCurrentUser();
-        if (user != null) {
-          ref.read(currentUserNotifierProvider.notifier).setUser(user);
-          ref.read(isLoggedInNotifierProvider.notifier).logIn();
+        if (userService.isLoggedIn()) {
+          AppUser? user = await userService.getCurrentUser();
+          Future(() {
+            if (user != null) {
+              ref.read(currentUserNotifierProvider.notifier).setUser(user);
+              ref.read(appStateNotifierProvider.notifier).authenticate();
+            } else {
+              ref.read(appStateNotifierProvider.notifier).unauthenticate();
+            }
+          });
+        } else {
+          Future(() {
+            ref.read(appStateNotifierProvider.notifier).unauthenticate();
+          });
         }
       }
 
@@ -90,11 +102,11 @@ class MyApp extends HookConsumerWidget {
         redirect: (context, state) {
          final allowedPaths = ['/', '/login', '/sign_up', '/post_login_welcome'];
 
-          if (!isLoggedIn && !allowedPaths.contains(state.matchedLocation)) {
+          if (appStartState == AppStartState.unauthenticated && !allowedPaths.contains(state.matchedLocation)) {
             return '/login';
           }
 
-          if (isLoggedIn && state.matchedLocation == '/') {
+          if (appStartState == AppStartState.authenticated && state.matchedLocation == '/') {
             return '/home';
           }
 
@@ -164,6 +176,12 @@ class MyApp extends HookConsumerWidget {
         ),
         useMaterial3: true,
       ),
+      builder: (context, child) {
+        if (appStartState == AppStartState.loading) {
+          return const LoadingScreen();
+        }
+        return child!;
+      },
     );
   }
 }

@@ -1,0 +1,1 @@
+enum AppStartState { loading, authenticated, unauthenticated }
