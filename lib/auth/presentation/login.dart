@@ -113,7 +113,7 @@ class LoginScreen extends HookConsumerWidget {
                 const SizedBox(height: 8),
                 UtilTextButton(
                   onPressed: () {
-                    context.go('/sign_up');
+                    context.replace('/sign_up');
                   },
                   text: AppLocalizations.of(context)!.noAccount,
                 ),
