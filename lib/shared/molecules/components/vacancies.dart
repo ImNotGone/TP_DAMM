@@ -37,10 +37,10 @@ class Vacancies extends StatelessWidget {
             color: count == 0? SerManosColors.secondary80 : SerManosColors.secondary200,
           ),
           Text(
-            // TODO: can this be aligned slightly up?
             count.toString(),
             style: SerManosTextStyle.subtitle01().copyWith(
-                color: count == 0? SerManosColors.secondary80 : SerManosColors.secondary200
+                color: count == 0? SerManosColors.secondary80 : SerManosColors.secondary200,
+                height: 1
             ),
           )
         ],
