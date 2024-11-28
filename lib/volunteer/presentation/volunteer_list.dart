@@ -110,17 +110,20 @@ class VolunteerListScreen extends HookConsumerWidget {
                     child: filteredVolunteerings == null ||
                         filteredVolunteerings.isEmpty
                         ? const NoVolunteering() // TODO: if searching it should be different
-                        : ListView.builder(
-                          itemCount: filteredVolunteerings.length,
-                          itemBuilder: (context, index) {
-                            return VolunteerCard(
+                        : ListView.separated(
+                            itemCount: filteredVolunteerings.length,
+                            itemBuilder: (context, index) {
+                              return VolunteerCard(
                               volunteeringId:
                               filteredVolunteerings[index].uid,
-                            );
-                          },
+                              );
+                            },
+                            separatorBuilder: (context, index) => const SizedBox(
+                              height: 24,
+                            ),
+                          ),
                     ),
                   ),
-                ),
               ],
             ),
           )

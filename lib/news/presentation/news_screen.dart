@@ -38,13 +38,15 @@ class NewsScreen extends HookConsumerWidget {
                 onRefresh: refreshNews,
                 child: allNews == null || allNews.isEmpty
                     ? const Center(child: Text('No news available'))
-                    : ListView.builder(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: allNews.length,
-                      itemBuilder: (context, index) {
-                        return NewsCard(news: allNews[index]);
-                  },
-                ),
+                    : ListView.separated(
+                        itemCount: allNews.length,
+                        itemBuilder: (context, index) {
+                          return NewsCard(news: allNews[index]);
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 24,
+                        ),
+                    ),
               ),
             ),
           ],
