@@ -91,6 +91,7 @@ class SignUpScreen extends HookConsumerWidget {
                                   hintText: AppLocalizations.of(context)!.nameHint,
                                   controller: nameController,
                                   keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.next,
                                   validator: Validator.apply(
                                       context,
                                       [
@@ -104,6 +105,7 @@ class SignUpScreen extends HookConsumerWidget {
                                   hintText: AppLocalizations.of(context)!.lastNameHint,
                                   controller: lastNameController,
                                   keyboardType: TextInputType.text,
+                                  textInputAction: TextInputAction.next,
                                   validator: Validator.apply(
                                       context,
                                       [
@@ -117,6 +119,7 @@ class SignUpScreen extends HookConsumerWidget {
                                 hintText: AppLocalizations.of(context)!.emailHint,
                                 controller: emailController,
                                 keyboardType: TextInputType.emailAddress,
+                                textInputAction: TextInputAction.next,
                                 validator: Validator.apply(
                                     context,
                                     [

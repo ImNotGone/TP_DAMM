@@ -303,6 +303,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                   hintText: AppLocalizations.of(context)!.cellphoneHint,
                   controller: phoneNumberController,
                   keyboardType: TextInputType.phone,
+                  textInputAction: TextInputAction.next,
                   validator: Validator.apply(context, [
                       const RequiredValidation(),
                       const PhoneValidation(),

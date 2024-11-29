@@ -11,6 +11,7 @@ class TextInput extends HookWidget {
   final TextInputType keyboardType;
   final bool labelWhenEmpty;
   final String? Function(String?)? validator;
+  final TextInputAction textInputAction;
 
   const TextInput({
     super.key,
@@ -19,7 +20,8 @@ class TextInput extends HookWidget {
     required this.controller,
     required this.keyboardType,
     this.labelWhenEmpty = true,
-    this.validator
+    this.validator,
+    this.textInputAction = TextInputAction.done,
   });
 
   @override
@@ -67,6 +69,7 @@ class TextInput extends HookWidget {
       keyboardType: keyboardType,
       style: SerManosTextStyle.subtitle01(),
       validator: validator,
+      textInputAction: textInputAction,
 
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,

@@ -80,6 +80,7 @@ class LoginScreen extends HookConsumerWidget {
                           hintText: AppLocalizations.of(context)!.email,
                           controller: emailController,
                           keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
                           validator: Validator.apply(
                               context,
                               [
