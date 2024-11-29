@@ -16,10 +16,9 @@ final hasSeenWelcomeScreenProvider = StateProvider<bool>((ref) => false);
 final routerProvider = Provider<GoRouter>((ref) {
   final appStartState = ref.watch(appStateNotifierProvider);
   final isAuthenticated = ref.watch(appStateNotifierProvider) == AppStartState.authenticated;
-  final hasSeenWelcomeScreen = ref.watch(hasSeenWelcomeScreenProvider);
 
   return GoRouter(
-    initialLocation: isAuthenticated ? '/home' : (hasSeenWelcomeScreen ? '/login' : '/'),
+    initialLocation: isAuthenticated ? '/home' : '/',
     routes: [
       GoRoute(
         path: '/',
