@@ -58,11 +58,16 @@ class ProfileEditScreen extends HookConsumerWidget {
 
     final ImagePicker picker = ImagePicker();
 
+    void validateForm(){
+      isSaveDataEnabled.value = (formKey.currentState?.validate() ?? false) && selectedGender.value != null && (profilePictureUrl.value != null || pickedImage.value != null);
+    }
+
     Future<void> pickImage(ImageSource source) async {
       try {
         final XFile? pickedFile = await picker.pickImage(source: source);
         if (pickedFile != null) {
           pickedImage.value = File(pickedFile.path);
+          validateForm();
          }
       } catch (e) {
         log('Error picking image: $e');
@@ -110,6 +115,7 @@ class ProfileEditScreen extends HookConsumerWidget {
     }
 
     Future<void> applyChangesWithVolunteering() async {
+      isLoading.value = true;
       if (user != null) {
         final VolunteeringService volunteeringService =
             ref.read(volunteeringServiceProvider);
@@ -162,6 +168,7 @@ class ProfileEditScreen extends HookConsumerWidget {
           ref.read(currentUserNotifierProvider.notifier).setUser(user);
         }
       }
+      isLoading.value = false;
     }
 
     Future<void> applyChangesNoVolunteering() async {
@@ -233,6 +240,7 @@ class ProfileEditScreen extends HookConsumerWidget {
 
     void handleGenderSelection(Gender gender) {
       selectedGender.value = gender;
+      validateForm();
     }
 
     return Scaffold(
@@ -250,9 +258,7 @@ class ProfileEditScreen extends HookConsumerWidget {
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: formKey,
-            onChanged: () {
-              isSaveDataEnabled.value = formKey.currentState?.validate() ?? false;
-            },
+            onChanged: validateForm,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -317,10 +323,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 32),
                 UtilFilledButton(
-                  onPressed: isSaveDataEnabled.value ?
-                  () {
-                    saveProfile();
-                  } : null,
+                  onPressed: isSaveDataEnabled.value ? saveProfile : null,
                   text: AppLocalizations.of(context)!.saveData,
                   isLoading: isLoading.value,
                 ),
