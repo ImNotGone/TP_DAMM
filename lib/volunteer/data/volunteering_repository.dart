@@ -17,13 +17,14 @@ class VolunteeringRepository {
     return null;
   }
 
-  Future<Map<String, Volunteering>> fetchVolunteerings() async {
-    final volunteeringJson = await _firestore.collection('volunteerings').get();
-    HashMap<String, Volunteering> volunteerings = HashMap();
-    for (var volunteeringDoc in volunteeringJson.docs) {
-      volunteerings[volunteeringDoc.id] = _addUidToVolunteering(volunteeringDoc)!;
-    }
-    return volunteerings;
+  Stream<Map<String, Volunteering>> fetchVolunteerings() {
+    return _firestore.collection('volunteerings').snapshots().map((snapshot) {
+      HashMap<String, Volunteering> volunteerings = HashMap();
+      for (var volunteeringDoc in snapshot.docs) {
+        volunteerings[volunteeringDoc.id] = _addUidToVolunteering(volunteeringDoc)!;
+      }
+      return volunteerings;
+    });
   }
 
   // New volunteer to volunteering -> vacancies - 1 in transaction to avoid race condition

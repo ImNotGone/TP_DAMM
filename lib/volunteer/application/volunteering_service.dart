@@ -6,7 +6,7 @@ class VolunteeringService{
 
   VolunteeringService(this._volunteeringRepository);
 
-  Future<Map<String, Volunteering>> fetchVolunteerings() async {
+  Stream<Map<String, Volunteering>> fetchVolunteerings() {
     return _volunteeringRepository.fetchVolunteerings();
   }
 

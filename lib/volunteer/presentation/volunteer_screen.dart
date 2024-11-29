@@ -27,8 +27,9 @@ class VolunteerScreen extends HookConsumerWidget {
     final volunteeringService = ref.read(volunteeringServiceProvider);
 
     Future<void> loadVolunteerings() async {
-      volunteeringsNotifier.setVolunteerings(
-          await volunteeringService.fetchVolunteerings());
+      await for (var volunteerings in volunteeringService.fetchVolunteerings()) {
+        volunteeringsNotifier.setVolunteerings(volunteerings);
+      }
     }
 
     useEffect(() {

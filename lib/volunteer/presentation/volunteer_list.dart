@@ -13,7 +13,6 @@ import '../../shared/cells/cards/volunteer_card.dart';
 import '../../shared/molecules/components/no_volunteering.dart';
 import '../../shared/molecules/inputs/search_bar.dart';
 import '../../shared/tokens/text_style.dart';
-import '../domain/volunteering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VolunteerListScreen extends HookConsumerWidget {
@@ -36,13 +35,14 @@ class VolunteerListScreen extends HookConsumerWidget {
     final currentUser = ref.watch(currentUserNotifierProvider);
 
     Future<void> refreshVolunteerings() async {
-      Map<String, Volunteering> volunteerings = await volunteeringService.fetchVolunteerings();
-      for (String volunteeringId in currentUser?.favouriteVolunteeringIds ?? []) {
-        if (volunteerings.containsKey(volunteeringId)) {
-          volunteerings[volunteeringId]!.isFavourite = true;
+      await for (var volunteerings in volunteeringService.fetchVolunteerings()) {
+        for (String volunteeringId in currentUser?.favouriteVolunteeringIds ?? []) {
+          if (volunteerings.containsKey(volunteeringId)) {
+            volunteerings[volunteeringId]!.isFavourite = true;
+          }
         }
+        volunteeringsNotifier.setVolunteerings(volunteerings);
       }
-      volunteeringsNotifier.setVolunteerings(volunteerings);
     }
 
     final filteredVolunteerings = allVolunteerings?.values
