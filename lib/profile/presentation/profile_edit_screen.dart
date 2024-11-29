@@ -48,8 +48,7 @@ class ProfileEditScreen extends HookConsumerWidget {
         text: user?.birthDate != null
             ? DateFormat('dd/MM/yyyy').format(user!.birthDate!)
             : '');
-    final phoneNumberController =
-        useTextEditingController(text: user?.phoneNumber ?? '');
+    final phoneNumberController = useTextEditingController(text: user?.phoneNumber ?? '');
     final emailController = useTextEditingController(text: user?.email ?? '');
 
     final selectedDate = useState<DateTime?>(user?.birthDate);

@@ -27,11 +27,14 @@ class LoginScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
+
     final isLoginEnabled = useState(false);
+    final isLoading = useState(false);
 
     final UserService userService = ref.watch(userServiceProvider);
 
     Future<void> handleLogin() async {
+      isLoading.value = true;
       await userService.signIn(
         emailController.text,
         passwordController.text,
@@ -46,8 +49,9 @@ class LoginScreen extends HookConsumerWidget {
         }
       } else {
         log('Login failed');
-        // Handle login failure (e.g., show a snackbar or dialog)
+        // TODO: Handle login failure (e.g., show a snackbar or dialog)
       }
+      isLoading.value = false;
     }
 
     return Scaffold(
@@ -107,6 +111,7 @@ class LoginScreen extends HookConsumerWidget {
             Column(
               children: [
                 UtilFilledButton(
+                  isLoading: isLoading.value,
                   onPressed: isLoginEnabled.value ? handleLogin : null,
                   text: AppLocalizations.of(context)!.login,
                 ),

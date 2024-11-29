@@ -33,10 +33,12 @@ class SignUpScreen extends HookConsumerWidget {
     final passwordController = useTextEditingController();
 
     final isSignUpButtonEnabled = useState(false);
+    final isLoading = useState(false);
 
     final UserService userService = ref.watch(userServiceProvider);
 
     Future<void> handleSignup() async {
+      isLoading.value = true;
       await userService.signUp(
         nameController.text,
         lastNameController.text,
@@ -53,8 +55,9 @@ class SignUpScreen extends HookConsumerWidget {
         }
       } else {
         log('Sign-up failed');
-        // Handle sign-up failure (e.g., show a snackbar or dialog)
+        // TODO: Handle sign-up failure (e.g., show a snackbar or dialog)
       }
+      isLoading.value = false;
     }
 
     return Scaffold(
@@ -146,6 +149,7 @@ class SignUpScreen extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     UtilFilledButton(
+                        isLoading: isLoading.value,
                         onPressed: isSignUpButtonEnabled.value
                             ? handleSignup
                             : null,
