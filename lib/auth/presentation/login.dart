@@ -64,8 +64,7 @@ class LoginScreen extends HookConsumerWidget {
       backgroundColor: SerManosColors.neutral0,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-        child: Expanded(
-          child: Center(
+        child: Center(
             child: SingleChildScrollView(
               child: Form(
                 key: formKey,
@@ -113,7 +112,6 @@ class LoginScreen extends HookConsumerWidget {
             ),
           ),
         ),
-      ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
