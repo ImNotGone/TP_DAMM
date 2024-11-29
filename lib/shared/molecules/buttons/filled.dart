@@ -28,7 +28,13 @@ class UtilFilledButton extends StatelessWidget {
         ),
 
         child: isLoading
-            ? const CircularProgressIndicator(color: SerManosColors.neutral100) // Show spinner when loading
+            ? SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                    color: SerManosColors.primary100
+                ),
+              )
             : Text(
                 text,
                 style: SerManosTextStyle.button(),
