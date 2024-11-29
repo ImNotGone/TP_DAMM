@@ -34,7 +34,7 @@ class AppUser {
 
   bool isComplete (){
     return
-      birthDate != null && email.isNotEmpty && gender != null && phoneNumber != null;
+      birthDate != null && email.isNotEmpty && gender != null && phoneNumber != null && profilePictureURL != null;
   }
 
   bool isVolunteer(){
