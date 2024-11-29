@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/auth/domain/app_start_state.dart';
@@ -9,7 +10,6 @@ import 'package:ser_manos_mobile/auth/presentation/login.dart';
 import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/prelogin_welcome.dart';
 import 'package:ser_manos_mobile/auth/presentation/signup.dart';
-import 'package:ser_manos_mobile/auth/presentation/loading_screen.dart';
 import 'package:ser_manos_mobile/profile/presentation/profile_edit_screen.dart';
 import 'package:ser_manos_mobile/home/presentation/home_page.dart';
 import 'package:ser_manos_mobile/news/presentation/news_detail.dart';
@@ -21,9 +21,34 @@ import 'package:ser_manos_mobile/providers/user_provider.dart';
 import 'auth/domain/app_user.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp();
-  runApp(const ProviderScope(child: MyApp()));
+
+  final container = ProviderContainer();
+  await initializeProviders(container);
+
+  runApp(UncontrolledProviderScope(
+      container: container,
+      child: const MyApp())
+  );
+}
+
+Future<void> initializeProviders(ProviderContainer container) async {
+  final currentUserNotifier = container.read(currentUserNotifierProvider.notifier);
+
+  final userService = container.read(userServiceProvider);
+
+  AppUser? currentUser;
+  try{
+    currentUser = await userService.getCurrentUser();
+    if(currentUser != null){
+      container.read(appStateNotifierProvider.notifier).authenticate();
+      currentUserNotifier.setUser(currentUser);
+    }
+  } catch(e) {
+    container.read(appStateNotifierProvider.notifier).unauthenticate();
+  }
 }
 
 class MyApp extends HookConsumerWidget {
@@ -31,29 +56,10 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userService = ref.read(userServiceProvider);
     final AppStartState appStartState = ref.watch(appStateNotifierProvider);
 
     useEffect(() {
-      Future<void> fetchUser() async {
-        if (userService.isLoggedIn()) {
-          AppUser? user = await userService.getCurrentUser();
-          Future(() {
-            if (user != null) {
-              ref.read(currentUserNotifierProvider.notifier).setUser(user);
-              ref.read(appStateNotifierProvider.notifier).authenticate();
-            } else {
-              ref.read(appStateNotifierProvider.notifier).unauthenticate();
-            }
-          });
-        } else {
-          Future(() {
-            ref.read(appStateNotifierProvider.notifier).unauthenticate();
-          });
-        }
-      }
-
-      fetchUser();
+      FlutterNativeSplash.remove();
       return null;
     }, []);
 
@@ -181,12 +187,6 @@ class MyApp extends HookConsumerWidget {
         ),
         useMaterial3: true,
       ),
-      builder: (context, child) {
-        if (appStartState == AppStartState.loading) {
-          return const LoadingScreen();
-        }
-        return child!;
-      },
     );
   }
 }
