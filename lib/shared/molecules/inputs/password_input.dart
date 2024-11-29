@@ -83,7 +83,7 @@ class PasswordInput extends HookWidget {
         suffixIcon: IconButton(
           icon: Icon(
             obscureText.value ? Icons.visibility : Icons.visibility_off,
-            color: SerManosColors.neutral25,
+            color: SerManosColors.neutral75,
           ),
           onPressed: () {
             obscureText.value = !obscureText.value;

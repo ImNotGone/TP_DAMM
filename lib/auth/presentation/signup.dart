@@ -69,112 +69,115 @@ class SignUpScreen extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: SerManosColors.neutral0,
       body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
+        padding: const EdgeInsets.only(
+          top: 84, // 52 from header 32 vertical padding,
+          left: 16,
+          right: 16
+        ),
+        child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Image.asset(
-                          'assets/logo_square.png',
-                          height: 150,
-                          width: 150,
-                        ),
-                        const SizedBox(height: 32),
-                        Form(
-                          key: formKey,
-                          onChanged: () {
-                            isSignUpButtonEnabled.value = formKey.currentState?.validate() ?? false;
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextInput(
-                                  label: AppLocalizations.of(context)!.name,
-                                  hintText: AppLocalizations.of(context)!.nameHint,
-                                  controller: nameController,
-                                  keyboardType: TextInputType.text,
-                                  textInputAction: TextInputAction.next,
-                                  validator: Validator.apply(
-                                      context,
-                                      [
-                                        const RequiredValidation(),
-                                      ]
-                                  )
-                              ),
-                              const SizedBox(height: 24),
-                              TextInput(
-                                  label: AppLocalizations.of(context)!.lastName,
-                                  hintText: AppLocalizations.of(context)!.lastNameHint,
-                                  controller: lastNameController,
-                                  keyboardType: TextInputType.text,
-                                  textInputAction: TextInputAction.next,
-                                  validator: Validator.apply(
-                                      context,
-                                      [
-                                        const RequiredValidation(),
-                                      ]
-                                  )
-                              ),
-                              const SizedBox(height: 24),
-                              TextInput(
-                                label: AppLocalizations.of(context)!.email,
-                                hintText: AppLocalizations.of(context)!.emailHint,
-                                controller: emailController,
-                                keyboardType: TextInputType.emailAddress,
-                                textInputAction: TextInputAction.next,
-                                validator: Validator.apply(
-                                    context,
-                                    [
-                                      const RequiredValidation(),
-                                      const EmailValidation()
-                                    ]
-                                ),
-                              ),
-                              const SizedBox(height: 24),
-                              PasswordInput(
-                                label: AppLocalizations.of(context)!.password,
-                                hintText: AppLocalizations.of(context)!.passwordHint,
-                                controller: passwordController,
-                                validator: Validator.apply(
-                                  context,
-                                  [
-                                    const RequiredValidation(),
-                                    const PasswordValidation()
-                                  ]
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Image.asset(
+                'assets/logo_square.png',
+                height: 150,
+                width: 150,
+              ),
+              const SizedBox(height: 32),
+              Form(
+                key: formKey,
+                onChanged: () {
+                  isSignUpButtonEnabled.value = formKey.currentState?.validate() ?? false;
+                },
+                child: Column(
                   children: [
-                    UtilFilledButton(
-                        isLoading: isLoading.value,
-                        onPressed: isSignUpButtonEnabled.value
-                            ? handleSignup
-                            : null,
-                        text: AppLocalizations.of(context)!.signUp),
-                    const SizedBox(height: 8),
-                    UtilTextButton(
-                      onPressed: () {
-                        context.replace('/login');
-                      },
-                      text: AppLocalizations.of(context)!.haveAccount,
+                    TextInput(
+                        label: AppLocalizations.of(context)!.name,
+                        hintText: AppLocalizations.of(context)!.nameHint,
+                        controller: nameController,
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        validator: Validator.apply(
+                            context,
+                            [
+                              const RequiredValidation(),
+                            ]
+                        )
                     ),
+                    const SizedBox(height: 24),
+                    TextInput(
+                        label: AppLocalizations.of(context)!.lastName,
+                        hintText: AppLocalizations.of(context)!.lastNameHint,
+                        controller: lastNameController,
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        validator: Validator.apply(
+                            context,
+                            [
+                              const RequiredValidation(),
+                            ]
+                        )
+                    ),
+                    const SizedBox(height: 24),
+                    TextInput(
+                      label: AppLocalizations.of(context)!.email,
+                      hintText: AppLocalizations.of(context)!.emailHint,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      validator: Validator.apply(
+                          context,
+                          [
+                            const RequiredValidation(),
+                            const EmailValidation()
+                          ]
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    PasswordInput(
+                      label: AppLocalizations.of(context)!.password,
+                      hintText: AppLocalizations.of(context)!.passwordHint,
+                      controller: passwordController,
+                      validator: Validator.apply(
+                          context,
+                          [
+                            const RequiredValidation(),
+                            const PasswordValidation()
+                          ]
+                      ),
+                    ),
+                    // So that the helper is visible when focused on password
+                    const SizedBox(height: 16)
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
         ),
-      );
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            UtilFilledButton(
+                isLoading: isLoading.value,
+                onPressed: isSignUpButtonEnabled.value
+                    ? handleSignup
+                    : null,
+                text: AppLocalizations.of(context)!.signUp),
+            const SizedBox(height: 8),
+            UtilTextButton(
+              onPressed: () {
+                context.replace('/login');
+              },
+              text: AppLocalizations.of(context)!.haveAccount,
+            ),
+          ],
+        ),
+      ),
+    );
+
+
   }
 }
