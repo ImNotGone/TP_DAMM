@@ -41,6 +41,8 @@ class LocationCard extends StatelessWidget {
                     position: LatLng(location.latitude, location.longitude),
                   ),
                 },
+                mapToolbarEnabled: false,
+                zoomGesturesEnabled: false,
                 zoomControlsEnabled: false,
                 scrollGesturesEnabled: false,
                 tiltGesturesEnabled: false,

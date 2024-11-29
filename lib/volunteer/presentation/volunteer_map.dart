@@ -112,6 +112,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
               onMapCreated: (controller) {
                 mapController.value = controller;
               },
+              mapToolbarEnabled: false,
               zoomControlsEnabled: false,
               myLocationButtonEnabled: false,
               myLocationEnabled: true,
