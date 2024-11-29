@@ -35,6 +35,7 @@ class NewsScreen extends HookConsumerWidget {
           children: [
             Expanded(
               child: RefreshIndicator(
+                backgroundColor: SerManosColors.neutral0,
                 onRefresh: refreshNews,
                 child: allNews == null || allNews.isEmpty
                     ? const Center(child: Text('No news available'))

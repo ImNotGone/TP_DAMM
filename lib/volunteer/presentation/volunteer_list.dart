@@ -3,9 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
-import 'package:ser_manos_mobile/volunteer/domain/volunteering.dart';
 
-import '../../providers/service_providers.dart';
 import '../../providers/user_provider.dart';
 import '../../providers/volunteering_provider.dart';
 import '../../shared/cells/cards/current_volunteer_card.dart';
@@ -24,24 +22,8 @@ class VolunteerListScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchQuery = useState('');
 
-    final volunteeringsNotifier =
-        ref.read(volunteeringsNotifierProvider.notifier);
-    final volunteeringService = ref.read(volunteeringServiceProvider);
-
     final allVolunteerings = ref.watch(volunteeringsNotifierProvider);
     final currentUser = ref.watch(currentUserNotifierProvider);
-
-    Future<void> refreshVolunteerings() async {
-      final Stream<Map<String, Volunteering>> volunteeringsStream = volunteeringService.fetchVolunteerings();
-      volunteeringsStream.listen((volunteerings) {
-        for (String volunteeringId in currentUser?.favouriteVolunteeringIds ?? []) {
-          if (volunteerings.containsKey(volunteeringId)) {
-            volunteerings[volunteeringId]!.isFavourite = true;
-          }
-        }
-        volunteeringsNotifier.setVolunteerings(volunteerings);
-      });
-    }
 
     final filteredVolunteerings = allVolunteerings?.values
         .where((volunteering) => volunteering.title
@@ -50,18 +32,11 @@ class VolunteerListScreen extends HookConsumerWidget {
         .toList()
       ?..sort((a, b) => b.creationDate.compareTo(a.creationDate));
 
-    useEffect(() {
-      refreshVolunteerings();
-      return null;
-    }, []);
-
     return Scaffold(
         backgroundColor: SerManosColors.secondary10,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-          child: RefreshIndicator(
-            onRefresh: refreshVolunteerings,
-            child: Column(
+          child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 UtilSearchBar(
@@ -119,6 +94,6 @@ class VolunteerListScreen extends HookConsumerWidget {
               ],
             ),
           ),
-        ));
+        );
   }
 }
