@@ -3,8 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:ser_manos_mobile/providers/news_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
+import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/info_card.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 
@@ -160,6 +162,8 @@ class _SignOutButton extends HookConsumerWidget {
     void signOut() {
       userService.signOut();
       ref.read(currentUserNotifierProvider.notifier).clearUser();
+      ref.read(volunteeringsNotifierProvider.notifier).clearVolunteerings();
+      ref.read(newsNotifierProvider.notifier).clearNews();
       ref.read(appStateNotifierProvider.notifier).unauthenticate();
     }
 
