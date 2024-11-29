@@ -95,7 +95,7 @@ class SignUpScreen extends HookConsumerWidget {
                                       ]
                                   )
                               ),
-                              const SizedBox(height: 16),
+                              const SizedBox(height: 24),
                               TextInput(
                                   label: AppLocalizations.of(context)!.lastName,
                                   hintText: AppLocalizations.of(context)!.lastNameHint,
@@ -108,7 +108,7 @@ class SignUpScreen extends HookConsumerWidget {
                                       ]
                                   )
                               ),
-                              const SizedBox(height: 16),
+                              const SizedBox(height: 24),
                               TextInput(
                                 label: AppLocalizations.of(context)!.email,
                                 hintText: AppLocalizations.of(context)!.emailHint,
@@ -122,7 +122,7 @@ class SignUpScreen extends HookConsumerWidget {
                                     ]
                                 ),
                               ),
-                              const SizedBox(height: 16),
+                              const SizedBox(height: 24),
                               PasswordInput(
                                 label: AppLocalizations.of(context)!.password,
                                 hintText: AppLocalizations.of(context)!.passwordHint,
