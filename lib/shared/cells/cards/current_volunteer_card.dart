@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/volunteer_card.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
+import 'package:ser_manos_mobile/shared/tokens/shadows.dart';
 
 import '../../tokens/text_style.dart';
 
@@ -23,6 +24,7 @@ class CurrrentVolunteerCard extends HookConsumerWidget {
         color: SerManosColors.primary5,
         borderRadius: BorderRadius.circular(6),
         border: Border.all(color: SerManosColors.primary100, width: 2),
+        boxShadow: SerManosShadows.shadow2
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

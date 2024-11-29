@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
+import 'package:ser_manos_mobile/shared/tokens/shadows.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../auth/domain/app_user.dart';
 import '../../../providers/service_providers.dart';
@@ -69,11 +70,11 @@ class VolunteerCard extends HookConsumerWidget {
       onTap: () {
         context.push('/volunteering/$volunteeringId');
       },
-      child: Card(
-        elevation: 4,
-        color: SerManosColors.neutral0,
-        shape: RoundedRectangleBorder(
+      child: Container(
+        decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(2),
+          color: SerManosColors.neutral0,
+          boxShadow: SerManosShadows.shadow2
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

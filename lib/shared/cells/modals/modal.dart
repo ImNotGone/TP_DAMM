@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
+import 'package:ser_manos_mobile/shared/tokens/shadows.dart';
 import '../../molecules/buttons/text.dart';
 
 class Modal extends Dialog {
@@ -16,20 +17,7 @@ class Modal extends Dialog {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
         color: SerManosColors.neutral0,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.30),
-            offset: const Offset(0, 4),
-            blurRadius: 4,
-            spreadRadius: 0,
-          ),
-          BoxShadow(
-            color: Colors.black.withOpacity(0.15),
-            offset: const Offset(0, 8),
-            blurRadius: 12,
-            spreadRadius: 6,
-          ),
-        ],
+        boxShadow: SerManosShadows.shadow3
       ),
       width: 280,
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),

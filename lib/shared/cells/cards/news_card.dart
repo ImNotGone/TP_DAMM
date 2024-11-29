@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import '../../../news/domain/news.dart';
 import '../../tokens/colors.dart';
+import '../../tokens/shadows.dart';
 import '../../tokens/text_style.dart';
 
 
@@ -16,11 +17,11 @@ class NewsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: SerManosColors.neutral0,
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2),
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(2),
+          color: SerManosColors.neutral0,
+          boxShadow: SerManosShadows.shadow2
       ),
       child: IntrinsicHeight(
         child: Row(

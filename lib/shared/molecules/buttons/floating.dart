@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
+import 'package:ser_manos_mobile/shared/tokens/shadows.dart';
 
 class UtilFloatingButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -14,24 +15,30 @@ class UtilFloatingButton extends StatelessWidget {
     return SizedBox(
         height: 48.0,
         width: 48.0,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4), // Border radius of 4
+        child: DecoratedBox(
+            decoration: BoxDecoration(
+              boxShadow: SerManosShadows.shadow3
             ),
-            foregroundColor: SerManosColors.primary100,
-            backgroundColor: SerManosColors.primary10,
-            disabledForegroundColor: SerManosColors.neutral25,
-            disabledBackgroundColor: SerManosColors.neutral10,
-            elevation: 4.0, // Shadow depth
-            padding: EdgeInsets.zero
-          ),
-          child: const Icon(
+          child: ElevatedButton(
+            onPressed: onPressed,
+            style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                foregroundColor: SerManosColors.primary100,
+                backgroundColor: SerManosColors.primary10,
+                disabledForegroundColor: SerManosColors.neutral25,
+                disabledBackgroundColor: SerManosColors.neutral10,
+                elevation: 0,
+                shadowColor: Colors.transparent,
+                padding: EdgeInsets.zero
+            ),
+            child: const Icon(
               Icons.near_me,
               size: 24,
             ),
-        ),
+          ),
+        )
     );
   }
 }

@@ -150,16 +150,23 @@ class VolunteerMapScreen extends HookConsumerWidget {
                                     isSearching: searchQuery.value.isNotEmpty,
                                   )
                                 )
-                              : CarouselSlider(
-                            items: filteredVolunteerings!.map((volunteering) =>
-                                VolunteerCard(volunteeringId: volunteering.uid)).toList(),
-                            options: CarouselOptions(
-                                height: 242,
-                                viewportFraction: 0.9,
-                                enableInfiniteScroll: false,
-                                onPageChanged: (i, r) => currentCardIndex.value = i
-                            ),
-                          ),
+                              : CarouselSlider.builder(
+                                  itemCount: filteredVolunteerings!.length,
+                                  itemBuilder: (context, index, realIndex) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(left: 8),
+                                      child: VolunteerCard(
+                                        volunteeringId: filteredVolunteerings[index].uid,
+                                      ),
+                                    );
+                                  },
+                                  options: CarouselOptions(
+                                      height: 242,
+                                      viewportFraction: 0.9,
+                                      enableInfiniteScroll: false,
+                                      onPageChanged: (i, r) => currentCardIndex.value = i
+                                  ),
+                                ),
                       )
                     ],
                   )
