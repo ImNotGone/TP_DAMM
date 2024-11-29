@@ -34,7 +34,7 @@ class CalendarInput extends HookWidget {
       focusNode.addListener(() {
         labelColor.value = focusNode.hasFocus ? SerManosColors.secondary200 : SerManosColors.neutral75;
       });
-      return () => focusNode.dispose();
+      return () => {};
     }, [focusNode]);
 
     return TextFormField(
