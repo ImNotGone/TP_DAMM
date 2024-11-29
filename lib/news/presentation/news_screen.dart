@@ -5,6 +5,8 @@ import 'package:ser_manos_mobile/providers/news_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 import '../../shared/cells/cards/news_card.dart';
+import '../../shared/tokens/text_style.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewsScreen extends HookConsumerWidget {
   const NewsScreen({super.key});
@@ -38,7 +40,12 @@ class NewsScreen extends HookConsumerWidget {
                 backgroundColor: SerManosColors.neutral0,
                 onRefresh: refreshNews,
                 child: allNews == null || allNews.isEmpty
-                    ? const Center(child: Text('No news available'))
+                    ? Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.noNews,
+                          style: SerManosTextStyle.subtitle01(),
+                        )
+                      )
                     : ListView.separated(
                         itemCount: allNews.length,
                         itemBuilder: (context, index) {
