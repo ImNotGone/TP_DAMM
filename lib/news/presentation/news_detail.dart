@@ -26,7 +26,7 @@ class NewsDetail extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: SerManosColors.neutral0,
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.news, style: const TextStyle(color: SerManosColors.neutral0),),
+        title: Text(AppLocalizations.of(context)!.news, style: SerManosTextStyle.subtitle01().copyWith(color: SerManosColors.neutral0),),
         centerTitle: true,
         leading: IconButton(
             onPressed: ()  => context.pop(),
