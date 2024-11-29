@@ -61,5 +61,20 @@
 		<true/>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
-	</dict>
+		<key>FlutterDeepLinkingEnabled</key>
+            <true/>
+            <key>CFBundleURLTypes</key>
+            <array>
+                <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                <key>CFBundleURLName</key>
+                <string>sermanos</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                <string>sermanos</string>
+                </array>
+                </dict>
+            </array>
+        </dict>
 </plist>

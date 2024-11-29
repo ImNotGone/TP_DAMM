@@ -55,7 +55,7 @@ class VolunteerCard extends HookConsumerWidget {
 
     return GestureDetector(
       onTap: () {
-        context.push('/volunteering/$volunteeringId', extra: volunteeringId);
+        context.push('/volunteering/$volunteeringId');
       },
       child: Card(
         elevation: 4,
