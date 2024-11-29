@@ -31,6 +31,7 @@
     "nonBinary": "Non-binary",
   "volunteer": "Volunteer",
   "noVolunteering":"Currently there are no volunteerings. New ones will soon be incorporated",
+  "noSearchVolunteering": "There are no current volunteers for your search",
   "completeProfile": "Complete your profile to access better opportunities!",
   "complete": "Complete",
   "socialAction": "Social Action",

@@ -144,7 +144,12 @@ class VolunteerMapScreen extends HookConsumerWidget {
                       Padding(
                           padding: const EdgeInsets.only(bottom: 16),
                           child: filteredVolunteerings?.isEmpty ?? true
-                              ? const NoVolunteering()
+                              ? Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                                  child: NoVolunteering(
+                                    isSearching: searchQuery.value.isNotEmpty,
+                                  )
+                                )
                               : CarouselSlider(
                             items: filteredVolunteerings!.map((volunteering) =>
                                 VolunteerCard(volunteeringId: volunteering.uid)).toList(),

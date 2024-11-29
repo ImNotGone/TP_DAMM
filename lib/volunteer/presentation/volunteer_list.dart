@@ -62,51 +62,52 @@ class VolunteerListScreen extends HookConsumerWidget {
       backgroundColor: SerManosColors.secondary10,
       body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                UtilSearchBar(
-                  onIconPressed: onIconPressed,
-                  onSearchChanged: (query) {
-                    searchQuery.value = query;
-                  },
-                  icon: Icons.map,
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                if (currentUser?.registeredVolunteeringId != null) ...[
-                  Text(
-                    AppLocalizations.of(context)!.yourActivity,
-                    style: SerManosTextStyle.headline01(),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      context.push('/volunteering/${currentUser.registeredVolunteeringId}');
-                    },
-                    child: CurrrentVolunteerCard(
-                        id: currentUser!.registeredVolunteeringId!
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                ],
-                Text(
-                  AppLocalizations.of(context)!.volunteering,
-                  style: SerManosTextStyle.headline01(),
-                ),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: RefreshIndicator(
-                    onRefresh: refreshVolunteerings,
-                    child: filteredVolunteerings == null ||
-                        filteredVolunteerings.isEmpty
-                        ? const NoVolunteering() // TODO: if searching it should be different
-                        : ListView.separated(
+            child: RefreshIndicator(
+                onRefresh: refreshVolunteerings,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      UtilSearchBar(
+                        onIconPressed: onIconPressed,
+                        onSearchChanged: (query) {
+                          searchQuery.value = query;
+                        },
+                        icon: Icons.map,
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      if (currentUser?.registeredVolunteeringId != null) ...[
+                        Text(
+                          AppLocalizations.of(context)!.yourActivity,
+                          style: SerManosTextStyle.headline01(),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            context.push('/volunteering/${currentUser.registeredVolunteeringId}');
+                          },
+                          child: CurrrentVolunteerCard(
+                              id: currentUser!.registeredVolunteeringId!
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                      ],
+                      Text(
+                        AppLocalizations.of(context)!.volunteering,
+                        style: SerManosTextStyle.headline01(),
+                      ),
+                      const SizedBox(height: 16),
+                      filteredVolunteerings == null || filteredVolunteerings.isEmpty
+                        ? NoVolunteering(
+                            isSearching: searchQuery.value.isNotEmpty,
+                          )
+                        : Expanded(
+                          child: ListView.separated(
                             itemCount: filteredVolunteerings.length,
                             itemBuilder: (context, index) {
                               return VolunteerCard(
@@ -118,9 +119,9 @@ class VolunteerListScreen extends HookConsumerWidget {
                               height: 24,
                             ),
                           ),
-                    ),
+                        ),
+                    ],
                   ),
-              ],
             ),
           )
     );
