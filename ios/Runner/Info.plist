@@ -68,7 +68,7 @@
         <string>sermanos</string>
         <key>CFBundleURLSchemes</key>
         <array>
-        <string>appscheme</string>
+        <string>sermanos</string>
         </array>
         </dict>
     </array>
