@@ -38,8 +38,7 @@ class VolunteeringRepository {
       if (volunteering.vacancies <= 0) {
         throw Exception('No vacancies left');
       }
-      transaction
-          .update(volunteeringRef, {'applicants.$userId': false});
+      transaction.update(volunteeringRef, {'applicants.$userId': false});
       return volunteering;
     }).then(
       (value) async {
@@ -58,8 +57,17 @@ class VolunteeringRepository {
     return await _firestore.runTransaction((transaction) async {
       final volunteeringDoc = await transaction.get(volunteeringRef);
       final volunteering = _addUidToVolunteering(volunteeringDoc)!;
-      transaction
-          .delete(volunteeringRef.collection('applicants').doc(userId));
+
+      transaction.update(volunteeringRef, {'applicants.$userId': FieldValue.delete()});
+
+      // If the user was a confirmed applicant, increase vacancies
+      if(volunteering.applicants[userId]!) {
+        transaction.update(volunteeringRef, {'vacancies': volunteering.vacancies + 1});
+        volunteering.vacancies += 1;
+      }
+
+      volunteering.applicants.remove(userId);
+      
       return volunteering;
     }).then(
       (value) async {
