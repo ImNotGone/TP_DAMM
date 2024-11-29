@@ -78,9 +78,7 @@ class VolunteeringDetail extends HookConsumerWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           color: SerManosColors.neutral0,
-          onPressed: () {
-            context.pop();
-          },
+          onPressed: () => context.pop(),
         ),
       ),
       body: volunteering == null

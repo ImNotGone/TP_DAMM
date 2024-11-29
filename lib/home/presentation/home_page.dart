@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/profile/presentation/profile_screen.dart';
+import 'package:ser_manos_mobile/shared/tokens/text_style.dart';
 import '../../shared/tokens/colors.dart';
 import '../../volunteer/presentation/volunteer_screen.dart';
 import '../../news/presentation/news_screen.dart';
@@ -26,7 +27,7 @@ class HomePageState extends State<HomePage> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: SerManosColors.secondary100,
+          backgroundColor: SerManosColors.secondary90,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -34,24 +35,39 @@ class HomePageState extends State<HomePage> {
                   fit: BoxFit.cover, height: 25, width: 147),
             ],
           ),
-          bottom: TabBar(
-            labelColor: SerManosColors.neutral0,
-            unselectedLabelColor: SerManosColors.neutral0,
-            indicator: const BoxDecoration(
-              color: SerManosColors.secondary200, // Change this to your desired color
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(52),
+            child: Container(
+              height: 52,
+              color: SerManosColors.secondary100,
+              child: TabBar(
+                  labelColor: SerManosColors.neutral0,
+                  unselectedLabelColor: SerManosColors.neutral25,
+                  labelStyle: SerManosTextStyle.button(),
+                  dividerColor: SerManosColors.secondary100,
+                  indicator: const BoxDecoration(
+                    color: SerManosColors.secondary200,
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.white, // White underline
+                        width: 3.0,
+                      ),
+                    ),
+                  ),
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  tabs: [
+                    Tab(text: AppLocalizations.of(context)!.apply),
+                    Tab(text: AppLocalizations.of(context)!.myProfile),
+                    Tab(text: AppLocalizations.of(context)!.news),
+                  ],
+                  onTap: (index) {
+                    setState(() {
+                      _currentScreen = index;
+                    });
+                  },
+            )
             ),
-            indicatorSize: TabBarIndicatorSize.tab,
-            tabs: [
-              Tab(icon: Text(AppLocalizations.of(context)!.apply)),
-              Tab(icon: Text(AppLocalizations.of(context)!.myProfile)),
-              Tab(icon: Text(AppLocalizations.of(context)!.news)),
-            ],
-            onTap: (index) {
-              setState(() {
-                _currentScreen = index;
-              });
-            },
-          ),
+          )
         ),
         body: Container(
             color: SerManosColors.secondary10,

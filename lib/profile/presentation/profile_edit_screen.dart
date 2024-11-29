@@ -239,6 +239,7 @@ class ProfileEditScreen extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: SerManosColors.neutral0,
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
         leading: IconButton(
           onPressed: () => context.pop(),
           icon: const Icon(Icons.close),

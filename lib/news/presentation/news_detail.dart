@@ -33,7 +33,7 @@ class NewsDetail extends HookConsumerWidget {
             icon: const Icon(Icons.arrow_back),
             color: SerManosColors.neutral0
         ),
-        backgroundColor: SerManosColors.secondary100,
+        backgroundColor: SerManosColors.secondary90,
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
