@@ -53,17 +53,6 @@ class VolunteerMapScreen extends HookConsumerWidget {
         }
     );
 
-    if (mapController.value != null && filteredVolunteerings != null && filteredVolunteerings.isNotEmpty) {
-      mapController.value!.animateCamera(
-          CameraUpdate.newLatLng(
-            LatLng(
-              filteredVolunteerings[currentCardIndex.value].location.latitude,
-              filteredVolunteerings[currentCardIndex.value].location.longitude,
-            ),
-          )
-      );
-    }
-
     Future<void> getUserLocation(ValueNotifier<LatLng?> center, ValueNotifier<Position?> currentPosition) async {
       bool serviceEnabled;
       LocationPermission permission;
@@ -96,13 +85,28 @@ class VolunteerMapScreen extends HookConsumerWidget {
     }, []);
 
 
-    return location.value == null
-        ? const Center(child: CircularProgressIndicator())
-        : Stack(
+    // obelisco
+    LatLng initialLocation = const LatLng(-34.603851, -58.381775);
+    if (mapController.value != null && filteredVolunteerings != null && filteredVolunteerings.isNotEmpty) {
+      mapController.value!.animateCamera(
+          CameraUpdate.newLatLng(
+            LatLng(
+              filteredVolunteerings[currentCardIndex.value].location.latitude,
+              filteredVolunteerings[currentCardIndex.value].location.longitude,
+            ),
+          )
+      );
+      initialLocation = LatLng(
+        filteredVolunteerings[currentCardIndex.value].location.latitude,
+        filteredVolunteerings[currentCardIndex.value].location.longitude,
+      );
+    }
+
+    return Stack(
           children: [
             GoogleMap(
               initialCameraPosition: CameraPosition(
-                target: location.value!, // Center on your preferred location
+                target: initialLocation,
                 zoom: 14.0,
               ),
               onMapCreated: (controller) {
@@ -133,10 +137,13 @@ class VolunteerMapScreen extends HookConsumerWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(right: 16),
-                        child: UtilFloatingButton(onPressed: () => {
-                            mapController.value?.animateCamera(
-                              CameraUpdate.newLatLng(location.value!)
-                            )
+                        child: UtilFloatingButton(onPressed:
+                            location.value == null
+                            ? null
+                            : () => {
+                              mapController.value?.animateCamera(
+                                CameraUpdate.newLatLng(location.value!)
+                              )
                           },
                         ),
                       ),
