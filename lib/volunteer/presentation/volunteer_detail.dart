@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -38,7 +39,10 @@ class VolunteeringDetail extends HookConsumerWidget {
     final VolunteeringService volunteeringService = ref.read(volunteeringServiceProvider);
     final UserService userService = ref.read(userServiceProvider);
 
+    final isLoading = useState(false);
+
     Future<void> volunteerToVolunteering() async {
+      isLoading.value = true;
       try {
         Volunteering? updatedVolunteering =
         await volunteeringService.volunteerToVolunteering(volunteeringId, currentUser!.uid);
@@ -52,9 +56,11 @@ class VolunteeringDetail extends HookConsumerWidget {
       } catch (e) {
         log(e.toString());
       }
+      isLoading.value = false;
     }
 
     Future<void> unvolunteerToVolunteering(String volId) async {
+      isLoading.value = true;
       try {
         Volunteering? updatedVolunteering =
         await volunteeringService.unvolunteerToVolunteering(volId, currentUser!.uid);
@@ -68,6 +74,7 @@ class VolunteeringDetail extends HookConsumerWidget {
       } catch (e) {
         log(e.toString());
       }
+      isLoading.value = false;
     }
 
     return Scaffold(
@@ -149,6 +156,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                         ),
                         const SizedBox(height: 8),
                         UtilTextButton(
+                            isLoading: isLoading.value,
                             onPressed: () {
                               showDialog(
                                 context: context,
@@ -199,6 +207,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                         ),
                         const SizedBox(height: 8),
                         UtilTextButton(
+                            isLoading: isLoading.value,
                             onPressed: () {
                               showDialog(
                                 context: context,
@@ -244,6 +253,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                         ),
                         const SizedBox(height: 8),
                         UtilTextButton(
+                            isLoading: isLoading.value,
                             onPressed: () {
                               showDialog(
                                 context: context,
@@ -332,6 +342,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                     ),
                   ] else ...[
                         UtilFilledButton(
+                          isLoading: isLoading.value,
                           onPressed: () {
                             showDialog(
                               context: context,
