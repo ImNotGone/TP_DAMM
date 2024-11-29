@@ -57,5 +57,20 @@
 	</array>
 	<key>googleMapsApiKey</key>
 	<string>$(GOOGLE_MAPS_API_KEY)</string>
+	<key>FlutterDeepLinkingEnabled</key>
+    <true/>
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>sermanos</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+        <string>appscheme</string>
+        </array>
+        </dict>
+    </array>
 </dict>
 </plist>

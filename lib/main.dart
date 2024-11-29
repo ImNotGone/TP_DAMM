@@ -65,27 +65,32 @@ class MyApp extends HookConsumerWidget {
           builder: (context, state) => const PreLoginWelcome(),
         ),
         GoRoute(
-            path: '/login', builder: (context, state) => const LoginScreen()),
+            path: '/login', builder: (context, state) => const LoginScreen()
+        ),
         GoRoute(
             path: '/sign_up',
-            builder: (context, state) => const SignUpScreen()),
+            builder: (context, state) => const SignUpScreen()
+        ),
         GoRoute(
             path: '/post_login_welcome',
-            builder: (context, state) => const PostLoginWelcome()),
-        GoRoute(path: '/home', builder: (context, state) => const HomePage()),
+            builder: (context, state) => const PostLoginWelcome()
+        ),
+        GoRoute(
+            path: '/home',
+            builder: (context, state) => const HomePage()
+        ),
         GoRoute(
           path: '/newsDetail/:id',
           builder: (context, state) {
-            final newsId =
-                state.extra as String; // Cast 'extra' to your news type
-            return NewsDetail(newsId: newsId);
+            final newsId = state.pathParameters['id'];
+            return NewsDetail(newsId: newsId!);
           },
         ),
         GoRoute(
           path: '/volunteering/:id',
           builder: (context, state) {
-            final volunteeringId = state.extra as String;
-            return VolunteeringDetail(volunteeringId: volunteeringId);
+            final volunteeringId = state.pathParameters['id'];
+            return VolunteeringDetail(volunteeringId: volunteeringId!);
           },
         ),
         GoRoute(

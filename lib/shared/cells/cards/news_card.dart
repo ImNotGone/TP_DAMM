@@ -48,7 +48,7 @@ class NewsCard extends StatelessWidget {
                           alignment: Alignment.bottomRight,
                           child: TextButton(
                               onPressed: () {
-                                context.push('/newsDetail/${news.uid}', extra: news.uid);
+                                context.push('/newsDetail/${news.uid}');
                               },
                               child: Text(
                                 AppLocalizations.of(context)!.readMore,

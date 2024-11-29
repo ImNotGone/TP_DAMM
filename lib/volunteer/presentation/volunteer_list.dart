@@ -87,9 +87,7 @@ class VolunteerListScreen extends HookConsumerWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      context.push(
-                          '/volunteering/${currentUser.registeredVolunteeringId}',
-                          extra: currentUser.registeredVolunteeringId);
+                      context.push('/volunteering/${currentUser.registeredVolunteeringId}');
                     },
                     child: CurrrentVolunteerCard(
                         id: currentUser!.registeredVolunteeringId!
