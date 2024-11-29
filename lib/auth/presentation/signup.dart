@@ -12,6 +12,8 @@ import 'package:ser_manos_mobile/shared/molecules/inputs/text_input.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/email_validation.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/password_validation.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/required_validation.dart';
+import '../../providers/app_state_provider.dart';
+import '../../providers/router_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../shared/molecules/buttons/text.dart';
 import '../../shared/molecules/inputs/password_input.dart';
@@ -51,7 +53,11 @@ class SignUpScreen extends HookConsumerWidget {
         ref.read(currentUserNotifierProvider.notifier).setUser(appUser);
 
         if(context.mounted){
-          context.go('/post_login_welcome');
+          if(!ref.read(hasSeenWelcomeScreenProvider)){
+            context.go('/post_login_welcome');
+          } else {
+            ref.read(appStateNotifierProvider.notifier).authenticate();
+          }
         }
       } else {
         log('Sign-up failed');
