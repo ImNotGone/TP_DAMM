@@ -5,7 +5,12 @@ import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 import '../../tokens/text_style.dart';
 
 class NoVolunteering extends StatelessWidget {
-  const NoVolunteering({super.key});
+  final bool isSearching;
+
+  const NoVolunteering({
+    super.key,
+    required this.isSearching
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,9 @@ class NoVolunteering extends StatelessWidget {
         color: SerManosColors.neutral0,
       ),
       child: Text(
-        AppLocalizations.of(context)!.noVolunteering,
+        isSearching
+            ? AppLocalizations.of(context)!.noSearchVolunteering
+            : AppLocalizations.of(context)!.noVolunteering,
         textAlign: TextAlign.center,
         style: SerManosTextStyle.subtitle01(),
       ),

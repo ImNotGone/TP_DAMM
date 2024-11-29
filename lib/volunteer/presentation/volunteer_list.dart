@@ -104,23 +104,24 @@ class VolunteerListScreen extends HookConsumerWidget {
                         style: SerManosTextStyle.headline01(),
                       ),
                       const SizedBox(height: 16),
-                      Expanded(
-                        child: filteredVolunteerings == null ||
-                              filteredVolunteerings.isEmpty
-                              ? const NoVolunteering() // TODO: if searching it should be different
-                              : ListView.separated(
-                                  itemCount: filteredVolunteerings.length,
-                                  itemBuilder: (context, index) {
-                                    return VolunteerCard(
-                                    volunteeringId:
-                                    filteredVolunteerings[index].uid,
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) => const SizedBox(
-                                    height: 24,
-                                  ),
-                                ),
+                      filteredVolunteerings == null || filteredVolunteerings.isEmpty
+                        ? NoVolunteering(
+                            isSearching: searchQuery.value.isNotEmpty,
+                          )
+                        : Expanded(
+                          child: ListView.separated(
+                            itemCount: filteredVolunteerings.length,
+                            itemBuilder: (context, index) {
+                              return VolunteerCard(
+                              volunteeringId:
+                              filteredVolunteerings[index].uid,
+                              );
+                            },
+                            separatorBuilder: (context, index) => const SizedBox(
+                              height: 24,
+                            ),
                           ),
+                        ),
                     ],
                   ),
             ),
