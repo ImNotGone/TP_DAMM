@@ -29,11 +29,17 @@ class NewsCard extends StatelessWidget {
             children: [
               SizedBox(
                 width: 118,
-                child: Image.network(
-                  news.imageUrl,
-                  fit: BoxFit.cover,
-                  // somehow making the image smaller, makes it take the lowest available space
-                  height: double.minPositive,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(2),
+                    bottomLeft: Radius.circular(2),
+                  ),
+                  child: Image.network(
+                    news.imageUrl,
+                    fit: BoxFit.cover,
+                    // somehow making the image smaller, makes it take the lowest available space
+                    height: double.minPositive,
+                  ),
                 ),
               ),
               Expanded(
