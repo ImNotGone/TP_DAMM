@@ -31,25 +31,37 @@ class VolunteerCard extends HookConsumerWidget {
     }
 
     Future<void> markAsFavorite() async {
-      volunteering.isFavourite = true;
+      ref.read(volunteeringsNotifierProvider.notifier).setVolunteerings({
+        ...ref.watch(volunteeringsNotifierProvider)!,
+        volunteeringId: volunteering.copyWith(isFavourite: true),
+      });
       try{
         AppUser user = await userService.markVolunteeringAsFavourite(volunteeringId);
         ref.read(currentUserNotifierProvider.notifier).setUser(user);
       }
       catch (e) {
         log(e.toString());
-        volunteering.isFavourite = false;
+        ref.read(volunteeringsNotifierProvider.notifier).setVolunteerings({
+          ...ref.watch(volunteeringsNotifierProvider)!,
+          volunteeringId: volunteering.copyWith(isFavourite: false),
+        });
       }
     }
 
     Future<void> unmarkAsFavorite() async {
-      volunteering.isFavourite = false;
+      ref.read(volunteeringsNotifierProvider.notifier).setVolunteerings({
+        ...ref.watch(volunteeringsNotifierProvider)!,
+        volunteeringId: volunteering.copyWith(isFavourite: false),
+      });
       try{
         AppUser user = await userService.unmarkVolunteeringAsFavourite(volunteeringId);
         ref.read(currentUserNotifierProvider.notifier).setUser(user);
       }catch(e){
         log(e.toString());
-        volunteering.isFavourite = true;
+        ref.read(volunteeringsNotifierProvider.notifier).setVolunteerings({
+          ...ref.watch(volunteeringsNotifierProvider)!,
+          volunteeringId: volunteering.copyWith(isFavourite: true),
+        });
       }
     }
 

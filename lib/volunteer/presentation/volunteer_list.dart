@@ -36,10 +36,8 @@ class VolunteerListScreen extends HookConsumerWidget {
     final currentUser = ref.watch(currentUserNotifierProvider);
 
     Future<void> refreshVolunteerings() async {
-      Map<String, Volunteering> volunteerings =
-      await volunteeringService.fetchVolunteerings();
-      for (String volunteeringId
-      in currentUser?.favouriteVolunteeringIds ?? []) {
+      Map<String, Volunteering> volunteerings = await volunteeringService.fetchVolunteerings();
+      for (String volunteeringId in currentUser?.favouriteVolunteeringIds ?? []) {
         if (volunteerings.containsKey(volunteeringId)) {
           volunteerings[volunteeringId]!.isFavourite = true;
         }
