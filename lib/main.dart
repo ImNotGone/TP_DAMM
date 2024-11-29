@@ -3,20 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ser_manos_mobile/auth/domain/app_start_state.dart';
-import 'package:ser_manos_mobile/auth/presentation/login.dart';
-import 'package:ser_manos_mobile/auth/presentation/postlogin_welcome.dart';
-import 'package:ser_manos_mobile/auth/presentation/prelogin_welcome.dart';
-import 'package:ser_manos_mobile/auth/presentation/signup.dart';
-import 'package:ser_manos_mobile/profile/presentation/profile_edit_screen.dart';
-import 'package:ser_manos_mobile/home/presentation/home_page.dart';
-import 'package:ser_manos_mobile/news/presentation/news_detail.dart';
-import 'package:ser_manos_mobile/volunteer/presentation/volunteer_detail.dart';
+import 'package:ser_manos_mobile/providers/router_provider.dart';
 import 'package:ser_manos_mobile/providers/app_state_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth/domain/app_user.dart';
 
@@ -25,8 +17,11 @@ Future<void> main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp();
 
+  final prefs = await SharedPreferences.getInstance();
+  final hasSeenWelcomeScreen = prefs.getBool('hasSeenWelcomeScreen') ?? false;
+
   final container = ProviderContainer();
-  await initializeProviders(container);
+  await initializeProviders(container, hasSeenWelcomeScreen);
 
   runApp(UncontrolledProviderScope(
       container: container,
@@ -34,7 +29,7 @@ Future<void> main() async {
   );
 }
 
-Future<void> initializeProviders(ProviderContainer container) async {
+Future<void> initializeProviders(ProviderContainer container, bool hasSeenWelcomeScreen) async {
   final currentUserNotifier = container.read(currentUserNotifierProvider.notifier);
 
   final userService = container.read(userServiceProvider);
@@ -49,6 +44,8 @@ Future<void> initializeProviders(ProviderContainer container) async {
   } catch(e) {
     container.read(appStateNotifierProvider.notifier).unauthenticate();
   }
+
+  container.read(hasSeenWelcomeScreenProvider.notifier).state = hasSeenWelcomeScreen;
 }
 
 class MyApp extends HookConsumerWidget {
@@ -56,74 +53,12 @@ class MyApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AppStartState appStartState = ref.watch(appStateNotifierProvider);
+    final router = ref.watch(routerProvider);
 
     useEffect(() {
       FlutterNativeSplash.remove();
       return null;
     }, []);
-
-    final GoRouter router = GoRouter(
-      initialLocation: '/',
-      routes: [
-        GoRoute(
-          path: '/',
-          builder: (context, state) => const PreLoginWelcome(),
-        ),
-        GoRoute(
-            path: '/login', builder: (context, state) => const LoginScreen()
-        ),
-        GoRoute(
-            path: '/sign_up',
-            builder: (context, state) => const SignUpScreen()
-        ),
-        GoRoute(
-            path: '/post_login_welcome',
-            builder: (context, state) => const PostLoginWelcome()
-        ),
-        GoRoute(
-            path: '/home',
-            builder: (context, state) => const HomePage()
-        ),
-        GoRoute(
-          path: '/newsDetail/:id',
-          builder: (context, state) {
-            final newsId = state.pathParameters['id'];
-            return NewsDetail(newsId: newsId!);
-          },
-        ),
-        GoRoute(
-          path: '/volunteering/:id',
-          builder: (context, state) {
-            final volunteeringId = state.pathParameters['id'];
-            return VolunteeringDetail(volunteeringId: volunteeringId!);
-          },
-        ),
-        GoRoute(
-          path: '/profile_edit',
-          builder: (context, state) {
-            if(state.extra == null) {
-              return const ProfileEditScreen();
-            }
-            final String volunteeringId = state.extra as String;
-            return ProfileEditScreen(volunteeringId: volunteeringId);
-          },
-        )
-      ],
-        redirect: (context, state) {
-         final allowedPaths = ['/', '/login', '/sign_up', '/post_login_welcome'];
-
-          if (appStartState == AppStartState.unauthenticated && !allowedPaths.contains(state.matchedLocation)) {
-            return '/login';
-          }
-
-          if (appStartState == AppStartState.authenticated && state.matchedLocation == '/') {
-            return '/home';
-          }
-
-          return null;
-        },
-    );
 
     const MaterialColor primarySwatch = MaterialColor(
       0xff14903F,
