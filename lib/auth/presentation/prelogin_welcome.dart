@@ -2,6 +2,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../shared/molecules/buttons/text.dart';
 import '../../shared/tokens/colors.dart';
 import '../../shared/tokens/text_style.dart';
@@ -33,6 +34,9 @@ class PreLoginWelcome extends StatelessWidget {
                 UtilFilledButton(
                     onPressed: () {
                       context.push('/login');
+                      SharedPreferences.getInstance().then((prefs) {
+                        prefs.setBool('hasSeenWelcomeScreen', true);
+                      });
                     },
                     text: AppLocalizations.of(context)!.login
                 ),
@@ -40,6 +44,9 @@ class PreLoginWelcome extends StatelessWidget {
                 UtilTextButton(
                     onPressed: () {
                       context.push('/sign_up');
+                      SharedPreferences.getInstance().then((prefs) {
+                        prefs.setBool('hasSeenWelcomeScreen', true);
+                      });
                     },
                     text: AppLocalizations.of(context)!.signUp
                 ),
