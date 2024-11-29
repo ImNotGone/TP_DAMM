@@ -26,6 +26,7 @@ class HomePageState extends State<HomePage> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: SerManosColors.secondary90,
           title: Row(
