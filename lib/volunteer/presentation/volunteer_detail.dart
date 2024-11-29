@@ -81,276 +81,259 @@ class VolunteeringDetail extends HookConsumerWidget {
       backgroundColor: SerManosColors.neutral0,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           color: SerManosColors.neutral0,
           onPressed: () => context.pop(),
         ),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black,
+                Colors.transparent,
+              ],
+            ),
+          ),
+        ),
       ),
       body: volunteering == null
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-        child: Column(
-          children: [
-            ClipRRect(
-              child: Image.network(
-                volunteering.imageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: 200.0,
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 24),
-                  Text(
-                    volunteering.type
-                        .localizedName(context)
-                        .toUpperCase(),
-                    style: SerManosTextStyle.overline(),
+            child: Column(
+              children: [
+                ClipRRect(
+                  child: Image.network(
+                    volunteering.imageUrl,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
                   ),
-                  Text(
-                    volunteering.title,
-                    style: SerManosTextStyle.headline01(),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    volunteering.purpose,
-                    style: SerManosTextStyle.body01().copyWith(color: SerManosColors.secondary200),
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    AppLocalizations.of(context)!.activityDetailsTitle,
-                    style: SerManosTextStyle.headline02(),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    volunteering.activityDetail,
-                    style: SerManosTextStyle.body01(),
-                  ),
-                  const SizedBox(height: 24),
-                  LocationCard(address: volunteering.address, location: volunteering.location),
-                  const SizedBox(height: 24),
-                  _buildParticipationInfo(context, volunteering),
-                  const SizedBox(height: 24),
-                  if (currentUser!.registeredVolunteeringId != null) ...[
-                    if(volunteering.applicants[currentUser.uid] != null)...[
-                      if (volunteering.applicants[currentUser.uid]!) ...[
-                        Center(
-                          child: Text(
-                            AppLocalizations.of(context)!
-                                .youreParticipating,
-                            style: SerManosTextStyle.headline02(),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          AppLocalizations.of(context)!
-                              .organizationConfirmation,
-                          style: SerManosTextStyle.body01(),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 8),
-                        UtilTextButton(
-                            isLoading: isLoading.value,
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    Modal(
-                                      confirmButtonText:
-                                      AppLocalizations.of(context)!.confirm,
-                                      onConfirm: () {
-                                        unvolunteerToVolunteering(
-                                            volunteeringId);
-                                      },
-                                      context: context,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            AppLocalizations.of(context)!
-                                                .sureToAbandon,
-                                            style: SerManosTextStyle.subtitle01(),
-                                          ),
-                                          Text(
-                                            volunteering.title,
-                                            style: SerManosTextStyle.headline02(),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                              );
-                            },
-                            text: AppLocalizations.of(context)!
-                                .abandonVolunteering),
-
-                      ] else ...[
-                        Center(
-                          child: Text(
-                            AppLocalizations.of(context)!
-                                .youApplied,
-                            style: SerManosTextStyle.headline02()
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          AppLocalizations.of(context)!
-                              .confirmationPending,
-                          style: SerManosTextStyle.body01(),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 8),
-                        UtilTextButton(
-                            isLoading: isLoading.value,
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    Modal(
-                                      confirmButtonText:
-                                      AppLocalizations.of(context)!.confirm,
-                                      onConfirm: () {
-                                        unvolunteerToVolunteering(
-                                            volunteeringId);
-                                      },
-                                      context: context,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            AppLocalizations.of(context)!
-                                                .sureToUnapply,
-                                            style: SerManosTextStyle.subtitle01(),
-                                          ),
-                                          Text(
-                                            volunteering.title,
-                                            style: SerManosTextStyle.headline02(),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                              );
-                            },
-                            text: AppLocalizations.of(context)!
-                                .abandonVolunteering),
-                      ]
-                    ] else
-                      if (currentUser.registeredVolunteeringId !=
-                          volunteeringId) ...[
-                        Center(
-                          child: Text(
-                            AppLocalizations.of(context)!
-                                .alreadyParticipating,
-                            style: SerManosTextStyle.body01(),
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        UtilTextButton(
-                            isLoading: isLoading.value,
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) =>
-                                    Modal(
-                                      confirmButtonText:
-                                      AppLocalizations.of(context)!.confirm,
-                                      onConfirm: () {
-                                        unvolunteerToVolunteering(currentUser
-                                            .registeredVolunteeringId!);
-                                      },
-                                      context: context,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            AppLocalizations.of(context)!
-                                                .sureToAbandon,
-                                            style: SerManosTextStyle.subtitle01(),
-                                          ),
-                                          Text(
-                                            ref.read(
-                                                volunteeringsNotifierProvider)
-                                            ![currentUser
-                                                .registeredVolunteeringId!]
-                                            !.title,
-                                            style: SerManosTextStyle.headline02(),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                              );
-                            },
-                            text: AppLocalizations.of(context)!
-                                .abandonVolunteering),
-                        const SizedBox(height: 24),
-                        UtilFilledButton(
-                          onPressed: null,
-                          text: AppLocalizations.of(context)!
-                              .applyForVolunteering,
-                        ),
-                      ]
-                  ] else if (volunteering.vacancies <= 0) ...[
-                      Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.noVacancies,
-                          style: SerManosTextStyle.body01(),
-                        ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 24),
+                      Text(
+                        volunteering.type
+                            .localizedName(context)
+                            .toUpperCase(),
+                        style: SerManosTextStyle.overline(),
+                      ),
+                      Text(
+                        volunteering.title,
+                        style: SerManosTextStyle.headline01(),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        volunteering.purpose,
+                        style: SerManosTextStyle.body01().copyWith(color: SerManosColors.secondary200),
                       ),
                       const SizedBox(height: 24),
-                      UtilFilledButton(
-                        onPressed: null,
-                        text: AppLocalizations.of(context)!
-                            .applyForVolunteering,
+                      Text(
+                        AppLocalizations.of(context)!.activityDetailsTitle,
+                        style: SerManosTextStyle.headline02(),
                       ),
-                    ] else if(!currentUser.isComplete()) ...[
-                    UtilFilledButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) =>
-                              Modal(
-                                confirmButtonText:
-                                AppLocalizations.of(context)!.completeData,
-                                onConfirm: () {
-                                  context.push('/profile_edit', extra: volunteeringId);
-                                },
-                                context: context,
-                                child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!
-                                          .firstCompleteProfile,
-                                      style: SerManosTextStyle.subtitle01(),
-                                    ),
-                                  ],
-                                ),
+                      const SizedBox(height: 8),
+                      Text(
+                        volunteering.activityDetail,
+                        style: SerManosTextStyle.body01(),
+                      ),
+                      const SizedBox(height: 24),
+                      LocationCard(address: volunteering.address, location: volunteering.location),
+                      const SizedBox(height: 24),
+                      _buildParticipationInfo(context, volunteering),
+                      const SizedBox(height: 24),
+                      if (currentUser!.registeredVolunteeringId != null) ...[
+                        if(volunteering.applicants[currentUser.uid] != null)...[
+                          if (volunteering.applicants[currentUser.uid]!) ...[
+                            Center(
+                              child: Text(
+                                AppLocalizations.of(context)!
+                                    .youreParticipating,
+                                style: SerManosTextStyle.headline02(),
                               ),
-                        );
-                      },
-                      text: AppLocalizations.of(context)!
-                          .applyForVolunteering,
-                    ),
-                  ] else ...[
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .organizationConfirmation,
+                              style: SerManosTextStyle.body01(),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 8),
+                            UtilTextButton(
+                                isLoading: isLoading.value,
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        Modal(
+                                          confirmButtonText:
+                                          AppLocalizations.of(context)!.confirm,
+                                          onConfirm: () {
+                                            unvolunteerToVolunteering(
+                                                volunteeringId);
+                                          },
+                                          context: context,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                AppLocalizations.of(context)!
+                                                    .sureToAbandon,
+                                                style: SerManosTextStyle.subtitle01(),
+                                              ),
+                                              Text(
+                                                volunteering.title,
+                                                style: SerManosTextStyle.headline02(),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                  );
+                                },
+                                text: AppLocalizations.of(context)!
+                                    .abandonVolunteering),
+
+                          ] else ...[
+                            Center(
+                              child: Text(
+                                AppLocalizations.of(context)!
+                                    .youApplied,
+                                style: SerManosTextStyle.headline02()
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .confirmationPending,
+                              style: SerManosTextStyle.body01(),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 8),
+                            UtilTextButton(
+                                isLoading: isLoading.value,
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        Modal(
+                                          confirmButtonText:
+                                          AppLocalizations.of(context)!.confirm,
+                                          onConfirm: () {
+                                            unvolunteerToVolunteering(
+                                                volunteeringId);
+                                          },
+                                          context: context,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                AppLocalizations.of(context)!
+                                                    .sureToUnapply,
+                                                style: SerManosTextStyle.subtitle01(),
+                                              ),
+                                              Text(
+                                                volunteering.title,
+                                                style: SerManosTextStyle.headline02(),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                  );
+                                },
+                                text: AppLocalizations.of(context)!
+                                    .abandonVolunteering),
+                          ]
+                        ] else
+                          if (currentUser.registeredVolunteeringId !=
+                              volunteeringId) ...[
+                            Center(
+                              child: Text(
+                                AppLocalizations.of(context)!
+                                    .alreadyParticipating,
+                                style: SerManosTextStyle.body01(),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            UtilTextButton(
+                                isLoading: isLoading.value,
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        Modal(
+                                          confirmButtonText:
+                                          AppLocalizations.of(context)!.confirm,
+                                          onConfirm: () {
+                                            unvolunteerToVolunteering(currentUser
+                                                .registeredVolunteeringId!);
+                                          },
+                                          context: context,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                AppLocalizations.of(context)!
+                                                    .sureToAbandon,
+                                                style: SerManosTextStyle.subtitle01(),
+                                              ),
+                                              Text(
+                                                ref.read(
+                                                    volunteeringsNotifierProvider)
+                                                ![currentUser
+                                                    .registeredVolunteeringId!]
+                                                !.title,
+                                                style: SerManosTextStyle.headline02(),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                  );
+                                },
+                                text: AppLocalizations.of(context)!
+                                    .abandonVolunteering),
+                            const SizedBox(height: 24),
+                            UtilFilledButton(
+                              onPressed: null,
+                              text: AppLocalizations.of(context)!
+                                  .applyForVolunteering,
+                            ),
+                          ]
+                      ] else if (volunteering.vacancies <= 0) ...[
+                          Center(
+                            child: Text(
+                              AppLocalizations.of(context)!.noVacancies,
+                              style: SerManosTextStyle.body01(),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          UtilFilledButton(
+                            onPressed: null,
+                            text: AppLocalizations.of(context)!
+                                .applyForVolunteering,
+                          ),
+                        ] else if(!currentUser.isComplete()) ...[
                         UtilFilledButton(
-                          isLoading: isLoading.value,
                           onPressed: () {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) =>
                                   Modal(
                                     confirmButtonText:
-                                    AppLocalizations.of(context)!.confirm,
-                                    onConfirm: volunteerToVolunteering,
+                                    AppLocalizations.of(context)!.completeData,
+                                    onConfirm: () {
+                                      context.push('/profile_edit', extra: volunteeringId);
+                                    },
                                     context: context,
                                     child: Column(
                                       crossAxisAlignment:
@@ -358,12 +341,8 @@ class VolunteeringDetail extends HookConsumerWidget {
                                       children: [
                                         Text(
                                           AppLocalizations.of(context)!
-                                              .youAreApplyingTo,
+                                              .firstCompleteProfile,
                                           style: SerManosTextStyle.subtitle01(),
-                                        ),
-                                        Text(
-                                          volunteering.title,
-                                          style: SerManosTextStyle.headline02(),
                                         ),
                                       ],
                                     ),
@@ -373,13 +352,46 @@ class VolunteeringDetail extends HookConsumerWidget {
                           text: AppLocalizations.of(context)!
                               .applyForVolunteering,
                         ),
-                      ],
-                  const SizedBox(height: 32),
-                ],
-              ),
-            )
-          ],
-        ),
+                      ] else ...[
+                            UtilFilledButton(
+                              isLoading: isLoading.value,
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      Modal(
+                                        confirmButtonText:
+                                        AppLocalizations.of(context)!.confirm,
+                                        onConfirm: volunteerToVolunteering,
+                                        context: context,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .youAreApplyingTo,
+                                              style: SerManosTextStyle.subtitle01(),
+                                            ),
+                                            Text(
+                                              volunteering.title,
+                                              style: SerManosTextStyle.headline02(),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                );
+                              },
+                              text: AppLocalizations.of(context)!
+                                  .applyForVolunteering,
+                            ),
+                          ],
+                      const SizedBox(height: 32),
+                    ],
+                  ),
+                )
+              ],
+            ),
       ),
     );
   }
