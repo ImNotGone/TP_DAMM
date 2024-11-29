@@ -156,7 +156,7 @@ class SignUpScreen extends HookConsumerWidget {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -177,7 +177,5 @@ class SignUpScreen extends HookConsumerWidget {
         ),
       ),
     );
-
-
   }
 }

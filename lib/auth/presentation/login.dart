@@ -64,76 +64,76 @@ class LoginScreen extends HookConsumerWidget {
       backgroundColor: SerManosColors.neutral0,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),
-        child: Column(
-          children: [
-            Expanded(
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: formKey,
-                    onChanged: () {
-                      isLoginEnabled.value = formKey.currentState?.validate() ?? false;
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset('assets/logo_square.png', width: 150, height: 150), // Logo at the top
-                        const SizedBox(height: 16),
-                        TextInput(
-                          label: AppLocalizations.of(context)!.email,
-                          labelWhenEmpty: false,
-                          hintText: AppLocalizations.of(context)!.email,
-                          controller: emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          textInputAction: TextInputAction.next,
-                          validator: Validator.apply(
-                              context,
-                              [
-                                const RequiredValidation(),
-                                const EmailValidation()
-                              ]
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        PasswordInput(
-                          label: AppLocalizations.of(context)!.password,
-                          labelWhenEmpty: false,
-                          hintText: AppLocalizations.of(context)!.password,
-                          controller: passwordController,
-                          validator: Validator.apply(
-                              context,
-                              [
-                                const RequiredValidation(),
-                                const PasswordValidation()
-                              ]
-                          ),
-                        ),
-                      ],
+        child: Expanded(
+          child: Center(
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                onChanged: () {
+                  isLoginEnabled.value = formKey.currentState?.validate() ?? false;
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/logo_square.png', width: 150, height: 150), // Logo at the top
+                    const SizedBox(height: 16),
+                    TextInput(
+                      label: AppLocalizations.of(context)!.email,
+                      labelWhenEmpty: false,
+                      hintText: AppLocalizations.of(context)!.email,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      validator: Validator.apply(
+                          context,
+                          [
+                            const RequiredValidation(),
+                            const EmailValidation()
+                          ]
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 16),
+                    PasswordInput(
+                      label: AppLocalizations.of(context)!.password,
+                      labelWhenEmpty: false,
+                      hintText: AppLocalizations.of(context)!.password,
+                      controller: passwordController,
+                      validator: Validator.apply(
+                          context,
+                          [
+                            const RequiredValidation(),
+                            const PasswordValidation()
+                          ]
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            Column(
-              children: [
-                UtilFilledButton(
-                  isLoading: isLoading.value,
-                  onPressed: isLoginEnabled.value ? handleLogin : null,
-                  text: AppLocalizations.of(context)!.login,
-                ),
-                const SizedBox(height: 8),
-                UtilTextButton(
-                  onPressed: () {
-                    context.replace('/sign_up');
-                  },
-                  text: AppLocalizations.of(context)!.noAccount,
-                ),
-              ],
-            ),
-          ],
+          ),
         ),
       ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              UtilFilledButton(
+                isLoading: isLoading.value,
+                onPressed: isLoginEnabled.value ? handleLogin : null,
+                text: AppLocalizations.of(context)!.login,
+              ),
+              const SizedBox(height: 8),
+              UtilTextButton(
+                onPressed: () {
+                  context.replace('/sign_up');
+                },
+                text: AppLocalizations.of(context)!.noAccount,
+              ),
+            ],
+          ),
+        ),
     );
   }
 }
