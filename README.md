@@ -30,7 +30,7 @@ Each technology in the stack was chosen to enhance the app's functionality, main
 To accept a user who has applied for a volunteering position, you need to update the user's status in Firebase. Here's how you can do it:
 1. Go to the Firebase Console and navigate to the Firestore database. 
 2. Find the 'volunteerings' collection and locate the document with the respective ID. 
-3. Each volunteering has an applicants Map field, where the key is the user's ID and the value is the user's acceptance status (true or false). Update the status to true to accept the user.
+3. Each volunteering has an 'applicants' Map field, where the key is the user's ID and the value is the user's acceptance status (true or false). Update the status to true to accept the user.
 
 ## Google Maps: Key Configuration
 To use Google Maps in the app, you need to configure the API key in the Android and iOS projects. Here's how you can do it:
