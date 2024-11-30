@@ -7,7 +7,7 @@ part of 'volunteering_provider.dart';
 // **************************************************************************
 
 String _$volunteeringsNotifierHash() =>
-    r'8d04d2071bc8cb942d0a54f70b104ff9366936e1';
+    r'523aebacd77684c1750cdbba34a43299ef981f22';
 
 /// See also [VolunteeringsNotifier].
 @ProviderFor(VolunteeringsNotifier)
@@ -24,7 +24,7 @@ final volunteeringsNotifierProvider = NotifierProvider<VolunteeringsNotifier,
 
 typedef _$VolunteeringsNotifier = Notifier<Map<String, Volunteering>?>;
 String _$volunteeringsStreamNotifierHash() =>
-    r'f3b4f52a7c4c80283e76f41a21a665c869a3fbda';
+    r'f79cb538207dae8af8d9114ecc350740b63e5892';
 
 /// See also [VolunteeringsStreamNotifier].
 @ProviderFor(VolunteeringsStreamNotifier)
