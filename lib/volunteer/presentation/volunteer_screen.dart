@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos_mobile/volunteer/domain/volunteering.dart';
 import 'package:ser_manos_mobile/volunteer/presentation/volunteer_list.dart';
 import 'package:ser_manos_mobile/volunteer/presentation/volunteer_map.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
@@ -16,24 +17,29 @@ class VolunteerScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final showMap = useState(false);
+    final volunteerings = ref.watch(volunteeringsNotifierProvider);
     final isLoading = useState(true);
+
 
     void toggleMap() {
       showMap.value = !showMap.value;
     }
 
-    final volunteeringsNotifier = ref.read(volunteeringsNotifierProvider.notifier);
-    final volunteeringService = ref.read(volunteeringServiceProvider);
-
-    Future<void> loadVolunteerings() async {
-      await for (var volunteerings in volunteeringService.fetchVolunteerings()) {
-        volunteeringsNotifier.setVolunteerings(volunteerings);
+    useEffect(() {
+      if(volunteerings == null) {
+        final volunteeringService = ref.read(volunteeringServiceProvider);
+        StreamSubscription<Map<String, Volunteering>> subscription = volunteeringService.fetchVolunteerings().listen((volunteerings) {
+          Future.microtask(() {
+            ref.read(volunteeringsNotifierProvider.notifier).setVolunteerings(volunteerings);
+            isLoading.value = false;
+          });
+        });
+        Future.microtask(() {
+          ref.read(volunteeringsStreamNotifierProvider.notifier).setStream(subscription);
+        });
+      } else {
         isLoading.value = false;
       }
-    }
-
-    useEffect(() {
-      loadVolunteerings();
       return null;
     }, []);
 

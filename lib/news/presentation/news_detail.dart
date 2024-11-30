@@ -29,7 +29,7 @@ class NewsDetail extends HookConsumerWidget {
         title: Text(AppLocalizations.of(context)!.news, style: SerManosTextStyle.subtitle01().copyWith(color: SerManosColors.neutral0),),
         centerTitle: true,
         leading: IconButton(
-            onPressed: ()  => context.pop(),
+            onPressed: ()  => context.go('/home'),
             icon: const Icon(Icons.arrow_back),
             color: SerManosColors.neutral0
         ),

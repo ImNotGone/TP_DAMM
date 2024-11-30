@@ -160,6 +160,7 @@ class _SignOutButton extends HookConsumerWidget {
     final userService = ref.read(userServiceProvider);
 
     void signOut() {
+      ref.read(volunteeringsStreamNotifierProvider.notifier).clearStream();
       userService.signOut();
       ref.read(currentUserNotifierProvider.notifier).clearUser();
       ref.read(volunteeringsNotifierProvider.notifier).clearVolunteerings();

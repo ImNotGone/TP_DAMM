@@ -13,19 +13,20 @@ class NewsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final newsNotifier = ref.read(newsNotifierProvider.notifier);
-    final newsService = ref.read(newsServiceProvider);
     final allNews = ref.watch(newsNotifierProvider);
 
     Future<void> refreshNews() async {
+      final newsService = ref.read(newsServiceProvider);
       await newsService.fetchNews().then((news) {
         news.sort((a, b) => b.creationDate.compareTo(a.creationDate));
-        newsNotifier.setNews(news);
+        ref.read(newsNotifierProvider.notifier).setNews(news);
       });
     }
 
     useEffect(() {
-      refreshNews();
+      if(allNews == null) {
+        refreshNews();
+      }
       return null;
     }, []);
 
