@@ -59,7 +59,6 @@ class InputCardState extends State<InputCard> {
               SizedBox(
                 width: 24,
                 height: 24,
-                // TODO: make it green when unselected
                 child: Radio(
                   value: value,
                   groupValue: selectedGender,

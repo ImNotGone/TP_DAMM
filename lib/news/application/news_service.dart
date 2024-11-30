@@ -9,9 +9,4 @@ class NewsService{
   Future<List<News>> fetchNews() async {
     return _newsRepository.fetchNews();
   }
-
-  // TODO: uncomment this method to upload news
-  // void uploadNews() {
-  //   _newsRepository.uploadNews();
-  // }
 }

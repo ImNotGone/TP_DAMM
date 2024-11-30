@@ -17,9 +17,4 @@ class VolunteeringService{
   Future<Volunteering?> unvolunteerToVolunteering(String volunteeringId, String userId) async {
     return await _volunteeringRepository.unvolunteerToVolunteering(volunteeringId, userId);
   }
-
-  // TODO: uncomment this method to upload volunteerings
-  // void uploadVolunteerings() {
-  //   _volunteeringRepository.uploadVolunteerings();
-  // }
 }

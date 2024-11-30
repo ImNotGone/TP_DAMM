@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ser_manos_mobile/shared/tokens/shadows.dart';
 
 import '../../tokens/colors.dart';
 import '../../tokens/text_style.dart';
@@ -31,21 +32,11 @@ class UtilSearchBar extends HookWidget {
 
     return Container(
       height: 48,
-      // TODO: ver si puedo hacer que el icono sea 24x24 y se mantenga al centro
       padding: const EdgeInsets.only(left: 16.0, right: 8),
       decoration: BoxDecoration(
         color: SerManosColors.neutral0,
-        borderRadius: BorderRadius.circular(0.0),
-        border: Border.all(color: SerManosColors.neutral25),
-        boxShadow: [
-          // TODO: revisar color / shadows
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(2),
+        boxShadow: SerManosShadows.shadow1
       ),
       child: Row(
         children: [
@@ -74,9 +65,7 @@ class UtilSearchBar extends HookWidget {
               },
             )
           else
-          // TODO: focus is kinda weird, for now it remains like this
-          // if(!focusNode.hasFocus && searchController.text.isEmpty)
-          IconButton(
+            IconButton(
                 icon: Icon(icon, color: SerManosColors.primary100),
                 onPressed: onIconPressed
             ),
