@@ -58,13 +58,13 @@ class LoginScreen extends HookConsumerWidget {
       } on FirebaseAuthException {
         if(context.mounted){
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+              SnackBar(
                 content: Text(
                   AppLocalizations.of(context)!.wrongEmailOrPassword,
-                  style: SerManosTextStyle.body01().copyWith(color: SerManosColors.error100),
+                  style: SerManosTextStyle.body01().copyWith(color: SerManosColors.neutral0),
                 ),
-              backgroundColor: SerManosColors.neutral0,
-            ),
+                backgroundColor: SerManosColors.error100,
+              ),
           );
         }
       } finally {

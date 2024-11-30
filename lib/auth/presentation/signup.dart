@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -19,6 +18,7 @@ import '../../shared/molecules/buttons/text.dart';
 import '../../shared/molecules/inputs/password_input.dart';
 import '../../shared/molecules/inputs/validation/validator.dart';
 import '../../shared/tokens/colors.dart';
+import '../../shared/tokens/text_style.dart';
 import '../domain/app_user.dart';
 
 final formKey = GlobalKey<FormState>();
@@ -28,7 +28,6 @@ class SignUpScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final nameController = useTextEditingController();
     final lastNameController = useTextEditingController();
     final emailController = useTextEditingController();
@@ -41,41 +40,63 @@ class SignUpScreen extends HookConsumerWidget {
 
     Future<void> handleSignup() async {
       isLoading.value = true;
-      await userService.signUp(
-        nameController.text,
-        lastNameController.text,
-        emailController.text,
-        passwordController.text,
-      );
+      try {
+        await userService.signUp(
+          nameController.text,
+          lastNameController.text,
+          emailController.text,
+          passwordController.text,
+        );
 
-      if (userService.isLoggedIn() && context.mounted) {
-        AppUser? appUser = await userService.getCurrentUser();
-        ref.read(currentUserNotifierProvider.notifier).setUser(appUser);
+        if (userService.isLoggedIn() && context.mounted) {
+          AppUser? appUser = await userService.getCurrentUser();
+          ref.read(currentUserNotifierProvider.notifier).setUser(appUser);
 
-        if(context.mounted){
-          if(!ref.read(hasSeenWelcomeScreenProvider)){
-            context.go('/post_login_welcome');
-          } else {
-            ref.read(appStateNotifierProvider.notifier).authenticate();
+          if (context.mounted) {
+            if (!ref.read(hasSeenWelcomeScreenProvider)) {
+              context.go('/post_login_welcome');
+            } else {
+              ref.read(appStateNotifierProvider.notifier).authenticate();
+            }
           }
         }
-      } else {
-        log('Sign-up failed');
-        // TODO: Handle sign-up failure (e.g., show a snackbar or dialog)
+      } on FirebaseAuthException catch (e) {
+        if (context.mounted) {
+          String errorMessage;
+          switch (e.code) {
+            case 'email-already-in-use':
+              errorMessage = AppLocalizations.of(context)!.emailAlreadyInUse;
+              break;
+            case 'weak-password':
+              errorMessage = AppLocalizations.of(context)!.weakPassword;
+              break;
+            default:
+              errorMessage = AppLocalizations.of(context)!.errorOcurred;
+          }
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                errorMessage,
+                style: SerManosTextStyle.body01().copyWith(color: SerManosColors.neutral0),
+              ),
+              backgroundColor: SerManosColors.error100,
+            ),
+          );
+        }
+      } finally {
+        isLoading.value = false;
       }
-      isLoading.value = false;
     }
 
     return Scaffold(
       backgroundColor: SerManosColors.neutral0,
       body: Padding(
         padding: const EdgeInsets.only(
-          top: 84, // 52 from header 32 vertical padding,
-          left: 16,
-          right: 16
-        ),
+            top: 84, // 52 from header 32 vertical padding,
+            left: 16,
+            right: 16),
         child: SingleChildScrollView(
-            child: Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Image.asset(
@@ -87,7 +108,8 @@ class SignUpScreen extends HookConsumerWidget {
               Form(
                 key: formKey,
                 onChanged: () {
-                  isSignUpButtonEnabled.value = formKey.currentState?.validate() ?? false;
+                  isSignUpButtonEnabled.value =
+                      formKey.currentState?.validate() ?? false;
                 },
                 child: Column(
                   children: [
@@ -97,13 +119,9 @@ class SignUpScreen extends HookConsumerWidget {
                         controller: nameController,
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
-                        validator: Validator.apply(
-                            context,
-                            [
-                              const RequiredValidation(),
-                            ]
-                        )
-                    ),
+                        validator: Validator.apply(context, [
+                          const RequiredValidation(),
+                        ])),
                     const SizedBox(height: 24),
                     TextInput(
                         label: AppLocalizations.of(context)!.lastName,
@@ -111,13 +129,9 @@ class SignUpScreen extends HookConsumerWidget {
                         controller: lastNameController,
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
-                        validator: Validator.apply(
-                            context,
-                            [
-                              const RequiredValidation(),
-                            ]
-                        )
-                    ),
+                        validator: Validator.apply(context, [
+                          const RequiredValidation(),
+                        ])),
                     const SizedBox(height: 24),
                     TextInput(
                       label: AppLocalizations.of(context)!.email,
@@ -125,26 +139,20 @@ class SignUpScreen extends HookConsumerWidget {
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
-                      validator: Validator.apply(
-                          context,
-                          [
-                            const RequiredValidation(),
-                            const EmailValidation()
-                          ]
-                      ),
+                      validator: Validator.apply(context, [
+                        const RequiredValidation(),
+                        const EmailValidation()
+                      ]),
                     ),
                     const SizedBox(height: 24),
                     PasswordInput(
                       label: AppLocalizations.of(context)!.password,
                       hintText: AppLocalizations.of(context)!.passwordHint,
                       controller: passwordController,
-                      validator: Validator.apply(
-                          context,
-                          [
-                            const RequiredValidation(),
-                            const PasswordValidation()
-                          ]
-                      ),
+                      validator: Validator.apply(context, [
+                        const RequiredValidation(),
+                        const PasswordValidation()
+                      ]),
                     ),
                     // So that the helper is visible when focused on password
                     const SizedBox(height: 16)
@@ -162,9 +170,7 @@ class SignUpScreen extends HookConsumerWidget {
           children: [
             UtilFilledButton(
                 isLoading: isLoading.value,
-                onPressed: isSignUpButtonEnabled.value
-                    ? handleSignup
-                    : null,
+                onPressed: isSignUpButtonEnabled.value ? handleSignup : null,
                 text: AppLocalizations.of(context)!.signUp),
             const SizedBox(height: 8),
             UtilTextButton(

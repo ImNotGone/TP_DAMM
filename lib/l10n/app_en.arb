@@ -81,5 +81,8 @@
   "youApplied": "You applied",
   "confirmationPending": "The organization will contact you soon and will register you as a participant.",
   "sureToUnapply": "Are you sure you want to unapply?",
-  "wrongEmailOrPassword": "Wrong email or password"
+  "wrongEmailOrPassword": "Wrong email or password",
+  "emailAlreadyInUse": "Email already in use",
+  "weakPassword": "Weak password",
+  "errorOcurred": "An error occurred. Please try again."
 }

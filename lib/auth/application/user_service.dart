@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../data/user_repository.dart';
 import '../domain/app_user.dart';
 
-class UserService{
+class UserService {
   final UserRepository _userRepository;
 
   UserService(this._userRepository);
@@ -16,14 +15,9 @@ class UserService{
   }
 
   Future<void> signUp(String firstName, String lastName, String email, String password) async {
-    try {
-      User? user = await _userRepository.signUp(email, password);
-      if (user != null) {
-        await _userRepository.createUser(user, firstName, lastName);
-      }
-    }
-    catch (e) {
-      log(e.toString());
+    User? user = await _userRepository.signUp(email, password);
+    if (user != null) {
+      await _userRepository.createUser(user, firstName, lastName);
     }
   }
 

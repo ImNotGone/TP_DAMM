@@ -81,5 +81,8 @@
   "youApplied": "Te has postulado",
   "confirmationPending": "Pronto la organización se pondrá en contacto contigo y te inscribirá como participante.",
   "sureToUnapply": "¿Estás seguro que querés retirar tu postulación?",
-  "wrongEmailOrPassword": "Email o contraseña incorrectos"
+  "wrongEmailOrPassword": "Email o contraseña incorrectos",
+  "emailAlreadyInUse": "Email ya en uso",
+  "weakPassword": "Contraseña débil",
+  "errorOcurred": "Ocurrió un error. Por favor, intenta nuevamente."
 }

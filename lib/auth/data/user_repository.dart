@@ -82,27 +82,17 @@ class UserRepository {
   }
 
   Future<User?> signUp(String email, String password) async {
-    try {
-      final credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return credential.user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        log('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        log('The account already exists for that email.');
-      }
-    } catch (e) {
-      log(e.toString());
-    }
-    return null;
+    final credential =
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return credential.user;
   }
 
   Future<User?> signIn(String email, String password) async {
-    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+    final credential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
     return credential.user;
   }
 
