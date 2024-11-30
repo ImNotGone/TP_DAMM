@@ -80,5 +80,6 @@
   "gallery": "Galería",
   "youApplied": "Te has postulado",
   "confirmationPending": "Pronto la organización se pondrá en contacto contigo y te inscribirá como participante.",
-  "sureToUnapply": "¿Estás seguro que querés retirar tu postulación?"
+  "sureToUnapply": "¿Estás seguro que querés retirar tu postulación?",
+  "wrongEmailOrPassword": "Email o contraseña incorrectos"
 }

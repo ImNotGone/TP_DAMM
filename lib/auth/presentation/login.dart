@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,6 +10,7 @@ import 'package:ser_manos_mobile/providers/user_provider.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/password_input.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/text_input.dart';
+import 'package:ser_manos_mobile/shared/tokens/text_style.dart';
 import '../../providers/app_state_provider.dart';
 import '../../providers/router_provider.dart';
 import '../../shared/molecules/buttons/text.dart';
@@ -37,27 +37,39 @@ class LoginScreen extends HookConsumerWidget {
 
     Future<void> handleLogin() async {
       isLoading.value = true;
-      await userService.signIn(
-        emailController.text,
-        passwordController.text,
-      );
+      try {
+        await userService.signIn(
+          emailController.text,
+          passwordController.text,
+        );
 
-      if (userService.isLoggedIn()) {
-        AppUser? appUser = await userService.getCurrentUser();
-        ref.read(currentUserNotifierProvider.notifier).setUser(appUser);
+        if (userService.isLoggedIn()) {
+          AppUser? appUser = await userService.getCurrentUser();
+          ref.read(currentUserNotifierProvider.notifier).setUser(appUser);
 
-        if(context.mounted) {
-          if(!ref.read(hasSeenWelcomeScreenProvider)){
-            context.go('/post_login_welcome');
-          } else {
-            ref.read(appStateNotifierProvider.notifier).authenticate();
+          if (context.mounted) {
+            if (!ref.read(hasSeenWelcomeScreenProvider)) {
+              context.go('/post_login_welcome');
+            } else {
+              ref.read(appStateNotifierProvider.notifier).authenticate();
+            }
           }
         }
-      } else {
-        log('Login failed');
-        // TODO: Handle login failure (e.g., show a snackbar or dialog)
+      } on FirebaseAuthException {
+        if(context.mounted){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content: Text(
+                  AppLocalizations.of(context)!.wrongEmailOrPassword,
+                  style: SerManosTextStyle.body01().copyWith(color: SerManosColors.error100),
+                ),
+              backgroundColor: SerManosColors.neutral0,
+            ),
+          );
+        }
+      } finally {
+        isLoading.value = false;
       }
-      isLoading.value = false;
     }
 
     return Scaffold(

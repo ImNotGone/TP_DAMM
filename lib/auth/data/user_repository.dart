@@ -12,7 +12,8 @@ class UserRepository {
 
   UserRepository(this._firestore, this._auth, this._storage);
 
-  Future<AppUser> createUser(User user, String firstName, String lastName) async {
+  Future<AppUser> createUser(
+      User user, String firstName, String lastName) async {
     final newUser = AppUser(
       uid: user.uid,
       email: user.email!,
@@ -26,7 +27,7 @@ class UserRepository {
   Future<AppUser> fetchUser(String uid) async {
     final userJson = await _firestore.collection('users').doc(uid).get();
 
-    if(userJson.data() == null || userJson.data()!.isEmpty) {
+    if (userJson.data() == null || userJson.data()!.isEmpty) {
       throw Exception('User not found');
     }
 
@@ -37,7 +38,7 @@ class UserRepository {
   }
 
   Future<AppUser> fetchCurrentUser() async {
-    if(!isLoggedIn) {
+    if (!isLoggedIn) {
       throw Exception('User not found');
     }
     return fetchUser(_auth.currentUser!.uid);
@@ -80,11 +81,10 @@ class UserRepository {
     return null;
   }
 
-
   Future<User?> signUp(String email, String password) async {
     try {
       final credential =
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -101,22 +101,9 @@ class UserRepository {
     return null;
   }
 
-  Future<User?> signIn(
-      String email, String password) async {
-    try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: email,
-          password: password
-      );
-      return credential.user;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        log('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        log('Wrong password provided for that user.');
-      }
-      return null;
-    }
+  Future<User?> signIn(String email, String password) async {
+    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+    return credential.user;
   }
 
   Future<void> signOut() async {
