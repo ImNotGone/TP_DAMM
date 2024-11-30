@@ -66,7 +66,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       final allowedPaths = ['/', '/login', '/sign_up', '/post_login_welcome'];
 
       if (appStartState == AppStartState.unauthenticated && !allowedPaths.contains(state.matchedLocation)) {
-        return '/login';
+        return '/';
       }
 
       if (appStartState == AppStartState.authenticated && state.matchedLocation == '/') {
