@@ -74,7 +74,7 @@ class NewsDetail extends HookConsumerWidget {
                     final img = await getNetworkImage(news.imageUrl);
                     Share.shareXFiles(
                       [img],
-                      text: '${news.subtitle} http://sermanos.com/newsDetail/${news.uid}',
+                      text: '${news.subtitle} http://sermanos/newsDetail/${news.uid}',
                     );
                   },
                   text: AppLocalizations.of(context)!.share
