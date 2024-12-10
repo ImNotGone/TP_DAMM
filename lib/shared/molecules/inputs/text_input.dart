@@ -100,7 +100,7 @@ class TextInput extends HookWidget {
               },
               icon: const Icon(
                   Icons.close,
-                  color: SerManosColors.neutral25
+                  color: SerManosColors.neutral75
               )
           )
           : null,
