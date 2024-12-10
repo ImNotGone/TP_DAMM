@@ -20,6 +20,7 @@ class BlueHeaderCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
       ),
+      elevation: 0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
