@@ -16,6 +16,13 @@ class LocationCard extends StatelessWidget {
     required this.location,
   });
 
+  Future<BitmapDescriptor> _getCustomMarkerIcon() async {
+    return await BitmapDescriptor.asset(
+      const ImageConfiguration(size: Size(32, 32)), // Adjust size as needed
+      'assets/location_filled_green.png',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlueHeaderCard(
@@ -30,25 +37,34 @@ class LocationCard extends StatelessWidget {
             ),
             child: SizedBox(
               height: 155,
-              child: GoogleMap(
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(location.latitude, location.longitude),
-                  zoom: 15,
-                ),
-                markers: {
-                  Marker(
-                    markerId: const MarkerId('location'),
-                    position: LatLng(location.latitude, location.longitude),
-                  ),
+              child: FutureBuilder<BitmapDescriptor>(
+                future: _getCustomMarkerIcon(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return GoogleMap(
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(location.latitude, location.longitude),
+                      zoom: 14,
+                    ),
+                    markers: {
+                      Marker(
+                        markerId: const MarkerId('location'),
+                        position: LatLng(location.latitude, location.longitude),
+                        icon: snapshot.data!,
+                      ),
+                    },
+                    mapToolbarEnabled: false,
+                    zoomGesturesEnabled: false,
+                    zoomControlsEnabled: false,
+                    scrollGesturesEnabled: false,
+                    tiltGesturesEnabled: false,
+                    rotateGesturesEnabled: false,
+                    myLocationButtonEnabled: false,
+                    mapType: MapType.normal,
+                  );
                 },
-                mapToolbarEnabled: false,
-                zoomGesturesEnabled: false,
-                zoomControlsEnabled: false,
-                scrollGesturesEnabled: false,
-                tiltGesturesEnabled: false,
-                rotateGesturesEnabled: false,
-                myLocationButtonEnabled: false,
-                mapType: MapType.normal,
               ),
             ),
           ),
