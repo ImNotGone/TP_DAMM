@@ -22,17 +22,26 @@ class LocationCard extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final icon = useState(BitmapDescriptor.defaultMarker);
+    final markers = useState(<Marker>{});
 
-    void createIcon() async {
+    void createMarkers() async {
       icon.value = await const Icon(
         Icons.location_on,
         size: 32,
         color: SerManosColors.primary100,
       ).toBitmapDescriptor();
+
+      markers.value.add(
+        Marker(
+            markerId: const MarkerId('location'),
+            position: LatLng(location.latitude, location.longitude),
+            icon: icon.value
+        ),
+      );
     }
 
     useEffect(() {
-      createIcon();
+      createMarkers();
       return null;
     });
 
@@ -53,13 +62,7 @@ class LocationCard extends HookWidget {
                   target: LatLng(location.latitude, location.longitude),
                   zoom: 14,
                 ),
-                markers: {
-                  Marker(
-                    markerId: const MarkerId('location'),
-                    position: LatLng(location.latitude, location.longitude),
-                    icon: icon.value
-                  ),
-                },
+                markers: markers.value,
                 mapToolbarEnabled: false,
                 zoomGesturesEnabled: false,
                 zoomControlsEnabled: false,
