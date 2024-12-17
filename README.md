@@ -1,3 +1,4 @@
+
 # Ser Manos
 
 ## Tech Stack
@@ -52,15 +53,27 @@ To use Google Maps in the app, you need to configure the API key in the Android 
 1. Get the API key from the Google Cloud Console.
 2. Go to the 'android/local.properties' file and add the following line:
 
-```text
-googleMapsApiKey=[INSERT_YOUR_API_KEY]
-```
+```text  
+googleMapsApiKey=[INSERT_YOUR_API_KEY]  
+```  
 
 ### iOS
 
 1. Get the API key from the Google Cloud Console.
 2. Go to the 'ios/Flutter/Debug.xcconfig' files and add the following line:
 
-```text
-GOOGLE_MAPS_API_KEY = [INSERT_YOUR_API_KEY]
+```text  
+GOOGLE_MAPS_API_KEY = [INSERT_YOUR_API_KEY]  
 ```
+
+## Event Logging
+
+### Login
+Logging the `login` event is crucial for monitoring how often users return to the app, providing clear insights into user retention. It also helps identify potential issues in the login process and assess the impact of new features or changes in the user experience. This event serves as a key indicator for analyzing user engagement levels.
+
+### Sign Up
+The `sign_up` event is essential for understanding how many new users register in the app. Eventually, this can also help which registration methods they prefer (email, Google, Facebook, etc.) in case more are implemented. This helps evaluate the effectiveness of user acquisition strategies and optimize the registration process to make it more accessible and appealing. Additionally, it helps identify growth trends and measure the impact of new volunteerings being added.
+
+
+### Share
+The `share` event is important because it measures the social interaction of users with the app's content, specifically the news. By logging the IDs of the shared news, it's possible to identify which articles are the most relevant or popular among users. This not only helps optimize content creation but also enables the design of more effective strategies based on the content that generates the most interest.
