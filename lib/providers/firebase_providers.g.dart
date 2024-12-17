@@ -56,5 +56,22 @@ final firebaseFirestoreProvider = Provider<FirebaseFirestore>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef FirebaseFirestoreRef = ProviderRef<FirebaseFirestore>;
+String _$firebaseAnalyticsHash() => r'cf08807a262abc751c2cf3160b9ab01c21a01c30';
+
+/// See also [firebaseAnalytics].
+@ProviderFor(firebaseAnalytics)
+final firebaseAnalyticsProvider = Provider<FirebaseAnalytics>.internal(
+  firebaseAnalytics,
+  name: r'firebaseAnalyticsProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$firebaseAnalyticsHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef FirebaseAnalyticsRef = ProviderRef<FirebaseAnalytics>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

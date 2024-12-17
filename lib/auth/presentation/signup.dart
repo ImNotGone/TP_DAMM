@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/auth/application/user_service.dart';
+import 'package:ser_manos_mobile/providers/firebase_providers.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/text_input.dart';
@@ -85,6 +86,7 @@ class SignUpScreen extends HookConsumerWidget {
         }
       } finally {
         isLoading.value = false;
+        ref.read(firebaseAnalyticsProvider).logSignUp(signUpMethod: 'email');
       }
     }
 

@@ -12,6 +12,7 @@ import 'package:ser_manos_mobile/shared/molecules/inputs/password_input.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/text_input.dart';
 import 'package:ser_manos_mobile/shared/tokens/text_style.dart';
 import '../../providers/app_state_provider.dart';
+import '../../providers/firebase_providers.dart';
 import '../../providers/router_provider.dart';
 import '../../shared/molecules/buttons/text.dart';
 import '../../shared/molecules/inputs/validation/email_validation.dart';
@@ -69,6 +70,7 @@ class LoginScreen extends HookConsumerWidget {
         }
       } finally {
         isLoading.value = false;
+        ref.read(firebaseAnalyticsProvider).logLogin();
       }
     }
 

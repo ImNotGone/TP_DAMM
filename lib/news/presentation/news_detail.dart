@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ser_manos_mobile/providers/firebase_providers.dart';
 import 'package:ser_manos_mobile/providers/news_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../shared/molecules/buttons/filled.dart';
@@ -76,6 +77,7 @@ class NewsDetail extends HookConsumerWidget {
                       [img],
                       text: '${news.subtitle} http://sermanos/newsDetail/${news.uid}',
                     );
+                    ref.read(firebaseAnalyticsProvider).logShare(contentType: 'news', itemId: news.uid, method: 'button');
                   },
                   text: AppLocalizations.of(context)!.share
               ),
