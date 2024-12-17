@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../tokens/colors.dart';
 import '../../tokens/text_style.dart';
 
-class TextInput extends HookWidget {
+class UtilTextInput extends HookWidget {
   final String? label;
   final String? hintText;
   final TextEditingController controller;
@@ -13,7 +13,7 @@ class TextInput extends HookWidget {
   final String? Function(String?)? validator;
   final TextInputAction textInputAction;
 
-  const TextInput({
+  const UtilTextInput({
     super.key,
     this.label,
     required this.hintText,

@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -248,6 +249,9 @@ class ProfileEditScreen extends HookConsumerWidget {
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: SerManosColors.neutral0
+        ),
         leading: IconButton(
           onPressed: () => context.pop(),
           icon: const Icon(Icons.close),
@@ -312,7 +316,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                   style: SerManosTextStyle.subtitle01(),
                 ),
                 const SizedBox(height: 24),
-                TextInput(
+                UtilTextInput(
                   label: AppLocalizations.of(context)!.cellphone,
                   hintText: AppLocalizations.of(context)!.cellphoneHint,
                   controller: phoneNumberController,
@@ -325,7 +329,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 24),
-                TextInput(
+                UtilTextInput(
                   label: AppLocalizations.of(context)!.email,
                   hintText: AppLocalizations.of(context)!.emailHint,
                   controller: emailController,

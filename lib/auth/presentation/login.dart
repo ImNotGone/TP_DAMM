@@ -91,7 +91,7 @@ class LoginScreen extends HookConsumerWidget {
                   children: [
                     Image.asset('assets/logo_square.png', width: 150, height: 150), // Logo at the top
                     const SizedBox(height: 16),
-                    TextInput(
+                    UtilTextInput(
                       label: AppLocalizations.of(context)!.email,
                       labelWhenEmpty: false,
                       hintText: AppLocalizations.of(context)!.email,

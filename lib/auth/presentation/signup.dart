@@ -115,7 +115,7 @@ class SignUpScreen extends HookConsumerWidget {
                 },
                 child: Column(
                   children: [
-                    TextInput(
+                    UtilTextInput(
                         label: AppLocalizations.of(context)!.name,
                         hintText: AppLocalizations.of(context)!.nameHint,
                         controller: nameController,
@@ -125,7 +125,7 @@ class SignUpScreen extends HookConsumerWidget {
                           const RequiredValidation(),
                         ])),
                     const SizedBox(height: 24),
-                    TextInput(
+                    UtilTextInput(
                         label: AppLocalizations.of(context)!.lastName,
                         hintText: AppLocalizations.of(context)!.lastNameHint,
                         controller: lastNameController,
@@ -135,7 +135,7 @@ class SignUpScreen extends HookConsumerWidget {
                           const RequiredValidation(),
                         ])),
                     const SizedBox(height: 24),
-                    TextInput(
+                    UtilTextInput(
                       label: AppLocalizations.of(context)!.email,
                       hintText: AppLocalizations.of(context)!.emailHint,
                       controller: emailController,
