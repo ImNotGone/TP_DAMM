@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
+import 'package:widget_to_marker/widget_to_marker.dart';
 
 import '../../tokens/text_style.dart';
 import 'blue_header_card.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class LocationCard extends StatelessWidget {
+class LocationCard extends HookWidget {
   final String address;
   final GeoPoint location;
 
@@ -16,15 +19,23 @@ class LocationCard extends StatelessWidget {
     required this.location,
   });
 
-  Future<BitmapDescriptor> _getCustomMarkerIcon() async {
-    return await BitmapDescriptor.asset(
-      const ImageConfiguration(size: Size(32, 32)), // Adjust size as needed
-      'assets/location_filled_green.png',
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final icon = useState(BitmapDescriptor.defaultMarker);
+
+    void createIcon() async {
+      icon.value = await const Icon(
+        Icons.location_on,
+        size: 32,
+        color: SerManosColors.primary100,
+      ).toBitmapDescriptor();
+    }
+
+    useEffect(() {
+      createIcon();
+      return null;
+    });
+
     return BlueHeaderCard(
       title: AppLocalizations.of(context)!.location,
       child: Column(
@@ -37,34 +48,26 @@ class LocationCard extends StatelessWidget {
             ),
             child: SizedBox(
               height: 155,
-              child: FutureBuilder<BitmapDescriptor>(
-                future: _getCustomMarkerIcon(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                  return GoogleMap(
-                    initialCameraPosition: CameraPosition(
-                      target: LatLng(location.latitude, location.longitude),
-                      zoom: 14,
-                    ),
-                    markers: {
-                      Marker(
-                        markerId: const MarkerId('location'),
-                        position: LatLng(location.latitude, location.longitude),
-                        icon: snapshot.data!,
-                      ),
-                    },
-                    mapToolbarEnabled: false,
-                    zoomGesturesEnabled: false,
-                    zoomControlsEnabled: false,
-                    scrollGesturesEnabled: false,
-                    tiltGesturesEnabled: false,
-                    rotateGesturesEnabled: false,
-                    myLocationButtonEnabled: false,
-                    mapType: MapType.normal,
-                  );
+              child: GoogleMap(
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(location.latitude, location.longitude),
+                  zoom: 14,
+                ),
+                markers: {
+                  Marker(
+                    markerId: const MarkerId('location'),
+                    position: LatLng(location.latitude, location.longitude),
+                    icon: icon.value
+                  ),
                 },
+                mapToolbarEnabled: false,
+                zoomGesturesEnabled: false,
+                zoomControlsEnabled: false,
+                scrollGesturesEnabled: false,
+                tiltGesturesEnabled: false,
+                rotateGesturesEnabled: false,
+                myLocationButtonEnabled: false,
+                mapType: MapType.normal,
               ),
             ),
           ),
