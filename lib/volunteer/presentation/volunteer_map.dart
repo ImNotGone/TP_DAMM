@@ -6,6 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/providers/location_provider.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/floating.dart';
+import 'package:ser_manos_mobile/shared/tokens/colors.dart';
+import 'package:widget_to_marker/widget_to_marker.dart';
 import '../../providers/volunteering_provider.dart';
 import '../../shared/cells/cards/volunteer_card.dart';
 import '../../shared/molecules/components/no_volunteering.dart';
@@ -25,8 +27,8 @@ class VolunteerMapScreen extends HookConsumerWidget {
     final mapController = useState<GoogleMapController?>(null);
     final currentCardIndex = useState<int>(0);
     final markers = useState(<Marker>{});
-    final selectedMarker = useState(BitmapDescriptor.defaultMarker);
-    final notSelectedMarker = useState(BitmapDescriptor.defaultMarker);
+    final selectedIcon = useState(BitmapDescriptor.defaultMarker);
+    final nonSelectedIcon = useState(BitmapDescriptor.defaultMarker);
 
     final allVolunteerings = ref.watch(volunteeringsNotifierProvider);
     final location = useState<LatLng?>(null);
@@ -46,7 +48,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
           final marker = Marker(
             markerId: MarkerId(v.uid),
             position: LatLng(v.location.latitude, v.location.longitude),
-            icon: i == currentCardIndex.value ? selectedMarker.value:notSelectedMarker.value
+            icon: i == currentCardIndex.value ? selectedIcon.value : nonSelectedIcon.value
           );
           markers.value.add(marker);
           i++;
@@ -79,8 +81,23 @@ class VolunteerMapScreen extends HookConsumerWidget {
       ref.read(locationNotifierProvider.notifier).setLocation(latLng);
     }
 
+    void createIcons() async {
+      selectedIcon.value = await const Icon(
+        Icons.location_on,
+        size: 32,
+        color: SerManosColors.secondary200,
+      ).toBitmapDescriptor();
+
+      nonSelectedIcon.value = await const Icon(
+        Icons.location_on_outlined,
+        size: 32,
+        color: SerManosColors.secondary200,
+      ).toBitmapDescriptor();
+    }
+
     useEffect(() {
       getUserLocation(location, currentPosition);
+      createIcons();
       return null;
     }, []);
 
