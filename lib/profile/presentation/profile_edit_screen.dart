@@ -277,6 +277,13 @@ class ProfileEditScreen extends HookConsumerWidget {
                     onGenderSelected: handleGenderSelection,
                     previousGender: selectedGender.value
                 ),
+                if (selectedGender.value == null)
+                  Padding(padding: EdgeInsets.only(left: 14),
+                    child: Text(
+                      AppLocalizations.of(context)!.requiredError,
+                      style: SerManosTextStyle.body02().copyWith(color: SerManosColors.error100),
+                    ),
+                  ),
                 const SizedBox(height: 24),
                 pickedImage.value == null
                     ? (user?.profilePictureURL == null
@@ -287,6 +294,13 @@ class ProfileEditScreen extends HookConsumerWidget {
                     : ChangeProfilePictureCard(
                         onUploadPicture: showImageSourceDialog,
                         pickedImage: pickedImage.value),
+                if (profilePictureUrl.value == null && pickedImage.value == null)
+                  Padding(padding: EdgeInsets.only(left: 14),
+                    child: Text(
+                      AppLocalizations.of(context)!.requiredError,
+                      style: SerManosTextStyle.body02().copyWith(color: SerManosColors.error100),
+                    ),
+                  ),
                 const SizedBox(height: 32),
                 Text(
                   AppLocalizations.of(context)!.contactData,
