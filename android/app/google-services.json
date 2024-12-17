@@ -9,6 +9,25 @@
       "client_info": {
         "mobilesdk_app_id": "1:221089878453:android:7e0a5ce2a1bdb7418b89fc",
         "android_client_info": {
+          "package_name": "com.sermanos.damm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEPBd5NakjNndtAqfM6lCKDCrxG2eSK18"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:221089878453:android:46b541a880be13438b89fc",
+        "android_client_info": {
           "package_name": "com.sermanos.ser_manos_mobile"
         }
       },

@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBEPBd5NakjNndtAqfM6lCKDCrxG2eSK18',
-    appId: '1:221089878453:android:7e0a5ce2a1bdb7418b89fc',
+    appId: '1:221089878453:android:46b541a880be13438b89fc',
     messagingSenderId: '221089878453',
     projectId: 'sermanos-d0f61',
     storageBucket: 'sermanos-d0f61.appspot.com',
@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'sermanos-d0f61.appspot.com',
     iosBundleId: 'com.sermanos.serManosMobile',
   );
+
 }
