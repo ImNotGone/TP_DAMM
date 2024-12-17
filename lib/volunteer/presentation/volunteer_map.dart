@@ -34,26 +34,15 @@ class VolunteerMapScreen extends HookConsumerWidget {
     final location = useState<LatLng?>(null);
     final currentPosition = useState<Position?>(null);
 
+    final carouselController = useMemoized(() => CarouselSliderController(), []);
+
+
     final filteredVolunteerings = allVolunteerings?.values
         .where((volunteering) => volunteering.title
         .toLowerCase()
         .contains(searchQuery.value.toLowerCase()))
         .toList()
       ?..sort((a, b) => b.creationDate.compareTo(a.creationDate));
-
-
-    var i = 0;
-    filteredVolunteerings?.forEach(
-        (v) {
-          final marker = Marker(
-            markerId: MarkerId(v.uid),
-            position: LatLng(v.location.latitude, v.location.longitude),
-            icon: i == currentCardIndex.value ? selectedIcon.value : nonSelectedIcon.value
-          );
-          markers.value.add(marker);
-          i++;
-        }
-    );
 
     Future<void> getUserLocation(ValueNotifier<LatLng?> center, ValueNotifier<Position?> currentPosition) async {
       bool serviceEnabled;
@@ -81,7 +70,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
       ref.read(locationNotifierProvider.notifier).setLocation(latLng);
     }
 
-    void createIcons() async {
+    void createMarkers() async {
       selectedIcon.value = await const Icon(
         Icons.location_on,
         size: 32,
@@ -93,13 +82,36 @@ class VolunteerMapScreen extends HookConsumerWidget {
         size: 32,
         color: SerManosColors.secondary200,
       ).toBitmapDescriptor();
+
+      final newMarkers = <Marker> {};
+      for (var i = 0; i < filteredVolunteerings!.length; i++) {
+        final v = filteredVolunteerings[i];
+        newMarkers.add(
+          Marker(
+            markerId: MarkerId(v.uid),
+            position: LatLng(v.location.latitude, v.location.longitude),
+            icon: currentCardIndex.value == i
+                ? selectedIcon.value
+                : nonSelectedIcon.value,
+            onTap: () {
+              currentCardIndex.value = i;
+              carouselController.animateToPage(i);
+            }
+          ),
+        );
+      }
+      markers.value = newMarkers;
     }
 
     useEffect(() {
       getUserLocation(location, currentPosition);
-      createIcons();
       return null;
     }, []);
+
+    useEffect(() {
+      createMarkers();
+      return null;
+    }, [currentCardIndex.value]);
 
 
     // obelisco
@@ -158,7 +170,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
                         child: UtilFloatingButton(onPressed:
                             location.value == null
                             ? null
-                            : () => {
+                      : () => {
                               mapController.value?.animateCamera(
                                 CameraUpdate.newLatLng(location.value!)
                               )
@@ -185,6 +197,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
                                       ),
                                     );
                                   },
+                                  carouselController: carouselController,
                                   options: CarouselOptions(
                                       height: 242,
                                       viewportFraction: 0.9,
