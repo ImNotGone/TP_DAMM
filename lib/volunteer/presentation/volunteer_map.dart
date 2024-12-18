@@ -59,48 +59,59 @@ class VolunteerMapScreen extends HookConsumerWidget {
       }
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
-        if (permission != LocationPermission.whileInUse && permission != LocationPermission.always) {
+        if (permission != LocationPermission.whileInUse &&
+            permission != LocationPermission.always) {
           return;
         }
       }
 
-      currentPosition.value = await Geolocator.getCurrentPosition();
-      final latLng = LatLng(currentPosition.value!.latitude, currentPosition.value!.longitude);
-      location.value = latLng;
-      ref.read(locationNotifierProvider.notifier).setLocation(latLng);
+      final newPosition = await Geolocator.getCurrentPosition();
+      if(context.mounted) {
+        currentPosition.value = newPosition;
+        final latLng = LatLng(
+            currentPosition.value!.latitude, currentPosition.value!.longitude);
+        location.value = latLng;
+        ref.read(locationNotifierProvider.notifier).setLocation(latLng);
+      }
     }
 
     void createMarkers() async {
-      selectedIcon.value = await const Icon(
+      final newSelectedIcon = await const Icon(
         Icons.location_on,
         size: 32,
         color: SerManosColors.secondary200,
       ).toBitmapDescriptor();
 
-      nonSelectedIcon.value = await const Icon(
+      final newNonSelectedIcon = await const Icon(
         Icons.location_on_outlined,
         size: 32,
         color: SerManosColors.secondary200,
       ).toBitmapDescriptor();
 
-      final newMarkers = <Marker> {};
-      for (var i = 0; i < filteredVolunteerings!.length; i++) {
-        final v = filteredVolunteerings[i];
-        newMarkers.add(
-          Marker(
-            markerId: MarkerId(v.uid),
-            position: LatLng(v.location.latitude, v.location.longitude),
-            icon: currentCardIndex.value == i
-                ? selectedIcon.value
-                : nonSelectedIcon.value,
-            onTap: () {
-              currentCardIndex.value = i;
-              carouselController.animateToPage(i);
-            }
-          ),
-        );
+      if(context.mounted) {
+        selectedIcon.value = newSelectedIcon;
+
+        nonSelectedIcon.value = newNonSelectedIcon;
+
+        final newMarkers = <Marker>{};
+        for (var i = 0; i < filteredVolunteerings!.length; i++) {
+          final v = filteredVolunteerings[i];
+          newMarkers.add(
+            Marker(
+                markerId: MarkerId(v.uid),
+                position: LatLng(v.location.latitude, v.location.longitude),
+                icon: currentCardIndex.value == i
+                    ? selectedIcon.value
+                    : nonSelectedIcon.value,
+                onTap: () {
+                  currentCardIndex.value = i;
+                  carouselController.animateToPage(i);
+                }
+            ),
+          );
+        }
+        markers.value = newMarkers;
       }
-      markers.value = newMarkers;
     }
 
     useEffect(() {
