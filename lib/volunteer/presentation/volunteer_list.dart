@@ -36,45 +36,52 @@ class VolunteerListScreen extends HookConsumerWidget {
     return Scaffold(
         backgroundColor: SerManosColors.secondary10,
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+          padding: const EdgeInsets.symmetric(vertical: 24.0),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                UtilSearchBar(
-                  onIconPressed: onIconPressed,
-                  onSearchChanged: (query) {
-                    searchQuery.value = query;
-                  },
-                  icon: Icons.map,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      UtilSearchBar(
+                        onIconPressed: onIconPressed,
+                        onSearchChanged: (query) {
+                          searchQuery.value = query;
+                        },
+                        icon: Icons.map,
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      if (currentUser?.registeredVolunteeringId != null && filteredVolunteerings != null && filteredVolunteerings.isNotEmpty) ...[
+                        Text(
+                          LocaleKeys.yourActivity.tr(),
+                          style: SerManosTextStyle.headline01(),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            context.push(
+                                '/volunteering/${currentUser.registeredVolunteeringId}');
+                          },
+                          child: CurrentVolunteerCard(
+                              id: currentUser!.registeredVolunteeringId!),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                      ],
+                      Text(
+                        LocaleKeys.volunteering.tr(),
+                        style: SerManosTextStyle.headline01(),
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 32,
-                ),
-                if (currentUser?.registeredVolunteeringId != null && filteredVolunteerings != null && filteredVolunteerings.isNotEmpty) ...[
-                  Text(
-                    LocaleKeys.yourActivity.tr(),
-                    style: SerManosTextStyle.headline01(),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      context.push(
-                          '/volunteering/${currentUser.registeredVolunteeringId}');
-                    },
-                    child: CurrentVolunteerCard(
-                        id: currentUser!.registeredVolunteeringId!),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                ],
-                Text(
-                  LocaleKeys.volunteering.tr(),
-                  style: SerManosTextStyle.headline01(),
-                ),
-                const SizedBox(height: 16),
                 filteredVolunteerings == null || filteredVolunteerings.isEmpty
                     ? NoVolunteering(
                         isSearching: searchQuery.value.isNotEmpty,
@@ -83,8 +90,11 @@ class VolunteerListScreen extends HookConsumerWidget {
                         child: ListView.separated(
                           itemCount: filteredVolunteerings.length,
                           itemBuilder: (context, index) {
-                            return VolunteerCard(
-                              volunteeringId: filteredVolunteerings[index].uid,
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16),
+                              child: VolunteerCard(
+                                volunteeringId: filteredVolunteerings[index].uid,
+                              ),
                             );
                           },
                           separatorBuilder: (context, index) => const SizedBox(
