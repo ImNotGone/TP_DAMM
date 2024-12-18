@@ -101,7 +101,14 @@ class CodegenLoader extends AssetLoader{
   "emailAlreadyInUse": "Email ya en uso",
   "weakPassword": "Contraseña débil",
   "errorOcurred": "Ocurrió un error. Por favor, intenta nuevamente.",
-  "dateFormat": "dd/MM/yyyy"
+  "dateFormat": "dd/MM/yyyy",
+  "cost": {
+    "zero": "Costo {}",
+    "one": "Costo {}",
+    "many": "Costo {}",
+    "other": "Costo {}"
+  },
+  "currency": "ARS"
 };
 static const Map<String,dynamic> en = {
   "preLoginWelcome": "\"The selfless effort to bring joy to others will be the beginning of a happier life for ourselves.\"",
@@ -190,7 +197,14 @@ static const Map<String,dynamic> en = {
   "emailAlreadyInUse": "Email already in use",
   "weakPassword": "Weak password",
   "errorOcurred": "An error occurred. Please try again.",
-  "dateFormat": "MM/dd/yyyy"
+  "dateFormat": "MM/dd/yyyy",
+  "cost": {
+    "zero": "Cost {}",
+    "one": "Cost {}",
+    "many": "Cost {}",
+    "other": "Cost {}"
+  },
+  "currency": "GBP"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es": es, "en": en};
 }

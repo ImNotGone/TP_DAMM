@@ -85,5 +85,12 @@
   "emailAlreadyInUse": "Email ya en uso",
   "weakPassword": "Contraseña débil",
   "errorOcurred": "Ocurrió un error. Por favor, intenta nuevamente.",
-  "dateFormat": "dd/MM/yyyy"
+  "dateFormat": "dd/MM/yyyy",
+  "cost": {
+    "zero": "Costo {}",
+    "one": "Costo {}",
+    "many": "Costo {}",
+    "other": "Costo {}"
+  },
+  "currency": "ARS"
 }

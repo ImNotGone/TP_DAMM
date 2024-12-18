@@ -36,7 +36,7 @@ Future<void> main() async {
         child: EasyLocalization(
             supportedLocales: [
               Locale('en'),
-              Locale('es')
+              Locale('es'),
             ],
             assetLoader: CodegenLoader(),
             fallbackLocale: Locale('en'),

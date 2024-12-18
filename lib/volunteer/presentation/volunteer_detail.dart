@@ -396,6 +396,18 @@ class VolunteeringDetail extends HookConsumerWidget {
           softLineBreak: true,
         ),
         const SizedBox(height: 8),
+        Text(
+          LocaleKeys.cost,
+          style: SerManosTextStyle.headline02(),
+        ).plural(
+            10,
+            format: NumberFormat.simpleCurrency(
+                locale: context.locale.toString(),
+                name: LocaleKeys.currency.tr(),
+                decimalDigits: 2
+            )
+        ),
+        const SizedBox(height: 8),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [

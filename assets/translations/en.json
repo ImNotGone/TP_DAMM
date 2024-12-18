@@ -85,5 +85,12 @@
   "emailAlreadyInUse": "Email already in use",
   "weakPassword": "Weak password",
   "errorOcurred": "An error occurred. Please try again.",
-  "dateFormat": "MM/dd/yyyy"
+  "dateFormat": "MM/dd/yyyy",
+  "cost": {
+    "zero": "Cost {}",
+    "one": "Cost {}",
+    "many": "Cost {}",
+    "other": "Cost {}"
+  },
+  "currency": "USD"
 }

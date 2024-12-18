@@ -88,5 +88,7 @@ abstract class  LocaleKeys {
   static const weakPassword = 'weakPassword';
   static const errorOcurred = 'errorOcurred';
   static const dateFormat = 'dateFormat';
+  static const cost = 'cost';
+  static const currency = 'currency';
 
 }
