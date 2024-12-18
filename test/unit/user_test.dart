@@ -32,7 +32,7 @@ void main() {
 
       verify(mockUserRepository.signIn(email, password)).called(1);
       expect(result, mockUser);
-    });
+    }, tags: ['user']);
   });
 
   group('signUp', () {
@@ -59,7 +59,7 @@ void main() {
 
       verify(mockUserRepository.signUp(email, password)).called(1);
       verify(mockUserRepository.createUser(mockUser, firstName, lastName, fcmToken)).called(1);
-    });
+    }, tags: ['user']);
   });
 
   group('signOut', () {
@@ -80,7 +80,7 @@ void main() {
 
       verify(mockUserRepository.isLoggedIn).called(1);
       expect(result, true);
-    });
+    }, tags: ['user']);
   });
 
   group('getCurrentUser', () {
@@ -93,7 +93,7 @@ void main() {
 
       verify(mockUserRepository.fetchCurrentUser()).called(1);
       expect(result, mockAppUser);
-    });
+    }, tags: ['user']);
   });
 
   group('uploadProfilePicture', () {
@@ -107,7 +107,7 @@ void main() {
 
       verify(mockUserRepository.uploadProfilePicture(mockFile)).called(1);
       expect(result, mockUrl);
-    });
+    }, tags: ['user']);
   });
 
   group('volunteering operations', () {
@@ -122,7 +122,7 @@ void main() {
 
       expect(result.favouriteVolunteeringIds, contains(volunteeringId));
       verify(mockUserRepository.updateUser(mockAppUser)).called(1);
-    });
+    }, tags: ['user']);
 
     test('should remove volunteering ID from user\'s favorites', () async {
       final volunteeringId = 'vol123';
@@ -135,6 +135,6 @@ void main() {
 
       expect(result.favouriteVolunteeringIds, isNot(contains(volunteeringId)));
       verify(mockUserRepository.updateUser(mockAppUser)).called(1);
-    });
+    }, tags: ['user']);
   });
 }

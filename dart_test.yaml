@@ -1,0 +1,10 @@
+# dart_test.yaml
+tags:
+  golden:
+    enabled: true
+  news:
+    enabled: true
+  user:
+    enabled: true
+  volunteering:
+    enabled: true

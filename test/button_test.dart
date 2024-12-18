@@ -27,7 +27,7 @@ void main() {
         find.byType(UtilFilledButton),
         matchesGoldenFile('goldens/util_filled_button_enabled.png'),
       );
-    });
+    }, tags: ['golden']);
 
     testWidgets('disabled', (tester) async {
       await tester.pumpWidget(
@@ -49,7 +49,7 @@ void main() {
         find.byType(UtilFilledButton),
         matchesGoldenFile('goldens/util_filled_button_disabled.png'),
       );
-    });
+    }, tags: ['golden']);
   });
 
   group('UtilShortButton Golden Tests', () {
@@ -73,7 +73,7 @@ void main() {
         find.byType(UtilShortButton),
         matchesGoldenFile('goldens/util_short_button_enabled.png'),
       );
-    });
+    }, tags: ['golden']);
 
     testWidgets('disabled', (tester) async {
       await tester.pumpWidget(
@@ -95,7 +95,7 @@ void main() {
         find.byType(UtilShortButton),
         matchesGoldenFile('goldens/util_short_button_disabled.png'),
       );
-    });
+    }, tags: ['golden']);
   });
 
   group('UtilTinyShortButton Golden Tests', () {
@@ -120,7 +120,7 @@ void main() {
         find.byType(UtilTinyShortButton),
         matchesGoldenFile('goldens/util_tiny_short_button_enabled.png'),
       );
-    });
+    }, tags: ['golden']);
 
     testWidgets('disabled', (tester) async {
       await tester.pumpWidget(
@@ -143,7 +143,7 @@ void main() {
         find.byType(UtilTinyShortButton),
         matchesGoldenFile('goldens/util_tiny_short_button_disabled.png'),
       );
-    });
+    }, tags: ['golden']);
   });
 
   group('UtilFloatingButton Golden Tests', () {
@@ -166,7 +166,7 @@ void main() {
         find.byType(UtilFloatingButton),
         matchesGoldenFile('goldens/util_floating_button_enabled.png'),
       );
-    });
+    }, tags: ['golden']);
 
     testWidgets('disabled', (tester) async {
       await tester.pumpWidget(
@@ -187,7 +187,7 @@ void main() {
         find.byType(UtilFloatingButton),
         matchesGoldenFile('goldens/util_floating_button_disabled.png'),
       );
-    });
+    }, tags: ['golden']);
   });
 
   group('UtilTextButton Golden Tests', () {
@@ -211,7 +211,7 @@ void main() {
         find.byType(UtilTextButton),
         matchesGoldenFile('goldens/util_text_button_enabled.png'),
       );
-    });
+    }, tags: ['golden']);
 
     testWidgets('disabled', (tester) async {
       await tester.pumpWidget(
@@ -233,6 +233,6 @@ void main() {
         find.byType(UtilTextButton),
         matchesGoldenFile('goldens/util_text_button_disabled.png'),
       );
-    });
+    }, tags: ['golden']);
   });
 }
