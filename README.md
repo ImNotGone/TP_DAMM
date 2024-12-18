@@ -1,3 +1,4 @@
+
 # Ser Manos
 
 ## Tech Stack
@@ -43,6 +44,30 @@ To accept a user who has applied for a volunteering position, you need to update
 2. Find the 'volunteerings' collection and locate the document with the respective ID.
 3. Each volunteering has an 'applicants' Map field, where the key is the user's ID and the value is the user's acceptance status (true or false). Update the status to true to accept the user.
 
+## i18n, i10n
+
+Files for configuring internationalization are found under assets/translations.  
+There, `en.json` and `es.json` contain the tokens and strings needed for the translation of the app.  
+The currency is controlled by `currency` key, in order to change the currency to pounds we could for example change `currency` to GBP in the en.json file.  
+In order to reload the tokens we can use the following command
+
+```bash  
+flutter pub run easy_localization:generate -S 'assets/translations' -O "lib/translations" 
+```
+
+## Push Notifications
+
+There are 3 events that trigger a push notification being sent:
+
+- A volunteer is accepted to the volunteering.
+- A volunteer is rejected from the volunteering.
+- A new news article is uploaded.
+
+In the  `cloudFunctions/functions` directory the following Cloud Functions can be found:
+
+- on_update function for `volunteering/{volunteering_id}`
+- on_create function for `news/{news_id}`
+
 ## Google Maps: Key Configuration
 
 To use Google Maps in the app, you need to configure the API key in the Android and iOS projects. Here's how you can do it:
@@ -52,18 +77,15 @@ To use Google Maps in the app, you need to configure the API key in the Android 
 1. Get the API key from the Google Cloud Console.
 2. Go to the 'android/local.properties' file and add the following line:
 
-```text  
-googleMapsApiKey=[INSERT_YOUR_API_KEY]  
-```  
-
+```text googleMapsApiKey=[INSERT_YOUR_API_KEY]   
+```   
 ### iOS
 
 1. Get the API key from the Google Cloud Console.
 2. Go to the 'ios/Flutter/Debug.xcconfig' files and add the following line:
 
-```text  
-GOOGLE_MAPS_API_KEY = [INSERT_YOUR_API_KEY]  
-```
+```text GOOGLE_MAPS_API_KEY = [INSERT_YOUR_API_KEY]   
+```  
 
 ## Event Logging
 
@@ -92,22 +114,8 @@ The following tags are used to organize the tests in the project:
 
 You can filter and run tests using these tags with the `-t` or `--tags` flag:
 
-```bash
-flutter test -t golden
-flutter test -t news
-flutter test -t user
-flutter test -t volunteering
-```
+```bash  
+flutter test -t goldenflutter test -t newsflutter test -t userflutter test -t volunteering
+```  
 
-The tags config can be found in the `dart_test.yaml` file
-
-## i18n, i10n
-
-Files for configuring internationalization are found under assets/translations.
-There, `en.json` and `es.json` contain the tokens and strings needed for the translation of the app.
-The currency is controlled by `currency` key, in order to change the currency to pounds we could for example change `currency` to GBP in the en.json file.
-In order to reload the tokens we can use the following command
-
-```bash
-flutter pub run easy_localization:generate -S 'assets/translations' -O "lib/translations" 
-```
+The tags config can be found in the `dart_test.yaml` file.
