@@ -9,6 +9,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/providers/firebase_providers.dart';
+import 'package:ser_manos_mobile/providers/news_provider.dart';
 import 'package:ser_manos_mobile/providers/router_provider.dart';
 import 'package:ser_manos_mobile/providers/app_state_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
@@ -59,9 +60,12 @@ void _setNotificationListener(ProviderContainer container){
     }
   });
 
-  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
     if (message.data.containsKey('deepLink')) {
       final deepLink = message.data['deepLink'];
+      if(deepLink.toString().contains('news')){
+        await container.read(newsNotifierProvider.notifier).refreshNews();
+      }
       container.read(routerProvider).go(deepLink);
     }
   });
