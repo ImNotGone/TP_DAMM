@@ -39,6 +39,7 @@ dependencies:
   widget_to_marker: ^1.0.6
   firebase_crashlytics: ^4.2.0
   firebase_analytics: ^11.3.6
+  firebase_messaging: ^15.1.6
 
 
 dev_dependencies:

@@ -116,6 +116,7 @@ class MockUserRepository extends _i1.Mock implements _i4.UserRepository {
     _i3.User? user,
     String? firstName,
     String? lastName,
+    String? fcmToken,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -124,6 +125,7 @@ class MockUserRepository extends _i1.Mock implements _i4.UserRepository {
             user,
             firstName,
             lastName,
+            fcmToken,
           ],
         ),
         returnValue: _i5.Future<_i2.AppUser>.value(_FakeAppUser_0(
@@ -134,6 +136,7 @@ class MockUserRepository extends _i1.Mock implements _i4.UserRepository {
               user,
               firstName,
               lastName,
+              fcmToken,
             ],
           ),
         )),
@@ -374,6 +377,15 @@ class MockAppUser extends _i1.Mock implements _i2.AppUser {
       );
 
   @override
+  set fcmToken(String? _fcmToken) => super.noSuchMethod(
+        Invocation.setter(
+          #fcmToken,
+          _fcmToken,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   bool isComplete() => (super.noSuchMethod(
         Invocation.method(
           #isComplete,
@@ -412,6 +424,7 @@ class MockAppUser extends _i1.Mock implements _i2.AppUser {
     String? profilePictureURL,
     String? registeredVolunteeringId,
     List<String>? favouriteVolunteeringIds,
+    String? fcmToken,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -428,6 +441,7 @@ class MockAppUser extends _i1.Mock implements _i2.AppUser {
             #profilePictureURL: profilePictureURL,
             #registeredVolunteeringId: registeredVolunteeringId,
             #favouriteVolunteeringIds: favouriteVolunteeringIds,
+            #fcmToken: fcmToken,
           },
         ),
         returnValue: _FakeAppUser_0(
@@ -446,6 +460,7 @@ class MockAppUser extends _i1.Mock implements _i2.AppUser {
               #profilePictureURL: profilePictureURL,
               #registeredVolunteeringId: registeredVolunteeringId,
               #favouriteVolunteeringIds: favouriteVolunteeringIds,
+              #fcmToken: fcmToken,
             },
           ),
         ),

@@ -46,6 +46,15 @@ class LoginScreen extends HookConsumerWidget {
 
         if (userService.isLoggedIn()) {
           AppUser? appUser = await userService.getCurrentUser();
+
+          String? oldToken = appUser?.fcmToken;
+          String? newtoken = await ref.read(firebaseMessagingProvider).getToken();
+
+          if(oldToken != newtoken){
+            appUser?.fcmToken = newtoken;
+            await userService.updateUser(appUser!);
+          }
+
           ref.read(currentUserNotifierProvider.notifier).setUser(appUser);
 
           if (context.mounted) {

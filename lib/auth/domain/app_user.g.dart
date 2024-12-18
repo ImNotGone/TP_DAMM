@@ -22,6 +22,7 @@ AppUser _$AppUserFromJson(Map<String, dynamic> json) => AppUser(
           (json['favouriteVolunteeringIds'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList(),
+      fcmToken: json['fcmToken'] as String?,
     );
 
 Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
@@ -35,6 +36,7 @@ Map<String, dynamic> _$AppUserToJson(AppUser instance) => <String, dynamic>{
       'profilePictureURL': instance.profilePictureURL,
       'registeredVolunteeringId': instance.registeredVolunteeringId,
       'favouriteVolunteeringIds': instance.favouriteVolunteeringIds,
+      'fcmToken': instance.fcmToken,
     };
 
 const _$GenderEnumMap = {

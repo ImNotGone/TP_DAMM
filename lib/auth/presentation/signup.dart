@@ -42,11 +42,13 @@ class SignUpScreen extends HookConsumerWidget {
     Future<void> handleSignup() async {
       isLoading.value = true;
       try {
+        String? fcmToken = await ref.read(firebaseMessagingProvider).getToken();
         await userService.signUp(
           nameController.text,
           lastNameController.text,
           emailController.text,
           passwordController.text,
+          fcmToken!,
         );
 
         if (userService.isLoggedIn() && context.mounted) {

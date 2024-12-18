@@ -42,6 +42,7 @@ void main() {
       final password = 'password123';
       final firstName = 'John';
       final lastName = 'Doe';
+      final fcmToken = 'fcmToken';
       final mockUser = MockUser();
       final appUser = AppUser(
         uid: '123',
@@ -52,12 +53,12 @@ void main() {
 
       when(mockUserRepository.signUp(email, password)).thenAnswer((_) async => mockUser);
 
-      when(mockUserRepository.createUser(mockUser, firstName, lastName)).thenAnswer((_) async => appUser);
+      when(mockUserRepository.createUser(mockUser, firstName, lastName, fcmToken)).thenAnswer((_) async => appUser);
 
-      await userService.signUp(firstName, lastName, email, password);
+      await userService.signUp(firstName, lastName, email, password, fcmToken);
 
       verify(mockUserRepository.signUp(email, password)).called(1);
-      verify(mockUserRepository.createUser(mockUser, firstName, lastName)).called(1);
+      verify(mockUserRepository.createUser(mockUser, firstName, lastName, fcmToken)).called(1);
     });
   });
 

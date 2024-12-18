@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -33,4 +34,11 @@ final FirebaseAnalytics firebaseAnalyticsInstance = FirebaseAnalytics.instance;
 @Riverpod(keepAlive: true)
 FirebaseAnalytics firebaseAnalytics(ref) {
   return firebaseAnalyticsInstance;
+}
+
+final FirebaseMessaging firebaseMessagingInstance = FirebaseMessaging.instance;
+
+@Riverpod(keepAlive: true)
+FirebaseMessaging firebaseMessaging(ref) {
+  return firebaseMessagingInstance;
 }

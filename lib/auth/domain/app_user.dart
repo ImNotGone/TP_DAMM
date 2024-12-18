@@ -17,6 +17,7 @@ class AppUser {
   String? profilePictureURL;
   String? registeredVolunteeringId;
   List<String>? favouriteVolunteeringIds;
+  String? fcmToken;
 
 
   AppUser({
@@ -29,7 +30,8 @@ class AppUser {
     this.phoneNumber,
     this.profilePictureURL,
     this.registeredVolunteeringId,
-    this.favouriteVolunteeringIds
+    this.favouriteVolunteeringIds,
+    this.fcmToken
   });
 
   bool isComplete (){
@@ -72,6 +74,7 @@ class AppUser {
     String? profilePictureURL,
     String? registeredVolunteeringId,
     List<String>? favouriteVolunteeringIds,
+    String? fcmToken
   }) {
     return AppUser(
       uid: uid ?? this.uid,
@@ -84,6 +87,7 @@ class AppUser {
       profilePictureURL: profilePictureURL ?? this.profilePictureURL,
       registeredVolunteeringId: registeredVolunteeringId ?? this.registeredVolunteeringId,
       favouriteVolunteeringIds: favouriteVolunteeringIds ?? this.favouriteVolunteeringIds,
+      fcmToken: fcmToken ?? this.fcmToken
     );
   }
 

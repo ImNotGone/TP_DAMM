@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:ser_manos_mobile/providers/firebase_providers.dart';
 import 'package:ser_manos_mobile/providers/router_provider.dart';
 import 'package:ser_manos_mobile/providers/app_state_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
@@ -43,10 +44,23 @@ Future<void> initializeProviders(ProviderContainer container, bool hasSeenWelcom
     currentUser = await userService.getCurrentUser();
     if(currentUser != null){
       container.read(appStateNotifierProvider.notifier).authenticate();
+
+      String? oldToken = currentUser.fcmToken;
+      String? newtoken = await container.read(firebaseMessagingProvider).getToken();
+
+      if(oldToken != newtoken){
+        currentUser.fcmToken = newtoken;
+        await userService.updateUser(currentUser);
+      }
+
       container.read(currentUserNotifierProvider.notifier).setUser(currentUser);
     }
   } catch(e) {
     container.read(appStateNotifierProvider.notifier).unauthenticate();
+  }
+  finally{
+    container.read(firebaseMessagingProvider).requestPermission(provisional: true);
+    container.read(firebaseMessagingProvider).setAutoInitEnabled(true);
   }
 }
 

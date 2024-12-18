@@ -14,10 +14,10 @@ class UserService {
     return await _userRepository.signIn(email, password);
   }
 
-  Future<void> signUp(String firstName, String lastName, String email, String password) async {
+  Future<void> signUp(String firstName, String lastName, String email, String password, String fcmToken) async {
     User? user = await _userRepository.signUp(email, password);
     if (user != null) {
-      await _userRepository.createUser(user, firstName, lastName);
+      await _userRepository.createUser(user, firstName, lastName, fcmToken);
     }
   }
 

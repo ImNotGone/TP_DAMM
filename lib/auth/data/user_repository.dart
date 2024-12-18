@@ -13,12 +13,13 @@ class UserRepository {
   UserRepository(this._firestore, this._auth, this._storage);
 
   Future<AppUser> createUser(
-      User user, String firstName, String lastName) async {
+      User user, String firstName, String lastName, String fcmToken) async {
     final newUser = AppUser(
       uid: user.uid,
       email: user.email!,
       firstName: firstName,
       lastName: lastName,
+      fcmToken: fcmToken,
     );
     await _firestore.collection('users').doc(user.uid).set(newUser.toJson());
     return newUser;
