@@ -36,6 +36,6 @@ void main() {
 
       expect(result, [newsItem]);
       verify(mockNewsRepository.fetchNews()).called(1);
-    });
+    }, tags: ['news']);
   });
 }

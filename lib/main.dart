@@ -71,39 +71,33 @@ void _setNotificationListener(ProviderContainer container){
   });
 }
 
-Future<void> _initializeProviders(
-    ProviderContainer container, bool hasSeenWelcomeScreen) async {
-  container.read(hasSeenWelcomeScreenProvider.notifier).state =
-      hasSeenWelcomeScreen;
+
+Future<void> _initializeProviders(ProviderContainer container, bool hasSeenWelcomeScreen) async {
+  container.read(hasSeenWelcomeScreenProvider.notifier).state = hasSeenWelcomeScreen;
 
   AppUser? currentUser;
-  try {
+  try{
     final userService = container.read(userServiceProvider);
     currentUser = await userService.getCurrentUser();
-    if (currentUser != null) {
+    if(currentUser != null){
       container.read(appStateNotifierProvider.notifier).authenticate();
 
       String? oldToken = currentUser.fcmToken;
-      String? newtoken =
-          await container.read(firebaseMessagingProvider).getToken();
+      String? newtoken = await container.read(firebaseMessagingProvider).getToken();
 
-      if (oldToken != newtoken) {
+      if(oldToken != newtoken){
         currentUser.fcmToken = newtoken;
         await userService.updateUser(currentUser);
       }
 
       container.read(currentUserNotifierProvider.notifier).setUser(currentUser);
     }
-  } catch (e) {
+  } catch(e) {
     container.read(appStateNotifierProvider.notifier).unauthenticate();
-  } finally {
-    container
-        .read(firebaseMessagingProvider)
-        .requestPermission(provisional: true);
+  }
+  finally{
+    container.read(firebaseMessagingProvider).requestPermission(provisional: true);
     container.read(firebaseMessagingProvider).setAutoInitEnabled(true);
-    container
-        .read(firebaseAnalyticsProvider)
-        .setAnalyticsCollectionEnabled(true);
   }
 }
 

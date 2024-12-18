@@ -43,7 +43,7 @@ void main() {
 
       expect(result, emits({'v1': volunteering}));
       verify(mockVolunteeringRepository.fetchVolunteerings()).called(1);
-    });
+    }, tags: ['volunteering']);
 
     test('volunteerToVolunteering should call volunteerToVolunteering on repository', () async {
 
@@ -56,7 +56,7 @@ void main() {
 
       expect(result, volunteering);
       verify(mockVolunteeringRepository.volunteerToVolunteering(volunteeringId, userId)).called(1);
-    });
+    }, tags: ['volunteering']);
 
     test('unvolunteerToVolunteering should call unvolunteerToVolunteering on repository', () async {
 
@@ -69,6 +69,6 @@ void main() {
 
       expect(result, volunteering);
       verify(mockVolunteeringRepository.unvolunteerToVolunteering(volunteeringId, userId)).called(1);
-    });
+    }, tags: ['volunteering']);
   });
 }
