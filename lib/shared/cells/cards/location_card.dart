@@ -25,19 +25,22 @@ class LocationCard extends HookWidget {
     final markers = useState(<Marker>{});
 
     void createMarkers() async {
-      icon.value = await const Icon(
+      final newIcon = await const Icon(
         Icons.location_on,
         size: 32,
         color: SerManosColors.primary100,
       ).toBitmapDescriptor();
+      if (context.mounted) {
+        icon.value = newIcon;
 
-      markers.value.add(
-        Marker(
-            markerId: const MarkerId('location'),
-            position: LatLng(location.latitude, location.longitude),
-            icon: icon.value
-        ),
-      );
+        markers.value.add(
+          Marker(
+              markerId: const MarkerId('location'),
+              position: LatLng(location.latitude, location.longitude),
+              icon: icon.value
+          ),
+        );
+      }
     }
 
     useEffect(() {
