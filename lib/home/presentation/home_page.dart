@@ -22,6 +22,7 @@ class HomePageState extends State<HomePage> {
     const ProfileScreen(),
     const NewsScreen(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -29,52 +30,48 @@ class HomePageState extends State<HomePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: SerManosColors.secondary90,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Image.asset('assets/logo_rectangular.png',
-                  fit: BoxFit.cover, height: 25, width: 147),
-            ],
-          ),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(52),
-            child: Container(
-              height: 52,
-              color: SerManosColors.secondary100,
-              child: TabBar(
-                  labelColor: SerManosColors.neutral0,
-                  unselectedLabelColor: SerManosColors.neutral25,
-                  labelStyle: SerManosTextStyle.button(),
-                  dividerColor: SerManosColors.secondary100,
-                  indicator: const BoxDecoration(
-                    color: SerManosColors.secondary200,
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Colors.white, // White underline
-                        width: 3.0,
+            backgroundColor: SerManosColors.secondary90,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.asset('assets/logo_rectangular.png',
+                    fit: BoxFit.cover, height: 25, width: 147),
+              ],
+            ),
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(52),
+              child: Container(
+                  height: 52,
+                  color: SerManosColors.secondary100,
+                  child: TabBar(
+                    labelColor: SerManosColors.neutral0,
+                    unselectedLabelColor: SerManosColors.neutral25,
+                    labelStyle: SerManosTextStyle.button(),
+                    dividerColor: SerManosColors.secondary100,
+                    indicator: const BoxDecoration(
+                      color: SerManosColors.secondary200,
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.white, // White underline
+                          width: 3.0,
+                        ),
                       ),
                     ),
-                  ),
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  tabs: [
-                    Tab(text: LocaleKeys.apply.tr()),
-                    Tab(text: LocaleKeys.myProfile.tr()),
-                    Tab(text: LocaleKeys.news.tr()),
-                  ],
-                  onTap: (index) {
-                    setState(() {
-                      _currentScreen = index;
-                    });
-                  },
-            )
-            ),
-          )
-        ),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    tabs: [
+                      Tab(text: LocaleKeys.apply.tr()),
+                      Tab(text: LocaleKeys.myProfile.tr()),
+                      Tab(text: LocaleKeys.news.tr()),
+                    ],
+                    onTap: (index) {
+                      setState(() {
+                        _currentScreen = index;
+                      });
+                    },
+                  )),
+            )),
         body: Container(
-            color: SerManosColors.secondary10,
-            child: _screens[_currentScreen]
-        ),
+            color: SerManosColors.secondary10, child: _screens[_currentScreen]),
       ),
     );
   }
