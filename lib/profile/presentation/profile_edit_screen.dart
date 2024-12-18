@@ -1,12 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/change_profile_picture_card.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/input_card.dart';
@@ -20,11 +20,11 @@ import 'package:ser_manos_mobile/shared/molecules/inputs/validation/validator.da
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 import '../../auth/domain/app_user.dart';
 import '../../shared/tokens/text_style.dart';
+import '../../translations/locale_keys.g.dart';
 import '../../volunteer/application/volunteering_service.dart';
 import '../../volunteer/domain/volunteering.dart';
 import '../../providers/service_providers.dart';
 import '../../providers/user_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../providers/volunteering_provider.dart';
 import '../../shared/molecules/inputs/text_input.dart';
@@ -80,13 +80,13 @@ class ProfileEditScreen extends HookConsumerWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(AppLocalizations.of(context)!.chooseImageSource),
+            title: Text(LocaleKeys.chooseImageSource.tr()),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 ListTile(
                   leading: const Icon(Icons.camera_alt),
-                  title: Text(AppLocalizations.of(context)!.camera),
+                  title: Text(LocaleKeys.camera.tr()),
                   onTap: () {
                     Navigator.pop(context); // Close the dialog
                     pickImage(ImageSource.camera);
@@ -94,7 +94,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                 ),
                 ListTile(
                   leading: const Icon(Icons.photo),
-                  title: Text(AppLocalizations.of(context)!.gallery),
+                  title: Text(LocaleKeys.gallery.tr()),
                   onTap: () {
                     Navigator.pop(context); // Close the dialog
                     pickImage(ImageSource.gallery);
@@ -107,7 +107,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                 onPressed: () {
                   Navigator.pop(context); // Close the dialog
                 },
-                child: Text(AppLocalizations.of(context)!.cancel),
+                child: Text(LocaleKeys.cancel.tr()),
               ),
             ],
           );
@@ -210,7 +210,7 @@ class ProfileEditScreen extends HookConsumerWidget {
               context: context,
               builder: (BuildContext context) {
                 return Modal(
-                  confirmButtonText: AppLocalizations.of(context)!.confirm,
+                  confirmButtonText: LocaleKeys.confirm.tr(),
                   onConfirm: () {
                     applyChangesWithVolunteering();
                   },
@@ -219,7 +219,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppLocalizations.of(context)!.youAreApplyingTo,
+                        LocaleKeys.youAreApplyingTo.tr(),
                         style: SerManosTextStyle.subtitle01(),
                       ),
                       Text(
@@ -267,13 +267,13 @@ class ProfileEditScreen extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.profileData,
+                  LocaleKeys.profileData.tr(),
                   style: SerManosTextStyle.headline01(),
                 ),
                 const SizedBox(height: 24),
                 CalendarInput(
                   initialDate: selectedDate.value,
-                  label: AppLocalizations.of(context)!.birthDate,
+                  label: LocaleKeys.birthDate.tr(),
                   controller: birthDateController,
                 ),
                 const SizedBox(height: 24),
@@ -284,7 +284,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                 if (selectedGender.value == null)
                   Padding(padding: EdgeInsets.only(left: 14),
                     child: Text(
-                      AppLocalizations.of(context)!.requiredError,
+                      LocaleKeys.requiredError.tr(),
                       style: SerManosTextStyle.body02().copyWith(color: SerManosColors.error100),
                     ),
                   ),
@@ -301,24 +301,24 @@ class ProfileEditScreen extends HookConsumerWidget {
                 if (profilePictureUrl.value == null && pickedImage.value == null)
                   Padding(padding: EdgeInsets.only(left: 14),
                     child: Text(
-                      AppLocalizations.of(context)!.requiredError,
+                      LocaleKeys.requiredError.tr(),
                       style: SerManosTextStyle.body02().copyWith(color: SerManosColors.error100),
                     ),
                   ),
                 const SizedBox(height: 32),
                 Text(
-                  AppLocalizations.of(context)!.contactData,
+                  LocaleKeys.contactData.tr(),
                   style: SerManosTextStyle.headline01(),
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  AppLocalizations.of(context)!.contactDataDetail,
+                  LocaleKeys.contactDataDetail.tr(),
                   style: SerManosTextStyle.subtitle01(),
                 ),
                 const SizedBox(height: 24),
                 UtilTextInput(
-                  label: AppLocalizations.of(context)!.cellphone,
-                  hintText: AppLocalizations.of(context)!.cellphoneHint,
+                  label: LocaleKeys.cellphone.tr(),
+                  hintText: LocaleKeys.cellphoneHint.tr(),
                   controller: phoneNumberController,
                   keyboardType: TextInputType.phone,
                   textInputAction: TextInputAction.next,
@@ -330,8 +330,8 @@ class ProfileEditScreen extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 24),
                 UtilTextInput(
-                  label: AppLocalizations.of(context)!.email,
-                  hintText: AppLocalizations.of(context)!.emailHint,
+                  label: LocaleKeys.email.tr(),
+                  hintText: LocaleKeys.emailHint.tr(),
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   validator: Validator.apply(context, [
@@ -343,7 +343,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                 const SizedBox(height: 32),
                 UtilFilledButton(
                   onPressed: isSaveDataEnabled.value ? saveProfile : null,
-                  text: AppLocalizations.of(context)!.saveData,
+                  text: LocaleKeys.saveData.tr(),
                   isLoading: isLoading.value,
                 ),
                 const SizedBox(height: 16),

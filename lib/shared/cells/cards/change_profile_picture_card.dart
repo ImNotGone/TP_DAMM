@@ -1,9 +1,10 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
+import '../../../translations/locale_keys.g.dart';
 import '../../tokens/text_style.dart';
 
 class ChangeProfilePictureCard extends StatelessWidget {
@@ -36,7 +37,7 @@ class ChangeProfilePictureCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.profilePicture,
+                      LocaleKeys.profilePicture.tr(),
                       style: SerManosTextStyle.subtitle01(),
                     ),
                     const SizedBox(height: 8),
@@ -52,7 +53,7 @@ class ChangeProfilePictureCard extends StatelessWidget {
                                 foregroundColor:
                                     SerManosColors.neutral0),
                             child: Text(
-                                AppLocalizations.of(context)!.changePicture))),
+                                LocaleKeys.changePicture.tr()))),
                   ],
                 ),
               ),

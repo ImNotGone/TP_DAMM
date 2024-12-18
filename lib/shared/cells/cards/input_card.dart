@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/shared/cells/cards/blue_header_card.dart';
 
 import '../../../auth/domain/app_user.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../tokens/text_style.dart';
 
 class InputCard extends StatefulWidget {
@@ -26,7 +27,7 @@ class InputCardState extends State<InputCard> {
   @override
   Widget build(BuildContext context) {
     return BlueHeaderCard(
-      title: AppLocalizations.of(context)!.profileInfo,
+      title: LocaleKeys.profileInfo.tr(),
         child:
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

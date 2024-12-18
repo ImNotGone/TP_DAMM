@@ -1,4 +1,4 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
@@ -6,6 +6,7 @@ import 'package:ser_manos_mobile/providers/app_state_provider.dart';
 
 import '../../shared/tokens/colors.dart';
 import '../../shared/tokens/text_style.dart';
+import '../../translations/locale_keys.g.dart';
 
 class PostLoginWelcome extends HookConsumerWidget {
   const PostLoginWelcome({super.key});
@@ -25,9 +26,9 @@ class PostLoginWelcome extends HookConsumerWidget {
               children: [
                 Image.asset('assets/logo_square.png', width: 150, height: 150),
                 const SizedBox(height: 16),
-                Text(AppLocalizations.of(context)!.welcome, style: SerManosTextStyle.headline01()),
+                Text(LocaleKeys.welcome.tr(), style: SerManosTextStyle.headline01()),
                 const SizedBox(height: 16),
-                Text(AppLocalizations.of(context)!.postLoginWelcome, style: SerManosTextStyle.subtitle01(), textAlign: TextAlign.center,)
+                Text(LocaleKeys.postLoginWelcome.tr(), style: SerManosTextStyle.subtitle01(), textAlign: TextAlign.center,)
               ],
             ),
             const Spacer(),
@@ -37,7 +38,7 @@ class PostLoginWelcome extends HookConsumerWidget {
                   onPressed: () {
                     ref.read(appStateNotifierProvider.notifier).authenticate();
                   },
-                  text: AppLocalizations.of(context)!.begin,
+                  text: LocaleKeys.begin.tr(),
                 ),
                 const SizedBox(height: 56),
               ],

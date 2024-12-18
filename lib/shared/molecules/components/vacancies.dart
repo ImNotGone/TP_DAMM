@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
+import '../../../translations/locale_keys.g.dart';
 import '../../tokens/text_style.dart';
 
 class Vacancies extends StatelessWidget {
@@ -26,7 +27,7 @@ class Vacancies extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 2),
             child: Text(
-                '${AppLocalizations.of(context)!.vacancies}:',
+                '${LocaleKeys.vacancies.tr()}:',
                 style: SerManosTextStyle.body02()
             ),
           ),

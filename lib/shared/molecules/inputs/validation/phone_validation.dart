@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/validation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../translations/locale_keys.g.dart';
 
 class PhoneValidation extends Validation<String> {
   const PhoneValidation();
@@ -17,7 +19,7 @@ class PhoneValidation extends Validation<String> {
     );
 
     if (!phoneRegex.hasMatch(value)) {
-      return AppLocalizations.of(context)!.invalidPhoneError;
+      return LocaleKeys.invalidPhoneError.tr();
     }
 
     return null;

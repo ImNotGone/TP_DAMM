@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../translations/locale_keys.g.dart';
 
 part 'app_user.g.dart';
 
@@ -101,11 +103,11 @@ enum Gender{
   String localizedName(BuildContext context) {
     switch (this) {
       case Gender.male:
-        return AppLocalizations.of(context)!.male;
+        return LocaleKeys.genderMale.tr();
       case Gender.female:
-        return AppLocalizations.of(context)!.female;
+        return LocaleKeys.genderFemale.tr();
       case Gender.nonBinary:
-        return AppLocalizations.of(context)!.nonBinary;
+        return LocaleKeys.nonBinary.tr();
     }
   }
 }

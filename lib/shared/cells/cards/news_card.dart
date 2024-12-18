@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import '../../../news/domain/news.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../tokens/colors.dart';
 import '../../tokens/shadows.dart';
 import '../../tokens/text_style.dart';
@@ -62,7 +63,7 @@ class NewsCard extends StatelessWidget {
                                     context.push('/newsDetail/${news.uid}');
                                   },
                                   child: Text(
-                                    AppLocalizations.of(context)!.readMore,
+                                    LocaleKeys.readMore.tr(),
                                     style: SerManosTextStyle.button().copyWith(color: SerManosColors.primary100),
                                   )
                               )

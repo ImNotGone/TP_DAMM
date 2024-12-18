@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,6 +20,7 @@ import '../../shared/molecules/inputs/password_input.dart';
 import '../../shared/molecules/inputs/validation/validator.dart';
 import '../../shared/tokens/colors.dart';
 import '../../shared/tokens/text_style.dart';
+import '../../translations/locale_keys.g.dart';
 import '../domain/app_user.dart';
 
 final formKey = GlobalKey<FormState>();
@@ -68,13 +69,13 @@ class SignUpScreen extends HookConsumerWidget {
           String errorMessage;
           switch (e.code) {
             case 'email-already-in-use':
-              errorMessage = AppLocalizations.of(context)!.emailAlreadyInUse;
+              errorMessage = LocaleKeys.emailAlreadyInUse.tr();
               break;
             case 'weak-password':
-              errorMessage = AppLocalizations.of(context)!.weakPassword;
+              errorMessage = LocaleKeys.weakPassword.tr();
               break;
             default:
-              errorMessage = AppLocalizations.of(context)!.errorOcurred;
+              errorMessage = LocaleKeys.errorOcurred.tr();
           }
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -118,8 +119,8 @@ class SignUpScreen extends HookConsumerWidget {
                 child: Column(
                   children: [
                     UtilTextInput(
-                        label: AppLocalizations.of(context)!.name,
-                        hintText: AppLocalizations.of(context)!.nameHint,
+                        label: LocaleKeys.name.tr(),
+                        hintText: LocaleKeys.nameHint.tr(),
                         controller: nameController,
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
@@ -128,8 +129,8 @@ class SignUpScreen extends HookConsumerWidget {
                         ])),
                     const SizedBox(height: 24),
                     UtilTextInput(
-                        label: AppLocalizations.of(context)!.lastName,
-                        hintText: AppLocalizations.of(context)!.lastNameHint,
+                        label: LocaleKeys.lastName.tr(),
+                        hintText: LocaleKeys.lastNameHint.tr(),
                         controller: lastNameController,
                         keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
@@ -138,8 +139,8 @@ class SignUpScreen extends HookConsumerWidget {
                         ])),
                     const SizedBox(height: 24),
                     UtilTextInput(
-                      label: AppLocalizations.of(context)!.email,
-                      hintText: AppLocalizations.of(context)!.emailHint,
+                      label: LocaleKeys.email.tr(),
+                      hintText: LocaleKeys.emailHint.tr(),
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
@@ -150,8 +151,8 @@ class SignUpScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 24),
                     PasswordInput(
-                      label: AppLocalizations.of(context)!.password,
-                      hintText: AppLocalizations.of(context)!.passwordHint,
+                      label: LocaleKeys.password.tr(),
+                      hintText: LocaleKeys.passwordHint.tr(),
                       controller: passwordController,
                       validator: Validator.apply(context, [
                         const RequiredValidation(),
@@ -175,13 +176,13 @@ class SignUpScreen extends HookConsumerWidget {
             UtilFilledButton(
                 isLoading: isLoading.value,
                 onPressed: isSignUpButtonEnabled.value ? handleSignup : null,
-                text: AppLocalizations.of(context)!.signUp),
+                text: LocaleKeys.signUp.tr()),
             const SizedBox(height: 8),
             UtilTextButton(
               onPressed: () {
                 context.replace('/login');
               },
-              text: AppLocalizations.of(context)!.haveAccount,
+              text: LocaleKeys.haveAccount.tr(),
             ),
           ],
         ),

@@ -1,4 +1,4 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ser_manos_mobile/shared/molecules/buttons/filled.dart';
@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../shared/molecules/buttons/text.dart';
 import '../../shared/tokens/colors.dart';
 import '../../shared/tokens/text_style.dart';
+import '../../translations/locale_keys.g.dart';
 
 class PreLoginWelcome extends StatelessWidget {
   const PreLoginWelcome({super.key});
@@ -25,7 +26,7 @@ class PreLoginWelcome extends StatelessWidget {
               children: [
                 Image.asset('assets/logo_square.png', width: 150, height: 150),
                 const SizedBox(height: 16),
-                Text(AppLocalizations.of(context)!.preLoginWelcome, style: SerManosTextStyle.subtitle01(), textAlign: TextAlign.center,)
+                Text(LocaleKeys.preLoginWelcome.tr(), style: SerManosTextStyle.subtitle01(), textAlign: TextAlign.center,)
               ],
             ),
             const Spacer(),
@@ -38,7 +39,7 @@ class PreLoginWelcome extends StatelessWidget {
                         prefs.setBool('hasSeenWelcomeScreen', true);
                       });
                     },
-                    text: AppLocalizations.of(context)!.login
+                    text: LocaleKeys.login.tr()
                 ),
                 const SizedBox(height: 8),
                 UtilTextButton(
@@ -48,7 +49,7 @@ class PreLoginWelcome extends StatelessWidget {
                         prefs.setBool('hasSeenWelcomeScreen', true);
                       });
                     },
-                    text: AppLocalizations.of(context)!.signUp
+                    text: LocaleKeys.signUp.tr()
                 ),
               ],
             ),

@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import '../../../../translations/locale_keys.g.dart';
 import 'validation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PasswordValidation implements Validation<String> {
   const PasswordValidation();
@@ -12,7 +13,7 @@ class PasswordValidation implements Validation<String> {
       return null;
     }
     if (value.length < 8) {
-      return AppLocalizations.of(context)!.invalidPasswordError;
+      return LocaleKeys.invalidPasswordError.tr();
     }
     return null;
   }

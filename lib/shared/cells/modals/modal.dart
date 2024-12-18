@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 import 'package:ser_manos_mobile/shared/tokens/shadows.dart';
+import '../../../translations/locale_keys.g.dart';
 import '../../molecules/buttons/text.dart';
 
 class Modal extends Dialog {
@@ -35,7 +36,7 @@ class Modal extends Dialog {
               children: [
                 UtilTextButton(
                   onPressed: () => GoRouter.of(context).pop(),
-                  text: AppLocalizations.of(context)!.cancel,
+                  text: LocaleKeys.cancel.tr(),
                   minWidth: 0,
                 ),
                 UtilTextButton(

@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../../translations/locale_keys.g.dart';
 import '../../tokens/colors.dart';
 import '../../tokens/text_style.dart';
 import 'blue_header_card.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LocationDetailCard extends StatelessWidget {
   final String address;
@@ -16,7 +17,7 @@ class LocationDetailCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlueHeaderCard(
-      title: AppLocalizations.of(context)!.location,
+      title: LocaleKeys.location.tr(),
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
@@ -26,7 +27,7 @@ class LocationDetailCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      AppLocalizations.of(context)!.address.toUpperCase(),
+                      LocaleKeys.address.tr().toUpperCase(),
                       style: SerManosTextStyle.overline()
                   ),
                   Text(

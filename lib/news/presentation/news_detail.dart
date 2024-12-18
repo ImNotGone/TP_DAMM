@@ -1,8 +1,8 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ser_manos_mobile/providers/firebase_providers.dart';
 import 'package:ser_manos_mobile/providers/news_provider.dart';
@@ -14,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 
 import '../../shared/tokens/colors.dart';
 import '../../shared/tokens/text_style.dart';
+import '../../translations/locale_keys.g.dart';
 
 class NewsDetail extends HookConsumerWidget {
   final String newsId;
@@ -35,7 +36,7 @@ class NewsDetail extends HookConsumerWidget {
             backgroundColor: SerManosColors.neutral0,
             appBar: AppBar(
               title: Text(
-                AppLocalizations.of(context)!.news,
+                LocaleKeys.news.tr(),
                 style: SerManosTextStyle.subtitle01()
                     .copyWith(color: SerManosColors.neutral0),
               ),
@@ -81,7 +82,7 @@ class NewsDetail extends HookConsumerWidget {
                     Container(
                         alignment: Alignment.center,
                         child: Text(
-                          AppLocalizations.of(context)!.shareThisNote,
+                          LocaleKeys.shareThisNote.tr(),
                           style: SerManosTextStyle.headline02(),
                         )),
                     const SizedBox(height: 16.0),
@@ -98,7 +99,7 @@ class NewsDetail extends HookConsumerWidget {
                               itemId: news.uid,
                               method: 'button');
                         },
-                        text: AppLocalizations.of(context)!.share),
+                        text: LocaleKeys.share.tr()),
                     const SizedBox(height: 32.0),
                   ],
                 )),

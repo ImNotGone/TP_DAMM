@@ -1,12 +1,13 @@
 import 'dart:developer';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/auth/application/user_service.dart';
+import 'package:ser_manos_mobile/translations/locale_keys.g.dart';
 import 'package:ser_manos_mobile/volunteer/application/volunteering_service.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
 import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
@@ -133,7 +134,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                       ),
                       const SizedBox(height: 24),
                       Text(
-                        AppLocalizations.of(context)!.activityDetailsTitle,
+                        LocaleKeys.activityDetailsTitle.tr(),
                         style: SerManosTextStyle.headline02(),
                       ),
                       const SizedBox(height: 8),
@@ -151,15 +152,13 @@ class VolunteeringDetail extends HookConsumerWidget {
                           if (volunteering.applicants[currentUser.uid]!) ...[
                             Center(
                               child: Text(
-                                AppLocalizations.of(context)!
-                                    .youreParticipating,
+                                LocaleKeys.youreParticipating.tr(),
                                 style: SerManosTextStyle.headline02(),
                               ),
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              AppLocalizations.of(context)!
-                                  .organizationConfirmation,
+                              LocaleKeys.organizationConfirmation.tr(),
                               style: SerManosTextStyle.body01(),
                               textAlign: TextAlign.center,
                             ),
@@ -172,7 +171,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                     builder: (BuildContext context) =>
                                         Modal(
                                           confirmButtonText:
-                                          AppLocalizations.of(context)!.confirm,
+                                          LocaleKeys.confirm.tr(),
                                           onConfirm: () {
                                             unvolunteerToVolunteering(
                                                 volunteeringId);
@@ -183,8 +182,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                             CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                AppLocalizations.of(context)!
-                                                    .sureToAbandon,
+                                                LocaleKeys.sureToAbandon.tr(),
                                                 style: SerManosTextStyle.subtitle01(),
                                               ),
                                               Text(
@@ -196,21 +194,18 @@ class VolunteeringDetail extends HookConsumerWidget {
                                         ),
                                   );
                                 },
-                                text: AppLocalizations.of(context)!
-                                    .abandonVolunteering),
+                                text: LocaleKeys.abandonVolunteering.tr()),
 
                           ] else ...[
                             Center(
                               child: Text(
-                                AppLocalizations.of(context)!
-                                    .youApplied,
+                                  LocaleKeys.youApplied.tr(),
                                 style: SerManosTextStyle.headline02()
                               ),
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              AppLocalizations.of(context)!
-                                  .confirmationPending,
+                              LocaleKeys.confirmationPending.tr(),
                               style: SerManosTextStyle.body01(),
                               textAlign: TextAlign.center,
                             ),
@@ -223,7 +218,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                     builder: (BuildContext context) =>
                                         Modal(
                                           confirmButtonText:
-                                          AppLocalizations.of(context)!.confirm,
+                                          LocaleKeys.confirm.tr(),
                                           onConfirm: () {
                                             unvolunteerToVolunteering(
                                                 volunteeringId);
@@ -234,8 +229,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                             CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                AppLocalizations.of(context)!
-                                                    .sureToUnapply,
+                                                LocaleKeys.sureToUnapply.tr(),
                                                 style: SerManosTextStyle.subtitle01(),
                                               ),
                                               Text(
@@ -247,16 +241,14 @@ class VolunteeringDetail extends HookConsumerWidget {
                                         ),
                                   );
                                 },
-                                text: AppLocalizations.of(context)!
-                                    .abandonVolunteering),
+                                text: LocaleKeys.abandonVolunteering.tr()),
                           ]
                         ] else
                           if (currentUser.registeredVolunteeringId !=
                               volunteeringId) ...[
                             Center(
                               child: Text(
-                                AppLocalizations.of(context)!
-                                    .alreadyParticipating,
+                                LocaleKeys.alreadyParticipating.tr(),
                                 style: SerManosTextStyle.body01(),
                               ),
                             ),
@@ -269,7 +261,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                     builder: (BuildContext context) =>
                                         Modal(
                                           confirmButtonText:
-                                          AppLocalizations.of(context)!.confirm,
+                                          LocaleKeys.confirm.tr(),
                                           onConfirm: () {
                                             unvolunteerToVolunteering(currentUser
                                                 .registeredVolunteeringId!);
@@ -280,8 +272,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                             CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                AppLocalizations.of(context)!
-                                                    .sureToAbandon,
+                                                LocaleKeys.sureToAbandon.tr(),
                                                 style: SerManosTextStyle.subtitle01(),
                                               ),
                                               Text(
@@ -297,27 +288,24 @@ class VolunteeringDetail extends HookConsumerWidget {
                                         ),
                                   );
                                 },
-                                text: AppLocalizations.of(context)!
-                                    .abandonVolunteering),
+                                text: LocaleKeys.abandonVolunteering.tr()),
                             const SizedBox(height: 24),
                             UtilFilledButton(
                               onPressed: null,
-                              text: AppLocalizations.of(context)!
-                                  .applyForVolunteering,
+                              text: LocaleKeys.applyForVolunteering.tr(),
                             ),
                           ]
                       ] else if (volunteering.vacancies <= 0) ...[
                           Center(
                             child: Text(
-                              AppLocalizations.of(context)!.noVacancies,
+                              LocaleKeys.noVacancies.tr(),
                               style: SerManosTextStyle.body01(),
                             ),
                           ),
                           const SizedBox(height: 24),
                           UtilFilledButton(
                             onPressed: null,
-                            text: AppLocalizations.of(context)!
-                                .applyForVolunteering,
+                            text: LocaleKeys.applyForVolunteering.tr(),
                           ),
                         ] else if(!currentUser.isComplete()) ...[
                         UtilFilledButton(
@@ -327,7 +315,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                               builder: (BuildContext context) =>
                                   Modal(
                                     confirmButtonText:
-                                    AppLocalizations.of(context)!.completeData,
+                                    LocaleKeys.completeData.tr(),
                                     onConfirm: () {
                                       context.push('/profile_edit', extra: volunteeringId);
                                     },
@@ -337,8 +325,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                       CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          AppLocalizations.of(context)!
-                                              .firstCompleteProfile,
+                                          LocaleKeys.firstCompleteProfile.tr(),
                                           style: SerManosTextStyle.subtitle01(),
                                         ),
                                       ],
@@ -346,8 +333,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                   ),
                             );
                           },
-                          text: AppLocalizations.of(context)!
-                              .applyForVolunteering,
+                          text: LocaleKeys.applyForVolunteering.tr(),
                         ),
                       ] else ...[
                             UtilFilledButton(
@@ -358,7 +344,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                   builder: (BuildContext context) =>
                                       Modal(
                                         confirmButtonText:
-                                        AppLocalizations.of(context)!.confirm,
+                                        LocaleKeys.confirm.tr(),
                                         onConfirm: volunteerToVolunteering,
                                         context: context,
                                         child: Column(
@@ -366,8 +352,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                           CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              AppLocalizations.of(context)!
-                                                  .youAreApplyingTo,
+                                              LocaleKeys.youAreApplyingTo.tr(),
                                               style: SerManosTextStyle.subtitle01(),
                                             ),
                                             Text(
@@ -379,8 +364,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                       ),
                                 );
                               },
-                              text: AppLocalizations.of(context)!
-                                  .applyForVolunteering,
+                              text: LocaleKeys.applyForVolunteering.tr(),
                             ),
                           ],
                       const SizedBox(height: 32),
@@ -402,7 +386,7 @@ class VolunteeringDetail extends HookConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.participateInVolunteering,
+          LocaleKeys.participateInVolunteering.tr(),
           style: SerManosTextStyle.headline02(),
         ),
         const SizedBox(height: 8),

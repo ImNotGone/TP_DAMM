@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/shared/tokens/shadows.dart';
 
+import '../../../translations/locale_keys.g.dart';
 import '../../tokens/colors.dart';
 import '../../tokens/text_style.dart';
 
@@ -48,7 +49,7 @@ class UtilSearchBar extends HookWidget {
               focusNode: focusNode,
               style: SerManosTextStyle.subtitle01(),
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.search,
+                hintText: LocaleKeys.search.tr(),
                 border: InputBorder.none,
                 hintStyle: SerManosTextStyle.subtitle01().copyWith(color: SerManosColors.neutral75),
               ),

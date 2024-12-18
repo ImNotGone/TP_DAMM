@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:ser_manos_mobile/translations/locale_keys.g.dart';
 
 part 'volunteering.g.dart';
 
@@ -112,7 +113,7 @@ enum VolunteeringType {
   String localizedName(BuildContext context) {
     switch (this) {
       case VolunteeringType.socialAction:
-        return AppLocalizations.of(context)!.socialAction;
+        return LocaleKeys.socialAction.tr();
     }
   }
 }

@@ -1,6 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,6 +20,7 @@ import '../../shared/molecules/inputs/validation/password_validation.dart';
 import '../../shared/molecules/inputs/validation/required_validation.dart';
 import '../../shared/molecules/inputs/validation/validator.dart';
 import '../../shared/tokens/colors.dart';
+import '../../translations/locale_keys.g.dart';
 import '../domain/app_user.dart';
 final formKey = GlobalKey<FormState>();
 
@@ -70,7 +71,7 @@ class LoginScreen extends HookConsumerWidget {
           ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  AppLocalizations.of(context)!.wrongEmailOrPassword,
+                  LocaleKeys.wrongEmailOrPassword.tr(),
                   style: SerManosTextStyle.body01().copyWith(color: SerManosColors.neutral0),
                 ),
                 backgroundColor: SerManosColors.error100,
@@ -101,9 +102,9 @@ class LoginScreen extends HookConsumerWidget {
                     Image.asset('assets/logo_square.png', width: 150, height: 150), // Logo at the top
                     const SizedBox(height: 16),
                     UtilTextInput(
-                      label: AppLocalizations.of(context)!.email,
+                      label: LocaleKeys.email.tr(),
                       labelWhenEmpty: false,
-                      hintText: AppLocalizations.of(context)!.email,
+                      hintText: LocaleKeys.email.tr(),
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
@@ -117,9 +118,9 @@ class LoginScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 16),
                     PasswordInput(
-                      label: AppLocalizations.of(context)!.password,
+                      label: LocaleKeys.password.tr(),
                       labelWhenEmpty: false,
-                      hintText: AppLocalizations.of(context)!.password,
+                      hintText: LocaleKeys.password.tr(),
                       controller: passwordController,
                       validator: Validator.apply(
                           context,
@@ -143,14 +144,14 @@ class LoginScreen extends HookConsumerWidget {
               UtilFilledButton(
                 isLoading: isLoading.value,
                 onPressed: isLoginEnabled.value ? handleLogin : null,
-                text: AppLocalizations.of(context)!.login,
+                text: LocaleKeys.login.tr(),
               ),
               const SizedBox(height: 8),
               UtilTextButton(
                 onPressed: () {
                   context.replace('/sign_up');
                 },
-                text: AppLocalizations.of(context)!.noAccount,
+                text: LocaleKeys.noAccount.tr(),
               ),
             ],
           ),

@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/providers/news_provider.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 import '../../shared/cells/cards/news_card.dart';
 import '../../shared/tokens/text_style.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../translations/locale_keys.g.dart';
 
 class NewsScreen extends HookConsumerWidget {
   const NewsScreen({super.key});
@@ -33,7 +34,7 @@ class NewsScreen extends HookConsumerWidget {
                 child: !allNews.hasValue || allNews.value!.isEmpty
                     ? Center(
                         child: Text(
-                          AppLocalizations.of(context)!.noNews,
+                          LocaleKeys.noNews.tr(),
                           style: SerManosTextStyle.subtitle01(),
                         )
                       )

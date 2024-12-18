@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,11 +13,12 @@ import 'package:ser_manos_mobile/providers/app_state_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import './translations/codegen_loader.g.dart';
 import 'auth/domain/app_user.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp();
 
@@ -29,9 +30,20 @@ Future<void> main() async {
   final container = ProviderContainer();
   await initializeProviders(container, hasSeenWelcomeScreen);
 
-  runApp(UncontrolledProviderScope(
-      container: container,
-      child: const MyApp())
+  runApp(
+      UncontrolledProviderScope(
+        container: container,
+        child: EasyLocalization(
+            supportedLocales: [
+              Locale('en'),
+              Locale('es')
+            ],
+            assetLoader: CodegenLoader(),
+            fallbackLocale: Locale('en'),
+            path: 'assets/translations',
+            child: const MyApp(),
+        )
+      )
   );
 }
 
@@ -112,9 +124,10 @@ class MyApp extends HookConsumerWidget {
 
     return MaterialApp.router(
       title: 'Ser Manos',
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
+      locale: context.locale,
       routerConfig: router,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(
         fontFamily: 'Roboto',
         colorScheme: ColorScheme(

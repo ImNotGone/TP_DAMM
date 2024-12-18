@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
+import 'package:ser_manos_mobile/translations/locale_keys.g.dart';
 
 import '../../providers/user_provider.dart';
 import '../../providers/volunteering_provider.dart';
@@ -11,7 +13,6 @@ import '../../shared/cells/cards/volunteer_card.dart';
 import '../../shared/molecules/components/no_volunteering.dart';
 import '../../shared/molecules/inputs/search_bar.dart';
 import '../../shared/tokens/text_style.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VolunteerListScreen extends HookConsumerWidget {
   final void Function() onIconPressed;
@@ -51,7 +52,7 @@ class VolunteerListScreen extends HookConsumerWidget {
                 ),
                 if (currentUser?.registeredVolunteeringId != null && filteredVolunteerings != null && filteredVolunteerings.isNotEmpty) ...[
                   Text(
-                    AppLocalizations.of(context)!.yourActivity,
+                    LocaleKeys.yourActivity.tr(),
                     style: SerManosTextStyle.headline01(),
                   ),
                   const SizedBox(
@@ -70,7 +71,7 @@ class VolunteerListScreen extends HookConsumerWidget {
                   ),
                 ],
                 Text(
-                  AppLocalizations.of(context)!.volunteering,
+                  LocaleKeys.volunteering.tr(),
                   style: SerManosTextStyle.headline01(),
                 ),
                 const SizedBox(height: 16),

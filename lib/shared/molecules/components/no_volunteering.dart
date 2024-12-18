@@ -1,7 +1,8 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
+import '../../../translations/locale_keys.g.dart';
 import '../../tokens/text_style.dart';
 
 class NoVolunteering extends StatelessWidget {
@@ -23,8 +24,8 @@ class NoVolunteering extends StatelessWidget {
       ),
       child: Text(
         isSearching
-            ? AppLocalizations.of(context)!.noSearchVolunteering
-            : AppLocalizations.of(context)!.noVolunteering,
+            ? LocaleKeys.noSearchVolunteering.tr()
+            : LocaleKeys.noVolunteering.tr(),
         textAlign: TextAlign.center,
         style: SerManosTextStyle.subtitle01(),
       ),

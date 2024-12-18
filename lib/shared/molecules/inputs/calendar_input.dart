@@ -1,13 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/date_validation.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/required_validation.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/validator.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 
+import '../../../translations/locale_keys.g.dart';
 import '../../tokens/text_style.dart';
 
 class CalendarInput extends HookWidget {
@@ -57,7 +57,7 @@ class CalendarInput extends HookWidget {
         labelStyle: SerManosTextStyle.body02().copyWith(color: labelColor.value),
         hintText: 'DD/MM/YYYY',
         hintStyle: SerManosTextStyle.subtitle01().copyWith(color: SerManosColors.neutral50),
-        helperText: focusNode.hasFocus ? AppLocalizations.of(context)!.dayMonthYear : null,
+        helperText: focusNode.hasFocus ? LocaleKeys.dayMonthYear.tr() : null,
         helperStyle: SerManosTextStyle.body02().copyWith(color: SerManosColors.neutral75),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: SerManosColors.neutral75, width: 1),

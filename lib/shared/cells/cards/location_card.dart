@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 import 'package:widget_to_marker/widget_to_marker.dart';
 
+import '../../../translations/locale_keys.g.dart';
 import '../../tokens/text_style.dart';
 import 'blue_header_card.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LocationCard extends HookWidget {
   final String address;
@@ -49,7 +50,7 @@ class LocationCard extends HookWidget {
     });
 
     return BlueHeaderCard(
-      title: AppLocalizations.of(context)!.location,
+      title: LocaleKeys.location.tr(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -83,7 +84,7 @@ class LocationCard extends HookWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                    AppLocalizations.of(context)!.address.toUpperCase(),
+                    LocaleKeys.address.tr().toUpperCase(),
                     style: SerManosTextStyle.overline()
                 ),
                 Text(

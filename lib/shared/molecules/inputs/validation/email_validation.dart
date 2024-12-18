@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:ser_manos_mobile/shared/molecules/inputs/validation/validation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../translations/locale_keys.g.dart';
 
 class EmailValidation extends Validation<String> {
   const EmailValidation();
@@ -15,7 +17,7 @@ class EmailValidation extends Validation<String> {
     // regex para mails
     final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
     if (!emailRegex.hasMatch(value)) {
-      return AppLocalizations.of(context)!.invalidEmailError;
+      return LocaleKeys.invalidEmailError.tr();
     }
 
     return null;

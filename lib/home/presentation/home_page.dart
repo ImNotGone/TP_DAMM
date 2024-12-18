@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:ser_manos_mobile/profile/presentation/profile_screen.dart';
 import 'package:ser_manos_mobile/shared/tokens/text_style.dart';
 import '../../shared/tokens/colors.dart';
+import '../../translations/locale_keys.g.dart';
 import '../../volunteer/presentation/volunteer_screen.dart';
 import '../../news/presentation/news_screen.dart';
 
@@ -57,9 +58,9 @@ class HomePageState extends State<HomePage> {
                   ),
                   indicatorSize: TabBarIndicatorSize.tab,
                   tabs: [
-                    Tab(text: AppLocalizations.of(context)!.apply),
-                    Tab(text: AppLocalizations.of(context)!.myProfile),
-                    Tab(text: AppLocalizations.of(context)!.news),
+                    Tab(text: LocaleKeys.apply.tr()),
+                    Tab(text: LocaleKeys.myProfile.tr()),
+                    Tab(text: LocaleKeys.news.tr()),
                   ],
                   onTap: (index) {
                     setState(() {

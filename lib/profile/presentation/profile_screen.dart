@@ -1,8 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 import 'package:ser_manos_mobile/providers/news_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
@@ -15,6 +14,7 @@ import '../../shared/cells/modals/modal.dart';
 import '../../shared/molecules/buttons/text.dart';
 import '../../shared/tokens/colors.dart';
 import '../../shared/tokens/text_style.dart';
+import '../../translations/locale_keys.g.dart';
 
 
 class ProfileScreen extends HookConsumerWidget {
@@ -51,18 +51,18 @@ class ProfileScreen extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 32),
                   InfoCard(
-                    title: AppLocalizations.of(context)!.personalInformation,
-                    label1: AppLocalizations.of(context)!.birthDate,
+                    title: LocaleKeys.personalInformation.tr(),
+                    label1: LocaleKeys.birthDate.tr(),
                     content1: DateFormat('dd/MM/yyyy').format(currentUser.birthDate!),
-                    label2: AppLocalizations.of(context)!.gender,
+                    label2: LocaleKeys.gender.tr(),
                     content2: currentUser.gender!.localizedName(context),
                   ),
                   const SizedBox(height: 32),
                   InfoCard(
-                    title: AppLocalizations.of(context)!.contactData,
-                    label1: AppLocalizations.of(context)!.cellphone,
+                    title: LocaleKeys.contactData.tr(),
+                    label1: LocaleKeys.cellphone.tr(),
                     content1: currentUser.phoneNumber!,
-                    label2: AppLocalizations.of(context)!.email,
+                    label2: LocaleKeys.email.tr(),
                     content2: currentUser.email,
                   ),
                 ],
@@ -87,7 +87,7 @@ class ProfileScreen extends HookConsumerWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                      AppLocalizations.of(context)!.completeProfile,
+                      LocaleKeys.completeProfile.tr(),
                       textAlign: TextAlign.center,
                       style: SerManosTextStyle.body01().copyWith(color: SerManosColors.neutral75),
                   ),
@@ -95,7 +95,7 @@ class ProfileScreen extends HookConsumerWidget {
               ),
             editButton: UtilShortButton(
                 onPressed: () => context.push('/profile_edit'),
-                text: AppLocalizations.of(context)!.complete,
+                text: LocaleKeys.complete.tr(),
                 icon: Icons.add
             )
           );
@@ -129,7 +129,7 @@ class _UserContent extends StatelessWidget {
                   profileWidget,
                   const SizedBox(height: 16),
                   Text(
-                    AppLocalizations.of(context)!.volunteer.toUpperCase(),
+                    LocaleKeys.volunteer.tr().toUpperCase(),
                     style: SerManosTextStyle.overline(),
                   ),
                   detailsWidget,
@@ -141,7 +141,7 @@ class _UserContent extends StatelessWidget {
                   height: 44,
                   child: UtilFilledButton(
                     onPressed: () => context.push('/profile_edit'),
-                    text: AppLocalizations.of(context)!.editProfile,
+                    text: LocaleKeys.editProfile.tr(),
                   ),
                 ),
             const SizedBox(height: 8),
@@ -174,17 +174,17 @@ class _SignOutButton extends HookConsumerWidget {
           showDialog(
             context: context,
             builder: (BuildContext context) => Modal(
-              confirmButtonText: AppLocalizations.of(context)!.logOut,
+              confirmButtonText: LocaleKeys.logOut.tr(),
               onConfirm: signOut,
               context: context,
               child: Text(
-                AppLocalizations.of(context)!.sureToLogOut,
+                LocaleKeys.sureToLogOut.tr(),
                 style: SerManosTextStyle.subtitle01(),
               ),
             ),
           );
         },
-        text: AppLocalizations.of(context)!.signOut,
+        text: LocaleKeys.signOut.tr(),
         foregroundColor: SerManosColors.error100,
       ),
     );

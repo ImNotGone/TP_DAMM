@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../../translations/locale_keys.g.dart';
 import '../../tokens/colors.dart';
 import '../../tokens/text_style.dart';
 
@@ -28,7 +29,7 @@ class UploadProfilePictureCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppLocalizations.of(context)!.profilePicture,
+                LocaleKeys.profilePicture.tr(),
                 style: SerManosTextStyle.subtitle01(),
               ),
               SizedBox(
@@ -42,7 +43,7 @@ class UploadProfilePictureCard extends StatelessWidget {
                           backgroundColor: SerManosColors.primary100,
                           foregroundColor: SerManosColors.neutral0
                       ),
-                      child: Text(AppLocalizations.of(context)!.uploadPicture)
+                      child: Text(LocaleKeys.uploadPicture.tr())
                   )
               ),
             ],
