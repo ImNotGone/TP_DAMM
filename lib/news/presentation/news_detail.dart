@@ -22,7 +22,7 @@ class NewsDetail extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final News? news = ref.read(newsNotifierProvider)?.firstWhere((news) => news.uid == newsId);
+    final News? news = ref.read(newsNotifierProvider).value?.firstWhere((news) => news.uid == newsId);
 
     return Scaffold(
       backgroundColor: SerManosColors.neutral0,

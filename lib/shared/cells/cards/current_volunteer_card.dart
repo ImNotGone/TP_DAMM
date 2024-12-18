@@ -15,7 +15,7 @@ class CurrrentVolunteerCard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final volunteering = ref.read(volunteeringsNotifierProvider)?[id];
+    final volunteering = ref.read(volunteeringsNotifierProvider).value?[id];
 
     return Container(
       height: 72,

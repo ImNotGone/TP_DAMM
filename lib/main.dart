@@ -7,13 +7,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:ser_manos_mobile/providers/news_provider.dart';
 import 'package:ser_manos_mobile/providers/router_provider.dart';
 import 'package:ser_manos_mobile/providers/app_state_provider.dart';
 import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/providers/user_provider.dart';
-import 'package:ser_manos_mobile/providers/volunteering_provider.dart';
-import 'package:ser_manos_mobile/volunteer/domain/volunteering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth/domain/app_user.dart';
@@ -47,17 +44,6 @@ Future<void> initializeProviders(ProviderContainer container, bool hasSeenWelcom
     if(currentUser != null){
       container.read(appStateNotifierProvider.notifier).authenticate();
       container.read(currentUserNotifierProvider.notifier).setUser(currentUser);
-
-      final newsService = container.read(newsServiceProvider);
-      final news = await newsService.fetchNews();
-      container.read(newsNotifierProvider.notifier).setNews(news);
-
-      final volunteeringService = container.read(volunteeringServiceProvider);
-      StreamSubscription<Map<String, Volunteering>> subscription =
-      volunteeringService.fetchVolunteerings().listen((volunteerings) {
-        container.read(volunteeringsNotifierProvider.notifier).setVolunteerings(volunteerings);
-      });
-      container.read(volunteeringsStreamNotifierProvider.notifier).setStream(subscription);
     }
   } catch(e) {
     container.read(appStateNotifierProvider.notifier).unauthenticate();

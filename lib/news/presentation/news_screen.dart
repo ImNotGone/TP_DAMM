@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ser_manos_mobile/providers/news_provider.dart';
-import 'package:ser_manos_mobile/providers/service_providers.dart';
 import 'package:ser_manos_mobile/shared/tokens/colors.dart';
 import '../../shared/cells/cards/news_card.dart';
 import '../../shared/tokens/text_style.dart';
@@ -15,21 +13,6 @@ class NewsScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final allNews = ref.watch(newsNotifierProvider);
 
-    Future<void> refreshNews() async {
-      final newsService = ref.read(newsServiceProvider);
-      await newsService.fetchNews().then((news) {
-        news.sort((a, b) => b.creationDate.compareTo(a.creationDate));
-        ref.read(newsNotifierProvider.notifier).setNews(news);
-      });
-    }
-
-    useEffect(() {
-      if(allNews == null) {
-        refreshNews();
-      }
-      return null;
-    }, []);
-
     return Scaffold(
       backgroundColor: SerManosColors.secondary10,
       body: Padding(
@@ -39,8 +22,8 @@ class NewsScreen extends HookConsumerWidget {
             Expanded(
               child: RefreshIndicator(
                 backgroundColor: SerManosColors.neutral0,
-                onRefresh: refreshNews,
-                child: allNews == null || allNews.isEmpty
+                onRefresh: ref.read(newsNotifierProvider.notifier).refreshNews,
+                child: !allNews.hasValue || allNews.value!.isEmpty
                     ? Center(
                         child: Text(
                           AppLocalizations.of(context)!.noNews,
@@ -48,9 +31,9 @@ class NewsScreen extends HookConsumerWidget {
                         )
                       )
                     : ListView.separated(
-                        itemCount: allNews.length,
+                        itemCount: allNews.value!.length,
                         itemBuilder: (context, index) {
-                          return NewsCard(news: allNews[index]);
+                          return NewsCard(news: allNews.value![index]);
                         },
                         separatorBuilder: (context, index) => const SizedBox(
                           height: 24,

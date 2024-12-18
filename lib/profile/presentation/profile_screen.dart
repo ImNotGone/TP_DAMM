@@ -24,7 +24,6 @@ class ProfileScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(currentUserNotifierProvider);
 
-
     return currentUser!.isComplete()
         ? _UserContent(
             profileWidget:
@@ -160,12 +159,12 @@ class _SignOutButton extends HookConsumerWidget {
     final userService = ref.read(userServiceProvider);
 
     void signOut() {
-      ref.read(volunteeringsStreamNotifierProvider.notifier).clearStream();
+      ref.invalidate(volunteeringsNotifierProvider);
+      ref.invalidate(currentUserNotifierProvider);
+      ref.invalidate(volunteeringsNotifierProvider);
+      ref.invalidate(newsNotifierProvider);
+      ref.invalidate(appStateNotifierProvider);
       userService.signOut();
-      ref.read(currentUserNotifierProvider.notifier).clearUser();
-      ref.read(volunteeringsNotifierProvider.notifier).clearVolunteerings();
-      ref.read(newsNotifierProvider.notifier).clearNews();
-      ref.read(appStateNotifierProvider.notifier).unauthenticate();
     }
 
     return SizedBox(

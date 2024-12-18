@@ -25,44 +25,40 @@ class VolunteerCard extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userService = ref.read(userServiceProvider);
 
-    final volunteering = ref.watch(volunteeringsNotifierProvider)?[volunteeringId];
+    final volunteering = ref.watch(volunteeringsNotifierProvider).value?[volunteeringId];
 
     if (volunteering == null) {
       return const SizedBox.shrink();
     }
 
     Future<void> markAsFavorite() async {
-      ref.read(volunteeringsNotifierProvider.notifier).setVolunteerings({
-        ...ref.watch(volunteeringsNotifierProvider)!,
-        volunteeringId: volunteering.copyWith(isFavourite: true),
-      });
+      ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(
+        volunteering.copyWith(isFavourite: true),
+      );
       try{
         AppUser user = await userService.markVolunteeringAsFavourite(volunteeringId);
         ref.read(currentUserNotifierProvider.notifier).setUser(user);
       }
       catch (e) {
         log(e.toString());
-        ref.read(volunteeringsNotifierProvider.notifier).setVolunteerings({
-          ...ref.watch(volunteeringsNotifierProvider)!,
-          volunteeringId: volunteering.copyWith(isFavourite: false),
-        });
+        ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(
+          volunteering.copyWith(isFavourite: false),
+        );
       }
     }
 
     Future<void> unmarkAsFavorite() async {
-      ref.read(volunteeringsNotifierProvider.notifier).setVolunteerings({
-        ...ref.watch(volunteeringsNotifierProvider)!,
-        volunteeringId: volunteering.copyWith(isFavourite: false),
-      });
+      ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(
+        volunteering.copyWith(isFavourite: false),
+      );
       try{
         AppUser user = await userService.unmarkVolunteeringAsFavourite(volunteeringId);
         ref.read(currentUserNotifierProvider.notifier).setUser(user);
       }catch(e){
         log(e.toString());
-        ref.read(volunteeringsNotifierProvider.notifier).setVolunteerings({
-          ...ref.watch(volunteeringsNotifierProvider)!,
-          volunteeringId: volunteering.copyWith(isFavourite: true),
-        });
+        ref.read(volunteeringsNotifierProvider.notifier).updateVolunteering(
+          volunteering.copyWith(isFavourite: true),
+        );
       }
     }
 

@@ -37,7 +37,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
     final carouselController = useMemoized(() => CarouselSliderController(), []);
 
 
-    final filteredVolunteerings = allVolunteerings?.values
+    final filteredVolunteerings = allVolunteerings.value?.values
         .where((volunteering) => volunteering.title
         .toLowerCase()
         .contains(searchQuery.value.toLowerCase()))

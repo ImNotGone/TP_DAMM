@@ -225,7 +225,7 @@ class ProfileEditScreen extends HookConsumerWidget {
                       Text(
                         ref
                             .read(
-                                volunteeringsNotifierProvider)![volunteeringId]!
+                                volunteeringsNotifierProvider).value![volunteeringId]!
                             .title,
                         style: SerManosTextStyle.headline02()
                       ),

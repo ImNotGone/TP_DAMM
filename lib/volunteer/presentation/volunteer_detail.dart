@@ -32,7 +32,7 @@ class VolunteeringDetail extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // find the volunteering that has volunteeringId
-    final Volunteering? volunteering = ref.watch(volunteeringsNotifierProvider)?[volunteeringId];
+    final Volunteering? volunteering = ref.watch(volunteeringsNotifierProvider).value?[volunteeringId];
     final AppUser? currentUser = ref.watch(currentUserNotifierProvider);
 
     final VolunteeringService volunteeringService = ref.read(volunteeringServiceProvider);
@@ -286,7 +286,7 @@ class VolunteeringDetail extends HookConsumerWidget {
                                               ),
                                               Text(
                                                 ref.read(
-                                                    volunteeringsNotifierProvider)
+                                                    volunteeringsNotifierProvider).value
                                                 ![currentUser
                                                     .registeredVolunteeringId!]
                                                 !.title,

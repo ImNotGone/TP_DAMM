@@ -25,8 +25,8 @@ class VolunteerListScreen extends HookConsumerWidget {
     final allVolunteerings = ref.watch(volunteeringsNotifierProvider);
     final currentUser = ref.watch(currentUserNotifierProvider);
 
-    final filteredVolunteerings = allVolunteerings?.values
-        .where((volunteering) => volunteering.title
+    final filteredVolunteerings = allVolunteerings.value
+        ?.values.where((volunteering) => volunteering.title
             .toLowerCase()
             .contains(searchQuery.value.toLowerCase()))
         .toList()
