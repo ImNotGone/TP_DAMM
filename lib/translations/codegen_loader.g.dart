@@ -100,7 +100,8 @@ class CodegenLoader extends AssetLoader{
   "wrongEmailOrPassword": "Email o contraseña incorrectos",
   "emailAlreadyInUse": "Email ya en uso",
   "weakPassword": "Contraseña débil",
-  "errorOcurred": "Ocurrió un error. Por favor, intenta nuevamente."
+  "errorOcurred": "Ocurrió un error. Por favor, intenta nuevamente.",
+  "dateFormat": "dd/MM/yyyy"
 };
 static const Map<String,dynamic> en = {
   "preLoginWelcome": "\"The selfless effort to bring joy to others will be the beginning of a happier life for ourselves.\"",
@@ -169,13 +170,13 @@ static const Map<String,dynamic> en = {
   "youreParticipating": "You are participating",
   "organizationConfirmation": "The organization confirmed that you are already participating in this volunteering",
   "alreadyParticipating": "You are already participating in another volunteering, you must abandon it first to apply for this one.",
-  "dayMonthYear": "Day / Month / Year",
+  "dayMonthYear": "Month / Day / Year",
   "cellphoneHint": "E.g. +541178445459",
   "requiredError": "Field required",
   "invalidEmailError": "Please enter a valid email address",
   "invalidPhoneError": "Please enter a valid argentinian phone number",
   "invalidPasswordError": "Password must have at least 8 characters",
-  "invalidDateError": "Please enter a valid date in DD/MM/YYYY format.",
+  "invalidDateError": "Please enter a valid date in MM/DD/YYYY format.",
   "dateInFutureError": "Date cannot be in the future",
   "firstCompleteProfile": "To apply you must first complete your data.",
   "completeData": "Complete data",
@@ -188,7 +189,8 @@ static const Map<String,dynamic> en = {
   "wrongEmailOrPassword": "Wrong email or password",
   "emailAlreadyInUse": "Email already in use",
   "weakPassword": "Weak password",
-  "errorOcurred": "An error occurred. Please try again."
+  "errorOcurred": "An error occurred. Please try again.",
+  "dateFormat": "MM/dd/yyyy"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es": es, "en": en};
 }

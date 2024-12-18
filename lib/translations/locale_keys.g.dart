@@ -87,5 +87,6 @@ abstract class  LocaleKeys {
   static const emailAlreadyInUse = 'emailAlreadyInUse';
   static const weakPassword = 'weakPassword';
   static const errorOcurred = 'errorOcurred';
+  static const dateFormat = 'dateFormat';
 
 }

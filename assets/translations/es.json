@@ -84,5 +84,6 @@
   "wrongEmailOrPassword": "Email o contraseña incorrectos",
   "emailAlreadyInUse": "Email ya en uso",
   "weakPassword": "Contraseña débil",
-  "errorOcurred": "Ocurrió un error. Por favor, intenta nuevamente."
+  "errorOcurred": "Ocurrió un error. Por favor, intenta nuevamente.",
+  "dateFormat": "dd/MM/yyyy"
 }

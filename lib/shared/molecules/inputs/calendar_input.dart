@@ -29,7 +29,7 @@ class CalendarInput extends HookWidget {
 
     useEffect(() {
       if (controller.text.isEmpty && initialDate != null) {
-        controller.text = DateFormat('dd/MM/yyyy').format(initialDate!);
+        controller.text = DateFormat(LocaleKeys.dateFormat.tr()).format(initialDate!);
       }
       focusNode.addListener(() {
         labelColor.value = focusNode.hasFocus ? SerManosColors.secondary200 : SerManosColors.neutral75;
@@ -55,7 +55,7 @@ class CalendarInput extends HookWidget {
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: label,
         labelStyle: SerManosTextStyle.body02().copyWith(color: labelColor.value),
-        hintText: 'DD/MM/YYYY',
+        hintText: LocaleKeys.dateFormat.tr().toUpperCase(),
         hintStyle: SerManosTextStyle.subtitle01().copyWith(color: SerManosColors.neutral50),
         helperText: focusNode.hasFocus ? LocaleKeys.dayMonthYear.tr() : null,
         helperStyle: SerManosTextStyle.body02().copyWith(color: SerManosColors.neutral75),
@@ -84,7 +84,7 @@ class CalendarInput extends HookWidget {
                 lastDate: DateTime.now()
             );
             if(date != null) {
-              controller.text = DateFormat('dd/MM/yyyy').format(date);
+              controller.text = DateFormat(LocaleKeys.dateFormat.tr()).format(date);
             }
           },
           icon: const Icon(

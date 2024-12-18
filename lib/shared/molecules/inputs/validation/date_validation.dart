@@ -13,7 +13,7 @@ class DateValidation extends Validation<String> {
       return null;
     }
 
-    final dateFormat = DateFormat('dd/MM/yyyy');
+    final dateFormat = DateFormat(LocaleKeys.dateFormat.tr());
 
     try {
       // Si esto falla, es invalido

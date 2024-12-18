@@ -47,7 +47,7 @@ class ProfileEditScreen extends HookConsumerWidget {
 
     final birthDateController = useTextEditingController(
         text: user?.birthDate != null
-            ? DateFormat('dd/MM/yyyy').format(user!.birthDate!)
+            ? DateFormat(LocaleKeys.dateFormat.tr()).format(user!.birthDate!)
             : '');
     final phoneNumberController = useTextEditingController(text: user?.phoneNumber ?? '');
     final emailController = useTextEditingController(text: user?.email ?? '');
@@ -143,7 +143,7 @@ class ProfileEditScreen extends HookConsumerWidget {
           updatedUser = updatedUser == null ?
           user.copyWith(
             birthDate: birthDateController.text.isNotEmpty
-                ? DateFormat('dd/MM/yyyy').parse(birthDateController.text)
+                ? DateFormat(LocaleKeys.dateFormat.tr()).parse(birthDateController.text)
                 : null,
             gender: selectedGender.value,
             phoneNumber: phoneNumberController.text,
@@ -151,7 +151,7 @@ class ProfileEditScreen extends HookConsumerWidget {
           ) :
           updatedUser.copyWith(
             birthDate: birthDateController.text.isNotEmpty
-                ? DateFormat('dd/MM/yyyy').parse(birthDateController.text)
+                ? DateFormat(LocaleKeys.dateFormat.tr()).parse(birthDateController.text)
                 : null,
             gender: selectedGender.value,
             phoneNumber: phoneNumberController.text,
@@ -182,7 +182,7 @@ class ProfileEditScreen extends HookConsumerWidget {
 
         final updatedUser = user.copyWith(
           birthDate: birthDateController.text.isNotEmpty
-              ? DateFormat('dd/MM/yyyy').parse(birthDateController.text)
+              ? DateFormat(LocaleKeys.dateFormat.tr()).parse(birthDateController.text)
               : null,
           gender: selectedGender.value,
           phoneNumber: phoneNumberController.text,

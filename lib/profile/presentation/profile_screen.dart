@@ -53,7 +53,7 @@ class ProfileScreen extends HookConsumerWidget {
                   InfoCard(
                     title: LocaleKeys.personalInformation.tr(),
                     label1: LocaleKeys.birthDate.tr(),
-                    content1: DateFormat('dd/MM/yyyy').format(currentUser.birthDate!),
+                    content1: DateFormat(LocaleKeys.dateFormat.tr()).format(currentUser.birthDate!),
                     label2: LocaleKeys.gender.tr(),
                     content2: currentUser.gender!.localizedName(context),
                   ),
