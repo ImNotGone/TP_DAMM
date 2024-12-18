@@ -100,3 +100,14 @@ flutter test -t volunteering
 ```
 
 The tags config can be found in the `dart_test.yaml` file
+
+## i18n, i10n
+
+Files for configuring internationalization are found under assets/translations.
+There, `en.json` and `es.json` contain the tokens and strings needed for the translation of the app.
+The currency is controlled by `currency` key, in order to change the currency to pounds we could for example change `currency` to GBP in the en.json file.
+In order to reload the tokens we can use the following command
+
+```bash
+flutter pub run easy_localization:generate -S 'assets/translations' -O "lib/translations" 
+```
