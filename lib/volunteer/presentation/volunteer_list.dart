@@ -63,7 +63,7 @@ class VolunteerListScreen extends HookConsumerWidget {
                       context.push(
                           '/volunteering/${currentUser.registeredVolunteeringId}');
                     },
-                    child: CurrrentVolunteerCard(
+                    child: CurrentVolunteerCard(
                         id: currentUser!.registeredVolunteeringId!),
                   ),
                   const SizedBox(

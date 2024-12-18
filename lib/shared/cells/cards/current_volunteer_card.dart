@@ -7,10 +7,10 @@ import 'package:ser_manos_mobile/shared/tokens/shadows.dart';
 
 import '../../tokens/text_style.dart';
 
-class CurrrentVolunteerCard extends HookConsumerWidget {
+class CurrentVolunteerCard extends HookConsumerWidget {
   final String id;
 
-  const CurrrentVolunteerCard({super.key, required this.id});
+  const CurrentVolunteerCard({super.key, required this.id});
 
 
   @override
