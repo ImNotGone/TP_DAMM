@@ -204,7 +204,7 @@ static const Map<String,dynamic> en = {
     "many": "Cost {}",
     "other": "Cost {}"
   },
-  "currency": "GBP"
+  "currency": "USD"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"es": es, "en": en};
 }
