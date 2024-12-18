@@ -49,7 +49,7 @@ class VolunteerListScreen extends HookConsumerWidget {
                 const SizedBox(
                   height: 32,
                 ),
-                if (currentUser?.registeredVolunteeringId != null) ...[
+                if (currentUser?.registeredVolunteeringId != null && filteredVolunteerings != null && filteredVolunteerings.isNotEmpty) ...[
                   Text(
                     AppLocalizations.of(context)!.yourActivity,
                     style: SerManosTextStyle.headline01(),

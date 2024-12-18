@@ -13,11 +13,19 @@ class VolunteeringsNotifier extends _$VolunteeringsNotifier {
   @override
   Future<Map<String, Volunteering>?> build() async {
     state = const AsyncLoading();
+
     ref.onDispose(_dispose);
+
     final volunteeringService = ref.read(volunteeringServiceProvider);
-    _subscription = volunteeringService.fetchVolunteerings().listen((volunteerings) {
-      state = AsyncValue.data(volunteerings);
-    });
+    _subscription = volunteeringService.fetchVolunteerings().listen(
+      (volunteerings) {
+        state = AsyncValue.data(volunteerings);
+      },
+      onError: (error, stackTrace) {
+        state = AsyncValue.error(error, stackTrace);
+      },
+    );
+
     return null;
   }
 

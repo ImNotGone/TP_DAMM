@@ -13,7 +13,14 @@ class NewsScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final allNews = ref.watch(newsNotifierProvider);
 
-    return Scaffold(
+    return (allNews.isLoading || allNews.isRefreshing)
+        ? Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            )
+          )
+        :
+      Scaffold(
       backgroundColor: SerManosColors.secondary10,
       body: Padding(
         padding: const EdgeInsets.all(16.0),

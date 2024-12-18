@@ -12,6 +12,7 @@ class NewsNotifier extends _$NewsNotifier {
   }
 
   Future<List<News>> refreshNews() async {
+    state = AsyncLoading();
     final newsService = ref.read(newsServiceProvider);
     final news = await newsService.fetchNews();
     news.sort((a, b) => b.creationDate.compareTo(a.creationDate));

@@ -18,7 +18,7 @@ class VolunteerScreen extends HookConsumerWidget {
       showMap.value = !showMap.value;
     }
 
-    return volunteerings.isLoading
+    return (volunteerings.isLoading || volunteerings.isRefreshing || !volunteerings.hasValue)
             ? Scaffold(
                 body: Center(
                   child: CircularProgressIndicator(),

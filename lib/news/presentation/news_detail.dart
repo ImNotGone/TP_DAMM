@@ -22,77 +22,95 @@ class NewsDetail extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final News? news = ref.read(newsNotifierProvider).value?.firstWhere((news) => news.uid == newsId);
+    final newsNotifier = ref.watch(newsNotifierProvider);
+    final News? news =
+        newsNotifier.value?.firstWhere((news) => news.uid == newsId);
 
-    return Scaffold(
-      backgroundColor: SerManosColors.neutral0,
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.news, style: SerManosTextStyle.subtitle01().copyWith(color: SerManosColors.neutral0),),
-        centerTitle: true,
-        leading: IconButton(
-            onPressed: ()  => context.go('/home'),
-            icon: const Icon(Icons.arrow_back),
-            color: SerManosColors.neutral0
-        ),
-        backgroundColor: SerManosColors.secondary90,
-      ),
-      body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: ListView(
-            children: [
-              const SizedBox(height: 24.0),
-              Text(news!.paper, style: SerManosTextStyle.overline()),
-              Text(news.title, style: SerManosTextStyle.headline02()),
-              const SizedBox(height: 16.0),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 160,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(6.0),
-                  child: Image.network(
-                    news.imageUrl,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+    return (newsNotifier.isLoading || newsNotifier.isRefreshing)
+        ? Scaffold(
+            body: Center(
+            child: CircularProgressIndicator(),
+          ))
+        : Scaffold(
+            backgroundColor: SerManosColors.neutral0,
+            appBar: AppBar(
+              title: Text(
+                AppLocalizations.of(context)!.news,
+                style: SerManosTextStyle.subtitle01()
+                    .copyWith(color: SerManosColors.neutral0),
               ),
-              const SizedBox(height: 16.0),
-              Text(news.subtitle, style: SerManosTextStyle.subtitle01().copyWith(
-                  color: SerManosColors.secondary200,
-              ),),
-              const SizedBox(height: 16.0),
-              Text(news.content, style: SerManosTextStyle.body01(),),
-              const SizedBox(height: 16.0),
-              Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      AppLocalizations.of(context)!.shareThisNote,
-                      style: SerManosTextStyle.headline02(),
-                    )
-                ),
-              const SizedBox(height: 16.0),
-              UtilFilledButton(
-                  onPressed: () async {
-                    final img = await getNetworkImage(news.imageUrl);
-                    Share.shareXFiles(
-                      [img],
-                      text: '${news.subtitle} http://sermanos/newsDetail/${news.uid}',
-                    );
-                    ref.read(firebaseAnalyticsProvider).logShare(contentType: 'news', itemId: news.uid, method: 'button');
-                  },
-                  text: AppLocalizations.of(context)!.share
-              ),
-              const SizedBox(height: 32.0),
-            ],
-          )
-      ),
-    );
+              centerTitle: true,
+              leading: IconButton(
+                  onPressed: () => context.go('/home'),
+                  icon: const Icon(Icons.arrow_back),
+                  color: SerManosColors.neutral0),
+              backgroundColor: SerManosColors.secondary90,
+            ),
+            body: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: ListView(
+                  children: [
+                    const SizedBox(height: 24.0),
+                    Text(news!.paper, style: SerManosTextStyle.overline()),
+                    Text(news.title, style: SerManosTextStyle.headline02()),
+                    const SizedBox(height: 16.0),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: 160,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6.0),
+                        child: Image.network(
+                          news.imageUrl,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    Text(
+                      news.subtitle,
+                      style: SerManosTextStyle.subtitle01().copyWith(
+                        color: SerManosColors.secondary200,
+                      ),
+                    ),
+                    const SizedBox(height: 16.0),
+                    Text(
+                      news.content,
+                      style: SerManosTextStyle.body01(),
+                    ),
+                    const SizedBox(height: 16.0),
+                    Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          AppLocalizations.of(context)!.shareThisNote,
+                          style: SerManosTextStyle.headline02(),
+                        )),
+                    const SizedBox(height: 16.0),
+                    UtilFilledButton(
+                        onPressed: () async {
+                          final img = await getNetworkImage(news.imageUrl);
+                          Share.shareXFiles(
+                            [img],
+                            text:
+                                '${news.subtitle} http://sermanos/newsDetail/${news.uid}',
+                          );
+                          ref.read(firebaseAnalyticsProvider).logShare(
+                              contentType: 'news',
+                              itemId: news.uid,
+                              method: 'button');
+                        },
+                        text: AppLocalizations.of(context)!.share),
+                    const SizedBox(height: 32.0),
+                  ],
+                )),
+          );
   }
 
   // https://stackoverflow.com/questions/63353484/flutter-network-image-to-file
   Future<XFile> getNetworkImage(String url) async {
     final response = await http.get(Uri.parse(url));
     final documentDirectory = await getApplicationDocumentsDirectory();
-    final file = File('${documentDirectory.path}/${DateTime.now().millisecondsSinceEpoch}.png');
+    final file = File(
+        '${documentDirectory.path}/${DateTime.now().millisecondsSinceEpoch}.png');
     file.writeAsBytesSync(response.bodyBytes);
     return XFile(file.path);
   }
