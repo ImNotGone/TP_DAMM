@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -28,7 +29,8 @@ Future<void> main() async {
   final hasSeenWelcomeScreen = prefs.getBool('hasSeenWelcomeScreen') ?? false;
 
   final container = ProviderContainer();
-  await initializeProviders(container, hasSeenWelcomeScreen);
+  await _initializeProviders(container, hasSeenWelcomeScreen);
+  _setNotificationListener(container);
 
   runApp(
       UncontrolledProviderScope(
@@ -47,32 +49,57 @@ Future<void> main() async {
   );
 }
 
-Future<void> initializeProviders(ProviderContainer container, bool hasSeenWelcomeScreen) async {
-  container.read(hasSeenWelcomeScreenProvider.notifier).state = hasSeenWelcomeScreen;
+void _setNotificationListener(ProviderContainer container){
+  container.read(firebaseMessagingProvider).getInitialMessage()
+      .then((RemoteMessage? message) {
+    if (message == null) return;
+    if (message.data.containsKey('deepLink')) {
+      final deepLink = message.data['deepLink'];
+      container.read(routerProvider).go(deepLink);
+    }
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    if (message.data.containsKey('deepLink')) {
+      final deepLink = message.data['deepLink'];
+      container.read(routerProvider).go(deepLink);
+    }
+  });
+}
+
+Future<void> _initializeProviders(
+    ProviderContainer container, bool hasSeenWelcomeScreen) async {
+  container.read(hasSeenWelcomeScreenProvider.notifier).state =
+      hasSeenWelcomeScreen;
 
   AppUser? currentUser;
-  try{
+  try {
     final userService = container.read(userServiceProvider);
     currentUser = await userService.getCurrentUser();
-    if(currentUser != null){
+    if (currentUser != null) {
       container.read(appStateNotifierProvider.notifier).authenticate();
 
       String? oldToken = currentUser.fcmToken;
-      String? newtoken = await container.read(firebaseMessagingProvider).getToken();
+      String? newtoken =
+          await container.read(firebaseMessagingProvider).getToken();
 
-      if(oldToken != newtoken){
+      if (oldToken != newtoken) {
         currentUser.fcmToken = newtoken;
         await userService.updateUser(currentUser);
       }
 
       container.read(currentUserNotifierProvider.notifier).setUser(currentUser);
     }
-  } catch(e) {
+  } catch (e) {
     container.read(appStateNotifierProvider.notifier).unauthenticate();
-  }
-  finally{
-    container.read(firebaseMessagingProvider).requestPermission(provisional: true);
+  } finally {
+    container
+        .read(firebaseMessagingProvider)
+        .requestPermission(provisional: true);
     container.read(firebaseMessagingProvider).setAutoInitEnabled(true);
+    container
+        .read(firebaseAnalyticsProvider)
+        .setAnalyticsCollectionEnabled(true);
   }
 }
 
