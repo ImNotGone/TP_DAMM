@@ -92,7 +92,7 @@ class NewsDetail extends HookConsumerWidget {
                           Share.shareXFiles(
                             [img],
                             text:
-                                '${news.subtitle} http://sermanos/newsDetail/${news.uid}',
+                                '${news.subtitle} http://sermanos.app/newsDetail/${news.uid}',
                           );
                           ref.read(firebaseAnalyticsProvider).logShare(
                               contentType: 'news',
