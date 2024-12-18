@@ -181,17 +181,15 @@ class VolunteerMapScreen extends HookConsumerWidget {
                         child: UtilFloatingButton(onPressed:
                             location.value == null
                             ? null
-                      : () => {
+                            : () => {
                               mapController.value?.animateCamera(
                                 CameraUpdate.newLatLng(location.value!)
                               )
                           },
                         ),
                       ),
-                      const SizedBox(height: 16,),
-                      Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: filteredVolunteerings?.isEmpty ?? true
+                      const SizedBox(height: 8,),
+                      filteredVolunteerings?.isEmpty ?? true
                               ? Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 16),
                                   child: NoVolunteering(
@@ -202,7 +200,7 @@ class VolunteerMapScreen extends HookConsumerWidget {
                                   itemCount: filteredVolunteerings!.length,
                                   itemBuilder: (context, index, realIndex) {
                                     return Padding(
-                                      padding: const EdgeInsets.only(left: 8),
+                                      padding: const EdgeInsets.only(left: 8, bottom: 16, top: 8),
                                       child: VolunteerCard(
                                         volunteeringId: filteredVolunteerings[index].uid,
                                       ),
@@ -210,13 +208,12 @@ class VolunteerMapScreen extends HookConsumerWidget {
                                   },
                                   carouselController: carouselController,
                                   options: CarouselOptions(
-                                      height: 242,
+                                      height: 258,
                                       viewportFraction: 0.9,
                                       enableInfiniteScroll: false,
                                       onPageChanged: (i, r) => currentCardIndex.value = i
                                   ),
                                 ),
-                      )
                     ],
                   )
                 ],
