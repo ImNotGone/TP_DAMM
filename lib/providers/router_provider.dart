@@ -15,6 +15,7 @@ final hasSeenWelcomeScreenProvider = StateProvider<bool>((ref) => false);
 
 final routerProvider = Provider<GoRouter>((ref) {
   final appStartState = ref.watch(appStateNotifierProvider);
+  final hasSeenWelcomeScreen = ref.watch(hasSeenWelcomeScreenProvider);
 
   return GoRouter(
     routes: [
@@ -66,7 +67,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       final allowedPaths = ['/', '/login', '/sign_up', '/post_login_welcome'];
 
       if (appStartState == AppStartState.unauthenticated && !allowedPaths.contains(state.matchedLocation)) {
-        return '/';
+          return '/';
+      }
+
+      if(appStartState == AppStartState.unauthenticated && hasSeenWelcomeScreen && state.matchedLocation == '/') {
+        return '/login';
       }
 
       if (appStartState == AppStartState.authenticated && state.matchedLocation == '/') {

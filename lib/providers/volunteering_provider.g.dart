@@ -7,7 +7,7 @@ part of 'volunteering_provider.dart';
 // **************************************************************************
 
 String _$volunteeringsNotifierHash() =>
-    r'3c728b90ad5fe7775695d4a8380fb5314b4f293e';
+    r'0663fc468a3990b4e143a0b625766a0a7e050519';
 
 /// See also [VolunteeringsNotifier].
 @ProviderFor(VolunteeringsNotifier)

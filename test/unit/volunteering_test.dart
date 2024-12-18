@@ -31,6 +31,7 @@ void main() {
       requirements: 'Bring gloves and bags',
       creationDate: DateTime.now(),
       vacancies: 10,
+      cost: 10,
     );
 
     test('fetchVolunteerings should call fetchVolunteerings on repository', () async {

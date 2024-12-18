@@ -163,7 +163,7 @@ class _SignOutButton extends HookConsumerWidget {
       ref.invalidate(currentUserNotifierProvider);
       ref.invalidate(volunteeringsNotifierProvider);
       ref.invalidate(newsNotifierProvider);
-      ref.invalidate(appStateNotifierProvider);
+      ref.read(appStateNotifierProvider.notifier).unauthenticate();
       userService.signOut();
     }
 

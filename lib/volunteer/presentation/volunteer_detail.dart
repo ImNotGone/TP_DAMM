@@ -400,7 +400,7 @@ class VolunteeringDetail extends HookConsumerWidget {
           LocaleKeys.cost,
           style: SerManosTextStyle.headline02(),
         ).plural(
-            10,
+            volunteering.cost,
             format: NumberFormat.simpleCurrency(
                 locale: context.locale.toString(),
                 name: LocaleKeys.currency.tr(),

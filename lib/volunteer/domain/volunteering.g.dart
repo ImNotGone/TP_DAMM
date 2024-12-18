@@ -22,6 +22,7 @@ Volunteering _$VolunteeringFromJson(Map<String, dynamic> json) => Volunteering(
             (k, e) => MapEntry(k, e as bool),
           ) ??
           const {},
+      cost: json['cost'] as num,
     );
 
 const _$VolunteeringTypeEnumMap = {

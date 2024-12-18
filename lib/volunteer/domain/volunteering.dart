@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +15,7 @@ class Volunteering {
   VolunteeringType type;
   String purpose;
   String activityDetail;
+  num cost;
 
   // Local to current user
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -43,7 +45,9 @@ class Volunteering {
       required this.creationDate,
       required this.vacancies,
       this.applicants = const {},
-      this.isFavourite = false});
+      this.isFavourite = false,
+      required this.cost
+      });
 
   factory Volunteering.fromJson(Map<String, dynamic> json) =>
       _$VolunteeringFromJson(json);
@@ -64,6 +68,7 @@ class Volunteering {
     int? vacancies,
     bool? isFavourite,
     Map<String, bool>? applicants,
+    num? cost,
   }) {
     return Volunteering(
       uid: uid ?? this.uid,
@@ -79,6 +84,7 @@ class Volunteering {
       vacancies: vacancies ?? this.vacancies,
       isFavourite: isFavourite ?? this.isFavourite,
       applicants: applicants ?? this.applicants,
+      cost: cost ?? this.cost
     );
   }
 
