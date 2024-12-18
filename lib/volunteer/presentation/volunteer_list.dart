@@ -79,6 +79,7 @@ class VolunteerListScreen extends HookConsumerWidget {
                         LocaleKeys.volunteering.tr(),
                         style: SerManosTextStyle.headline01(),
                       ),
+                      SizedBox(height: 16.0)
                     ],
                   ),
                 ),
@@ -87,19 +88,16 @@ class VolunteerListScreen extends HookConsumerWidget {
                         isSearching: searchQuery.value.isNotEmpty,
                       )
                     : Expanded(
-                        child: ListView.separated(
+                        child: ListView.builder(
                           itemCount: filteredVolunteerings.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 16),
+                              padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0, bottom: 16.0),
                               child: VolunteerCard(
                                 volunteeringId: filteredVolunteerings[index].uid,
                               ),
                             );
                           },
-                          separatorBuilder: (context, index) => const SizedBox(
-                            height: 24,
-                          ),
                         ),
                       ),
               ],
