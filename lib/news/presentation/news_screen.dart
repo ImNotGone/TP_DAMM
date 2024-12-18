@@ -22,36 +22,36 @@ class NewsScreen extends HookConsumerWidget {
           )
         :
       Scaffold(
-      backgroundColor: SerManosColors.secondary10,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: RefreshIndicator(
-                backgroundColor: SerManosColors.neutral0,
-                onRefresh: ref.read(newsNotifierProvider.notifier).refreshNews,
-                child: !allNews.hasValue || allNews.value!.isEmpty
-                    ? Center(
-                        child: Text(
-                          LocaleKeys.noNews.tr(),
-                          style: SerManosTextStyle.subtitle01(),
+        backgroundColor: SerManosColors.secondary10,
+        body: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: RefreshIndicator(
+                  backgroundColor: SerManosColors.neutral0,
+                  onRefresh: ref.read(newsNotifierProvider.notifier).refreshNews,
+                  child: !allNews.hasValue || allNews.value!.isEmpty
+                      ? Center(
+                          child: Text(
+                            LocaleKeys.noNews.tr(),
+                            style: SerManosTextStyle.subtitle01(),
+                          )
                         )
-                      )
-                    : ListView.separated(
-                        itemCount: allNews.value!.length,
-                        itemBuilder: (context, index) {
-                          return NewsCard(news: allNews.value![index]);
-                        },
-                        separatorBuilder: (context, index) => const SizedBox(
-                          height: 24,
-                        ),
-                    ),
+                      : ListView.builder(
+                          itemCount: allNews.value!.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8.0, bottom: 16.0),
+                              child: NewsCard(news: allNews.value![index]),
+                            );
+                          },
+                      ),
+                ),
               ),
-            ),
-          ],
-        ),
-      )
-    );
+            ],
+          ),
+        )
+      );
   }
 }
