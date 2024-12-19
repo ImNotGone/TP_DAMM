@@ -117,15 +117,15 @@ The following tags are used to organize the tests in the project:
 You can filter and run tests using these tags with the `-t` or `--tags` flag:
 
 ```bash  
-flutter test -t goldenflutter
+flutter test -t golden
 ```  
 
 ```bash  
-flutter test -t newsflutter
+flutter test -t news
 ```  
 
 ```bash  
-flutter test -t userflutter test
+flutter test -t user
 ```  
 
 ```bash  
