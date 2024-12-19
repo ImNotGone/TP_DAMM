@@ -77,14 +77,16 @@ To use Google Maps in the app, you need to configure the API key in the Android 
 1. Get the API key from the Google Cloud Console.
 2. Go to the 'android/local.properties' file and add the following line:
 
-```text googleMapsApiKey=[INSERT_YOUR_API_KEY]   
+```
+text googleMapsApiKey=[INSERT_YOUR_API_KEY]   
 ```   
 ### iOS
 
 1. Get the API key from the Google Cloud Console.
 2. Go to the 'ios/Flutter/Debug.xcconfig' files and add the following line:
 
-```text GOOGLE_MAPS_API_KEY = [INSERT_YOUR_API_KEY]   
+```
+text GOOGLE_MAPS_API_KEY = [INSERT_YOUR_API_KEY]   
 ```  
 
 ## Event Logging
@@ -115,7 +117,19 @@ The following tags are used to organize the tests in the project:
 You can filter and run tests using these tags with the `-t` or `--tags` flag:
 
 ```bash  
-flutter test -t goldenflutter test -t newsflutter test -t userflutter test -t volunteering
+flutter test -t goldenflutter
+```  
+
+```bash  
+flutter test -t newsflutter
+```  
+
+```bash  
+flutter test -t userflutter test
+```  
+
+```bash  
+flutter test -t volunteering
 ```  
 
 The tags config can be found in the `dart_test.yaml` file.
