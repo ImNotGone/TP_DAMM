@@ -63,7 +63,11 @@ class UtilShortButton extends StatelessWidget {
       height: maxHeight ?? 48,
       child: ElevatedButton.icon(
         onPressed: onPressed,
-        icon: Icon(icon),
+        icon: Icon(
+            icon,
+            size:24,
+            color: SerManosColors.neutral0
+        ),
         label: Text(
             text,
             style: SerManosTextStyle.button(),
