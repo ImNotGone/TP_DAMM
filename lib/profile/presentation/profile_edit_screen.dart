@@ -52,6 +52,10 @@ class ProfileEditScreen extends HookConsumerWidget {
     final phoneNumberController = useTextEditingController(text: user?.phoneNumber ?? '');
     final emailController = useTextEditingController(text: user?.email ?? '');
 
+    final birthDateFocusNode = useFocusNode();
+    final phoneNumberFocusNode = useFocusNode();
+    final emailFocusNode = useFocusNode();
+
     final selectedDate = useState<DateTime?>(user?.birthDate);
     final selectedGender = useState<Gender?>(user?.gender);
     final profilePictureUrl = useState<String?>(user?.profilePictureURL);
@@ -272,6 +276,10 @@ class ProfileEditScreen extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 24),
                 CalendarInput(
+                  focusNode: birthDateFocusNode,
+                  onFieldSubmitted: (value) {
+                    FocusScope.of(context).requestFocus(phoneNumberFocusNode);
+                  },
                   initialDate: selectedDate.value,
                   label: LocaleKeys.birthDate.tr(),
                   controller: birthDateController,
@@ -317,6 +325,10 @@ class ProfileEditScreen extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 24),
                 UtilTextInput(
+                  focusNode: phoneNumberFocusNode,
+                  onFieldSubmitted: (value) {
+                    FocusScope.of(context).requestFocus(emailFocusNode);
+                  },
                   label: LocaleKeys.cellphone.tr(),
                   hintText: LocaleKeys.cellphoneHint.tr(),
                   controller: phoneNumberController,
@@ -330,6 +342,16 @@ class ProfileEditScreen extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 24),
                 UtilTextInput(
+                  focusNode: emailFocusNode,
+                  onFieldSubmitted: (value) {
+                    FocusScope.of(context).unfocus();
+                    /*
+                    Quizas el usuario quiere seguir cambiando cosas asi que lo comento
+                    if(isSaveDataEnabled.value) {
+                      saveProfile();
+                    }
+                    */
+                  },
                   label: LocaleKeys.email.tr(),
                   hintText: LocaleKeys.emailHint.tr(),
                   controller: emailController,

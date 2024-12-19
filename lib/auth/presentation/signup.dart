@@ -35,6 +35,11 @@ class SignUpScreen extends HookConsumerWidget {
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
 
+    final nameFocusNode = useFocusNode();
+    final lastNameFocusNode = useFocusNode();
+    final emailFocusNode = useFocusNode();
+    final passwordFocusNode = useFocusNode();
+
     final isSignUpButtonEnabled = useState(false);
     final isLoading = useState(false);
 
@@ -119,6 +124,10 @@ class SignUpScreen extends HookConsumerWidget {
                 child: Column(
                   children: [
                     UtilTextInput(
+                        focusNode: nameFocusNode,
+                        onFieldSubmitted: (value) {
+                          FocusScope.of(context).requestFocus(lastNameFocusNode);
+                        },
                         label: LocaleKeys.name.tr(),
                         hintText: LocaleKeys.nameHint.tr(),
                         controller: nameController,
@@ -129,6 +138,10 @@ class SignUpScreen extends HookConsumerWidget {
                         ])),
                     const SizedBox(height: 24),
                     UtilTextInput(
+                        focusNode: lastNameFocusNode,
+                        onFieldSubmitted: (value) {
+                          FocusScope.of(context).requestFocus(emailFocusNode);
+                        },
                         label: LocaleKeys.lastName.tr(),
                         hintText: LocaleKeys.lastNameHint.tr(),
                         controller: lastNameController,
@@ -139,6 +152,10 @@ class SignUpScreen extends HookConsumerWidget {
                         ])),
                     const SizedBox(height: 24),
                     UtilTextInput(
+                      focusNode: emailFocusNode,
+                      onFieldSubmitted: (value) {
+                        FocusScope.of(context).requestFocus(passwordFocusNode);
+                      },
                       label: LocaleKeys.email.tr(),
                       hintText: LocaleKeys.emailHint.tr(),
                       controller: emailController,
@@ -151,6 +168,13 @@ class SignUpScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 24),
                     PasswordInput(
+                      focusNode: passwordFocusNode,
+                      onFieldSubmitted: (value) {
+                        FocusScope.of(context).unfocus();
+                        if(isSignUpButtonEnabled.value) {
+                          handleSignup();
+                        }
+                      },
                       label: LocaleKeys.password.tr(),
                       hintText: LocaleKeys.passwordHint.tr(),
                       controller: passwordController,

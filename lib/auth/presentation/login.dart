@@ -37,6 +37,9 @@ class LoginScreen extends HookConsumerWidget {
 
     final UserService userService = ref.watch(userServiceProvider);
 
+    final emailFocusNode = useFocusNode();
+    final passwordFocusNode = useFocusNode();
+
     Future<void> handleLogin() async {
       isLoading.value = true;
       try {
@@ -102,6 +105,10 @@ class LoginScreen extends HookConsumerWidget {
                     Image.asset('assets/logo_square.png', width: 150, height: 150), // Logo at the top
                     const SizedBox(height: 16),
                     UtilTextInput(
+                      focusNode: emailFocusNode,
+                      onFieldSubmitted: (value) {
+                        FocusScope.of(context).requestFocus(passwordFocusNode);
+                      },
                       label: LocaleKeys.email.tr(),
                       labelWhenEmpty: false,
                       hintText: LocaleKeys.email.tr(),
@@ -118,6 +125,13 @@ class LoginScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 16),
                     PasswordInput(
+                      focusNode: passwordFocusNode,
+                      onFieldSubmitted: (value) {
+                        FocusScope.of(context).unfocus();
+                        if(isLoginEnabled.value) {
+                          handleLogin();
+                        }
+                      },
                       label: LocaleKeys.password.tr(),
                       labelWhenEmpty: false,
                       hintText: LocaleKeys.password.tr(),

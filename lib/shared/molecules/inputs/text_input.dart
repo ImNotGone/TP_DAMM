@@ -12,6 +12,8 @@ class UtilTextInput extends HookWidget {
   final bool labelWhenEmpty;
   final String? Function(String?)? validator;
   final TextInputAction textInputAction;
+  final FocusNode focusNode;
+  final void Function(String?) onFieldSubmitted;
 
   const UtilTextInput({
     super.key,
@@ -19,6 +21,8 @@ class UtilTextInput extends HookWidget {
     required this.hintText,
     required this.controller,
     required this.keyboardType,
+    required this.focusNode,
+    required this.onFieldSubmitted,
     this.labelWhenEmpty = true,
     this.validator,
     this.textInputAction = TextInputAction.done,
@@ -27,7 +31,7 @@ class UtilTextInput extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final labelColor = useState(SerManosColors.neutral75);
-    final focusNode = useFocusNode();
+
     final showLabel = useState(labelWhenEmpty);
     final showCloseIcon = useState(false);
 
@@ -70,7 +74,7 @@ class UtilTextInput extends HookWidget {
       style: SerManosTextStyle.subtitle01(),
       validator: validator,
       textInputAction: textInputAction,
-
+      onFieldSubmitted: onFieldSubmitted,
       decoration: InputDecoration(
         floatingLabelBehavior: FloatingLabelBehavior.always,
         labelText: showLabel.value ? label : null,

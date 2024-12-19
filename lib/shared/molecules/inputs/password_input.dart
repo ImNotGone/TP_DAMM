@@ -10,12 +10,16 @@ class PasswordInput extends HookWidget {
   final TextEditingController controller;
   final bool labelWhenEmpty;
   final String? Function(String?)? validator;
+  final FocusNode focusNode;
+  final void Function(String?) onFieldSubmitted;
 
   const PasswordInput({
     super.key,
     this.label,
     required this.hintText,
     required this.controller,
+    required this.focusNode,
+    required this.onFieldSubmitted,
     this.labelWhenEmpty = true,
     this.validator
   });
@@ -24,7 +28,6 @@ class PasswordInput extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final labelColor = useState(SerManosColors.neutral75);
-    final focusNode = useFocusNode();
     final obscureText = useState(true);
     final showLabel = useState(labelWhenEmpty);
 
@@ -55,6 +58,7 @@ class PasswordInput extends HookWidget {
     return TextFormField(
       controller: controller,
       focusNode: focusNode,
+      onFieldSubmitted: onFieldSubmitted,
       obscureText: obscureText.value,
       style: SerManosTextStyle.subtitle01(),
       validator: validator,
