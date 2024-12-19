@@ -34,5 +34,5 @@ void main() {
         matchesGoldenFile('goldens/news_card_golden.png'),
       );
     });
-  });
+  }, tags: ['golden']);
 }
