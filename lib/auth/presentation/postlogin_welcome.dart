@@ -8,7 +8,7 @@ import '../../shared/tokens/colors.dart';
 import '../../shared/tokens/text_style.dart';
 import '../../translations/locale_keys.g.dart';
 
-class PostLoginWelcome extends HookConsumerWidget {
+class PostLoginWelcome extends ConsumerWidget {
   const PostLoginWelcome({super.key});
 
   @override
