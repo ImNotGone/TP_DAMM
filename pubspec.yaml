@@ -38,6 +38,7 @@ dependencies:
   firebase_analytics: ^11.3.6
   firebase_messaging: ^15.1.6
   easy_localization: ^3.0.7
+  network_image_mock: ^2.1.1
 
 
 dev_dependencies:
